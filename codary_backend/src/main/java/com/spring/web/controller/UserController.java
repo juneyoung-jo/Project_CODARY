@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.web.dto.User;
+import com.spring.web.dto.UserDto;
 import com.spring.web.service.UserService;
 
 @RestController
@@ -14,7 +14,7 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/")
-	public User main() {
+	public UserDto main() {
 		return userService.login();
 	}
 	
