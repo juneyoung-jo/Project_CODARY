@@ -1,10 +1,12 @@
 <template>
-  <div id="app"
-  class="d-flex flex-row">
-      <!-- <Memo/> -->
+  <!-- <div id="app"
+  class="d-flex flex-row"> -->
+  <v-app id="app"> 
       <Nav/>
       <Home/> 
-  </div>
+  </v-app>
+      <!-- <Memo/> -->
+  <!-- </div> -->
   
 </template>
 

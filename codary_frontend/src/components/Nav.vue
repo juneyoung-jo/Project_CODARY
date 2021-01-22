@@ -1,29 +1,27 @@
 <template>
-  <div>
+
       <v-app-bar
         app
+        absolute
         color="white"
-        height="100"
       >
-        <v-avatar
-          class="mr-3"
-          color="grey lighten-5"
-          size="70"
-        >
-          <v-img
-            contain
-            max-height="70%"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          ></v-img>
-        </v-avatar>
 
-        <v-toolbar-title class="font-weight-black headline">
-          VUETIFY
+        <v-toolbar-title class="font-weight-bold">
+          CODARY
         </v-toolbar-title>
-       
+
+        <v-spacer></v-spacer>
+
+        <v-btn>
+          <font-awesome-icon :icon="['fas','search']"/>
+        </v-btn>
+
+        <v-btn>login</v-btn>
+
       </v-app-bar>
 
-  </div>
+
+
 </template>
 
 <script>

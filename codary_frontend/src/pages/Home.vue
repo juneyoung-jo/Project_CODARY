@@ -1,7 +1,6 @@
 <template>
-     <div>
-      <v-app>
-      <section id="hero">
+    <v-sheet>
+      <section id="memo">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -31,15 +30,29 @@
                     >
                       이용하세요
                     </span>
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-1"
+                      max-width="720"
+                    >
+                    <br>
+                     귀찮게 메모장 켤 필요 없습니다.
+                    </v-responsive>
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-8"
+                      max-width="720"
+                    >
+                    
+                     현재 페이지 주소와 함께 메모가 저장됩니다.
+                    </v-responsive>
                   </v-col>
                   <v-theme-provider dark>
                   <v-btn
                     class="align-self-end"
                     fab
                     outlined
-                    @click="$vuetify.goTo('#about-me')"
+                    @click="$vuetify.goTo('#share')"
                   >
-                    <v-icon class="downicon">mdi-chevron-double-down</v-icon>
+                    <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
                   </v-btn>
                   </v-theme-provider>
                 </v-row>
@@ -48,16 +61,29 @@
         </v-row>
       </section>
 
-      <section id="about-me">
+      <section id="share">
         <div class="py-12"></div>
         <v-container class="text-center">
-          <h2 class="display-2 font-weight-bold mb-8">ABOUT ME</h2>
+            <h2
+            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+              class="font-weight-light"
+            >
+              쉽게 작성하고, 
+            </h2>
+            <h2
+              :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+              class="font-weight-light"
+            >
+              쉽게 공유하세요
+            </h2>
+      
           
           <v-responsive
             class="mx-auto title font-weight-light mb-8"
             max-width="720"
           >
-            Vuetify is the #1 component library for Vue.js and has been in active development since 2016. The goal of the project is to provide users with everything that is needed to build rich and engaging web applications using the Material Design specification. It accomplishes that with a consistent update cycle, Long-term Support (LTS) for previous versions, responsive community engagement, a vast ecosystem of resources and a dedication to quality components.
+          <br>
+            Markdown, 동시편집, 코드복사 
           </v-responsive>
           
           <v-theme-provider dark>
@@ -65,9 +91,9 @@
               class="align-self-end"
               fab
               outlined
-              @click="$vuetify.goTo('#features')"
+              @click="$vuetify.goTo('#tag')"
             >
-              <v-icon class="downicon">mdi-chevron-double-down</v-icon>
+              <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
             </v-btn>
           </v-theme-provider>
 
@@ -75,54 +101,50 @@
         </v-container>
         <div class="py-12"></div>
       </section>
-      <section
-        id="features"
-        class="grey lighten-3"
-      >
+      <section id="tag">
         <div class="py-12"></div>
         <v-container class="text-center">
-          <v-responsive
-            class="mx-auto mb-12"
-            width="56"
-          >
-          </v-responsive>
-          <v-row>
-            <v-col
-              v-for="({ icon, title, text }, i) in features"
-              :key="i"
-              cols="12"
-              md="4"
+            <h2
+            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+              class="font-weight-light"
             >
-              <v-card
-                class="py-12 px-4"
-                color="grey lighten-5"
-                flat
-              >
-                <v-theme-provider dark>
-                  <div>
-                    <v-avatar
-                      color="primary"
-                      size="88"
-                    >
-                      <v-icon
-                        large
-                        v-text="icon"
-                      ></v-icon>
-                    </v-avatar>
-                  </div>
-                </v-theme-provider>
-                <v-card-title
-                  class="justify-center font-weight-black text-uppercase"
-                  v-text="title"
-                ></v-card-title>
-                <v-card-text
-                  class="subtitle-1"
-                  v-text="text"
-                >
-                </v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
+              태그를 이용하세요 
+            </h2>
+          <br>
+          <v-responsive
+            class="mx-auto title font-weight-light mb-1"
+            max-width="720"
+          >
+      
+            태그로 시작되는 소통
+          </v-responsive>
+          <v-responsive
+            class="mx-auto title font-weight-light mb-1"
+            max-width="720"
+          >
+  
+            태그를 이용해 도움을 청할수도,
+          </v-responsive>
+          <v-responsive
+            class="mx-auto title font-weight-light mb-1"
+            max-width="720"
+          >
+
+            스터디 그룹을 만들 수도 있습니다.
+          </v-responsive>
+          
+          <v-theme-provider dark>
+            <v-btn
+              class="align-self-end"
+              fab
+              outlined
+              @click="$vuetify.goTo('#stats')"
+            >
+              <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
+            </v-btn>
+          </v-theme-provider>
+
+      
         </v-container>
         <div class="py-12"></div>
       </section>
@@ -205,8 +227,7 @@
         tile
       >  
       </v-sheet>
-     </v-app>
-     </div>
+    </v-sheet>
 </template>
 
 <script>
@@ -261,7 +282,5 @@ export default {
 </script>
 
 <style>
-  .downicon{
-    color: black !important;
-  }
+
 </style>
