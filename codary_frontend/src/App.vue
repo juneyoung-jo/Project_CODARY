@@ -3,7 +3,7 @@
   class="d-flex flex-row"> -->
   <v-app id="app"> 
       <Nav/>
-      <Home/> 
+      <router-view/>
   </v-app>
       <!-- <Memo/> -->
   <!-- </div> -->
@@ -12,7 +12,6 @@
 
 <script>
 import Nav from './components/Nav';
-import Home from './pages/Home.vue';
 // import Memo from './components/Memo';
 
 
@@ -21,7 +20,6 @@ export default {
 
   components: {
     Nav,
-    Home,
     // Memo,
   },
 

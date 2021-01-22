@@ -1,5 +1,5 @@
 <template>
-    <v-sheet>
+    <v-app>
       <section id="memo">
         <v-row no-gutters>
           <v-img
@@ -41,7 +41,6 @@
                       class="mx-auto title font-weight-light mb-8"
                       max-width="720"
                     >
-                    
                      현재 페이지 주소와 함께 메모가 저장됩니다.
                     </v-responsive>
                   </v-col>
@@ -227,7 +226,7 @@
         tile
       >  
       </v-sheet>
-    </v-sheet>
+    </v-app>
 </template>
 
 <script>
