@@ -3,8 +3,7 @@
   class="d-flex flex-row">
       <!-- <Memo/> -->
       <Nav/>
-      <Home/>
- 
+      <Home/> 
   </div>
   
 </template>

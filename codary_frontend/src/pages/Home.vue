@@ -1,12 +1,12 @@
 <template>
      <div>
+      <v-app>
       <section id="hero">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
             src="https://upload2.inven.co.kr/upload/2015/12/13/bbs/i13968242593.jpg"
           >
-            <v-theme-provider dark>
               <v-container fill-height>
                 <v-row
                   align="center"
@@ -26,12 +26,13 @@
                     </span>
                     <br>
                     <span
-                      :class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-4']"
+                      :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
                       class="font-weight-light"
                     >
                       이용하세요
                     </span>
                   </v-col>
+                  <v-theme-provider dark>
                   <v-btn
                     class="align-self-end"
                     fab
@@ -40,46 +41,37 @@
                   >
                     <v-icon class="downicon">mdi-chevron-double-down</v-icon>
                   </v-btn>
+                  </v-theme-provider>
                 </v-row>
               </v-container>
-            </v-theme-provider>
           </v-img>
         </v-row>
       </section>
+
       <section id="about-me">
         <div class="py-12"></div>
         <v-container class="text-center">
-          <h2 class="display-2 font-weight-bold mb-3">ABOUT ME</h2>
-          <v-responsive
-            class="mx-auto mb-8"
-            width="56"
-          >
-            <v-divider class="mb-1"></v-divider>
-            <v-divider></v-divider>
-          </v-responsive>
+          <h2 class="display-2 font-weight-bold mb-8">ABOUT ME</h2>
+          
           <v-responsive
             class="mx-auto title font-weight-light mb-8"
             max-width="720"
           >
             Vuetify is the #1 component library for Vue.js and has been in active development since 2016. The goal of the project is to provide users with everything that is needed to build rich and engaging web applications using the Material Design specification. It accomplishes that with a consistent update cycle, Long-term Support (LTS) for previous versions, responsive community engagement, a vast ecosystem of resources and a dedication to quality components.
           </v-responsive>
-          <v-avatar
-            class="elevation-12 mb-12"
-            size="128"
-          >
-            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-          </v-avatar>
-          <div></div>
-          <v-btn
-            color="grey"
-            href="https://vuetifyjs.com"
-            outlined
-            large
-          >
-            <span class="grey--text text--darken-1 font-weight-bold">
-              Vuetify Documentation
-            </span>
-          </v-btn>
+          
+          <v-theme-provider dark>
+            <v-btn
+              class="align-self-end"
+              fab
+              outlined
+              @click="$vuetify.goTo('#features')"
+            >
+              <v-icon class="downicon">mdi-chevron-double-down</v-icon>
+            </v-btn>
+          </v-theme-provider>
+
+      
         </v-container>
         <div class="py-12"></div>
       </section>
@@ -89,13 +81,10 @@
       >
         <div class="py-12"></div>
         <v-container class="text-center">
-          <h2 class="display-2 font-weight-bold mb-3">VUETIFY FEATURES</h2>
           <v-responsive
             class="mx-auto mb-12"
             width="56"
           >
-            <v-divider class="mb-1"></v-divider>
-            <v-divider></v-divider>
           </v-responsive>
           <v-row>
             <v-col
@@ -214,9 +203,9 @@
         dark
         tag="section"
         tile
-      >
-       
+      >  
       </v-sheet>
+     </v-app>
      </div>
 </template>
 
@@ -273,6 +262,6 @@ export default {
 
 <style>
   .downicon{
-    color: black;
+    color: black !important;
   }
 </style>

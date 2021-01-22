@@ -1,6 +1,5 @@
 <template>
   <div>
- 
       <v-app-bar
         app
         color="white"
@@ -21,6 +20,7 @@
         <v-toolbar-title class="font-weight-black headline">
           VUETIFY
         </v-toolbar-title>
+       
       </v-app-bar>
 
   </div>
