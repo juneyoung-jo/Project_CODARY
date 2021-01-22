@@ -15,7 +15,11 @@ public class UserController {
 	
 	@GetMapping("/")
 	public UserDto main() {
-		return userService.login();
+		
+		UserDto user = userService.login();
+		System.out.println(user.toString());
+		return user;
 	}
+	
 	
 }
