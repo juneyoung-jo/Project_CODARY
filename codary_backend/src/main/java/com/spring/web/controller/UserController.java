@@ -17,7 +17,6 @@ public class UserController {
 	public UserDto main() {
 		
 		UserDto user = userService.login();
-		System.out.println(user.toString());
 		return user;
 	}
 	
