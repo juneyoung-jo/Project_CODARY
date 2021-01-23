@@ -1,12 +1,10 @@
 <template>
-  <div>
-
-  </div>
+  <h2>검색결과</h2>
 </template>
 
 <script>
 export default {
-  name: 'Empty',
+    name:"SearchResult",
 }
 </script>
 
