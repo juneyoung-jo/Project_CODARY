@@ -2,10 +2,8 @@
   <v-app id="app"> 
       <Nav/>
       <v-main>
-        <v-container fluid>
           <!-- <Memo/>  -->
           <router-view/>
-        </v-container>
       </v-main>
   </v-app>
   
@@ -17,7 +15,6 @@ import Nav from './components/Nav';
 
 export default {
   name: 'App',
-
   components: {
     Nav,
     // Memo,

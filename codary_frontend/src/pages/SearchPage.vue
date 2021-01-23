@@ -1,16 +1,16 @@
 <template>
   <div class="py-12">
     <search-input/>
-    <search-result/>
+    <popular-tag/>
   </div>
 </template>
 
 <script>
+import PopularTag from '../components/searchCom/PopularTag.vue'
 import SearchInput from '../components/searchCom/SearchInput.vue'
-import SearchResult from '../components/searchCom/SearchResult.vue'
 
 export default {
-  components: { SearchInput, SearchResult },
+  components: { SearchInput, PopularTag },
   name: 'SearchPage',
 }
 </script>

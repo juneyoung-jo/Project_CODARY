@@ -59,93 +59,166 @@
           </v-img>
         </v-row>
       </section>
-
       <section id="share">
-        <div class="py-12"></div>
-        <v-container class="text-center">
-            <h2
-            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-              class="font-weight-light"
-            >
-              쉽게 작성하고, 
-            </h2>
-            <h2
-              :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-              class="font-weight-light"
-            >
-              쉽게 공유하세요
-            </h2>
-      
-          
-          <v-responsive
-            class="mx-auto title font-weight-light mb-8"
-            max-width="720"
+        <v-row no-gutters>
+          <v-img
+            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+            src="https://upload2.inven.co.kr/upload/2015/12/13/bbs/i13968242593.jpg"
           >
-          <br>
-            Markdown, 동시편집, 코드복사 
-          </v-responsive>
-          
-          <v-theme-provider dark>
-            <v-btn
-              class="align-self-end"
-              fab
-              outlined
-              @click="$vuetify.goTo('#tag')"
-            >
-              <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-            </v-btn>
-          </v-theme-provider>
-
-      
-        </v-container>
-        <div class="py-12"></div>
+              <v-container fill-height>
+                <v-row
+                  align="center"
+                  class="mx-auto"
+                  justify="center"
+                >
+                  <v-col
+                    class="text-center"
+                    cols="12"
+                    tag="h1"
+                  >
+                    <span
+                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                      class="font-weight-light"
+                    >
+                      쉽게 작성하고, 
+                    </span>
+                    <br>
+                    <span
+                      :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+                      class="font-weight-light"
+                    >
+                      쉽게 공유하세요
+                    </span>
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-1"
+                      max-width="720"
+                    >
+                    <br>
+                     Markdown, 동시편집, 코드복사
+                    </v-responsive>
+                   
+                  </v-col>
+                  <v-theme-provider dark>
+                  <v-btn
+                    class="align-self-end"
+                    fab
+                    outlined
+                    @click="$vuetify.goTo('#tag')"
+                  >
+                    <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
+                  </v-btn>
+                  </v-theme-provider>
+                </v-row>
+              </v-container>
+          </v-img>
+        </v-row>
       </section>
       <section id="tag">
-        <div class="py-12"></div>
-        <v-container class="text-center">
-            <h2
-            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-              class="font-weight-light"
-            >
-              태그를 이용하세요 
-            </h2>
-          <br>
-          <v-responsive
-            class="mx-auto title font-weight-light mb-1"
-            max-width="720"
+        <v-row no-gutters>
+          <v-img
+            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+            src="https://upload2.inven.co.kr/upload/2015/12/13/bbs/i13968242593.jpg"
           >
-      
-            태그로 시작되는 소통
-          </v-responsive>
-          <v-responsive
-            class="mx-auto title font-weight-light mb-1"
-            max-width="720"
+              <v-container fill-height>
+                <v-row
+                  align="center"
+                  class="mx-auto"
+                  justify="center"
+                >
+                  <v-col
+                    class="text-center"
+                    cols="12"
+                    tag="h1"
+                  >
+                    <span
+                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                      class="font-weight-light"
+                    >
+                      태그를 
+                    </span>
+                    <br>
+                    <span
+                      :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+                      class="font-weight-light"
+                    >
+                      이용하세요
+                    </span>
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-1"
+                      max-width="720"
+                    >
+                    <br>
+                     태그로 소통이 시작됩니다.
+                    </v-responsive>
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-8"
+                      max-width="720"
+                    >
+                     태그를 이용해 도움을 청할수도, 커뮤니티를 만들 수도 있습니다.
+                    </v-responsive>
+                  </v-col>
+                  <v-theme-provider dark>
+                  <v-btn
+                    class="align-self-end"
+                    fab
+                    outlined
+                    @click="$vuetify.goTo('#grass')"
+                  >
+                    <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
+                  </v-btn>
+                  </v-theme-provider>
+                </v-row>
+              </v-container>
+          </v-img>
+        </v-row>
+      </section>
+      <section id="grass">
+        <v-row no-gutters>
+          <v-img
+            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+            src="https://upload2.inven.co.kr/upload/2015/12/13/bbs/i13968242593.jpg"
           >
-  
-            태그를 이용해 도움을 청할수도,
-          </v-responsive>
-          <v-responsive
-            class="mx-auto title font-weight-light mb-1"
-            max-width="720"
-          >
-
-            스터디 그룹을 만들 수도 있습니다.
-          </v-responsive>
-          
-          <v-theme-provider dark>
-            <v-btn
-              class="align-self-end"
-              fab
-              outlined
-              @click="$vuetify.goTo('#stats')"
-            >
-              <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-            </v-btn>
-          </v-theme-provider>
-
-      
-        </v-container>
-        <div class="py-12"></div>
+              <v-container fill-height>
+                <v-row
+                  align="center"
+                  class="mx-auto"
+                  justify="center"
+                >
+                  <v-col
+                    class="text-center"
+                    cols="12"
+                    tag="h1"
+                  >
+                    <span
+                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                      class="font-weight-light"
+                    >
+                      잔디를 심으세요 
+                    </span>
+                    <br>
+                  
+                    <v-responsive
+                      class="mx-auto title font-weight-light mb-1"
+                      max-width="720"
+                    >
+                    <br>
+                     매일의 공부 기록을 눈으로 확인해보세요.
+                    </v-responsive>
+                  </v-col>
+                  <v-theme-provider dark>
+                  <v-btn
+                    class="align-self-end"
+                    fab
+                    outlined
+                    @click="$vuetify.goTo('#stats')"
+                  >
+                    <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
+                  </v-btn>
+                  </v-theme-provider>
+                </v-row>
+              </v-container>
+          </v-img>
+        </v-row>
       </section>
       <section id="stats">
         <v-parallax
