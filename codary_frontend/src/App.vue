@@ -1,19 +1,19 @@
 <template>
-  <!-- <div id="app"
-  class="d-flex flex-row"> -->
   <v-app id="app"> 
       <Nav/>
-      <router-view/>
+      <v-main>
+        <v-container fluid>
+          <!-- <Memo/>  -->
+          <router-view/>
+        </v-container>
+      </v-main>
   </v-app>
-      <!-- <Memo/> -->
-  <!-- </div> -->
   
 </template>
 
 <script>
+// import Memo from './components/Memo.vue';
 import Nav from './components/Nav';
-// import Memo from './components/Memo';
-
 
 export default {
   name: 'App',

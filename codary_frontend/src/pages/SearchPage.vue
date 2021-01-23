@@ -1,14 +1,16 @@
 <template>
-  <v-app>
-    <h2>blank</h2>
-    <span>blank</span>
-    <h1>서치페이지</h1>
-    <v-btn>search</v-btn>
-  </v-app>
+  <div class="py-12">
+    <search-input/>
+    <search-result/>
+  </div>
 </template>
 
 <script>
+import SearchInput from '../components/searchCom/SearchInput.vue'
+import SearchResult from '../components/searchCom/SearchResult.vue'
+
 export default {
+  components: { SearchInput, SearchResult },
   name: 'SearchPage',
 }
 </script>
