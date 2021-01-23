@@ -1,5 +1,9 @@
 package com.spring.web.service;
 
-public interface PersonalService {
+import java.util.List;
 
+import com.spring.web.dto.BlogContentsDto;
+
+public interface PersonalService {
+	public List<BlogContentsDto> personalContents(String uid);
 }

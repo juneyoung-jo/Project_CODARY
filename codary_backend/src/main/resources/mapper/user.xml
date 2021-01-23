@@ -4,11 +4,15 @@
 
 <mapper namespace="com.spring.web.dao.UserDao">
 
-	<select id="login" resultType="UserDto">
+	<!--  <select id="login" resultType="UserDto">
 		select name_test, id_test
 		from userTest
 		where name_test = 'ssafy'
-	</select>
+	</select>	-->
 	
+	<select id="login" resultType="UserDto">
+		select uid
+		from user
+	</select>
 	
 </mapper>
