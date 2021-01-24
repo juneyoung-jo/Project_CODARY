@@ -14,10 +14,10 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping("/")
-	public UserDto main() {
+	public String main() {
 		
 		UserDto user = userService.login();
-		return user;
+		return user.toString();
 	}
 	
 	
