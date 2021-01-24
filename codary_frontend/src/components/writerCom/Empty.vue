@@ -1,6 +1,9 @@
 <template>
   <div>
-<!--  마크다운 구현예정 -->
+<!--  마크다운 구현예정 
+  npm install @toast-ui/editor
+  npm install @toast-ui/vue-editor
+  npm install codemirror-->
     <!-- <editor 
       :initialValue="editorText"
       :options="editorOptions"
