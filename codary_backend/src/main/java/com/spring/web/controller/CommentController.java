@@ -53,13 +53,13 @@ public class CommentController {
 		}
 		return resEntity;
 	}
-	
+
 	/**
 	 * 
 	 * 해당 댓글의 유저정보를 읽어오기 -profile, nickName 정보 등을 얻기위해
-	 * */
+	 */
 	@PostMapping("getUserInfo")
-	public ResponseEntity<Map<String,Object>> getUserInfo(@RequestBody UserInfoDto info){
+	public ResponseEntity<Map<String, Object>> getUserInfo(@RequestBody UserInfoDto info) {
 		System.out.println("댓글의 유저정보 읽어오기");
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -77,6 +77,29 @@ public class CommentController {
 		}
 		return resEntity;
 	}
-	
+
+	/**
+	 * 
+	 * 댓글 쓰기
+	 */
+	@PostMapping("writeComment")
+	public ResponseEntity<Map<String, Object>> writeComment(@RequestBody CommentDto comment) {
+		System.out.println("댓글쓰기");
+		System.out.println(comment);
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			commentSer.writeComment(comment);
+			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
 
 }

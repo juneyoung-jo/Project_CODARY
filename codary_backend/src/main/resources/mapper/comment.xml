@@ -18,6 +18,10 @@
 		from userInfo
 		where uid = #{uid}
 	</select>
-
+	
+	<insert id="writeComment" parameterType="CommentDto">
+		insert into comment(blog_contents_id,blog_id,comment_content,uid,comment_datetime)
+		values(#{blogContentsId},#{blogId},#{commentContent},#{uid},now())
+	</insert>
 
 </mapper>

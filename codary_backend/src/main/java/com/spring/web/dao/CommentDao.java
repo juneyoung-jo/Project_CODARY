@@ -12,4 +12,6 @@ public interface CommentDao {
 
 	UserInfoDto getUserInfo(UserInfoDto info) throws Exception;
 
+	void writeComment(CommentDto comment) throws Exception;
+
 }

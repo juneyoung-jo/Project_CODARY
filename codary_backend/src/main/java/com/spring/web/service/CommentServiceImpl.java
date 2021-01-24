@@ -34,4 +34,11 @@ public class CommentServiceImpl implements CommentService {
 		return sqlSession.getMapper(CommentDao.class).getUserInfo(info);
 	}
 
+	@Override
+	public void writeComment(CommentDto comment) throws Exception {
+		if(comment == null ) return;
+		sqlSession.getMapper(CommentDao.class).writeComment(comment);
+		
+	}
+
 }
