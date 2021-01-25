@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.service.PersonalService;
@@ -58,6 +59,29 @@ public class PersonalController {
 	//	}
 	
 		return new ResponseEntity<MemoDto>(memoDto, HttpStatus.OK);
+	}
+	
+	/*좋아요한 블로거 목록보기*/
+	@GetMapping("/blog/{blogid}/{uid}")
+	public ResponseEntity<List<BlogerLikeDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid){
+
+		HttpStatus status=HttpStatus.ACCEPTED;
+		List<BlogerLikeDto> blogerlikeDto=null;
+		
+		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
+				try {
+					blogerlikeDto=personalService.showLikeBloger(uid);
+					System.out.println(blogerlikeDto);
+					status=HttpStatus.ACCEPTED;
+				}catch(Exception e) {
+					e.printStackTrace();
+					status=HttpStatus.INTERNAL_SERVER_ERROR;
+				}
+		//	}else { 
+			
+		//	}
+		
+			return new ResponseEntity<List<BlogerLikeDto>>(blogerlikeDto, HttpStatus.OK);
 	}
 	
 }

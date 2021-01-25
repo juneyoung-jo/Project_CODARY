@@ -15,4 +15,10 @@
 		from memo
 		where memo_id = #{memoId}
 	</select>
+	
+	<select id="likeBloger" resultType="BlogerLikeDto">
+		select *
+		from blogerlike
+		where uid = #{uid}
+	</select>
 </mapper>
