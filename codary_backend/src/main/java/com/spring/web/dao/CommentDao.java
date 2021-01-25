@@ -14,4 +14,6 @@ public interface CommentDao {
 
 	void writeComment(CommentDto comment) throws Exception;
 
+	void deleteComment(int commentNum) throws Exception;
+
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +21,18 @@ import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.CommentService;
 
 @RestController
-@CrossOrigin(origins = { "*" }, maxAge = 6000)
+@CrossOrigin(origins = { "*" })
 @RequestMapping("/comment")
 public class CommentController {
-
+	
 	@Autowired
 	CommentService commentSer;
+	
+	
+	@GetMapping("/")
+	public String main() {
+		return "hihi";
+	}
 
 	/**
 	 * 
@@ -57,6 +64,8 @@ public class CommentController {
 	/**
 	 * 
 	 * 해당 댓글의 유저정보를 읽어오기 -profile, nickName 정보 등을 얻기위해
+	 * @param uid
+	 * @return userInfo
 	 */
 	@PostMapping("getUserInfo")
 	public ResponseEntity<Map<String, Object>> getUserInfo(@RequestBody UserInfoDto info) {
@@ -81,6 +90,8 @@ public class CommentController {
 	/**
 	 * 
 	 * 댓글 쓰기
+	 * @param #{blogContentsId},#{blogId},#{commentContent},#{uid}
+	 *
 	 */
 	@PostMapping("writeComment")
 	public ResponseEntity<Map<String, Object>> writeComment(@RequestBody CommentDto comment) {
@@ -91,6 +102,31 @@ public class CommentController {
 
 		try {
 			commentSer.writeComment(comment);
+			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	/**
+	 * 
+	 * 댓글 삭제
+	 * @param commentNum
+	 *
+	 */
+	@DeleteMapping("deleteComment/{commentNum}")
+	public ResponseEntity<Map<String, Object>> deleteComment(@PathVariable int commentNum) {
+		System.out.println("댓글삭제");
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			commentSer.deleteComment(commentNum);
 			map.put("msg", "success");
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {

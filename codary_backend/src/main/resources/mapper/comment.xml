@@ -23,5 +23,10 @@
 		insert into comment(blog_contents_id,blog_id,comment_content,uid,comment_datetime)
 		values(#{blogContentsId},#{blogId},#{commentContent},#{uid},now())
 	</insert>
+	
+	<delete id="deleteComment" parameterType="int">
+		delete from comment
+		where comment_num = #{commentNum}
+	</delete>
 
 </mapper>

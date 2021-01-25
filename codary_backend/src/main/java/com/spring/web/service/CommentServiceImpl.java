@@ -41,4 +41,10 @@ public class CommentServiceImpl implements CommentService {
 		
 	}
 
+	@Override
+	public void deleteComment(int commentNum) throws Exception {
+		sqlSession.getMapper(CommentDao.class).deleteComment(commentNum);
+		
+	}
+
 }
