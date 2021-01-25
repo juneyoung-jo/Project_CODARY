@@ -1,6 +1,5 @@
 <template>
   <section id="blog">
-        <div></div>
         <v-container>
           <h2 class="font-weight-bold mb-3 text-uppercase text-start">인기태그</h2>
           <v-responsive
@@ -46,7 +45,7 @@
 
 <script>
 export default {
-    name:"SearchResult",
+    name:"PopularTag",
     data () {
       return {
         articles: [

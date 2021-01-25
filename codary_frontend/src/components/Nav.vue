@@ -2,13 +2,25 @@
   <v-app-bar
     app
     absolute
-    color="white"
   >
     <router-link :to="'/'" class='codary'>
       <h2 style="color:black">codary</h2>
     </router-link>
-
     <v-spacer></v-spacer>
+    <v-row
+    >
+      <v-col cols="auto">
+        Dark Mode
+      </v-col>
+      <v-col cols="auto">
+        <v-switch
+          v-model="$vuetify.theme.dark"
+          class="ma-0 pa-0"
+          color="secondary"
+          hide-details
+        />
+      </v-col>
+    </v-row>
 
     <router-link :to="'/searchpage'">
       <v-btn>
@@ -36,6 +48,11 @@
 <script>
 export default {
   name: 'Nav',
+  watch: {
+      color (val) {
+        this.$vuetify.theme.themes[this.isDark ? 'dark' : 'light'].primary = val
+      },
+    },
 }
 </script>
 
