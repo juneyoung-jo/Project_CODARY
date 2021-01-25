@@ -8,5 +8,5 @@ import com.spring.web.dto.BlogContentsDto;
 
 @Mapper
 public interface PersonalDao {
-	public List<BlogContentsDto> selectPersonal(String uid);
+	public List<BlogContentsDto> selectPersonal(String blogid);
 }

@@ -15,8 +15,8 @@ public class PersonalServiceImpl implements PersonalService{
 	private PersonalDao personalDao;
 	
 	@Override
-	public List<BlogContentsDto> personalContents(String uid) {
-		return personalDao.selectPersonal(uid);
+	public List<BlogContentsDto> personalContents(String blogid) {
+		return personalDao.selectPersonal(blogid);
 	}
 	
 }

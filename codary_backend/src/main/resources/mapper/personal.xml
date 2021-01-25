@@ -10,6 +10,7 @@
 		where blog_id = #{blogId}
 	</select>
 	
+	
 	<!-- personal blog => me -->
 	<!-- <select id="mywork" resultType="BlogContentsDto"> 
 		select *
