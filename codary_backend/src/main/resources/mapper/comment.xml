@@ -28,5 +28,10 @@
 		delete from comment
 		where comment_num = #{commentNum}
 	</delete>
-
+	
+	<update id="modifyComment" parameterType="CommentDto">
+		update comment
+		set comment_content = #{commentContent}, comment_datetime = now()
+		where comment_num = #{commentNum} 
+	</update>
 </mapper>

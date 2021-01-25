@@ -12,6 +12,8 @@ public interface CommentService {
 	public UserInfoDto getUserInfo(UserInfoDto info) throws Exception;
 	public void writeComment(CommentDto comment) throws Exception;
 
-	public void deleteComment(int commentNum)throws Exception; 
+	public void deleteComment(int commentNum)throws Exception;
+
+	public void modifyComment(CommentDto comment) throws Exception; 
 
 }
