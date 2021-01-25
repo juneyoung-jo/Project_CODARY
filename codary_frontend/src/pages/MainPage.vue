@@ -261,7 +261,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'MainPage',
   data () {
       return {
         features: [
