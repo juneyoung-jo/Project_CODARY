@@ -1,31 +1,35 @@
 <template>
 <div class='py-12'>
- <v-tabs align-with-title>
-      <router-link :to="{ name:'MyPost'}">
-          <v-tab>내가쓴글</v-tab>
-      </router-link>
-      <router-link :to="{ name:'MyMemo'}">
-        <v-tab>메모보기</v-tab>
-      </router-link>
-      <router-link :to="{ name:'MyLikePost'}">
-        <v-tab>즐겨찾기</v-tab>
-      </router-link>
-      <router-link :to="{ name:'MySubscriber'}">
-        <v-tab>좋아요한사람</v-tab>
-      </router-link>
+ <v-tabs grow>
+      <v-tab v-for="tab in tabs" :key="tab.id" @click="updateRouter(tab.route)">
+        {{ tab.name }}
+      </v-tab>
 </v-tabs>
- 
 </div>
-
 </template>
 
+
 <script>
-export default {
-    name:'Menu',
- 
-}
+  export default {
+    data () {
+      return {
+        activeTab: '',
+        tabs: [
+            {id:1, name:'내가쓴글', route: { name:'MyPost' }},
+            {id:2, name:'메모보기', route: { name:'MyMemo' }},
+            {id:3, name:'즐겨찾기', route: { name:'MyLikePost' }},
+            {id:4, name:'좋은사람', route: { name:'MySubscriber' }}
+        ], 
+      }
+    },
+    methods: {
+      updateRouter(val){
+        this.$router.push(val)
+      }
+    }
+  }
 </script>
 
-<style>
 
+<style>
 </style>

@@ -26,7 +26,7 @@
                 class="ml-n4 font-weight-black"
                 text
               >
-                Read
+                blog >
               </v-btn>
             </v-col>
           </v-row>
