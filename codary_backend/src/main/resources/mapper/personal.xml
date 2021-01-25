@@ -4,39 +4,15 @@
 	
 <mapper namespace="com.spring.web.dao.PersonalDao">
 	
-	<select id="selectPersonal" resultType="BlogContentsDto"> 
+	<select id="showBlogContents" resultType="BlogContentsDto"> 
 		select *
 		from blogcontents 
 		where blog_id = #{blogId}
 	</select>
 	
-	
-	<!-- personal blog => me -->
-	<!-- <select id="mywork" resultType="BlogContentsDto"> 
-		select *
-		from blogcontents 
-		where blog_id = (
-			select blog_id 
-			from blog 
-			where blog_id=#{blogId} 
-		)
-	</select>-->
-	 
-	
-	<!-- personal blog => other -->
-	<!-- 
-	<select id="otherwork" resultType="BlogContentsDto"> 
-		select *
-		from blogcontents 
-		where blog_id = (
-			select blog_id 
-			from user 
-			where uid=(
-				select uid 
-				from userinfo 
-				where nickname=#{nickname}
-				)
-		)
+	<select id="showMemo" resultType="MemoDto">
+		select * 
+		from memo
+		where memo_id = #{memoId}
 	</select>
-	 -->
 </mapper>

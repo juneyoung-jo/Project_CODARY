@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.web.dao.PersonalDao;
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.MemoDto;
 
 @Service
 public class PersonalServiceImpl implements PersonalService{
@@ -16,7 +17,12 @@ public class PersonalServiceImpl implements PersonalService{
 	
 	@Override
 	public List<BlogContentsDto> personalContents(String blogid) {
-		return personalDao.selectPersonal(blogid);
+		return personalDao.showBlogContents(blogid);
+	}
+
+	@Override
+	public MemoDto showMemo(String memoid) {
+		return personalDao.showMemo(memoid);
 	}
 	
 }
