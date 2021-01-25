@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
@@ -30,7 +31,7 @@ public class PersonalController {
 	
 	/*블로거가 쓴 글*/
 	@GetMapping("/blog/{blogid}")
-	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid, HttpSession session) {
+	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable int blogid, HttpSession session) {
 		
 		List<BlogContentsDto> blogcontentsList=null;
 		blogcontentsList= personalService.personalContents(blogid);
@@ -40,7 +41,7 @@ public class PersonalController {
 	
 	/*내 메모 불러오기*/
 	@GetMapping("/blog") 
-	public ResponseEntity<MemoDto> showMyMemo(String memoid, HttpServletRequest request) {
+	public ResponseEntity<MemoDto> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
 		MemoDto memoDto=null;
@@ -63,7 +64,7 @@ public class PersonalController {
 	
 	/*좋아요한 블로거 목록보기*/
 	@GetMapping("/blog/{blogid}/{uid}")
-	public ResponseEntity<List<BlogerLikeDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid){
+	public ResponseEntity<List<BlogerLikeDto>> showMyBloger(@PathVariable int blogid, @PathVariable String uid){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogerLikeDto> blogerlikeDto=null;
@@ -84,4 +85,26 @@ public class PersonalController {
 			return new ResponseEntity<List<BlogerLikeDto>>(blogerlikeDto, HttpStatus.OK);
 	}
 	
+	/*좋아요한 블로그 글 목록보기*/
+	@GetMapping("/{blogid}/{uid}")
+	public ResponseEntity<List<BlogContentsLikeDto>> showMyBlogContents(@PathVariable int blogid, @PathVariable String uid){
+
+		HttpStatus status=HttpStatus.ACCEPTED;
+		List<BlogContentsLikeDto> blogcontentslikeDto=null;
+		
+		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
+				try {
+					blogcontentslikeDto=personalService.showLikeBlogContents(uid);
+					System.out.println(blogcontentslikeDto);
+					status=HttpStatus.ACCEPTED;
+				}catch(Exception e) {
+					e.printStackTrace();
+					status=HttpStatus.INTERNAL_SERVER_ERROR;
+				}
+		//	}else { 
+			
+		//	}
+		
+			return new ResponseEntity<List<BlogContentsLikeDto>>(blogcontentslikeDto, HttpStatus.OK);
+	}
 }

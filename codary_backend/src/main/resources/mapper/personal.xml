@@ -21,4 +21,10 @@
 		from blogerlike
 		where uid = #{uid}
 	</select>
+	
+	<select id="likeBlogContents" resultType="BlogContentsLikeDto">
+		select *
+		from blogcontentslike
+		where uid = #{uid}
+	</select>
 </mapper>
