@@ -16,6 +16,18 @@
       </v-btn>
     </router-link>
 
+    <router-link :to="'/bloghome'">
+      <v-btn>
+        블로그홈
+      </v-btn>
+    </router-link>
+
+    <router-link :to="'/createpost'">
+      <v-btn>
+        글 작성
+      </v-btn>
+    </router-link>
+
     <v-btn>login</v-btn>
 
   </v-app-bar>

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../pages/Home.vue'
+import MainPage from '../pages/MainPage.vue'
 import SearchPage from '../pages/SearchPage.vue'
+import BlogHome from '../pages/BlogHome.vue'
+import CreatePost from '../pages/CreatePost.vue'
 
 
 
@@ -11,13 +13,23 @@ export default new Router({
   routes: [   
     { 
       path: '/',
-      name: "Home",
-      component: Home,
+      name: "MainPage",
+      component: MainPage,
     },
     {
       path: '/searchpage',
       name: "SearchPage",
       component: SearchPage,
+    },
+    {
+      path: '/bloghome',
+      name: "BlogHome",
+      component: BlogHome,
+    },
+    {
+      path: '/createpost',
+      name: "CreatePost",
+      component: CreatePost,
     }
  
   ]
