@@ -7,7 +7,7 @@ import com.spring.web.dto.UserDto;
 @Repository
 public interface UserDao {
 
-	public UserDto login();
+	public UserDto findById(String uid);
 		
 	
 }

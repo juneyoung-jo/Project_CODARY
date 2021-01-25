@@ -10,13 +10,12 @@ import com.spring.web.dto.UserDto;
 @Service
 public class UserServiceImpl implements UserService{
 
-	
 	@Autowired
 	SqlSession SqlSession;
 	
 	@Override
-	public UserDto login() {
-		return SqlSession.getMapper(UserDao.class).login();
+	public UserDto findById(String uid) {
+		return SqlSession.getMapper(UserDao.class).findById(uid);
 	}
 
 }

@@ -4,11 +4,15 @@
 
 <mapper namespace="com.spring.web.dao.UserDao">
 
-	<select id="login" resultType="UserDto">
+	<select id="findById" parameterType="string" resultType="UserDto">
 		select uid, blog_id, memo_id, aul_key, aul_ip, aul_datetime
 		from user
-		where uid = 'ssafy'
+		where uid = #{uid}
 	</select>
 	
+	<insert id="signUp" parameterType="map" >
+		insert into user(uid, blog_id, memo_id, aul_key, aul_ip, aul_datetime)
+		values(#{uid}, #{blog_id}, #{memo_id}, #{aul_key}, #{aul_ip}, #{aul_datetime})
+	</insert>
 	
 </mapper>

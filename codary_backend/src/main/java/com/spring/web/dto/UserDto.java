@@ -9,6 +9,18 @@ public class UserDto {
 	private String aulId;
 	private String aulDatetime;
 
+	public UserDto() {
+	}
+	public UserDto(String uid, int blogId, int memoId, String aulKey, String aulId, String aulDatetime) {
+		super();
+		this.uid = uid;
+		this.blogId = blogId;
+		this.memoId = memoId;
+		this.aulKey = aulKey;
+		this.aulId = aulId;
+		this.aulDatetime = aulDatetime;
+	}
+
 	public String getUid() {
 		return uid;
 	}

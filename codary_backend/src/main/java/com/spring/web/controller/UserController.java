@@ -16,7 +16,7 @@ public class UserController {
 	@GetMapping("/")
 	public String main() {
 		
-		UserDto user = userService.login();
+		UserDto user = userService.findById("ssafy");
 		return user.toString();
 	}
 	
