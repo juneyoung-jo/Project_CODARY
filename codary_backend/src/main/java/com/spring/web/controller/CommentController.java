@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.CommentToLikeDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.CommentService;
 
@@ -158,6 +159,33 @@ public class CommentController {
 		try {
 			commentSer.deleteComment(commentNum);
 			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+
+	/**
+	 * 
+	 * 댓글 좋아요 확인
+	 * 
+	 * @param uid,commentNum
+	 * @return true -> 해당 댓글에 내가 좋아요를 누름. false -> 해당 댓글에 내가 좋아요를 안 누름.
+	 */
+	@PostMapping("getCommentLike")
+	public ResponseEntity<Map<String, Object>> getCommentLike(@RequestBody CommentToLikeDto ctl) {
+		System.out.println("댓글의 유저정보 읽어오기");
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			boolean data = commentSer.getCommentLike(ctl);
+			map.put("msg", "success");
+			map.put("data", data);
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

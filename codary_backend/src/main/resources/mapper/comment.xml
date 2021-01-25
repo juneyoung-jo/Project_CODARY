@@ -34,4 +34,11 @@
 		set comment_content = #{commentContent}, comment_datetime = now()
 		where comment_num = #{commentNum} 
 	</update>
+	
+	<select id="getCommentLike" parameterType="CommentToLikeDto" resultType="CommentToLikeDto">
+		select *
+		from commenttolike
+		where uid = #{uid}
+		and comment_num = #{commentNum}
+	</select>
 </mapper>

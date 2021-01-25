@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.CommentToLikeDto;
 import com.spring.web.dto.UserInfoDto;
 
 @Mapper
@@ -20,5 +21,7 @@ public interface CommentDao {
 	void deleteComment(int commentNum) throws Exception;
 
 	void modifyComment(CommentDto comment) throws Exception;
+
+	CommentToLikeDto getCommentLike(CommentToLikeDto ctl) throws Exception;
 
 }
