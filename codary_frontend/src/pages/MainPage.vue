@@ -223,7 +223,7 @@
       <section id="stats">
         <v-parallax
           :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-          src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+          src="https://assets.imgix.net/unsplash/bridge.jpg?auto=compress&w=900&h=600&fit=crop"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
@@ -294,5 +294,7 @@ export default {
 </script>
 
 <style>
-
+*{
+  font-family: 'Raleway','Noto Sans KR', sans-serif;
+}
 </style>

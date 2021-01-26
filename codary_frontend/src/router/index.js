@@ -6,7 +6,6 @@ import BlogHome from '../pages/BlogHome.vue'
 import CreatePost from '../pages/CreatePost.vue'
 
 
-
 Vue.use(Router) 
  
 export default new Router({
@@ -25,6 +24,32 @@ export default new Router({
       path: '/bloghome',
       name: "BlogHome",
       component: BlogHome,
+      children: [
+        {
+          path: "",
+          name: "MyPost",
+          component: () => import("@/components/blogHomeCom/MyPost.vue")
+        },
+        {
+          path: "mymemo",
+          name: "MyMemo",
+          component: () => import("@/components/blogHomeCom/MyMemo.vue")
+        },
+        {
+          path: "mylikepost",
+          name: "MyLikePost",
+          component: () => import("@/components/blogHomeCom/MyLikePost.vue")
+        },
+        {
+          path: "mysubscriber",
+          name: "MySubscriber",
+          component: () => import("@/components/blogHomeCom/MySubscriber.vue")
+        },
+      
+      ],
+      redirect: () => {
+        return "/bloghome";
+      }
     },
     {
       path: '/createpost',
