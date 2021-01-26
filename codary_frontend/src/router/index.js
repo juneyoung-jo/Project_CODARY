@@ -4,6 +4,7 @@ import MainPage from '../pages/MainPage.vue'
 import SearchPage from '../pages/SearchPage.vue'
 import BlogHome from '../pages/BlogHome.vue'
 import CreatePost from '../pages/CreatePost.vue'
+import ViewPost from '../pages/Post.vue'
 
 
 Vue.use(Router) 
@@ -55,7 +56,12 @@ export default new Router({
       path: '/createpost',
       name: "CreatePost",
       component: CreatePost,
-    }
+    },
+    {
+      path: '/viewpost',
+      name: "ViewPost",
+      component: ViewPost,
+    },
  
   ]
 })

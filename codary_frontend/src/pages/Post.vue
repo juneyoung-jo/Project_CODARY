@@ -1,9 +1,12 @@
 <template>
   <div>
     <PostCover/>
-    <PostViewer/>
-    <Profile/>
-    <Comment/>
+    <v-container>
+
+      <PostViewer/>
+      <Profile/>
+      <Comment/>
+    </v-container>
   </div>
 </template>
 
