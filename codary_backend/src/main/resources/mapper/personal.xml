@@ -27,4 +27,11 @@
 		from blogcontents inner join blogcontentslike using (blog_contents_id)
 		where blogcontentslike.uid = #{uid};
 	</select>
+	
+	<select id="jandi" resultType="JandiDto">
+		select Date(blog_datetime) as blogDatetime, count(*) as jandiCnt
+		from blogcontents
+		where blog_id=#{blogId}
+		group by Date(blog_datetime);
+	</select>
 </mapper>

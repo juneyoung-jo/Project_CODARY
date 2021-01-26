@@ -1,5 +1,6 @@
 package com.spring.web.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
+import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 
@@ -37,6 +39,11 @@ public class PersonalServiceImpl implements PersonalService{
 	@Override
 	public List<BlogContentsDto> showLikeBlogContents(String uid) {
 		return personalDao.likeBlogContents(uid);
+	}
+
+	@Override
+	public List<JandiDto> jandi(int blogid) {
+		return personalDao.jandi(blogid);
 	}
 	
 }

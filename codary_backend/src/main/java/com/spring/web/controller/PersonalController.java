@@ -1,6 +1,9 @@
 package com.spring.web.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +20,7 @@ import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
+import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
@@ -111,5 +115,26 @@ public class PersonalController {
 		
 			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, HttpStatus.OK);
 	}
-
+	
+	/*잔디*/
+	@GetMapping("/blog/jandi/{blogid}")
+	public ResponseEntity<List<JandiDto>> showjandi(@PathVariable int blogid){
+		HttpStatus status=HttpStatus.ACCEPTED;
+		List<JandiDto> jandiDto=null;
+		
+		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
+				try {
+					jandiDto=personalService.jandi(blogid);
+					System.out.println(jandiDto);
+					status=HttpStatus.ACCEPTED;
+				}catch(Exception e) {
+					e.printStackTrace();
+					status=HttpStatus.INTERNAL_SERVER_ERROR;
+				}
+		//	}else { 
+			
+		//	}
+		
+			return new ResponseEntity<List<JandiDto>>(jandiDto, HttpStatus.OK);
+	}
 }
