@@ -1,9 +1,9 @@
 <template>
   <div class='py-12'>
-      <h2>
-        Choose tags
-      </h2>
-     <v-card-text>
+    <h2>
+      Choose tags
+    </h2>
+    <v-card-text>
       <v-chip-group
         column
         multiple

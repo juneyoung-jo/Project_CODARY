@@ -2,10 +2,10 @@
   <div class="py-12">
     <search-input/>
     <popular-tag/>
-
     <router-link :to="'/viewpost'">
       <v-btn
-        color="red">
+        color="red"
+      >
         글 보기
       </v-btn>
     </router-link>

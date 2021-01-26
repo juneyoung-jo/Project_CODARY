@@ -6,56 +6,56 @@
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
             src="https://upload2.inven.co.kr/upload/2015/12/13/bbs/i13968242593.jpg"
           >
-              <v-container fill-height>
-                <v-row
-                  align="center"
-                  class="mx-auto"
-                  justify="center"
+            <v-container fill-height>
+              <v-row
+                align="center"
+                class="mx-auto"
+                justify="center"
+              >
+                <v-col
+                  class="text-center"
+                  cols="12"
+                  tag="h1"
                 >
-                  <v-col
-                    class="text-center"
-                    cols="12"
-                    tag="h1"
+                  <span
+                  :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                    class="font-weight-light"
                   >
-                    <span
-                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                      class="font-weight-light"
-                    >
-                      메모를 
-                    </span>
-                    <br>
-                    <span
-                      :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                      class="font-weight-light"
-                    >
-                      이용하세요
-                    </span>
-                    <v-responsive
-                      class="mx-auto title font-weight-light mb-1"
-                      max-width="720"
-                    >
-                    <br>
-                     귀찮게 메모장 켤 필요 없습니다.
-                    </v-responsive>
-                    <v-responsive
-                      class="mx-auto title font-weight-light mb-8"
-                      max-width="720"
-                    >
-                     현재 페이지 주소와 함께 메모가 저장됩니다.
-                    </v-responsive>
-                  </v-col>
-                  <v-theme-provider dark>
-                  <v-btn
-                    class="align-self-end"
-                    fab
-                    outlined
-                    @click="$vuetify.goTo('#share')"
+                    메모를 
+                  </span>
+                  <br>
+                  <span
+                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+                    class="font-weight-light"
                   >
-                    <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-                  </v-btn>
-                  </v-theme-provider>
-                </v-row>
-              </v-container>
+                    이용하세요
+                  </span>
+                  <v-responsive
+                    class="mx-auto title font-weight-light mb-1"
+                    max-width="720"
+                  >
+                  <br>
+                    귀찮게 메모장 켤 필요 없습니다.
+                  </v-responsive>
+                  <v-responsive
+                    class="mx-auto title font-weight-light mb-8"
+                    max-width="720"
+                  >
+                    현재 페이지 주소와 함께 메모가 저장됩니다.
+                  </v-responsive>
+                </v-col>
+                <v-theme-provider dark>
+                <v-btn
+                  class="align-self-end"
+                  fab
+                  outlined
+                  @click="$vuetify.goTo('#share')"
+                >
+                  <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
+                </v-btn>
+                </v-theme-provider>
+              </v-row>
+            </v-container>
           </v-img>
         </v-row>
       </section>

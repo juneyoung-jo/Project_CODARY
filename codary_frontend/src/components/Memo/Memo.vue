@@ -30,14 +30,17 @@
         class="text-center mb-0"
         width="300"
       >
-        <div class="py-3"></div>
-        <strong class="m-3">MEMO</strong>
-        <v-btn @click="toggle">
-            <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
-            <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-        </v-btn>
+        <div class="py-3 d-flex flex-column">
+          <div class="d-flex px-3 align-center justify-end">
+            <strong class="mr-13">MEMO</strong>
+            <v-btn @click="toggle">
+              <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
+              <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
+            </v-btn>
+          </div>
             <MemoInput v-show="memotoggle"/>   
             <MemoList v-show="!memotoggle"/>
+        </div>
       </v-card>
     </v-menu>
   </div>
@@ -51,14 +54,14 @@ export default {
     name:'Memo',
     data () {
         return {
-            memotoggle: true,
+          memotoggle: true,
         }
     },
     methods: {
-        toggle(){
-            this.memotoggle = !this.memotoggle
-            console.log(this.memotoggle)
-        }
+      toggle(){
+        this.memotoggle = !this.memotoggle
+        console.log(this.memotoggle)
+      }
     }
     
 }
