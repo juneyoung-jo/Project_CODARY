@@ -1,7 +1,12 @@
 <template>
   <div>
     <h1>PostViewer</h1>
-    <viewer :value="editorText" />
+    <viewer 
+      :value="editorText" 
+      height="500px"
+      :initialValue="editorText" 
+      viewer=true 
+    />
   </div>
 </template>
 
@@ -12,7 +17,7 @@ import { Viewer } from '@toast-ui/vue-editor'
 
 export default {
   name: 'PostViewer',
-    components: {
+  components: {
     'viewer': Viewer
     // 'viewer': Viewer
   },
