@@ -4,7 +4,7 @@ public class BlogDto {
 
 	private int blogId;
 	private int blogLike;
-	private String blogProfile;
+	private String blogCover;
 	private int blogView;
 
 	public int getBlogId() {
@@ -23,12 +23,12 @@ public class BlogDto {
 		this.blogLike = blogLike;
 	}
 
-	public String getBlogProfile() {
-		return blogProfile;
+	public String getBlogCover() {
+		return blogCover;
 	}
 
-	public void setBlogProfile(String blogProfile) {
-		this.blogProfile = blogProfile;
+	public void setBlogCover(String blogProfile) {
+		this.blogCover = blogProfile;
 	}
 
 	public int getBlogView() {
@@ -41,7 +41,7 @@ public class BlogDto {
 
 	@Override
 	public String toString() {
-		return "BlogDto [blogId=" + blogId + ", blogLike=" + blogLike + ", blogProfile=" + blogProfile + ", blogView="
+		return "BlogDto [blogId=" + blogId + ", blogLike=" + blogLike + ", blogCover=" + blogCover + ", blogView="
 				+ blogView + "]";
 	}
 
