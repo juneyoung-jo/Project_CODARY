@@ -8,6 +8,7 @@ import com.spring.web.dto.UserDto;
 public interface UserDao {
 
 	public UserDto findById(String uid);
+	public void save(UserDto user);
 		
 	
 }

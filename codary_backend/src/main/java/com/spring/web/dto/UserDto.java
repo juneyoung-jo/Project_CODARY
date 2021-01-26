@@ -1,24 +1,23 @@
 package com.spring.web.dto;
 
+import java.sql.Timestamp;
+
 public class UserDto {
 
 	private String uid;
-	private int blogId;
-	private int memoId;
-	private String aulKey;
-	private String aulId;
-	private String aulDatetime;
+	private String blogId;
+	private String memoId;
+	private String provider; //google, kakao, naver
+	private String providerId;
+	private Timestamp createDate;
 
-	public UserDto() {
-	}
-	public UserDto(String uid, int blogId, int memoId, String aulKey, String aulId, String aulDatetime) {
-		super();
+	public UserDto() {}
+	public UserDto(String uid, String blogId, String memoId, String provider, String providerId) {
 		this.uid = uid;
 		this.blogId = blogId;
 		this.memoId = memoId;
-		this.aulKey = aulKey;
-		this.aulId = aulId;
-		this.aulDatetime = aulDatetime;
+		this.provider = provider;
+		this.providerId = providerId;
 	}
 
 	public String getUid() {
@@ -29,50 +28,37 @@ public class UserDto {
 		this.uid = uid;
 	}
 
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
-
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
-
-	public int getMemoId() {
+	public String getMemoId() {
 		return memoId;
 	}
-
-	public void setMemoId(int memoId) {
+	public void setMemoId(String memoId) {
 		this.memoId = memoId;
 	}
-
-	public String getAulKey() {
-		return aulKey;
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+	public String getProviderId() {
+		return providerId;
+	}
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
-	public void setAulKey(String aulKey) {
-		this.aulKey = aulKey;
-	}
-
-	public String getAulId() {
-		return aulId;
-	}
-
-	public void setAulId(String aulId) {
-		this.aulId = aulId;
-	}
-
-	public String getAulDatetime() {
-		return aulDatetime;
-	}
-
-	public void setAulDatetime(String aulDatetime) {
-		this.aulDatetime = aulDatetime;
-	}
-
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", blogId=" + blogId + ", memoId=" + memoId + ", aulKey=" + aulKey + ", aulId="
-				+ aulId + ", aulDatetime=" + aulDatetime + "]";
-	}
+	
 
 }
