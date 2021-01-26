@@ -16,10 +16,10 @@
 		where memo_id = #{memoId}
 	</select>
 	
-	<select id="likeBloger" resultType="BlogerLikeDto">
-		select *
-		from blogerlike
-		where uid = #{uid}
+	<select id="likeBloger" resultType="BlogDto">
+		select * 
+		from blog inner join blogerlike using (blog_id)
+		where blogerlike.uid = #{uid};
 	</select>
 	
 	<select id="likeBlogContents" resultType="BlogContentsDto">

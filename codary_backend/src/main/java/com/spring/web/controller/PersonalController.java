@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
@@ -42,7 +43,7 @@ public class PersonalController {
 	}
 	
 	/*내 메모 불러오기*/
-	@GetMapping("/blog/memo") 
+	@GetMapping("/blog/{memoid}") 
 	public ResponseEntity<MemoDto> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
@@ -66,15 +67,15 @@ public class PersonalController {
 	
 	/*좋아요한 블로거 목록보기*/
 	@GetMapping("/blog/{blogid}/{uid}")
-	public ResponseEntity<List<BlogerLikeDto>> showMyBloger(@PathVariable int blogid, @PathVariable String uid){
+	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable int blogid, @PathVariable String uid){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
-		List<BlogerLikeDto> blogerlikeDto=null;
+		List<BlogDto> blogDto=null;
 		
 		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
 				try {
-					blogerlikeDto=personalService.showLikeBloger(uid);
-					System.out.println(blogerlikeDto);
+					blogDto=personalService.showLikeBloger(uid);
+					System.out.println(blogDto);
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -84,7 +85,7 @@ public class PersonalController {
 			
 		//	}
 		
-			return new ResponseEntity<List<BlogerLikeDto>>(blogerlikeDto, HttpStatus.OK);
+			return new ResponseEntity<List<BlogDto>>(blogDto, HttpStatus.OK);
 	}
 	
 	/*좋아요한 블로그 글 목록보기*/

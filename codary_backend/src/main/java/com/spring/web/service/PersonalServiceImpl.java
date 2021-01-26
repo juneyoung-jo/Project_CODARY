@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.web.dao.PersonalDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.MemoDto;
 
@@ -28,7 +29,7 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<BlogerLikeDto> showLikeBloger(String uid) {
+	public List<BlogDto> showLikeBloger(String uid) {
 		return personalDao.likeBloger(uid);
 	}
 
