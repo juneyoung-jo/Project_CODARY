@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.web.dao.BlogContentsDao">
+
+	<select id="getContent" parameterType="map" resultType="BlogContentsDto">
+		select *
+		from blogcontents
+		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
+	</select>
+	
+	<insert id="writeBlogContent" parameterType="BlogContentsDto">
+		insert into blogcontents(blog_contents_id, blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
+		values (#{blogContentsId}, #{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
+	</insert>
+	
+	<select id="listBlogContents" parameterType="int" resultType="BlogContentsDto">
+		select *
+		from blogcontents
+		where blog_id = #{blogId}
+	</select>
+	
+ 	<update id="modifyBlogContent" parameterType="BlogContentsDto">
+		update blogcontents
+		set blog_contents = #{blogContents}, blog_contents_title = #{blogContentsTitle}, blog_contents_cover = #{blogContentsCover}
+		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
+	</update>
+	
+	<delete id="deleteBlogContent" parameterType="map">
+		delete from blogcontents
+		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
+	</delete>
+	
+</mapper>
