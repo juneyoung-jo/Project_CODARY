@@ -8,7 +8,7 @@
       flat
       link
       min-width="100"
-      style="position: fixed; top: 115px; right: -35px; border-radius: 8px; z-index: 1;"
+      style="position: fixed; top: 200px; right: -35px; border-radius: 8px; z-index: 1;"
     >
       <v-icon large>
         mdi-clipboard-multiple-outline
@@ -33,12 +33,13 @@
       >
         <v-card-text>
           <strong class="mb-3 d-inline-block">MEMO</strong>
+          <br>
+          <v-btn>+</v-btn>
           <v-textarea
             background-color="amber lighten-4"
             color="orange orange-darken-4"
             label="Label"
           ></v-textarea>
-          <v-divider class="my-4 secondary" />
         </v-card-text>
       </v-card>
     </v-menu>
@@ -46,17 +47,8 @@
 </template>
 
 <script>
-  // Mixins
-  // import Proxyable from 'vuetify/lib/mixins/proxyable'
-
-  // Vuex
-  // import { get, sync } from 'vuex-pathify'
-
   export default {
     name: 'Memo',
-
-    // mixins: [Proxyable],
-
     data: () => ({
       color: '#E91E63',
       colors: [

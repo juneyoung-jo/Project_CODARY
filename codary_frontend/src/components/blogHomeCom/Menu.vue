@@ -18,7 +18,7 @@
             {id:1, name:'내가쓴글', route: { name:'MyPost' }},
             {id:2, name:'메모보기', route: { name:'MyMemo' }},
             {id:3, name:'즐겨찾기', route: { name:'MyLikePost' }},
-            {id:4, name:'좋은사람', route: { name:'MySubscriber' }}
+            {id:4, name:'팔로우', route: { name:'MySubscriber' }}
         ], 
       }
     },
@@ -29,7 +29,5 @@
     }
   }
 </script>
-
-
 <style>
 </style>

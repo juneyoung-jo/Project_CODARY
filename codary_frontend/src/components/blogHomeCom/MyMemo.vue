@@ -5,8 +5,6 @@
             class="mx-auto mb-12"
             width="56"
           >
-            <v-divider class="mb-1"></v-divider>
-            <v-divider></v-divider>
           </v-responsive>
           <v-row>
             <v-col
@@ -23,12 +21,6 @@
                 class="title font-weight-light mb-5"
                 v-text="text"
               ></div>
-              <v-btn
-                class="ml-n4 font-weight-black"
-                text
-              >
-                Continue Reading
-              </v-btn>
             </v-col>
           </v-row>
         </v-container>

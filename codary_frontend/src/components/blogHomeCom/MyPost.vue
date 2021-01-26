@@ -5,7 +5,6 @@
       </h2>
      <v-card-text>
       <v-chip-group
-        v-model="amenities"
         column
         multiple
       >
