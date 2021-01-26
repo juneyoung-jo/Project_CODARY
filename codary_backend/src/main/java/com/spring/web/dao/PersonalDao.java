@@ -14,5 +14,5 @@ public interface PersonalDao {
 	public List<BlogContentsDto> showBlogContents(int blogid);
 	public MemoDto showMemo(int memoid);
 	public List<BlogerLikeDto> likeBloger(String uid);
-	public List<BlogContentsLikeDto> likeBlogContents(String uid);
+	public List<BlogContentsDto> likeBlogContents(String uid);
 }

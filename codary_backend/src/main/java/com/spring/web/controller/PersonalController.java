@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import com.spring.web.dto.UserDto;
 import com.spring.web.service.PersonalService;
 
 @RestController
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
 public class PersonalController {
 	
 	/*@Autowired
@@ -40,7 +42,7 @@ public class PersonalController {
 	}
 	
 	/*내 메모 불러오기*/
-	@GetMapping("/blog") 
+	@GetMapping("/blog/memo") 
 	public ResponseEntity<MemoDto> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
@@ -87,15 +89,15 @@ public class PersonalController {
 	
 	/*좋아요한 블로그 글 목록보기*/
 	@GetMapping("/{blogid}/{uid}")
-	public ResponseEntity<List<BlogContentsLikeDto>> showMyBlogContents(@PathVariable int blogid, @PathVariable String uid){
+	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable int blogid, @PathVariable String uid){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
-		List<BlogContentsLikeDto> blogcontentslikeDto=null;
+		List<BlogContentsDto> blogcontentsDto=null;
 		
 		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
 				try {
-					blogcontentslikeDto=personalService.showLikeBlogContents(uid);
-					System.out.println(blogcontentslikeDto);
+					blogcontentsDto=personalService.showLikeBlogContents(uid);
+					System.out.println(blogcontentsDto);
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -105,6 +107,7 @@ public class PersonalController {
 			
 		//	}
 		
-			return new ResponseEntity<List<BlogContentsLikeDto>>(blogcontentslikeDto, HttpStatus.OK);
+			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, HttpStatus.OK);
 	}
+
 }

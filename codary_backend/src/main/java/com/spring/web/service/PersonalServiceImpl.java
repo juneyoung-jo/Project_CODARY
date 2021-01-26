@@ -33,7 +33,7 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<BlogContentsLikeDto> showLikeBlogContents(String uid) {
+	public List<BlogContentsDto> showLikeBlogContents(String uid) {
 		return personalDao.likeBlogContents(uid);
 	}
 	

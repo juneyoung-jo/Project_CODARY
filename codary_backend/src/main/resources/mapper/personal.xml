@@ -22,9 +22,9 @@
 		where uid = #{uid}
 	</select>
 	
-	<select id="likeBlogContents" resultType="BlogContentsLikeDto">
-		select *
-		from blogcontentslike
-		where uid = #{uid}
+	<select id="likeBlogContents" resultType="BlogContentsDto">
+		select * 
+		from blogcontents inner join blogcontentslike using (blog_contents_id)
+		where blogcontentslike.uid = #{uid};
 	</select>
 </mapper>

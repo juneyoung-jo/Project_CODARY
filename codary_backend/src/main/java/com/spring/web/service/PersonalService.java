@@ -11,5 +11,5 @@ public interface PersonalService {
 	public List<BlogContentsDto> personalContents(int blogid);
 	public MemoDto showMemo(int memoid);
 	public List<BlogerLikeDto> showLikeBloger(String uid);
-	public List<BlogContentsLikeDto> showLikeBlogContents(String uid);
+	public List<BlogContentsDto> showLikeBlogContents(String uid);
 }
