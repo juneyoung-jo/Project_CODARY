@@ -28,13 +28,17 @@
       </v-btn>
     </router-link>
 
-    <v-btn>login</v-btn>
+    <Modal/>
+    
 
   </v-app-bar>
 </template>
 
 <script>
+import Modal from './Modal.vue'
+
 export default {
+  components: { Modal },
   name: 'Nav',
 }
 </script>

@@ -1,8 +1,48 @@
 <template>
-  <div>
-    <Login/>
-    <Register/>
-  </div>
+  
+  <v-row justify="space-around">
+    <v-col cols="auto">
+      <v-dialog
+        transition="dialog-top-transition"
+        max-width="600">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              v-bind="attrs"
+              v-on="on"
+            >로그인하러가기</v-btn>
+          </template>
+        
+        <v-tabs
+          v-model="tab"
+          background-color="transparent"
+          color="Red"
+          grow
+        >
+          <v-tab>
+            Login
+          </v-tab>
+          <v-tab>
+            Register
+          </v-tab>
+        </v-tabs>
+
+        <v-tabs-items v-model="tab">
+          <v-tab-item>
+            Login   
+            <Login/>  
+          </v-tab-item>
+          <v-tab-item>
+            Register  
+            <Register/>
+          </v-tab-item>
+        </v-tabs-items>
+
+        
+      </v-dialog>
+    </v-col>
+  </v-row>
+
 </template>
 
 <script>
@@ -18,6 +58,14 @@ export default {
     Register,
     
   },
+  data () {
+      return {
+        tab: null,
+        items: [
+          'Login', 'Register',
+        ],
+      }
+    },
 }
 </script>
 
