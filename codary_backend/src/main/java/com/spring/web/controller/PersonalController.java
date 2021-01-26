@@ -17,6 +17,7 @@ import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
+import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.service.PersonalService;
@@ -43,16 +44,16 @@ public class PersonalController {
 	}
 	
 	/*내 메모 불러오기*/
-	@GetMapping("/blog/{memoid}") 
-	public ResponseEntity<MemoDto> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
+	@GetMapping("/blog/memo/{memoid}") 
+	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
-		MemoDto memoDto=null;
+		List<MemoContentsDto> memocontentsDto=null;
 		
 	//	if(jwtService.isUsable(request.getHeader("access-token")) { 
 			try {
-				memoDto=personalService.showMemo(memoid);
-				System.out.println(memoDto);
+				memocontentsDto=personalService.showMemo(memoid);
+				System.out.println(memocontentsDto);
 				status=HttpStatus.ACCEPTED;
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -62,7 +63,7 @@ public class PersonalController {
 		
 	//	}
 	
-		return new ResponseEntity<MemoDto>(memoDto, HttpStatus.OK);
+		return new ResponseEntity<List<MemoContentsDto>>(memocontentsDto, HttpStatus.OK);
 	}
 	
 	/*좋아요한 블로거 목록보기*/

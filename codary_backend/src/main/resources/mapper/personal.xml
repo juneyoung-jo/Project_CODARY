@@ -10,9 +10,9 @@
 		where blog_id = #{blogId}
 	</select>
 	
-	<select id="showMemo" resultType="MemoDto">
+	<select id="showMemo" resultType="MemoContentsDto">
 		select * 
-		from memo
+		from memocontents
 		where memo_id = #{memoId}
 	</select>
 	

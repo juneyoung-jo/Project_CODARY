@@ -10,6 +10,7 @@ import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogerLikeDto;
+import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 
 @Service
@@ -24,7 +25,7 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public MemoDto showMemo(int memoid) {
+	public List<MemoContentsDto> showMemo(int memoid) {
 		return personalDao.showMemo(memoid);
 	}
 
