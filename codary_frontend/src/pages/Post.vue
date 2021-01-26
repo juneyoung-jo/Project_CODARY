@@ -2,7 +2,6 @@
   <div>
     <PostCover/>
     <v-container>
-
       <PostViewer/>
       <Profile/>
       <Comment/>

@@ -1,37 +1,37 @@
 <template>
   <section id="blog">
-        <v-container>
-          <v-responsive
-            class="mx-auto mb-12"
-            width="56"
+    <v-container>
+      <v-responsive
+        class="mx-auto mb-12"
+        width="56"
+      >
+      </v-responsive>
+      <v-row>
+        <v-col
+          v-for="({ text, title }, i) in articles"
+          :key="i"
+          cols="12"
+          md="4"
+        >
+          <h3
+            class="font-weight-black mb-4 text-uppercase"
+            v-text="title"
+          ></h3>
+          <div
+            class="title font-weight-light mb-5"
+            v-text="text"
+          ></div>
+          <v-btn
+            class="ml-n4 font-weight-black"
+            text
           >
-          </v-responsive>
-          <v-row>
-            <v-col
-              v-for="({ text, title }, i) in articles"
-              :key="i"
-              cols="12"
-              md="4"
-            >
-              <h3
-                class="font-weight-black mb-4 text-uppercase"
-                v-text="title"
-              ></h3>
-              <div
-                class="title font-weight-light mb-5"
-                v-text="text"
-              ></div>
-              <v-btn
-                class="ml-n4 font-weight-black"
-                text
-              >
-                Continue Reading
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-        <div class="py-12"></div>
-      </section>
+            Continue Reading
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+    <div class="py-12"></div>
+  </section>
 </template>
 
 <script>

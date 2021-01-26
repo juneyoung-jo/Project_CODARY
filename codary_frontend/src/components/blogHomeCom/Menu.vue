@@ -1,9 +1,9 @@
 <template>
 <div class='py-12'>
  <v-tabs grow>
-      <v-tab v-for="tab in tabs" :key="tab.id" @click="updateRouter(tab.route)">
-        {{ tab.name }}
-      </v-tab>
+    <v-tab v-for="tab in tabs" :key="tab.id" @click="updateRouter(tab.route)">
+      {{ tab.name }}
+    </v-tab>
 </v-tabs>
 </div>
 </template>
