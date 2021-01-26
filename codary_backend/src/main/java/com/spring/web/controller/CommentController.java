@@ -178,7 +178,7 @@ public class CommentController {
 	 */
 	@PostMapping("getCommentLike")
 	public ResponseEntity<Map<String, Object>> getCommentLike(@RequestBody CommentToLikeDto ctl) {
-		System.out.println("댓글의 유저정보 읽어오기");
+		System.out.println("댓글 좋아요 체크");
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -186,6 +186,58 @@ public class CommentController {
 			boolean data = commentSer.getCommentLike(ctl);
 			map.put("msg", "success");
 			map.put("data", data);
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	/**
+	 * 
+	 * 댓글 좋아요 
+	 * 
+	 * @param uid,commentNum
+	 * 
+	 */
+	@PostMapping("commentLike")
+	public ResponseEntity<Map<String, Object>> commentLike(@RequestBody CommentToLikeDto ctl) {
+		System.out.println("해당 댓글의 좋아요 누르기");
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			commentSer.commentLike(ctl);
+			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	/**
+	 * 
+	 * 댓글 좋아요  취소
+	 * 
+	 * @param uid,commentNum
+	 * 
+	 */
+	@PostMapping("commentLikeCancle")
+	public ResponseEntity<Map<String, Object>> commentLikeCancle(@RequestBody CommentToLikeDto ctl) {
+		System.out.println("해당 댓글의 좋아요 취소하기");
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			commentSer.commentLikeCancle(ctl);
+			map.put("msg", "success");
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

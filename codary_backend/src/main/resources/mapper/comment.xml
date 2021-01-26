@@ -41,4 +41,27 @@
 		where uid = #{uid}
 		and comment_num = #{commentNum}
 	</select>
+	
+	<update id="upComment" parameterType="CommentToLikeDto">
+		update comment
+		set comment_like = comment_like+1
+		where comment_num = #{commentNum};
+	</update>
+	
+	<insert id="commentLike" parameterType="CommentToLikeDto">
+		insert into commenttolike
+		values(#{uid},#{commentNum})
+	</insert>
+	
+	<update id="downComment" parameterType="CommentToLikeDto">
+		update comment
+		set comment_like = comment_like-1
+		where comment_num = #{commentNum};
+	</update>
+	
+	<delete id="commentLikeCancle" parameterType="CommentToLikeDto">
+		delete from commenttolike
+		where uid = #{uid}
+		AND comment_num = #{commentNum}
+	</delete>
 </mapper>

@@ -20,4 +20,8 @@ public interface CommentService {
 
 	public boolean getCommentLike(CommentToLikeDto ctl) throws Exception;
 
+	public void commentLike(CommentToLikeDto ctl) throws Exception;
+
+	public void commentLikeCancle(CommentToLikeDto ctl)throws Exception;
+
 }

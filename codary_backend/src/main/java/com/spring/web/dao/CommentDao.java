@@ -24,4 +24,12 @@ public interface CommentDao {
 
 	CommentToLikeDto getCommentLike(CommentToLikeDto ctl) throws Exception;
 
+	void upComment(CommentToLikeDto ctl) throws Exception;
+
+	void commentLike(CommentToLikeDto ctl) throws Exception;
+
+	void downComment(CommentToLikeDto ctl) throws Exception;
+
+	int commentLikeCancle(CommentToLikeDto ctl) throws Exception;
+
 }

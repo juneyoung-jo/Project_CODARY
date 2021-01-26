@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.CommentDto;
@@ -59,11 +60,27 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public boolean getCommentLike(CommentToLikeDto ctl) throws Exception {
-		CommentToLikeDto c = sqlSession.getMapper(CommentDao.class).getCommentLike(ctl);
-		if (c == null)
+		CommentToLikeDto ctlDto = sqlSession.getMapper(CommentDao.class).getCommentLike(ctl);
+		if (ctlDto == null)
 			return false;
 		else
 			return true;
+	}
+
+	@Override
+	@Transactional
+	public void commentLike(CommentToLikeDto ctl) throws Exception {
+		sqlSession.getMapper(CommentDao.class).upComment(ctl);
+		sqlSession.getMapper(CommentDao.class).commentLike(ctl);
+	}
+
+	@Override
+	@Transactional
+	public void commentLikeCancle(CommentToLikeDto ctl) throws Exception {
+		int count = sqlSession.getMapper(CommentDao.class).commentLikeCancle(ctl);
+		if(count != 0) {
+			sqlSession.getMapper(CommentDao.class).downComment(ctl);
+		}
 	}
 
 }
