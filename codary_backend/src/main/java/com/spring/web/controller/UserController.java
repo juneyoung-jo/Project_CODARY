@@ -24,14 +24,14 @@ public class UserController {
 		System.out.println("#Log - Get userInfo");
 		HashMap<String, Object> userInfo = kakaoOauthService.getUserInfoFromOauth(accssTocken);
 
-		System.out.println((String) userInfo.get("nickname"));
-		UserDto user = userService.findById((String) userInfo.get("nickname"));
+		UserDto user = userService.findByProvider(userInfo);
 		if(user == null) {
 			System.out.println("#Log - 최초 로그인입니다.");
+			userService.save(userInfo);
 		}else {
 			System.out.println("#Log - 기존회원입니다.");
+			System.out.println("uId: "+ user.getUid());
 		}
-		// 토큰생성
 		
 		return "index";
 	}
