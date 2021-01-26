@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Memo from './components/Memo.vue';
+import Memo from './components/Memo/Memo'
 import Nav from './components/Nav';
 
 export default {
