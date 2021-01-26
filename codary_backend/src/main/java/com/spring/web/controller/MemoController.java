@@ -33,7 +33,7 @@ public class MemoController {
 	}
 	
 	@GetMapping("{memoId}")
-	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable int memoId) throws Exception {
+	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable String memoId) throws Exception {
 		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
 	}
 	
@@ -44,7 +44,7 @@ public class MemoController {
 	}
 	
 	@DeleteMapping("{memoId}/{memoNum}")
-	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable int memoId, @PathVariable int memoNum) throws Exception {
+	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable String memoId, @PathVariable int memoNum) throws Exception {
 		memoService.deleteMemo(memoNum);
 		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
 	}

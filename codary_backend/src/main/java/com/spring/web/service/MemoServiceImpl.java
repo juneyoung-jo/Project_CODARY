@@ -16,12 +16,17 @@ public class MemoServiceImpl implements MemoService{
 	private SqlSession sqlSession;
 	
 	@Override
+	public MemoContentsDto getMemo(int memoNum) throws Exception {
+		return sqlSession.getMapper(MemoDao.class).getMemo(memoNum);
+	}
+	
+	@Override
 	public void writeMemo(MemoContentsDto memo) throws Exception {
 		sqlSession.getMapper(MemoDao.class).writeMemo(memo);
 	}
 
 	@Override
-	public List<MemoContentsDto> listMemo(int memoId) throws Exception {
+	public List<MemoContentsDto> listMemo(String memoId) throws Exception {
 		return sqlSession.getMapper(MemoDao.class).listMemo(memoId);
 	}
 

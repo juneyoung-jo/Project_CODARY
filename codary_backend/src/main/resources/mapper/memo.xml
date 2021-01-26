@@ -4,12 +4,18 @@
 
 <mapper namespace="com.spring.web.dao.MemoDao">
 
+	<select id="getMemo" parameterType="int" resultType="MemoContentsDto">
+		select *
+		from memocontents
+		where memo_num = #{memoNum}
+	</select>
+	
 	<insert id="writeMemo" parameterType="MemoContentsDto">
 		insert into memocontents(memo_id, memo_content, memo_time)
 		values (#{memoId}, #{memoContent}, now())
 	</insert>
 	
-	<select id="listMemo" parameterType="int" resultType="MemoContentsDto">
+	<select id="listMemo" parameterType="String" resultType="MemoContentsDto">
 		select *
 		from memocontents
 		where memo_id = #{memoId}
@@ -21,7 +27,7 @@
 		where memo_num = #{memoNum}
 	</update>
 	
-	<delete id="deleteMemo" parameterType="int">
+	<delete id="deleteMemo" parameterType="map">
 		delete from memocontents
 		where memo_num = #{memoNum}
 	</delete>
