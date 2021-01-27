@@ -120,10 +120,10 @@ public class PersonalController {
 	/*잔디*/
 	@GetMapping("/blog/jandi/{blogid}")
 	public ResponseEntity<List<Map<String, Integer>>> showjandi(@PathVariable String blogid){
-		HttpStatus status=HttpStatus.ACCEPTED;
+		List<Map<String, Integer>> list=new ArrayList<>();
+		/*HttpStatus status=HttpStatus.ACCEPTED;
 		List<JandiDto> jandiDto=null;	
 		Map<String, Integer> resultMap=new HashMap<>();
-		List<Map<String, Integer>> list=new ArrayList<>();
 		List<Integer> l=new ArrayList<>();
 		//int arr[]=new int[365];
 		
@@ -145,7 +145,7 @@ public class PersonalController {
 						day.add(Integer.parseInt(jandiDto.get(i).getBlogDatetime().replace("-", "")));
 						cnt.add(jandiDto.get(i).getJandiCnt());
 					}*/
-					
+					/*
 					int nn=start-365;
 					int size=0;
 					for(int i=0; i<365; i++) {
@@ -158,7 +158,7 @@ public class PersonalController {
 							else {
 								cnt.add(0);
 							}*/
-						if(size<jandiDto.size()) {
+					/*	if(size<jandiDto.size()) {
 							if(nn==Integer.parseInt(jandiDto.get(size).getBlogDatetime().replace("-", ""))) {
 								result.add(jandiDto.get(size).getJandiCnt());
 								size++;
@@ -169,7 +169,7 @@ public class PersonalController {
 						}
 							nn++;
 					}
-					
+					*/
 					/*int n=jandiDto.size()-1;
 					for(int i=start; i>start-365; i--) {
 						if(n>=0) {
@@ -203,7 +203,7 @@ public class PersonalController {
 					}
 					
 					list.add(resultMap);
-					*/
+					
 					for(int i=0; i<result.size(); i++) {
 						System.out.println(i+" : "+result.get(i));
 					}
@@ -216,7 +216,7 @@ public class PersonalController {
 		//	}else { 
 			
 		//	}
-		
+		*/
 			return new ResponseEntity<List<Map<String, Integer>>>(list, HttpStatus.OK);
 	}
 }
