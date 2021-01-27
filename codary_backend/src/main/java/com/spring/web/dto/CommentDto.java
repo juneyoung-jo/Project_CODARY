@@ -4,7 +4,7 @@ public class CommentDto {
 
 	private int commentNum;
 	private int blogContentsId;
-	private int blogId;
+	private String blogId;
 	private int commentLike;
 	private String commentContent;
 	private String uid;
@@ -26,11 +26,11 @@ public class CommentDto {
 		this.blogContentsId = blogContentsId;
 	}
 
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
 
