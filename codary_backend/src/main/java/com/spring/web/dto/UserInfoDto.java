@@ -5,6 +5,14 @@ public class UserInfoDto {
 	private String uid;
 	private String nickname;
 	private String profile;
+	
+	public UserInfoDto() {
+	}
+	public UserInfoDto(String uid, String nickname, String profile) {
+		this.uid = uid;
+		this.nickname = nickname;
+		this.profile = profile;
+	}
 
 	public String getUid() {
 		return uid;

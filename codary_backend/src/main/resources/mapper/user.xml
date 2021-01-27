@@ -3,12 +3,44 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.web.dao.UserDao">
-
-	<select id="login" resultType="UserDto">
-		select name_test, id_test
-		from userTest
-		where name_test = 'ssafy'
+	
+	<select id="findByProvider" parameterType="map" resultType="UserDto">
+		select uid, blog_id, memo_id, provider, provider_id, create_date
+		from user
+		where provider = #{provider} and provider_id = #{providerId}
 	</select>
+
+	<select id="findById" parameterType="string" resultType="UserDto">
+		select uid, blog_id, memo_id, provider, provider_id, create_date
+		from user
+		where uid = #{uid}
+	</select>
+
+	<select id="findByBlogId" parameterType="string" resultType="UserDto">
+		select blog_id, blog_title, blog_like, blog_profile, blog_view
+		from blog
+		where blog_id = #{blogId}
+	</select>
+	
+	<insert id="save" parameterType="UserDto" >
+		insert into user(uid, blog_id, memo_id, provider, provider_id, create_date)
+		values(#{uid}, #{blogId}, #{memoId}, #{provider}, #{providerId},  now());
+	</insert>
+	
+	<insert id="saveUserInfo" parameterType="UserInfoDto" >
+		insert into userinfo(uid, nickname, profile)
+		values(#{uid}, #{nickname}, #{profile})
+	</insert>
+	
+	<insert id="makeBlog" parameterType="BlogDto" >
+		insert into blog(blog_id, blog_title, blog_like, blog_profile, blog_view)
+		values(#{blogId}, #{blogTitle}, #{blogLike}, #{blogProfile}, #{blogView})
+	</insert>
+	
+	<insert id="makeMemo" parameterType="MemoDto" >
+		insert into memo(memo_id)
+		values(#{memoId})
+	</insert>
 	
 	
 </mapper>
