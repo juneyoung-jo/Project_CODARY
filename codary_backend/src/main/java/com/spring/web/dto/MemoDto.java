@@ -2,13 +2,20 @@ package com.spring.web.dto;
 
 public class MemoDto {
 
-	private int memoId;
+	private String memoId;
+	
+	public MemoDto() {
+	}
 
-	public int getMemoId() {
+	public MemoDto(String memoId) {
+		this.memoId = memoId;
+	}
+
+	public String getMemoId() {
 		return memoId;
 	}
 
-	public void setMemoId(int memoId) {
+	public void setMemoId(String memoId) {
 		this.memoId = memoId;
 	}
 
@@ -16,5 +23,7 @@ public class MemoDto {
 	public String toString() {
 		return "MemoDto [memoId=" + memoId + "]";
 	}
+
+
 
 }
