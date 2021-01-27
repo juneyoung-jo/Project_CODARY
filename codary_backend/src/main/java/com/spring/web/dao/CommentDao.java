@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.CommentToLikeDto;
+import com.spring.web.dto.LogDto;
+import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 
 @Mapper
@@ -31,5 +33,7 @@ public interface CommentDao {
 	void downComment(CommentToLikeDto ctl) throws Exception;
 
 	int commentLikeCancle(CommentToLikeDto ctl) throws Exception;
+
+	List<LogDto> getLog(UserDto user) throws Exception;
 
 }

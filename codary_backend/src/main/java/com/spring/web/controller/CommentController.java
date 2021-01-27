@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.CommentToLikeDto;
+import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.CommentService;
 
@@ -233,6 +234,33 @@ public class CommentController {
 		try {
 			commentSer.commentLikeCancle(ctl);
 			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	/**
+	 * 
+	 * 확인하지 않은 댓글 카운팅 
+	 * 
+	 * @param uid,blogId
+	 * 
+	 */
+	@PostMapping("commentCheck")
+	public ResponseEntity<Map<String, Object>> commentCheck(@RequestBody UserDto user) {
+		System.out.println("확인하지 않은 댓글 카운트 ");
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			List<CommentDto> data = commentSer.commentCheck(user);
+			map.put("msg", "success");
+			map.put("data", data);
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
