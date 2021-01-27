@@ -12,9 +12,9 @@ import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 
 public interface PersonalService {
-	public List<BlogContentsDto> personalContents(int blogid);
-	public List<MemoContentsDto> showMemo(int memoid);
+	public List<BlogContentsDto> personalContents(String blogid);
+	public List<MemoContentsDto> showMemo(String memoid);
 	public List<BlogDto> showLikeBloger(String uid);
 	public List<BlogContentsDto> showLikeBlogContents(String uid);
-	public List<JandiDto> jandi(int blogid);
+	public List<JandiDto> jandi(String blogid);
 }

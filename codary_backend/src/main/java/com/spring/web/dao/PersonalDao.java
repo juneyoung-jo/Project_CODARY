@@ -15,9 +15,9 @@ import com.spring.web.dto.MemoDto;
 
 @Mapper
 public interface PersonalDao {
-	public List<BlogContentsDto> showBlogContents(int blogid);
-	public List<MemoContentsDto> showMemo(int memoid);
+	public List<BlogContentsDto> showBlogContents(String blogid);
+	public List<MemoContentsDto> showMemo(String memoid);
 	public List<BlogDto> likeBloger(String uid);
 	public List<BlogContentsDto> likeBlogContents(String uid);
-	public List<JandiDto> jandi(int blogid);
+	public List<JandiDto> jandi(String blogid);
 }

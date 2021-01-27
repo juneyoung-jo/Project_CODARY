@@ -39,7 +39,7 @@ public class PersonalController {
 	
 	/*블로거가 쓴 글*/
 	@GetMapping("/blog/{blogid}")
-	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable int blogid, HttpSession session) {
+	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid, HttpSession session) {
 		
 		List<BlogContentsDto> blogcontentsList=null;
 		blogcontentsList= personalService.personalContents(blogid);
@@ -49,7 +49,7 @@ public class PersonalController {
 	
 	/*내 메모 불러오기*/
 	@GetMapping("/blog/memo/{memoid}") 
-	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable int memoid, HttpServletRequest request) {
+	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<MemoContentsDto> memocontentsDto=null;
@@ -72,7 +72,7 @@ public class PersonalController {
 	
 	/*좋아요한 블로거 목록보기*/
 	@GetMapping("/blog/{blogid}/{uid}")
-	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable int blogid, @PathVariable String uid){
+	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogDto> blogDto=null;
@@ -95,7 +95,7 @@ public class PersonalController {
 	
 	/*좋아요한 블로그 글 목록보기*/
 	@GetMapping("/{blogid}/{uid}")
-	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable int blogid, @PathVariable String uid){
+	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogContentsDto> blogcontentsDto=null;
@@ -118,7 +118,7 @@ public class PersonalController {
 	
 	/*잔디*/
 	@GetMapping("/blog/jandi/{blogid}")
-	public ResponseEntity<List<JandiDto>> showjandi(@PathVariable int blogid){
+	public ResponseEntity<List<JandiDto>> showjandi(@PathVariable String blogid){
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<JandiDto> jandiDto=null;
 		

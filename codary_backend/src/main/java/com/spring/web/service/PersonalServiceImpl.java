@@ -22,12 +22,12 @@ public class PersonalServiceImpl implements PersonalService{
 	private PersonalDao personalDao;
 	
 	@Override
-	public List<BlogContentsDto> personalContents(int blogid) {
+	public List<BlogContentsDto> personalContents(String blogid) {
 		return personalDao.showBlogContents(blogid);
 	}
 
 	@Override
-	public List<MemoContentsDto> showMemo(int memoid) {
+	public List<MemoContentsDto> showMemo(String memoid) {
 		return personalDao.showMemo(memoid);
 	}
 
@@ -42,7 +42,7 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<JandiDto> jandi(int blogid) {
+	public List<JandiDto> jandi(String blogid) {
 		return personalDao.jandi(blogid);
 	}
 	

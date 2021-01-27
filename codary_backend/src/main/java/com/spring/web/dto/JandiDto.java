@@ -5,6 +5,7 @@ import java.util.Date;
 public class JandiDto {
 	
 	private int jandInum;
+	private String blogId;
 	private Date blogDatetime;
 	private String jandiCnt;
 	
@@ -13,6 +14,12 @@ public class JandiDto {
 	}
 	public void setJandInum(int jandInum) {
 		this.jandInum = jandInum;
+	}
+	public String getBlogId() {
+		return blogId;
+	}
+	public void setBlogId(String blogId) {
+		this.blogId = blogId;
 	}
 	public Date getBlogDatetime() {
 		return blogDatetime;
@@ -26,12 +33,12 @@ public class JandiDto {
 	public void setJandiCnt(String jandiCnt) {
 		this.jandiCnt = jandiCnt;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "JandiDto [jandInum=" + jandInum + ", blogDatetime=" + blogDatetime + ", jandiCnt=" + jandiCnt + "]";
+		return "JandiDto [jandInum=" + jandInum + ", blogId=" + blogId + ", blogDatetime=" + blogDatetime
+				+ ", jandiCnt=" + jandiCnt + "]";
 	}
-	
 	
 	
 }
