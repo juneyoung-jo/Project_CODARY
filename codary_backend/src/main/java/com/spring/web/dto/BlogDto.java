@@ -2,16 +2,16 @@ package com.spring.web.dto;
 
 public class BlogDto {
 
-	private int blogId;
+	private String blogId;
 	private int blogLike;
 	private String blogCover;
 	private int blogView;
 
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
 

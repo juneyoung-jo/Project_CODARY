@@ -1,8 +1,6 @@
 package com.spring.web.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +16,8 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	private SqlSession sqlSession;
 	
 	@Override
-	public BlogContentsDto getContent(int blogId, int blogContentsId) throws Exception {
-		Map<String, Integer> map = new HashMap<>();
-		map.put("blogId", blogId);
-		map.put("blogContentsId", blogContentsId);
-		return sqlSession.getMapper(BlogContentsDao.class).getContent(map);
+	public BlogContentsDto getContent(int blogContentsId) throws Exception {
+		return sqlSession.getMapper(BlogContentsDao.class).getContent(blogContentsId);
 	}
 
 	@Override
@@ -31,7 +26,7 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 
 	@Override
-	public List<BlogContentsDto> listBlogContents(int blogId) throws Exception {
+	public List<BlogContentsDto> listBlogContents(String blogId) throws Exception {
 		return sqlSession.getMapper(BlogContentsDao.class).listBlogContents(blogId);
 	}
 
@@ -41,11 +36,8 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 
 	@Override
-	public void deleteBlogContent(int blogId, int blogContentsId) throws Exception {
-		Map<String, Integer> map = new HashMap<>();
-		map.put("blogId", blogId);
-		map.put("blogContentsId", blogContentsId);
-		sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(map);
+	public void deleteBlogContent(int blogContentsId) throws Exception {
+		sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(blogContentsId);
 	}
 
 }

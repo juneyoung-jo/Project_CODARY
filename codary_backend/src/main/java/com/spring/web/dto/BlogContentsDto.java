@@ -3,7 +3,7 @@ package com.spring.web.dto;
 public class BlogContentsDto {
 
 	private int blogContentsId;
-	private int blogId;
+	private String blogId;
 	private String blogContentsTitle;
 	private String blogContents;
 	private int blogContentsView;
@@ -17,10 +17,10 @@ public class BlogContentsDto {
 	public void setBlogContentsId(int blogContentsId) {
 		this.blogContentsId = blogContentsId;
 	}
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
 	public String getBlogContentsTitle() {

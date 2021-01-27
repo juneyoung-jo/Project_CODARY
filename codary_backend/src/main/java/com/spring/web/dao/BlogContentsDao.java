@@ -11,10 +11,10 @@ import com.spring.web.dto.BlogContentsDto;
 @Mapper
 public interface BlogContentsDao {
 	
-	BlogContentsDto getContent(Map<String, Integer> map) throws SQLException;
+	BlogContentsDto getContent(int blogContentsId) throws SQLException;
 	void writeBlogContent(BlogContentsDto blogContent) throws SQLException;
-	List<BlogContentsDto> listBlogContents(int blogId) throws SQLException;
+	List<BlogContentsDto> listBlogContents(String blogId) throws SQLException;
 	void modifyBlogContent(BlogContentsDto blogContent) throws SQLException;
-	void deleteBlogContent(Map<String, Integer> map) throws SQLException;
-	
+	void deleteBlogContent(int blogContentsId) throws SQLException;
+
 }
