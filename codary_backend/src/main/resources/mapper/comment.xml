@@ -69,7 +69,6 @@
 		select * 
 		from log
 		where uid=#{uid}
-		order by blog_contents_id,datetime
 	</select>
 	
 	<select id="getComment" parameterType="UserDto" resultType="CommentDto">

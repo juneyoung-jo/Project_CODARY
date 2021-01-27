@@ -99,12 +99,13 @@ public class CommentServiceImpl implements CommentService {
 		// 1. uid를 가지고 log 테이블에서 blog_content_id에 접속한 시간 셀렉
 		List<LogDto> log = sqlSession.getMapper(CommentDao.class).getLog(user);
 		HashMap<Integer, String> mylogTime = new HashMap<Integer, String>();
+		Collections.sort(log,(o1,o2) -> o1.getDatetime().compareTo(o2.getDatetime()));
 
 		// 2. 1번의 결과물에서 각각의 bolg_content_id 마다 가장 늦은 datetime 저장
 		for (LogDto lg : log) {
 			mylogTime.put(lg.getBlogContentsId(), lg.getDatetime());
 		}
-
+		
 		// 3. blogId 가지고 comment 전부 다 셀렉
 		List<CommentDto> commentList = sqlSession.getMapper(CommentDao.class).getComment(user);
 

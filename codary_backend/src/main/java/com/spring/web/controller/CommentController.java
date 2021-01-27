@@ -24,6 +24,10 @@ import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.CommentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("CommentController V1")
 @RestController
 @CrossOrigin(origins = { "*" })
 @RequestMapping("/comment")
@@ -39,6 +43,7 @@ public class CommentController {
 	 * @param blog_id, blog_contents_id
 	 * @return List<CommentDto>
 	 */
+	@ApiOperation(value = "현재 클릭 한 블로그 글의 댓글 전체 읽어오기", notes ="@param : blogId, blogContentsId  </br> @return : List<CommentDto>")
 	@GetMapping("commentAll/{blogId}/{blogContentsId}")
 	public ResponseEntity<Map<String, Object>> listCommnet(@PathVariable String blogId, @PathVariable int blogContentsId) {
 		System.out.println("댓글 리스트 읽어오기");
@@ -66,6 +71,7 @@ public class CommentController {
 	 * @param uid
 	 * @return userInfo
 	 */
+	@ApiOperation(value = "해당 댓글의 유저정보를 읽어오기 -profile, nickName 정보 등을 얻기", notes ="@param : uid  </br> @return : userInfo")
 	@PostMapping("getUserInfo")
 	public ResponseEntity<Map<String, Object>> getUserInfo(@RequestBody UserInfoDto info) {
 		System.out.println("댓글의 유저정보 읽어오기");
@@ -93,6 +99,7 @@ public class CommentController {
 	 * @param #{blogContentsId},#{blogId},#{commentContent},#{uid}
 	 *
 	 */
+	@ApiOperation(value = "댓글 쓰기기능", notes ="@param : blogContentsId, blogId, commentContent,uid  </br>")
 	@PostMapping("writeComment")
 	public ResponseEntity<Map<String, Object>> writeComment(@RequestBody CommentDto comment) {
 		System.out.println("댓글쓰기");
@@ -120,6 +127,7 @@ public class CommentController {
 	 * @param commentDto(commentNum, commentContent)
 	 * 
 	 */
+	@ApiOperation(value = "댓글 수정기능", notes ="@param : commentNum,commentContent  </br>")
 	@PutMapping("modifyComment")
 	public ResponseEntity<Map<String, Object>> modifyComment(@RequestBody CommentDto comment) {
 		System.out.println("댓글수정");
@@ -147,6 +155,7 @@ public class CommentController {
 	 * @param commentNum
 	 *
 	 */
+	@ApiOperation(value = "댓글 삭제기능", notes ="@param : commentNum</br>")
 	@DeleteMapping("deleteComment/{commentNum}")
 	public ResponseEntity<Map<String, Object>> deleteComment(@PathVariable int commentNum) {
 		System.out.println("댓글삭제");
@@ -173,6 +182,7 @@ public class CommentController {
 	 * @param uid,commentNum
 	 * @return true -> 해당 댓글에 내가 좋아요를 누름. false -> 해당 댓글에 내가 좋아요를 안 누름.
 	 */
+	@ApiOperation(value = "댓글 좋아요 확인기능", notes ="@param : uid, commentNum</br> @return : true -> 해당 댓글에 내가 좋아요를 누름. false -> 해당 댓글에 내가 좋아요를 안 누름.")
 	@PostMapping("getCommentLike")
 	public ResponseEntity<Map<String, Object>> getCommentLike(@RequestBody CommentToLikeDto ctl) {
 		System.out.println("댓글 좋아요 체크");
@@ -200,6 +210,7 @@ public class CommentController {
 	 * @param uid,commentNum
 	 * 
 	 */
+	@ApiOperation(value = "댓글 좋아요 누르기 ", notes ="@param : uid, commentNum</br>")
 	@PostMapping("commentLike")
 	public ResponseEntity<Map<String, Object>> commentLike(@RequestBody CommentToLikeDto ctl) {
 		System.out.println("해당 댓글의 좋아요 누르기");
@@ -226,6 +237,7 @@ public class CommentController {
 	 * @param uid,commentNum
 	 * 
 	 */
+	@ApiOperation(value = "댓글 좋아요 취소하기 ", notes ="@param : uid, commentNum</br>")
 	@PostMapping("commentLikeCancle")
 	public ResponseEntity<Map<String, Object>> commentLikeCancle(@RequestBody CommentToLikeDto ctl) {
 		System.out.println("해당 댓글의 좋아요 취소하기");
@@ -253,6 +265,7 @@ public class CommentController {
 	 * @return null 이면 확인 안한 댓글이 없음
 	 *
 	 */
+	@ApiOperation(value = "확인하지 않은 댓글 카운트", notes ="@param : uid,blogId </br> @return : null -> 확인 안한 댓글이 없음 / 있으면 리스트로 던짐")
 	@PostMapping("commentCheck")
 	public ResponseEntity<Map<String, Object>> commentCheck(@RequestBody UserDto user) {
 		System.out.println("확인하지 않은 댓글 카운트 ");
