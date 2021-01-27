@@ -1,10 +1,12 @@
 <template>
-  <v-app id="app"> 
-      <Nav/>
-      <memo/>
-      <v-main>
-        <router-view/>
-      </v-main>
+  <v-app 
+    id="app"
+  > 
+    <Nav/>
+    <memo/>
+    <v-main>
+      <router-view/>
+    </v-main>
   </v-app>
   
 </template>

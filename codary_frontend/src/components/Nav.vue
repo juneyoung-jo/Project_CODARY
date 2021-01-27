@@ -25,25 +25,27 @@
       </v-col>
     </v-row>
     <!-- buttons -->
-    <v-row justify='end' class='mt-0 mb-1 button'>
+    <v-row justify='end' class='mt-0 mb-1'>
       <v-cols cols='auto'>
+        <!-- search -->
         <router-link class='noline' :to="'/searchpage'">
           <v-btn>
             <font-awesome-icon :icon="['fas','search']"/>
           </v-btn>
         </router-link>
-
+        <!-- bloghome -->
         <router-link class='noline' :to="'/bloghome'">
           <v-btn>
             블로그홈
           </v-btn>
         </router-link>
-
+        <!-- write -->
         <router-link class='noline' :to="'/createpost'">
           <v-btn>
             글 작성
           </v-btn>
         </router-link>
+        <!-- login -->
         <Modal/>
       </v-cols>
     </v-row>
@@ -51,10 +53,12 @@
 </template>
 
 <script>
-import Modal from './Modal.vue'
+import Modal from './Modal'
 
 export default {
-  components: { Modal },
+  components: { 
+    'Modal':Modal, 
+  },
   name: 'Nav',
   watch: {
       color (val) {
