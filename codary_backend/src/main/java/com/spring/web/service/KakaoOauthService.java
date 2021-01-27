@@ -63,8 +63,8 @@ public class KakaoOauthService implements OAuthService{
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
             
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
+            //System.out.println("access_token : " + access_Token);
+            //System.out.println("refresh_token : " + refresh_Token);
             
             br.close();
             bw.close();
@@ -107,18 +107,19 @@ public class KakaoOauthService implements OAuthService{
 	        
 	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        JsonObject profile = kakao_account.getAsJsonObject().get("profile").getAsJsonObject();
 	        
+	        // 인증수단, 인증 서버내 pk값, 이메일, 이름, 프로필 사진   
+	        String provider = "Kakao";
 	        String providerId = element.getAsJsonObject().get("id").getAsString();
 	        String email = "kakao_"+element.getAsJsonObject().get("id").getAsString();
 	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	        if(kakao_account.getAsJsonObject().get("email") != null) {
-	        	email = kakao_account.getAsJsonObject().get("email").getAsString();
-	        }
-//	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        String profileImg =profile.getAsJsonObject().get("profile_image_url").getAsString();
 	        
 	        userInfo.put("nickname", nickname);
 	        userInfo.put("email", email);
-	        userInfo.put("provider", "kakao");
+	        userInfo.put("profileImg", profileImg);
+	        userInfo.put("provider", provider);
 	        userInfo.put("providerId", providerId);
 	        
 	    } catch (IOException e) {

@@ -34,32 +34,36 @@ public class UserServiceImpl implements UserService{
 	public UserDto findById(String uid) {
 		return sqlSession.getMapper(UserDao.class).findById(uid);
 	}
+	
+	@Override
+	public BlogDto findByBlogId(String blogId) {
+		return sqlSession.getMapper(UserDao.class).findByBlogId(blogId);
+	}
 
 	@Override
-	public void save(HashMap<String, Object> userInfo) {
-		for(int i=0; i<10; i++) {
-			System.out.println(makeUid());
-		}
+	public UserDto save(HashMap<String, Object> userInfo) {
 		
 		String uid = makeUid();
-		String blogId = uid;
+		String blogId = makeBlogId();
 		String nickname = (String) userInfo.get("nickname");
 		String provider = (String) userInfo.get("provider");
 		String providerId = (String) userInfo.get("providerId");
-		String defaultImg = "default";
+		String profileImg = (String) userInfo.get("profileImg");
+		String blogProfile = "blogProfileDefault";
 		
 		// 1. user 테이블 생성
-		sqlSession.getMapper(UserDao.class).save(new UserDto(uid, uid, uid, provider, providerId));
+		sqlSession.getMapper(UserDao.class).save(new UserDto(uid, blogId, uid, provider, providerId));
 		
 		// 2. userinfo 테이블 생성
-		sqlSession.getMapper(UserDao.class).saveUserInfo(new UserInfoDto(uid, nickname, defaultImg));
+		sqlSession.getMapper(UserDao.class).saveUserInfo(new UserInfoDto(uid, nickname, profileImg));
 
 		// 3. blog 테이블 생성
-		sqlSession.getMapper(UserDao.class).makeBlog(new BlogDto(uid, 0, nickname, defaultImg, 0));
+		sqlSession.getMapper(UserDao.class).makeBlog(new BlogDto(blogId, 0, nickname, blogProfile, 0));
 		
 		// 4. memo 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeMemo(new MemoDto(uid));
-		
+
+		return new UserDto(uid, uid, uid, provider, providerId);
 	}
 	
 
@@ -69,7 +73,7 @@ public class UserServiceImpl implements UserService{
 		while(true) {
 			String str ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 			
-			for(int i=0; i<15; i++) {
+			for(int i=0; i<12; i++) {
 				sb.append(str.charAt((int)(Math.random() * str.length())));
 			}
 			user = findById(sb.toString());
@@ -77,6 +81,24 @@ public class UserServiceImpl implements UserService{
 		}
 		return sb.toString();
 	}
+	
+	public String makeBlogId() {
+		BlogDto blog = null;
+		StringBuilder sb = new StringBuilder();
+		while(true) {
+			String str ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+			
+			for(int i=0; i<12; i++) {
+				sb.append(str.charAt((int)(Math.random() * str.length())));
+			}
+			blog = findByBlogId(sb.toString());
+			if(blog == null) break;
+		}
+		return sb.toString();
+	}
+
+
+	
 
 
 

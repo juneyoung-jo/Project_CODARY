@@ -14,6 +14,7 @@ public interface UserDao {
 
 	public UserDto findByProvider(Map<String, String> map);
 	public UserDto findById(String uid);
+	public BlogDto findByBlogId(String blogId);
 	public void save(UserDto user);
 	public void saveUserInfo(UserInfoDto userInfo);
 	public void makeBlog(BlogDto blog);
