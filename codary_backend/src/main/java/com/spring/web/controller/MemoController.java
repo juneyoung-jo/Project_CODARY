@@ -28,24 +28,44 @@ public class MemoController {
 	
 	@PostMapping
 	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
-		memoService.writeMemo(memo);
-		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
+		try {
+			memoService.writeMemo(memo);
+			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@GetMapping("{memoId}")
 	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable String memoId) throws Exception {
-		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+		try {
+			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@PutMapping
 	public ResponseEntity<List<MemoContentsDto>> modifyMemo(@RequestBody MemoContentsDto memo) throws Exception {
-		memoService.modifyMemo(memo);
-		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
+		try {
+			memoService.modifyMemo(memo);
+			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@DeleteMapping("{memoId}/{memoNum}")
 	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable String memoId, @PathVariable int memoNum) throws Exception {
-		memoService.deleteMemo(memoNum);
-		return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+		try {
+			memoService.deleteMemo(memoNum);
+			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 }
