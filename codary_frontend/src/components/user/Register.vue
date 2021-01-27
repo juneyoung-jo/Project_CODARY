@@ -1,34 +1,47 @@
-
 <template v-slot:default="dialog">
-  <v-card>
-    <v-img
-      alt="안보여요"
-      src="../../assets/register.png"
-      max-height="153"
-      max-width="250"
-    >
-      <v-card-title>회원가입</v-card-title>
-    </v-img>
+  <v-card id='register'
+    
+  >
+    
+    <v-card-title>회원가입~</v-card-title>
+    
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
         @click="dialog.value = false"
-      >구글로 회원가입</v-btn>
+      >
+      <v-img src="../../assets/google.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      구글로 회원가입
+      </v-btn>
     </v-card-actions>
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
+        src="../../assets/kakao.png"
         @click="dialog.value = false"
-      >카카오톡으로 회원가입</v-btn>
+      >
+      <v-img src="../../assets/kakao.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      카카오톡으로 회원가입
+      </v-btn>
     </v-card-actions>
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
+        
         @click="dialog.value = false"
-      >네이버로 회원가입</v-btn>
+      >
+      <v-img src="../../assets/naver.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      네이버로 회원가입
+      </v-btn>
     </v-card-actions>
 
   </v-card>
@@ -51,5 +64,7 @@ export default {
 </script>
 
 <style>
-
+  #register {
+    background-image:url("../../assets/register.png")
+  }
 </style>

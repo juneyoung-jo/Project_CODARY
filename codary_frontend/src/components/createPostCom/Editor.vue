@@ -4,13 +4,14 @@
   npm install @toast-ui/editor
   npm install @toast-ui/vue-editor
   npm install codemirror-->
-    <editor 
+    <editor
+      ref="toastuiEditor"
       :initialValue="editorText"
       :options="editorOptions"
       height="500px"
       initialEditType="markdown"
       previewStyle="vertical"
-      @keypress.enter="datachange()"
+      
     />
     <v-btn
       @click="datachange()"
@@ -20,6 +21,7 @@
     </v-btn>
     
     <viewer 
+      ref="toastuiViewer"
       :value="editorText" 
       height="500px"
       :initialValue="editorText" 
@@ -43,15 +45,21 @@ export default {
     return {
       editorText: '# This is initialValue.',
       editorOptions: {
-        hideModeSwitch: false
+        hideModeSwitch: true
       }
     };
   },
   methods: {
     datachange : function() {
+      const content = this.$refs.toastuiEditor.invoke("getMarkdown");
       
-      this.editorText = (Editor.getMarkdown())
-      console.log(this.editorText)
+      this.editorText = content
+
+      console.log(this.$refs.toastuiViewer)
+      
+      this.$refs.toastuiViewer.editor.markdownValue = content
+      // console.log(this.editorText)
+      // this.editorText = (Editor.getMarkdown())
       
     }
   },

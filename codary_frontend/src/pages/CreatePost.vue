@@ -1,8 +1,10 @@
 <template>
   <div>
     <SelectPostCover/>
-    <PostName/>
-    <Editor/>
+    <v-container>
+      <PostName/>
+      <Editor/>
+    </v-container>
   </div>
 </template>
 

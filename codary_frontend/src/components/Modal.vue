@@ -11,8 +11,8 @@
         
         <v-tabs
           v-model="tab"
-          background-color="transparent"
-          color="Red"
+          background-color="indigo"
+          color="red"
           grow
         >
           <v-tab>
@@ -25,11 +25,11 @@
 
         <v-tabs-items v-model="tab">
           <v-tab-item>
-            Login   
+              
             <Login/>  
           </v-tab-item>
           <v-tab-item>
-            Register  
+             
             <Register/>
           </v-tab-item>
         </v-tabs-items>

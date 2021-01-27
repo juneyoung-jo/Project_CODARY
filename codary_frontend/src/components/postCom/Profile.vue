@@ -1,5 +1,5 @@
 <template>
-<div class='py-12'>
+<div class='py-12 pb-0'>
   <v-container
     id="user-profile-view"
     fluid
@@ -7,12 +7,15 @@
   >
     <v-row>
       <v-col
-        cols="12"
+        cols="9"
+        class="d-flex"
       >
+        
         <v-img
           class="rounded-circle elevation-6"
           src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
           width="128"
+          height="128"
         />
 
         <v-card-text>
