@@ -4,19 +4,19 @@ public class BlogDto {
 
 	private String blogId;
 	private int blogLike;
-	private String blogTitle;
-	private String blogProfile;
+	private String blogCover;
 	private int blogView;
+	private String blogTitle;
 
 	public BlogDto() {
 	}
 
-	public BlogDto(String blogId, int blogLike, String blogTitle, String blogProfile, int blogView) {
+	public BlogDto(String blogId, int blogLike, String blogTitle, String blogCover, int blogView) {
 		super();
 		this.blogId = blogId;
 		this.blogLike = blogLike;
 		this.blogTitle = blogTitle;
-		this.blogProfile = blogProfile;
+		this.blogCover = blogCover;
 		this.blogView = blogView;
 	}
 
@@ -35,23 +35,23 @@ public class BlogDto {
 	public void setBlogLike(int blogLike) {
 		this.blogLike = blogLike;
 	}
+	
+	public String getBlogCover() {
+		return blogCover;
+	}
 
+	public void setBlogCover(String blogCover) {
+		this.blogCover = blogCover;
+	}
+	
 	public String getBlogTitle() {
 		return blogTitle;
 	}
-
+	
 	public void setBlogTitle(String blogTitle) {
 		this.blogTitle = blogTitle;
 	}
-
-	public String getBlogProfile() {
-		return blogProfile;
-	}
-
-	public void setBlogProfile(String blogProfile) {
-		this.blogProfile = blogProfile;
-	}
-
+	
 	public int getBlogView() {
 		return blogView;
 	}
@@ -62,8 +62,8 @@ public class BlogDto {
 
 	@Override
 	public String toString() {
-		return "BlogDto [blogId=" + blogId + ", blogLike=" + blogLike + ", blogTitle=" + blogTitle + ", blogProfile="
-				+ blogProfile + ", blogView=" + blogView + "]";
+		return "BlogDto [blogId=" + blogId + ", blogTitle=" + blogTitle + ", blogLike=" + blogLike + ", blogCover=" + blogCover + ", blogView="
+				+ blogView + "]";
 	}
 	
 
