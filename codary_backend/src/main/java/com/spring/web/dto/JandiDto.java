@@ -6,8 +6,8 @@ public class JandiDto {
 	
 	private int jandInum;
 	private String blogId;
-	private Date blogDatetime;
-	private String jandiCnt;
+	private String blogDatetime;
+	private Integer jandiCnt;
 	
 	public int getJandInum() {
 		return jandInum;
@@ -21,24 +21,25 @@ public class JandiDto {
 	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
-	public Date getBlogDatetime() {
+	public String getBlogDatetime() {
 		return blogDatetime;
 	}
-	public void setBlogDatetime(Date blogDatetime) {
+	public void setBlogDatetime(String blogDatetime) {
 		this.blogDatetime = blogDatetime;
 	}
-	public String getJandiCnt() {
+	public Integer getJandiCnt() {
 		return jandiCnt;
 	}
-	public void setJandiCnt(String jandiCnt) {
+	public void setJandiCnt(Integer jandiCnt) {
 		this.jandiCnt = jandiCnt;
 	}
-
 	@Override
 	public String toString() {
 		return "JandiDto [jandInum=" + jandInum + ", blogId=" + blogId + ", blogDatetime=" + blogDatetime
 				+ ", jandiCnt=" + jandiCnt + "]";
 	}
+	
+	
 	
 	
 }

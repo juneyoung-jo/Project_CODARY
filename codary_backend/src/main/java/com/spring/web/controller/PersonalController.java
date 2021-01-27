@@ -1,6 +1,7 @@
 package com.spring.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,14 +119,95 @@ public class PersonalController {
 	
 	/*잔디*/
 	@GetMapping("/blog/jandi/{blogid}")
-	public ResponseEntity<List<JandiDto>> showjandi(@PathVariable String blogid){
+	public ResponseEntity<List<Map<String, Integer>>> showjandi(@PathVariable String blogid){
 		HttpStatus status=HttpStatus.ACCEPTED;
-		List<JandiDto> jandiDto=null;
+		List<JandiDto> jandiDto=null;	
+		Map<String, Integer> resultMap=new HashMap<>();
+		List<Map<String, Integer>> list=new ArrayList<>();
+		List<Integer> l=new ArrayList<>();
+		//int arr[]=new int[365];
+		
 		
 		//	if(jwtService.isUsable(request.getHeader("access-token")) { 
 				try {
 					jandiDto=personalService.jandi(blogid);
-					System.out.println(jandiDto);
+					
+					//jandiDto에서 가져온 마지막날짜
+					int start=Integer.parseInt(jandiDto.get(jandiDto.size()-1).getBlogDatetime().replace("-", ""));
+					//System.out.println(start);
+					
+					ArrayList<Integer> day=new ArrayList<>();	//날짜 : ex) 20210127
+					ArrayList<Integer> cnt=new ArrayList<>(); 	//횟수 : ex) 3
+					
+					ArrayList<Integer> result=new ArrayList<>();
+					
+					/*for(int i=0; i<jandiDto.size(); i++) {
+						day.add(Integer.parseInt(jandiDto.get(i).getBlogDatetime().replace("-", "")));
+						cnt.add(jandiDto.get(i).getJandiCnt());
+					}*/
+					
+					int nn=start-365;
+					int size=0;
+					for(int i=0; i<365; i++) {
+						
+							/*if(size<=jandiDto.size()) {
+								day.add(Integer.parseInt(jandiDto.get(size).getBlogDatetime().replace("-", "")));
+								cnt.add(jandiDto.get(size).getJandiCnt());
+								size++;
+							}
+							else {
+								cnt.add(0);
+							}*/
+						if(size<jandiDto.size()) {
+							if(nn==Integer.parseInt(jandiDto.get(size).getBlogDatetime().replace("-", ""))) {
+								result.add(jandiDto.get(size).getJandiCnt());
+								size++;
+							}
+							else {
+								result.add(0);
+							}
+						}
+							nn++;
+					}
+					
+					/*int n=jandiDto.size()-1;
+					for(int i=start; i>start-365; i--) {
+						if(n>=0) {
+							result.add(cnt.get(n));
+						}
+						else {
+							result.add(0);
+						}
+						n--;
+						//resultMap.put(day.get(n).get
+					}*/
+					//result.get(day.get(i))
+					//int starttime=day.get(day.size()-1);
+					
+					/*int nn=0;
+					for(int i=0; i<365; i++) {
+						if(nn<=jandiDto.size()-1) 
+							if() {
+								
+							}
+						 
+						if(){
+							//resultMap.put(jandiDto.get(i).getBlogDatetime(),jandiDto.get(i).getJandiCnt());
+							System.out.println("if2지롱");
+							l.add(jandiDto.get(i).getJandiCnt());
+							System.out.println("if2지롱");
+						}else {
+							l.add(0);
+							System.out.println("else지롱");
+						}
+					}
+					
+					list.add(resultMap);
+					*/
+					for(int i=0; i<result.size(); i++) {
+						System.out.println(i+" : "+result.get(i));
+					}
+					
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -135,6 +217,6 @@ public class PersonalController {
 			
 		//	}
 		
-			return new ResponseEntity<List<JandiDto>>(jandiDto, HttpStatus.OK);
+			return new ResponseEntity<List<Map<String, Integer>>>(list, HttpStatus.OK);
 	}
 }
