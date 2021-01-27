@@ -3,6 +3,8 @@ package com.spring.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,40 +22,67 @@ import com.spring.web.service.UserService;
 @RestController
 public class UserController {
 
-	@Autowired private UserService userService;
-	@Autowired private KakaoOauthService kakaoOauthService;
-	@Autowired private JwtServiceImpl jwtService;
-	
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private KakaoOauthService kakaoOauthService;
+	@Autowired
+	private JwtServiceImpl jwtService;
+
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-	
+
 	@GetMapping("/login/kakao")
 	public ResponseEntity<Map<String, Object>> login(@RequestParam("code") String code) {
-		System.out.println("#Log - KakaoApi 로그인 ");
+		logger.info("#KakaoApi 로그인 ");
 		String accssTocken = kakaoOauthService.getAccessToken(code);
-		System.out.println("#Log - Get userInfo");
 		HashMap<String, Object> userInfo = kakaoOauthService.getUserInfoFromOauth(accssTocken);
+		logger.info("#Get userInfo: {}", userInfo);
 
 		UserDto user = userService.findByProvider(userInfo);
-		if(user == null) {
-			System.out.println("#Log - 최초 로그인입니다.");
+		if (user == null) {
+			logger.info("#최초 로그인입니다.");
 			user = userService.save(userInfo);
-		}else {
-			System.out.println("#Log - 기존회원입니다.");
-			System.out.println("uId: "+ user.getUid());
+		} else {
+			logger.info("#기존회원입니다.");
 		}
-		
-		String token  = jwtService.create("uId", user.getUid(), "access-token");
-		System.out.println("#Log - 토큰정보: "+ token);
-		
+
+		String token = jwtService.create("uId", user.getUid(), "access-token");
+		logger.debug("#토큰정보: " + token);
+
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("access-token", token);
 		resultMap.put("uId", user.getUid());
 		resultMap.put("message", SUCCESS);
-		
+
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 	}
-	
-	
+
+	@GetMapping("/test/user")
+	public ResponseEntity<Map<String, Object>> accessInfo(String uId, HttpServletRequest request) {
+		logger.info("#회원정보 페이지 접속");
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			logger.info("#사용가능한 토큰");
+			logger.info("#uId : {}", uId);
+			logger.info("#jwtGetUserInfo : {}", jwtService.getUserId());
+			UserDto user = userService.findById(uId);
+			if (user != null) {
+				resultMap.put("userInfo", user);
+			} else {
+				logger.warn("#userInfo 검색실패");
+			}
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} else {
+			logger.warn("#사용 불가능 토큰!!!");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+	}
 }

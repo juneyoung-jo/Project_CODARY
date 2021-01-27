@@ -11,15 +11,15 @@
 	</select>
 
 	<select id="findById" parameterType="string" resultType="UserDto">
-		select blog_id, blog_title, blog_like, blog_profile, blog_view
-		from blog
-		where blog_id = #{blogId}
-	</select>
-	
-	<select id="findByBlogId" parameterType="string" resultType="UserDto">
 		select uid, blog_id, memo_id, provider, provider_id, create_date
 		from user
 		where uid = #{uid}
+	</select>
+
+	<select id="findByBlogId" parameterType="string" resultType="UserDto">
+		select blog_id, blog_title, blog_like, blog_profile, blog_view
+		from blog
+		where blog_id = #{blogId}
 	</select>
 	
 	<insert id="save" parameterType="UserDto" >
