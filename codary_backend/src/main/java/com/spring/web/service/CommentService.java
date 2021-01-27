@@ -8,7 +8,7 @@ import com.spring.web.dto.UserInfoDto;
 
 public interface CommentService {
 
-	public List<CommentDto> listComment(int blogId, int blogContentsId) throws Exception;
+	public List<CommentDto> listComment(String blogId, int blogContentsId) throws Exception;
 
 	public UserInfoDto getUserInfo(UserInfoDto info) throws Exception;
 

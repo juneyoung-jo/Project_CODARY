@@ -30,11 +30,6 @@ public class CommentController {
 	@Autowired
 	CommentService commentSer;
 
-	@GetMapping("/")
-	public String main() {
-		return "hihi";
-	}
-
 	/**
 	 * 
 	 * 현재 클릭 한 블로그 글의 댓글 전체 읽어오기
@@ -43,7 +38,7 @@ public class CommentController {
 	 * @return List<CommentDto>
 	 */
 	@GetMapping("commentAll/{blogId}/{blogContentsId}")
-	public ResponseEntity<Map<String, Object>> listCommnet(@PathVariable int blogId, @PathVariable int blogContentsId) {
+	public ResponseEntity<Map<String, Object>> listCommnet(@PathVariable String blogId, @PathVariable int blogContentsId) {
 		System.out.println("댓글 리스트 읽어오기");
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -247,5 +242,6 @@ public class CommentController {
 		}
 		return resEntity;
 	}
+	
 
 }

@@ -12,7 +12,7 @@ import com.spring.web.dto.UserInfoDto;
 @Mapper
 public interface CommentDao {
 
-	List<CommentDto> listComment(Map<String, Integer> map) throws Exception;
+	List<CommentDto> listComment(Map<String, Object> map) throws Exception;
 
 	UserInfoDto getUserInfo(UserInfoDto info) throws Exception;
 
