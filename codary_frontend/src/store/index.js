@@ -10,7 +10,7 @@ export default new Vuex.Store({
         job:'CE0 / FOUNDER' , 
         name:'John Leider', 
         intro:'Hi nice to meet you',
-        mycover:'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg'
+        mycover: 'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
     },
     getters:{
     },
