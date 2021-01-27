@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.web.dto.CommentCountDto;
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.CommentToLikeDto;
 import com.spring.web.dto.UserDto;
@@ -249,7 +250,8 @@ public class CommentController {
 	 * 확인하지 않은 댓글 카운팅 
 	 * 
 	 * @param uid,blogId
-	 * 
+	 * @return null 이면 확인 안한 댓글이 없음
+	 *
 	 */
 	@PostMapping("commentCheck")
 	public ResponseEntity<Map<String, Object>> commentCheck(@RequestBody UserDto user) {
@@ -258,7 +260,7 @@ public class CommentController {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		try {
-			List<CommentDto> data = commentSer.commentCheck(user);
+			List<CommentCountDto> data = commentSer.commentCheck(user);
 			map.put("msg", "success");
 			map.put("data", data);
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

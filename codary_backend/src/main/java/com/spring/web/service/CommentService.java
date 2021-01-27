@@ -2,6 +2,7 @@ package com.spring.web.service;
 
 import java.util.List;
 
+import com.spring.web.dto.CommentCountDto;
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.CommentToLikeDto;
 import com.spring.web.dto.UserDto;
@@ -25,6 +26,6 @@ public interface CommentService {
 
 	public void commentLikeCancle(CommentToLikeDto ctl)throws Exception;
 
-	public List<CommentDto> commentCheck(UserDto user) throws Exception;
+	public List<CommentCountDto> commentCheck(UserDto user) throws Exception;
 
 }

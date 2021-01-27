@@ -64,10 +64,17 @@
 		where uid = #{uid}
 		AND comment_num = #{commentNum}
 	</delete>
+	
 	<select id="getLog" parameterType="UserDto" resultType="LogDto">
 		select * 
 		from log
 		where uid=#{uid}
 		order by blog_contents_id,datetime
+	</select>
+	
+	<select id="getComment" parameterType="UserDto" resultType="CommentDto">
+		select * 
+		from comment
+		where blog_id = #{blogId};
 	</select>
 </mapper>

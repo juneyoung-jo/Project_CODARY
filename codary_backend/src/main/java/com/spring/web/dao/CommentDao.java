@@ -36,4 +36,6 @@ public interface CommentDao {
 
 	List<LogDto> getLog(UserDto user) throws Exception;
 
+	List<CommentDto> getComment(UserDto user)throws Exception;
+
 }
