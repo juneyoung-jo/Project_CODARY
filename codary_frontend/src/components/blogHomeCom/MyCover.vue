@@ -1,6 +1,6 @@
 <template>
   <v-img 
-    src="https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg"
+    :src="mycover"
     max-height="300"
     top
   >
@@ -8,9 +8,15 @@
 </template>
 
 <script>
-export default {
-  name: 'MyCover'
-}
+
+import {mapState} from 'vuex'
+  export default {
+    name: 'MyCover',
+    computed:{
+      ...mapState(['mycover'])
+    }
+    
+    }
 </script>
 
 <style>
