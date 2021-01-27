@@ -36,6 +36,13 @@
           >
             Continue Reading
           </v-btn>
+          <router-link :to="'/viewpost'">
+            <v-btn
+              color="red"
+            >
+              글 보기
+            </v-btn>
+          </router-link>
         </v-col>
       </v-row>
     </v-container>

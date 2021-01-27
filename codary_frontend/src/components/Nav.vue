@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     app
-    absolute
+    elevate-on-scroll
   >
     <!-- logo -->
     <router-link :to="'/'" class='noline'>
