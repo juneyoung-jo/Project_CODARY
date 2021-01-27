@@ -32,4 +32,9 @@
 		where blog_contents_id = #{blogContentsId}
 	</delete>
 	
+	<select id="getAllContent" resultType="BlogContentsDto">
+		select *
+		from blogcontents
+	</select>
+	
 </mapper>

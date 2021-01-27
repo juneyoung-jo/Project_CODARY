@@ -1,5 +1,8 @@
 package com.spring.web.service;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +41,13 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public void deleteBlogContent(int blogContentsId) throws Exception {
 		sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(blogContentsId);
+	}
+	
+	@Override
+	public List<BlogContentsDto> recommendBlogContents() throws Exception{
+		List<BlogContentsDto> list = sqlSession.getMapper(BlogContentsDao.class).getAllContents();
+		
+		return list.subList(0, 20);
 	}
 
 }
