@@ -2,7 +2,7 @@ package com.spring.web.dto;
 
 public class MemoContentsDto {
 	private int memoNum;
-	private int memoId;
+	private String memoId;
 	private String memoContent;
 	private String memoTime;
 
@@ -14,11 +14,11 @@ public class MemoContentsDto {
 		this.memoNum = memoNum;
 	}
 
-	public int getMemoId() {
+	public String getMemoId() {
 		return memoId;
 	}
 
-	public void setMemoId(int memoId) {
+	public void setMemoId(String memoId) {
 		this.memoId = memoId;
 	}
 
