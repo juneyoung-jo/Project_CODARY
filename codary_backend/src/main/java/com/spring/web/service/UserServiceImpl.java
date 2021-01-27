@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
 	SqlSession sqlSession;
 	
 	@Override
-	public UserDto findByProvider(HashMap<String, Object> userInfo) {
+	public UserDto findByProvider(HashMap<String, Object> userInfo)  throws Exception {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("provider", (String)userInfo.get("provider"));
 		map.put("providerId", (String)userInfo.get("providerId"));
@@ -31,17 +31,17 @@ public class UserServiceImpl implements UserService{
 
 	
 	@Override
-	public UserDto findById(String uid) {
+	public UserDto findById(String uid) throws Exception {
 		return sqlSession.getMapper(UserDao.class).findById(uid);
 	}
 	
 	@Override
-	public BlogDto findByBlogId(String blogId) {
+	public BlogDto findByBlogId(String blogId) throws Exception {
 		return sqlSession.getMapper(UserDao.class).findByBlogId(blogId);
 	}
 
 	@Override
-	public UserDto save(HashMap<String, Object> userInfo) {
+	public UserDto save(HashMap<String, Object> userInfo) throws Exception {
 		
 		String uid = makeUid();
 		String blogId = makeBlogId();
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 
-	public String makeUid() {
+	public String makeUid() throws Exception {
 		UserDto user = null;
 		StringBuilder sb = new StringBuilder();
 		while(true) {
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
 		return sb.toString();
 	}
 	
-	public String makeBlogId() {
+	public String makeBlogId() throws Exception {
 		BlogDto blog = null;
 		StringBuilder sb = new StringBuilder();
 		while(true) {

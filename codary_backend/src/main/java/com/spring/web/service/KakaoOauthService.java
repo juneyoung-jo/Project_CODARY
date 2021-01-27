@@ -9,15 +9,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.spring.web.controller.UserController;
 
 @Service
 public class KakaoOauthService implements OAuthService{
 
+	public static final Logger logger = LoggerFactory.getLogger(KakaoOauthService.class);
+	
 	public String getAccessToken(String authorize_code) {
 		
 		String access_Token = "";
@@ -44,7 +49,7 @@ public class KakaoOauthService implements OAuthService{
             
             // 결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
+            logger.info("#responseCode : " + responseCode);
  
             // 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -54,7 +59,7 @@ public class KakaoOauthService implements OAuthService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
+            logger.info("#response body : " + result);
             
             // Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -90,7 +95,7 @@ public class KakaoOauthService implements OAuthService{
 	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 	        
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
+	        logger.info("#responseCode : " + responseCode);
 	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        
@@ -100,7 +105,7 @@ public class KakaoOauthService implements OAuthService{
 	        while ((line = br.readLine()) != null) {
 	            result += line;
 	        }
-	        System.out.println("response body : " + result);
+	        logger.info("#response body : " + result);
 	        
 	        JsonParser parser = new JsonParser();
 	        JsonElement element = parser.parse(result);
