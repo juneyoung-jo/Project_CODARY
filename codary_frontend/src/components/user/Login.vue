@@ -1,34 +1,49 @@
 
 <template v-slot:default="dialog">
-  <v-card>
-    <v-img
-      alt="안보여요"
-      src="../../assets/login.jpg"
-      max-height="153"
-      max-width="250"
-    >
-      <v-card-title>로그인~</v-card-title>
-    </v-img>
+  <v-card id='login'
+    
+  >
+    
+    <v-card-title>로그인~</v-card-title>
+    
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
+        
         @click="dialog.value = false"
-      >구글로 로그인</v-btn>
+      >
+      <v-img src="../../assets/google.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      구글로 로그인
+      </v-btn>
     </v-card-actions>
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
+        src="../../assets/kakao.png"
         @click="dialog.value = false"
-      >카카오톡으로 로그인</v-btn>
+      >
+      <v-img src="../../assets/kakao.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      카카오톡으로 로그인
+      </v-btn>
     </v-card-actions>
 
-    <v-card-actions class="justify-end">
+    <v-card-actions class="justify-center" >
       <v-btn
-        text
+        outlined
+        
         @click="dialog.value = false"
-      >네이버로 로그인</v-btn>
+      >
+      <v-img src="../../assets/naver.png" alt=""
+      max-height="34"
+      max-width="78"/>
+      네이버로 로그인
+      </v-btn>
     </v-card-actions>
 
   </v-card>
@@ -52,5 +67,9 @@ export default {
 </script>
 
 <style>
-
+  #login {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255)),
+      url("../../assets/login.jpg")
+  }
 </style>

@@ -1,13 +1,9 @@
 <template>
-  
-  <v-row justify="space-around">
-    <v-col cols="auto">
       <v-dialog
         transition="dialog-top-transition"
         max-width="600">
         <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
               v-bind="attrs"
               v-on="on"
             >로그인하러가기</v-btn>
@@ -15,8 +11,8 @@
         
         <v-tabs
           v-model="tab"
-          background-color="transparent"
-          color="Red"
+          background-color="indigo"
+          color="red"
           grow
         >
           <v-tab>
@@ -29,20 +25,15 @@
 
         <v-tabs-items v-model="tab">
           <v-tab-item>
-            Login   
+              
             <Login/>  
           </v-tab-item>
           <v-tab-item>
-            Register  
+             
             <Register/>
           </v-tab-item>
         </v-tabs-items>
-
-        
       </v-dialog>
-    </v-col>
-  </v-row>
-
 </template>
 
 <script>

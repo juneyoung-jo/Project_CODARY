@@ -46,6 +46,11 @@ export default new Router({
           name: "MySubscriber",
           component: () => import("@/components/blogHomeCom/MySubscriber.vue")
         },
+        {
+          path: "mystat",
+          name: "MyStat",
+          component: () => import("@/components/blogHomeCom/MyStat.vue")
+        },
       
       ],
       redirect: () => {

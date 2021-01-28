@@ -1,14 +1,17 @@
 <template>
   <v-app-bar
     app
-    absolute
+    elevate-on-scroll
   >
+    <!-- logo -->
     <router-link :to="'/'" class='noline'>
       <h2 style="color:black">codary</h2>
     </router-link>
     <v-spacer></v-spacer>
     <v-row
+      justify="center"
     >
+    <!-- dark mode -->
       <v-col cols="auto">
         Dark Mode
       </v-col>
@@ -21,36 +24,41 @@
         />
       </v-col>
     </v-row>
-
-    <router-link class='noline' :to="'/searchpage'">
-      <v-btn>
-        <font-awesome-icon :icon="['fas','search']"/>
-      </v-btn>
-    </router-link>
-
-    <router-link class='noline' :to="'/bloghome'">
-      <v-btn>
-        블로그홈
-      </v-btn>
-    </router-link>
-
-    <router-link class='noline' :to="'/createpost'">
-      <v-btn>
-        글 작성
-      </v-btn>
-    </router-link>
-
-    <Modal/>
-    
-
+    <!-- buttons -->
+    <v-row justify='end' class='mt-0 mb-1'>
+      <v-cols cols='auto'>
+        <!-- search -->
+        <router-link class='noline' :to="'/searchpage'">
+          <v-btn>
+            <font-awesome-icon :icon="['fas','search']"/>
+          </v-btn>
+        </router-link>
+        <!-- bloghome -->
+        <router-link class='noline' :to="'/bloghome'">
+          <v-btn>
+            블로그홈
+          </v-btn>
+        </router-link>
+        <!-- write -->
+        <router-link class='noline' :to="'/createpost'">
+          <v-btn>
+            글 작성
+          </v-btn>
+        </router-link>
+        <!-- login -->
+        <Modal/>
+      </v-cols>
+    </v-row>
   </v-app-bar>
 </template>
 
 <script>
-import Modal from './Modal.vue'
+import Modal from './Modal'
 
 export default {
-  components: { Modal },
+  components: { 
+    'Modal':Modal, 
+  },
   name: 'Nav',
   watch: {
       color (val) {
@@ -65,8 +73,7 @@ export default {
   color:black;
   text-decoration: none !important;
 }
-
-
-
-
+h2{
+  margin-left: 30px;
+}
 </style>
