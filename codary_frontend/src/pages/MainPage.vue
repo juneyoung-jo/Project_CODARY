@@ -18,32 +18,7 @@
                 cols="12"
                 tag="h1"
               >
-                <span
-                :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                  class="font-weight-light"
-                >
-                  메모를 
-                </span>
-                <br>
-                <span
-                  :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                  class="font-weight-light"
-                >
-                  이용하세요
-                </span>
-                <v-responsive
-                  class="mx-auto title font-weight-light mb-1"
-                  max-width="720"
-                >
-                <br>
-                  귀찮게 메모장 켤 필요 없습니다.
-                </v-responsive>
-                <v-responsive
-                  class="mx-auto title font-weight-light mb-8"
-                  max-width="720"
-                >
-                  현재 페이지 주소와 함께 메모가 저장됩니다.
-                </v-responsive>
+               
               </v-col>
             </v-row>
           </v-container>
@@ -61,26 +36,25 @@
           <v-container fill-height>
             <v-row>
               <v-col
-                class="text-center"
+                class="text-left"
                 cols="12"
                 tag="h1"
               >
                 <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                  class="font-weight-light"
+                  class="font-weight-bold"
                 >
                   쉽게 작성하고, 
                 </span>
                 <br>
                 <span
                   :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                  class="font-weight-light"
+                  class="font-weight-bold"
                 >
                   쉽게 공유하세요
                 </span>
                 <v-responsive
                   class="mx-auto title font-weight-light mb-1"
-                  max-width="720"
                 >
                 <br>
                   Markdown, 동시편집, 코드복사
@@ -101,33 +75,31 @@
           <v-container fill-height>
             <v-row>
               <v-col
-                class="text-center"
+                class="text-end"
                 cols="12"
                 tag="h1"
               >
                 <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                  class="font-weight-light"
+                  class="font-weight-bold"
                 >
                   태그를 
                 </span>
                 <br>
                 <span
                   :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                  class="font-weight-light"
+                  class="font-weight-bold"
                 >
                   이용하세요
                 </span>
                 <v-responsive
                   class="mx-auto title font-weight-light mb-1"
-                  max-width="720"
                 >
                 <br>
                   태그로 소통이 시작됩니다.
                 </v-responsive>
                 <v-responsive
-                  class="mx-auto title font-weight-light mb-8"
-                  max-width="720"
+                  class="mx-auto title font-weight-light"
                 >
                   태그를 이용해 도움을 청할수도, 커뮤니티를 만들 수도 있습니다.
                 </v-responsive>
@@ -153,12 +125,11 @@
               >
                 <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                  class="font-weight-light"
+                  class="font-weight-bold"
                 >
                   잔디를 심으세요 
                 </span>
                 <br>
-              
                 <v-responsive
                   class="mx-auto title font-weight-light mb-1"
                   max-width="720"
@@ -166,12 +137,25 @@
                 <br>
                   매일의 공부 기록을 눈으로 확인해보세요.
                 </v-responsive>
+                 <v-sparkline
+                  :value="value"
+                  :gradient="gradient"
+                  :smooth="radius || false"
+                  :padding="padding"
+                  :line-width="width"
+                  :stroke-linecap="lineCap"
+                  :gradient-direction="gradientDirection"
+                  :fill="fill"
+                  :type="type"
+                  :auto-line-width="autoLineWidth"
+                  auto-draw
+                ></v-sparkline>
               </v-col>
             </v-row>
           </v-container>
         </v-row>
       </section>
-      <section id="stats" class="section">
+      <!-- <section id="stats" class="section">
         <v-parallax 
           src="https://assets.imgix.net/unsplash/bridge.jpg?auto=compress&w=900&h=600&fit=crop"
         >
@@ -197,7 +181,7 @@
             </v-row>
           </v-container>
         </v-parallax>
-      </section>
+      </section> -->
 
   </full-page>
   </v-app>
@@ -205,11 +189,30 @@
 
 <script>
 
+const gradients = [
+  ['#222'],
+  ['#42b3f4'],
+  ['red', 'orange', 'yellow'],
+  ['purple', 'violet'],
+  ['#00c6ff', '#F0F', '#FF0'],
+  ['#f72047', '#ffd200', '#1feaea'],
+]
 export default {
 
   name: 'MainPage',
   data () {
     return {
+      width: 2,
+      radius: 10,
+      padding: 8,
+      lineCap: 'round',
+      gradient: gradients[5],
+      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
+      gradientDirection: 'top',
+      gradients,
+      fill: false,
+      type: 'trend',
+      autoLineWidth: false,
       features: [
         {
           icon: 'mdi-account-group-outline',
@@ -257,12 +260,12 @@ export default {
 #memo {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/typewriter.jpg");
+  background-image: url("../assets/memoback.png");
 }
 #share {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/clouds.jpg");
+  background-image: url("../assets/sha.png");
 }
 #tag {
   background-position: center;
@@ -272,6 +275,5 @@ export default {
 #grass {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/grass.jpg");
 }
 </style>
