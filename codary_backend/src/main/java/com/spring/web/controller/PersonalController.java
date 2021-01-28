@@ -55,7 +55,6 @@ public class PersonalController {
 		return new ResponseEntity<List<BlogContentsDto>>(blogcontentsList, HttpStatus.OK);
 	}
 	
-	
 	/*내 메모 불러오기*/
 	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
 	@GetMapping("/{memoid}") 
@@ -106,7 +105,7 @@ public class PersonalController {
 	
 	/*좋아요한 블로그 글 목록보기*/
 	@ApiOperation(value="좋아요한 블로그 글 목록보기", notes="내가 좋아효한 블로그 글들의 목록을 반환한다.", response=List.class)
-	@GetMapping("/{uid}")
+	@GetMapping("/{blogid}/{uid}")
 	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
