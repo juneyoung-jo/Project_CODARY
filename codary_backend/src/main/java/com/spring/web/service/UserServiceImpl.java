@@ -1,6 +1,8 @@
 package com.spring.web.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +37,19 @@ public class UserServiceImpl implements UserService{
 		return sqlSession.getMapper(UserDao.class).findById(uid);
 	}
 	
+
 	@Override
-	public BlogDto findByBlogId(String blogId) throws Exception {
-		return sqlSession.getMapper(UserDao.class).findByBlogId(blogId);
+	public UserInfoDto findUserInfoById(String uid) throws SQLException {
+		return sqlSession.getMapper(UserDao.class).findUserInfoById(uid);
 	}
 
 	@Override
-	public UserDto save(HashMap<String, Object> userInfo) throws Exception {
+	public BlogDto findBlogById(String blogId) throws SQLException {
+		return sqlSession.getMapper(UserDao.class).findBlogById(blogId);
+	}
+	
+	@Override
+	public Map<String, Object> save(HashMap<String, Object> userInfo) throws Exception {
 		
 		String uid = makeUid();
 		String blogId = makeBlogId();
@@ -51,19 +59,28 @@ public class UserServiceImpl implements UserService{
 		String profileImg = (String) userInfo.get("profileImg");
 		String blogProfile = "blogProfileDefault";
 		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		UserDto user = new UserDto(uid, blogId, uid, provider, providerId);
+		UserInfoDto info = new UserInfoDto(uid, nickname, profileImg);
+		BlogDto blog = new BlogDto(blogId, 0, nickname, blogProfile, 0);
+		
+		resultMap.put("user", user);
+		resultMap.put("userInfo", info);
+		resultMap.put("blog", blog);
+		
 		// 1. user 테이블 생성
-		sqlSession.getMapper(UserDao.class).save(new UserDto(uid, blogId, uid, provider, providerId));
+		sqlSession.getMapper(UserDao.class).save(user);
 		
 		// 2. userinfo 테이블 생성
-		sqlSession.getMapper(UserDao.class).saveUserInfo(new UserInfoDto(uid, nickname, profileImg));
+		sqlSession.getMapper(UserDao.class).saveUserInfo(info);
 
 		// 3. blog 테이블 생성
-		sqlSession.getMapper(UserDao.class).makeBlog(new BlogDto(blogId, 0, nickname, blogProfile, 0));
+		sqlSession.getMapper(UserDao.class).makeBlog(blog);
 		
 		// 4. memo 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeMemo(new MemoDto(uid));
 
-		return new UserDto(uid, uid, uid, provider, providerId);
+		return resultMap;
 	}
 	
 
@@ -91,11 +108,14 @@ public class UserServiceImpl implements UserService{
 			for(int i=0; i<12; i++) {
 				sb.append(str.charAt((int)(Math.random() * str.length())));
 			}
-			blog = findByBlogId(sb.toString());
+			blog = findBlogById(sb.toString());
 			if(blog == null) break;
 		}
 		return sb.toString();
 	}
+
+
+
 
 
 	

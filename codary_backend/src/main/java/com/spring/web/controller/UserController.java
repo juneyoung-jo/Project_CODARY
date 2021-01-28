@@ -47,9 +47,14 @@ public class UserController {
 			resultMap.put("message", SUCCESS);
 			if (user == null) {
 				logger.info("#최초 로그인입니다.");
-				user = userService.save(userInfo);
+				resultMap = userService.save(userInfo);
 			} else {
 				logger.info("#기존회원입니다.");
+				resultMap.put("user", user);
+				resultMap.put("userInfo", userService.findUserInfoById(user.getUid()));
+				System.out.println(user.getBlogId());
+				System.out.println(userService.findBlogById(user.getBlogId().toString()));
+				resultMap.put("blog", userService.findBlogById(user.getBlogId()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +67,6 @@ public class UserController {
 
 		
 		resultMap.put("access-token", token);
-		resultMap.put("uId", user.getUid());
 		
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
@@ -102,5 +106,21 @@ public class UserController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/test")
+	public ResponseEntity<Map<String, Object>> test(){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("message", "접속 성공");
+		
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/ssafy")
+	public ResponseEntity<Map<String, Object>> ssafy(){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("message", "접속 성공");
+		
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.ACCEPTED);
 	}
 }
