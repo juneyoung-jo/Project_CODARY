@@ -119,7 +119,7 @@ public class BlogContentsController {
 	 * @param blogId, blogContentsId
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "해당 블로그의 특정 블로그 글 가져오기", notes ="@param uid, blogId, blogContentsId  </br> @return BlogContentsDto")
+	@ApiOperation(value = "내 블로그 글 클릭 시 Log남기고 글 가져오기", notes ="@param uid, blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("log/{uid}/{blogId}/{blogContentsId}")
 	public ResponseEntity<Map<String,Object>> writeLog(@PathVariable String uid, @PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
 		logger.info("=======내 블로그 글 클릭 시 Log남기고 글 가져오기=======");
