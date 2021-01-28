@@ -1,70 +1,65 @@
 <template>
     <v-app>
+      <full-page ref="fullpage" :options="options">
 
-      <div class='py-16'></div>
-      <section id="memo" class='py-16'>
-        <v-row>
-          <v-row
-            align="end"
-            class="mx-auto"
-            justify="center"
-          >
-            <v-col
-              class="text-center"
-              cols="12"
-              tag="h1"
-            >
-              <span
-              :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                class="font-weight-light"
+      <section id="memo" class="section">
+         <v-row 
+          no-gutters
+          align="center"
+          class="mx-auto"
+          justify="center"
+          style="height:100%"
+          src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia23900.jpg"
+        > 
+          <v-container fill-height>
+            <v-row>
+              <v-col
+                class="text-center"
+                cols="12"
+                tag="h1"
               >
-                메모를 
-              </span>
-              <br>
-              <span
-                :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                class="font-weight-light"
-              >
-                이용하세요
-              </span>
-              <v-responsive
-                class="mx-auto title font-weight-light mb-1"
-                max-width="720"
-              >
-              <br>
-                귀찮게 메모장 켤 필요 없습니다.
-              </v-responsive>
-              <v-responsive
-                class="mx-auto title font-weight-light mb-8"
-                max-width="720"
-              >
-                현재 페이지 주소와 함께 메모가 저장됩니다.
-              </v-responsive>
-            </v-col>
-            <v-theme-provider dark>
-            <v-btn
-              class="align-self-end"
-              fab
-              outlined
-              @click="$vuetify.goTo('#share')"
-            >
-              <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-            </v-btn>
-            </v-theme-provider>
-          </v-row>
+                <span
+                :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                  class="font-weight-light"
+                >
+                  메모를 
+                </span>
+                <br>
+                <span
+                  :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+                  class="font-weight-light"
+                >
+                  이용하세요
+                </span>
+                <v-responsive
+                  class="mx-auto title font-weight-light mb-1"
+                  max-width="720"
+                >
+                <br>
+                  귀찮게 메모장 켤 필요 없습니다.
+                </v-responsive>
+                <v-responsive
+                  class="mx-auto title font-weight-light mb-8"
+                  max-width="720"
+                >
+                  현재 페이지 주소와 함께 메모가 저장됩니다.
+                </v-responsive>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-row>
       </section>
-      <div class='py-16'></div>
-      <section id="share">
-        <div class='py-16'></div>
-        <div class='py-4'></div>
-        <v-row no-gutters>
+
+      <section id="share" class="section">
+        <v-row 
+          no-gutters
+          align="center"
+          class="mx-auto"
+          justify="center"
+          style="height:100%"
+        >
           <v-container fill-height>
-            <v-row
-              align="center"
-              class="mx-auto"
-              justify="center"
-            >
+            <v-row>
               <v-col
                 class="text-center"
                 cols="12"
@@ -90,32 +85,21 @@
                 <br>
                   Markdown, 동시편집, 코드복사
                 </v-responsive>
-                
               </v-col>
-              <v-theme-provider dark>
-              <v-btn
-                class="align-self-end"
-                fab
-                outlined
-                @click="$vuetify.goTo('#tag')"
-              >
-                <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-              </v-btn>
-              </v-theme-provider>
             </v-row>
           </v-container>
         </v-row>
       </section>
-      <div class='py-16'></div>
-      <section id="tag">
-        <div class='py-16'></div>
-        <v-row no-gutters>
+      <section id="tag" class="section">
+        <v-row
+          no-gutters
+          align="center"
+          class="mx-auto"
+          justify="center"
+          style="height:100%"
+        >
           <v-container fill-height>
-            <v-row
-              align="center"
-              class="mx-auto"
-              justify="center"
-            >
+            <v-row>
               <v-col
                 class="text-center"
                 cols="12"
@@ -148,30 +132,20 @@
                   태그를 이용해 도움을 청할수도, 커뮤니티를 만들 수도 있습니다.
                 </v-responsive>
               </v-col>
-              <v-theme-provider dark>
-              <v-btn
-                class="align-self-end"
-                fab
-                outlined
-                @click="$vuetify.goTo('#grass')"
-              >
-                <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-              </v-btn>
-              </v-theme-provider>
             </v-row>
           </v-container>
         </v-row>
       </section>
-      <div class='py-16'></div>
-      <section id="grass">
-        <div class='py-16'></div>
-        <v-row no-gutters>
+      <section id="grass" class="section">
+        <v-row
+          no-gutters
+          align="center"
+          class="mx-auto"
+          justify="center"
+          style="height:100%"
+        >
           <v-container fill-height>
-            <v-row
-              align="center"
-              class="mx-auto"
-              justify="center"
-            >
+            <v-row>
               <v-col
                 class="text-center"
                 cols="12"
@@ -193,25 +167,13 @@
                   매일의 공부 기록을 눈으로 확인해보세요.
                 </v-responsive>
               </v-col>
-              <v-theme-provider dark>
-              <v-btn
-                class="align-self-end"
-                fab
-                outlined
-                @click="$vuetify.goTo('#stats')"
-              >
-                <v-icon color="black" class="downicon">mdi-chevron-double-down</v-icon>
-              </v-btn>
-              </v-theme-provider>
             </v-row>
           </v-container>
         </v-row>
       </section>
-      <div class='py-16'></div>
-      <section id="stats">
-        <v-parallax
-          :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-          src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia23900.jpg"
+      <section id="stats" class="section">
+        <v-parallax 
+          src="https://assets.imgix.net/unsplash/bridge.jpg?auto=compress&w=900&h=600&fit=crop"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
@@ -236,25 +198,21 @@
           </v-container>
         </v-parallax>
       </section>
-      <v-sheet
-        id="contact"
-        color="#333333"
-        dark
-        tag="section"
-        tile
-      >  
-      </v-sheet>
-    </v-app>
+
+  </full-page>
+  </v-app>
 </template>
 
 <script>
+
 export default {
+
   name: 'MainPage',
   data () {
-      return {
-        features: [
-          {
-            icon: 'mdi-account-group-outline',
+    return {
+      features: [
+        {
+          icon: 'mdi-account-group-outline',
             title: 'Vibrant Community',
             text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam',
           },
@@ -275,27 +233,45 @@ export default {
           ['1m', 'Downloads/mo'],
           ['5m', 'Total Downloads'],
         ],
+        options: {
+          licenseKey: 'YOUR_KEY_HEERE',
+          menu: '#menu',
+          
+          sectionsColor: ['']
+        },
       }
     },
     methods: {
-
-    } , 
-
+      componentsReady() {
+        this.$refs.fullpage.init()
+      }, 
+    },
 }
 </script>
 
 <style>
 *{
   font-family: 'Raleway','Noto Sans KR', sans-serif;
+  
 }
-#all-pages {
-  position: relative;
-  top: 0;
-  transition: all 800ms ease;
-  /* height set by js */
+#memo {
+  background-position: center;
+  background-size: unset;
+  background-image: url("../assets/typewriter.jpg");
 }
-.page {
-  height: 100%;
-  width: 100%;
+#share {
+  background-position: center;
+  background-size: unset;
+  background-image: url("../assets/clouds.jpg");
+}
+#tag {
+  background-position: center;
+  background-size: unset;
+  background-image: url("../assets/tag.jpg");
+}
+#grass {
+  background-position: center;
+  background-size: unset;
+  background-image: url("../assets/grass.jpg");
 }
 </style>
