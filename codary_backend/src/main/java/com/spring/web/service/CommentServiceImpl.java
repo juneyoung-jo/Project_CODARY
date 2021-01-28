@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,6 +92,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	@Cacheable(value = "commentCheck", key = "#user")
 	public List<CommentCountDto> commentCheck(UserDto user) throws Exception {
 
 		// 결과값

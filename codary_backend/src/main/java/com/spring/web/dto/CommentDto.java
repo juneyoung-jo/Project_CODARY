@@ -1,5 +1,8 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "CommentDto : 댓글정보",description = "댓글 정보를 나타냄")
 public class CommentDto {
 
 	private int commentNum;

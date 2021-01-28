@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -103,7 +104,6 @@ public class CommentController {
 	@PostMapping("writeComment")
 	public ResponseEntity<Map<String, Object>> writeComment(@RequestBody CommentDto comment) {
 		System.out.println("댓글쓰기");
-		System.out.println(comment);
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 
