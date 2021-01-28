@@ -1,5 +1,6 @@
 <template>
     <v-app>
+
       <div class='py-16'></div>
       <section id="memo" class='py-16'>
         <v-row>
@@ -210,7 +211,7 @@
       <section id="stats">
         <v-parallax
           :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-          src="https://assets.imgix.net/unsplash/bridge.jpg?auto=compress&w=900&h=600&fit=crop"
+          src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia23900.jpg"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
