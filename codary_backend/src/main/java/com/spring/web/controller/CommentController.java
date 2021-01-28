@@ -52,6 +52,7 @@ public class CommentController {
 	@GetMapping("commentAll/{blogId}/{blogContentsId}")
 	public ResponseEntity<Map<String, Object>> listCommnet(@PathVariable String blogId, @PathVariable int blogContentsId) {
 		logger.info("=======댓글 리스트 읽어오기=======");
+		
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 
