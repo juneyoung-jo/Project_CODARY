@@ -17,5 +17,6 @@ public interface BlogContentsDao {
 	void modifyBlogContent(BlogContentsDto blogContent) throws SQLException;
 	void deleteBlogContent(int blogContentsId) throws SQLException;
 	List<BlogContentsDto> getAllContents() throws SQLException;
+	int writeLog(Map<String, Object> log) throws SQLException;
 	
 }
