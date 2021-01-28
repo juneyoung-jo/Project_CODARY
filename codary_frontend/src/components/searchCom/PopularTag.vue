@@ -30,17 +30,12 @@
             class="title font-weight-light mb-5"
             v-text="text"
           ></div>
-          <v-btn
-            class="ml-n4 font-weight-black"
-            text
-          >
-            Continue Reading
-          </v-btn>
-          <router-link :to="'/viewpost'">
+          <router-link :to="'/viewpost'" class='noline'>
             <v-btn
-              color="red"
+              class="ml-n4 font-weight-black"
+              text
             >
-              글 보기
+              Continue Reading
             </v-btn>
           </router-link>
         </v-col>

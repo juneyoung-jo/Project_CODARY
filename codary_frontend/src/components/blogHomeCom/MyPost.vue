@@ -76,12 +76,14 @@
             class="title font-weight-light mb-5"
             v-text="text"
           ></div>
-          <v-btn
-            class="ml-n4 font-weight-black"
-            text
-          >
-            Continue Reading
-          </v-btn>
+          <router-link :to="'/viewpost'" class='noline'>
+            <v-btn
+              class="ml-n4 font-weight-black"
+              text
+            >
+              Continue Reading
+            </v-btn>
+          </router-link>
         </v-col>
       </v-row>
     </v-container>

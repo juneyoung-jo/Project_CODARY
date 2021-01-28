@@ -29,24 +29,17 @@
       <v-cols cols='auto'>
         <!-- search -->
         <router-link class='noline' :to="'/searchpage'">
-          <v-btn>
+          <v-btn plain>
             <font-awesome-icon :icon="['fas','search']"/>
-          </v-btn>
-        </router-link>
-        <!-- bloghome -->
-        <router-link class='noline' :to="'/bloghome'">
-          <v-btn>
-            블로그홈
-          </v-btn>
-        </router-link>
-        <!-- write -->
-        <router-link class='noline' :to="'/createpost'">
-          <v-btn>
-            글 작성
           </v-btn>
         </router-link>
         <!-- login -->
         <Modal/>
+        <router-link class='noline' :to="'/bloghome'">
+          <v-btn
+            plain
+          >프로필</v-btn>
+        </router-link>
       </v-cols>
     </v-row>
   </v-app-bar>

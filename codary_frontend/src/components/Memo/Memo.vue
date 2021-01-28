@@ -32,8 +32,11 @@
       >
         <div class="py-3 d-flex flex-column">
           <div class="d-flex px-3 align-center justify-end">
-            <strong class="mr-13">MEMO</strong>
-            <v-btn @click="toggle">
+            <strong class="mr-13 py-3">MEMO</strong>
+            <v-btn 
+              @click="toggle"
+              plain
+            >
               <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
               <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
             </v-btn>

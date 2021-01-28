@@ -28,10 +28,10 @@
           </p>
           <router-link class='noline' :to="'/createpost'">
             <v-btn
-              class="mr-0"
-              color="primary"
+              color="dark"
               min-width="100"
               rounded
+              outlined
             >
               글 작성
             </v-btn>
@@ -46,11 +46,11 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="dark"
                   rounded
-                  dark
                   v-bind="attrs"
                   v-on="on"
+                  outlined
                 >
                   프로필수정
                 </v-btn>

@@ -1,12 +1,11 @@
 <template>
   <v-card-text>
-    <br>
       <v-textarea
         background-color="amber lighten-4"
         color="orange orange-darken-4"
-        label="Label"
+        placeholder="메모하세요"
       ></v-textarea>
-      <v-btn>저장</v-btn>
+      <v-btn outlined>저장</v-btn>
   </v-card-text>
 </template>
 
