@@ -35,7 +35,7 @@ public class BlogDto {
 	public void setBlogLike(int blogLike) {
 		this.blogLike = blogLike;
 	}
-	
+
 	public String getBlogCover() {
 		return blogCover;
 	}
@@ -43,15 +43,7 @@ public class BlogDto {
 	public void setBlogCover(String blogCover) {
 		this.blogCover = blogCover;
 	}
-	
-	public String getBlogTitle() {
-		return blogTitle;
-	}
-	
-	public void setBlogTitle(String blogTitle) {
-		this.blogTitle = blogTitle;
-	}
-	
+
 	public int getBlogView() {
 		return blogView;
 	}
@@ -60,11 +52,19 @@ public class BlogDto {
 		this.blogView = blogView;
 	}
 
+	public String getBlogTitle() {
+		return blogTitle;
+	}
+
+	public void setBlogTitle(String blogTitle) {
+		this.blogTitle = blogTitle;
+	}
+
 	@Override
 	public String toString() {
-		return "BlogDto [blogId=" + blogId + ", blogTitle=" + blogTitle + ", blogLike=" + blogLike + ", blogCover=" + blogCover + ", blogView="
-				+ blogView + "]";
+		return "BlogDto [blogId=" + blogId + ", blogLike=" + blogLike + ", blogCover=" + blogCover + ", blogView="
+				+ blogView + ", blogTitle=" + blogTitle + "]";
 	}
-	
+
 
 }
