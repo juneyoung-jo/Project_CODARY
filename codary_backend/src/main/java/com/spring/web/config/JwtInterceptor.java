@@ -25,15 +25,21 @@ public class JwtInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		final String token = request.getHeader(HEADER_AUTH);
 
-		if(token != null && jwtService.isUsable(token)){
-			logger.info("토큰 사용 가능 : {}", token);
+		// OPTION 요청은 통과
+		if(request.getMethod().equals("OPTIONS")) {
 			return true;
-		}else{
-			logger.info("토큰 사용 불가능 : {}", token);
-			throw new UnauthorizedException();
+		}else {	
+		// GET, POST, UPDATE, DELETE 요청은 권한 체크
+			final String token = request.getHeader(HEADER_AUTH);
+			if(token != null && jwtService.isUsable(token)){
+				logger.info("토큰 사용 가능 : {}", token);
+				return true;
+			}else{
+				System.out.println("intercepter 컷");
+				logger.info("토큰 사용 불가능 : {}", token);
+				throw new UnauthorizedException();
+			}
 		}
-
 	}
 }
