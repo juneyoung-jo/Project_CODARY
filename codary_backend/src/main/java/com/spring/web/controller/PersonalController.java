@@ -47,7 +47,7 @@ public class PersonalController {
 	/*블로거가 쓴 글*/
 	@ApiOperation(value ="블로거가 쓴 글", notes = "해당 블로거가 쓴 글 목록을 반환한다.", response=List.class)
 	@GetMapping("/{blogid}")
-	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid, HttpSession session) {
+	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid) {
 		
 		List<BlogContentsDto> blogcontentsList=null;
 		blogcontentsList= personalService.personalContents(blogid);
