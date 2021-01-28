@@ -1,5 +1,8 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "BlogContentstDto : 블로그 글", description = "블로그에 작성한 글에 대한 정보")
 public class BlogContentsDto {
 
 	private int blogContentsId;

@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.service.BlogContentsService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("BlogContentsController V1")
 @RestController
 @RequestMapping("/blog")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -25,6 +29,13 @@ public class BlogContentsController {
 	@Autowired
 	private BlogContentsService contentsService;
 
+	/**
+	 * 해당 블로그의 특정 블로그 글 가져오기
+	 * 
+	 * @param blogId, blogContentsId
+	 * @return BlogContentsDto
+	 */
+	@ApiOperation(value = "해당 블로그의 특정 블로그 글 가져오기", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
 		try {
@@ -35,6 +46,13 @@ public class BlogContentsController {
 		}
 	}
 	
+	/**
+	 * 블로그 글 작성
+	 * 
+	 * @param BlogContentsDto
+	 * @return List<BlogContentsDto>
+	 */
+	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto  </br> @return List<BlogContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception{
 		try {
@@ -51,6 +69,13 @@ public class BlogContentsController {
 //		return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(blogId), HttpStatus.OK);
 //	}
 	
+	/**
+	 * 블로그 글 수정
+	 * 
+	 * @param BlogContentsDto
+	 * @return BlogContentsDto
+	 */
+	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto  </br> @return BlogContentsDto")
 	@PutMapping
 	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception{
 		try {
@@ -62,6 +87,13 @@ public class BlogContentsController {
 		}
 	}
 	
+	/**
+	 * 블로그 글 삭제
+	 * 
+	 * @param blogId, blogContentsId
+	 * @return List<BlogContentsDto>
+	 */
+	@ApiOperation(value = "블로그 글 삭제", notes ="@param blogId, blogContentsId  </br> @return List<BlogContentsDto>")
 	@DeleteMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<List<BlogContentsDto>> delete(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
 		try {
