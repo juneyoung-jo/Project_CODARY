@@ -1,6 +1,6 @@
 <template>
-    <v-app>
-      <section id="memo">
+    <v-app id="all-pages">
+      <section id="memo" class="page">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -59,7 +59,7 @@
           </v-img>
         </v-row>
       </section>
-      <section id="share">
+      <section id="share" class="page">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -113,7 +113,7 @@
           </v-img>
         </v-row>
       </section>
-      <section id="tag">
+      <section id="tag" class="page">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -172,7 +172,7 @@
           </v-img>
         </v-row>
       </section>
-      <section id="grass">
+      <section id="grass" class="page">
         <v-row no-gutters>
           <v-img
             :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -288,7 +288,10 @@ export default {
           ['5m', 'Total Downloads'],
         ],
       }
-    }  
+    },
+    methods: {
+
+    } , 
 
 }
 </script>
@@ -296,5 +299,15 @@ export default {
 <style>
 *{
   font-family: 'Raleway','Noto Sans KR', sans-serif;
+}
+#all-pages {
+  position: relative;
+  top: 0;
+  transition: all 800ms ease;
+  /* height set by js */
+}
+.page {
+  height: 100%;
+  width: 100%;
 }
 </style>
