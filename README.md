@@ -6,7 +6,7 @@
 
 ![2021-01-28 12;28;23](https://user-images.githubusercontent.com/60100901/106086058-bbc7f600-6164-11eb-9a8e-3b2cd9bff5b7.PNG)
 
-카카오 로그인은 카카오계정의 사용자 자격정보로 인증 코드를 받아오고, 인증 코드로 액세스 토큰과 리프레시 토큰을 얻는 과정으로 구성돼 있습니다. 액세스 토큰은 사용자를 인증하고 카카오 API 로 부터 사용자 정보를 권한을 부여받습니다.
+카카오 로그인은 카카오계정의 사용자 자격정보로 인증 코드를 받아오고, 인증 코드로 액세스 토큰과 리프레시 토큰을 얻는 과정으로 구성되 있습니다. 액세스 토큰은 사용자를 인증하고 카카오 API 로 부터 사용자 정보를 권한을 부여받습니다.
 
 아래는 실제 엑세스 토큰을 이용해 카카오 API로 부터 사용자 정보를 받아 온 응답입니다. 
 
@@ -20,9 +20,9 @@ JWT 는 JSON Web Token의 약자로 전자 서명 된 URL-safe (URL로 이용할
 
 ![image](https://user-images.githubusercontent.com/60100901/106087685-d64f9e80-6167-11eb-989f-c3462da40db8.png)
 
-JWT는 header, payload, signature 세 파트로 나누어지며, Payload 부분에는 토큰에 담을 정보가 위치한다
+JWT는 header, payload, signature 세 파트로 나누어지며, Payload 부분에는 토큰에 담을 정보가 위치합니다.
 
-아래는 실제 우리 서비스에서 생성된 access-token이며 Payload부분에 회원 고유번호인 uId가 담겨있는걸 확인할 수 있다.
+아래는 실제 우리 서비스에서 생성된 access-token이며 Payload 부분에 회원 고유번호인 uId가 담겨있는걸 확인할 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/60100901/106087756-fda66b80-6167-11eb-9525-061e6eaaaffd.png)
 
