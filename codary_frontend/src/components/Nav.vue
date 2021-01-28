@@ -35,10 +35,26 @@
         </router-link>
         <!-- login -->
         <Modal/>
-        <router-link class='noline' :to="'/bloghome'">
-          <v-btn
-            plain
-          >프로필</v-btn>
+        <router-link class='noline pa-5' :to="'/bloghome'">
+          <v-badge
+            avatar
+            bordered
+            overlap
+            content="4"
+            class='pb-2'
+            offset-x="10"
+            offset-y="20"
+          >
+            <!-- <template v-slot:badge>
+              <v-avatar>
+                <v-img src="https://cdn.vuetifyjs.com/images/logos/v.png"></v-img>
+              </v-avatar>
+            </template> -->
+
+            <v-avatar size="40">
+              <v-img src='https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg'></v-img>
+            </v-avatar>
+          </v-badge>
         </router-link>
       </v-cols>
     </v-row>

@@ -14,6 +14,7 @@
           :src="photo"
           width="128"
         />
+      
         <v-card-text>
           <h6 class="text-h6 mb-2 text--secondary">
             {{ job }}
@@ -26,19 +27,19 @@
           <p class="text--secondary">
             {{ intro }}
           </p>
-          <router-link class='noline' :to="'/createpost'">
-            <v-btn
-              color="dark"
-              min-width="100"
-              rounded
-              outlined
-            >
-              글 작성
-            </v-btn>
-          </router-link>
-        
-          <!-- 프로필수정 모달 -->
-      
+          <div class='d-flex'>
+            <router-link class='noline' :to="'/createpost'">
+              <v-btn
+                color="dark"
+                min-width="100"
+                rounded
+                outlined
+              >
+                글 작성
+              </v-btn>
+            </router-link>
+            <div class='pa-1'></div>
+            <!-- 프로필수정 모달 -->
             <v-dialog
               v-model="dialog"
               persistent
@@ -124,6 +125,7 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+          </div>
         </v-card-text>
       </v-col>
     </v-row>

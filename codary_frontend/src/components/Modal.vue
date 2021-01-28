@@ -13,15 +13,13 @@
         <v-tabs
           v-model="tab"
           background-color="indigo"
-          color="red"
+          color="white"
           grow
         >
           <v-tab>
             Login
           </v-tab>
-          <v-tab>
-            Register
-          </v-tab>
+         
         </v-tabs>
 
         <v-tabs-items v-model="tab">
