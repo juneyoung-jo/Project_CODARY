@@ -57,13 +57,13 @@ public class PersonalController {
 	
 	/*내 메모 불러오기*/
 	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
-	@GetMapping("/{memoid}") 
+	@GetMapping("/memo/{memoid}") 
 	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<MemoContentsDto> memocontentsDto=null;
 		
-		if(jwtService.isUsable(request.getHeader("access-token"))) { 
+//		if(jwtService.isUsable(request.getHeader("access-token"))) { 
 			try {
 				memocontentsDto=personalService.showMemo(memoid);
 				System.out.println(memocontentsDto);
@@ -72,22 +72,22 @@ public class PersonalController {
 				e.printStackTrace();
 				status=HttpStatus.INTERNAL_SERVER_ERROR;
 			}
-		}else { 
-			status=HttpStatus.ACCEPTED;
-		}
+//		}else { 
+//			status=HttpStatus.ACCEPTED;
+//		}
 	
 		return new ResponseEntity<List<MemoContentsDto>>(memocontentsDto, HttpStatus.OK);
 	}
 	
 	/*좋아요한 블로거 목록보기*/
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
-	@GetMapping("/{blogid}/{uid}")
+	@GetMapping("/bloger/{blogid}/{uid}")
 	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogDto> blogDto=null;
 		
-			if(jwtService.isUsable(request.getHeader("access-token"))) { 
+//			if(jwtService.isUsable(request.getHeader("access-token"))) { 
 				try {
 					blogDto=personalService.showLikeBloger(uid);
 					System.out.println(blogDto);
@@ -96,22 +96,22 @@ public class PersonalController {
 					e.printStackTrace();
 					status=HttpStatus.INTERNAL_SERVER_ERROR;
 				}
-			}else { 
-				status=HttpStatus.ACCEPTED;
-			}
+//			}else { 
+//				status=HttpStatus.ACCEPTED;
+//			}
 		
 			return new ResponseEntity<List<BlogDto>>(blogDto, HttpStatus.OK);
 	}
 	
 	/*좋아요한 블로그 글 목록보기*/
 	@ApiOperation(value="좋아요한 블로그 글 목록보기", notes="내가 좋아효한 블로그 글들의 목록을 반환한다.", response=List.class)
-	@GetMapping("/{blogid}/{uid}")
+	@GetMapping("/blog/{blogid}/{uid}")
 	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogContentsDto> blogcontentsDto=null;
 		
-			if(jwtService.isUsable(request.getHeader("access-token"))) { 
+//			if(jwtService.isUsable(request.getHeader("access-token"))) { 
 				try {
 					blogcontentsDto=personalService.showLikeBlogContents(uid);
 					System.out.println(blogcontentsDto);
@@ -120,9 +120,9 @@ public class PersonalController {
 					e.printStackTrace();
 					status=HttpStatus.INTERNAL_SERVER_ERROR;
 				}
-			}else { 
+//			}else { 
 			
-			}
+//			}
 		
 			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, HttpStatus.OK);
 	}
