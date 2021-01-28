@@ -37,4 +37,8 @@
 		from blogcontents
 	</select>
 	
+	<insert id="writeLog" parameterType="map">
+		insert into log
+		values(now(),#{uid},#{blogContentsId});
+	</insert>
 </mapper>

@@ -12,5 +12,6 @@ public interface BlogContentsService {
 	void modifyBlogContent(BlogContentsDto blogContent) throws Exception;
 	void deleteBlogContent(int blogContentsId) throws Exception;
 	List<BlogContentsDto> recommendBlogContents() throws Exception;
+	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId)throws Exception;
 
 }
