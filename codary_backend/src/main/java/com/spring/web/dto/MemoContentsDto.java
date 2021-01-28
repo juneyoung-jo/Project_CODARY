@@ -1,5 +1,8 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "MemoContentstDto : 메모 내용",description = "메모 내용")
 public class MemoContentsDto {
 	private int memoNum;
 	private String memoId;

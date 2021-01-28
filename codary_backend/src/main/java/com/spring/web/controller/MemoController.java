@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.service.MemoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("MemoController V1")
 @RestController
 @RequestMapping("/memo")
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -26,6 +30,13 @@ public class MemoController {
 	@Autowired
 	private MemoService memoService;
 	
+	/**
+	 * 메모 작성하기
+	 * 
+	 * @param MemoContentsDto
+	 * @return List<MemoContentsDto>
+	 */
+	@ApiOperation(value = "메모 작성하기", notes ="@param : blogContentsDto  </br> @return List<MemoContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
 		try {
@@ -37,6 +48,13 @@ public class MemoController {
 		}
 	}
 	
+	/**
+	 * 해당 유저의 메모 리스트 가져오기
+	 * 
+	 * @param memoId
+	 * @return List<MemoContentsDto>
+	 */
+	@ApiOperation(value = "해당 유저의 메모 리스트 가져오기", notes =" @param memoId  </br> @return List<MemoContentsDto>")
 	@GetMapping("{memoId}")
 	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable String memoId) throws Exception {
 		try {
@@ -47,6 +65,13 @@ public class MemoController {
 		}
 	}
 	
+	/**
+	 * 메모 수정하기
+	 * 
+	 * @param MemoContentsDto
+	 * @return List<MemoContentsDto>
+	 */
+	@ApiOperation(value = "메모 수정하기", notes =" @param MemoContentsDto  </br> @return List<MemoContentsDto>")
 	@PutMapping
 	public ResponseEntity<List<MemoContentsDto>> modifyMemo(@RequestBody MemoContentsDto memo) throws Exception {
 		try {
@@ -58,6 +83,13 @@ public class MemoController {
 		}
 	}
 	
+	/**
+	 * 메모 삭제하기
+	 * 
+	 * @param memoId, memoNum
+	 * @return List<MemoContentsDto>
+	 */
+	@ApiOperation(value = "메모 삭제하기", notes =" @param memoId, memoNum  </br> @return List<MemoContentsDto>")
 	@DeleteMapping("{memoId}/{memoNum}")
 	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable String memoId, @PathVariable int memoNum) throws Exception {
 		try {
