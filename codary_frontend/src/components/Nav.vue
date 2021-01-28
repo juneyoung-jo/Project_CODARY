@@ -1,6 +1,7 @@
 <template>
   <v-app-bar
     app
+   
     elevate-on-scroll
   >
     <!-- logo -->
