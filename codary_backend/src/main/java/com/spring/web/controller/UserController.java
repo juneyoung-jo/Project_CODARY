@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.KakaoOauthService;
 import com.spring.web.service.UserService;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class UserController {
@@ -33,6 +36,16 @@ public class UserController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	/**
+	 * 
+	 * 카카오 아이디 로그인
+	 * 
+	 * @param - (카카오 서버에서 응답)
+	 * @return UserDto, BlogDto, UserInfo, message
+	 */
+	@ApiOperation(value = "카카오 아이디로 로그인 하기", 
+			notes = " 카카오 아이디로 로그인시, 해당 회원 정보를 리턴한다.<br> 최초 로그인인 경우 회원가입이 진행된 후 가입정보를 리턴한다.<br> "
+					+ "@param: UserDto, BlogDto, UserInfoDto, message")
 	@GetMapping("/login/kakao")
 	public ResponseEntity<Map<String, Object>> login(@RequestParam("code") String code) {
 		logger.info("#KakaoApi 로그인 ");
@@ -60,14 +73,10 @@ public class UserController {
 			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 		}
-		
 
 		String token = jwtService.create("uId", user.getUid(), "access-token");
 		logger.debug("#토큰정보: " + token);
-
-		
 		resultMap.put("access-token", token);
-		
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 	}
@@ -82,7 +91,7 @@ public class UserController {
 			logger.info("#사용가능한 토큰");
 			logger.info("#uId : {}", uId);
 			logger.info("#jwtGetUserInfo : {}", jwtService.getUserId());
-			
+
 			UserDto user = null;
 			try {
 				user = userService.findById(uId);
@@ -97,7 +106,7 @@ public class UserController {
 				e.printStackTrace();
 				resultMap.put("message", e.getMessage());
 			}
-			
+
 			status = HttpStatus.ACCEPTED;
 		} else {
 			logger.warn("#사용 불가능 토큰!!!");
@@ -107,20 +116,5 @@ public class UserController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 	}
-	
-	@GetMapping("/test")
-	public ResponseEntity<Map<String, Object>> test(){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("message", "접속 성공");
-		
-		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.ACCEPTED);
-	}
-	
-	@GetMapping("/ssafy")
-	public ResponseEntity<Map<String, Object>> ssafy(){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("message", "접속 성공");
-		
-		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.ACCEPTED);
-	}
+
 }
