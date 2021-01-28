@@ -89,7 +89,7 @@ public class MemoController {
 	 * @param memoId, memoNum
 	 * @return List<MemoContentsDto>
 	 */
-	@ApiOperation(value = "메모 수정하기", notes =" @param memoId, memoNum  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 삭제하기", notes =" @param memoId, memoNum  </br> @return List<MemoContentsDto>")
 	@DeleteMapping("{memoId}/{memoNum}")
 	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable String memoId, @PathVariable int memoNum) throws Exception {
 		try {
