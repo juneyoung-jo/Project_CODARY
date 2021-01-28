@@ -276,7 +276,10 @@ export default {
           ['5m', 'Total Downloads'],
         ],
       }
-    }  
+    },
+    methods: {
+
+    } , 
 
 }
 </script>
@@ -284,5 +287,15 @@ export default {
 <style>
 *{
   font-family: 'Raleway','Noto Sans KR', sans-serif;
+}
+#all-pages {
+  position: relative;
+  top: 0;
+  transition: all 800ms ease;
+  /* height set by js */
+}
+.page {
+  height: 100%;
+  width: 100%;
 }
 </style>
