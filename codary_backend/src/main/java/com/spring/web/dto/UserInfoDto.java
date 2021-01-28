@@ -1,9 +1,16 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "UserInfoDto : 유저 상세정보", description = "UserInfoDto 회원 개인정보를 나타낸다.")
 public class UserInfoDto {
 
+	@ApiModelProperty(value = "회원 고유번호 13자리")
 	private String uid;
+	@ApiModelProperty(value = "회원명")
 	private String nickname;
+	@ApiModelProperty(value = "프로필 사진")
 	private String profile;
 	
 	public UserInfoDto() {
