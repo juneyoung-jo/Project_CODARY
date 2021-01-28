@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Comment</h1>
     <v-list three-line>
       <template v-for="(item, index) in items">
         <v-subheader
@@ -30,6 +29,7 @@
         </v-list-item>
       </template>
     </v-list>
+    <div class='py-16'></div>
   </div>
 </template>
 

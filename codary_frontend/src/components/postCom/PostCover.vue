@@ -1,8 +1,11 @@
 <template>
   <div>
-    <v-img src="../../assets/earth.jpg" alt="" height="200px"/>
-    
-    <h1>PostCover</h1>
+    <v-img 
+      src="../../assets/earth.jpg" 
+      alt="" 
+      max-height="300"
+      top
+    />
   </div>
 </template>
 

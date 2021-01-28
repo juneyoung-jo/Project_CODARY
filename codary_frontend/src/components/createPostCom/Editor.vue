@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='d-flex flex-column'>
 <!--  마크다운 구현예정 
   npm install @toast-ui/editor
   npm install @toast-ui/vue-editor
@@ -13,40 +13,51 @@
       previewStyle="vertical"
       
     />
+    <h3 class='py-8'>태그를 입력하세요</h3>
+    <v-col cols="12">
+      <v-autocomplete
+        v-model="values"
+        :items="items"
+        dense
+        chips
+        small-chips
+        label="Solo"
+        multiple
+        solo
+      ></v-autocomplete>
+    </v-col>
     <v-btn
       @click="datachange()"
+      align='center'
+      class='my-8'
+      outlined
+      color="primary"
     >
-      눌러
-
+      저장
     </v-btn>
-    
-    <viewer 
-      ref="toastuiViewer"
-      :value="editorText" 
-      height="500px"
-      :initialValue="editorText" 
-      viewer=true 
-    />
+    <div class='py-16'></div>
   </div>
 </template>
 
 <script>
 import '@toast-ui/editor/dist/toastui-editor.css'
 import 'codemirror/lib/codemirror.css'
-import { Editor, Viewer } from '@toast-ui/vue-editor'
+import { Editor} from '@toast-ui/vue-editor'
 
 export default {
   name: 'Editor',
     components: {
     'editor': Editor,
-    'viewer': Viewer
   },
   data() {
     return {
       editorText: '# This is initialValue.',
       editorOptions: {
         hideModeSwitch: true
-      }
+      },
+      items: ['코딩초보', '도와주세요', '알고리즘', '백준'],
+      values: ['코딩초보', '도와주세요'],
+      value: null,
     };
   },
   methods: {

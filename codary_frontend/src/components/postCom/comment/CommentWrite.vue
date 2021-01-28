@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>CommentWrite</h1>
+    <div class='py-7'></div>
+    <h1>Comment</h1>
     <v-container
     class='d-flex'>
 
@@ -9,7 +10,7 @@
         label="여기에 댓글을 입력하세요"
         clearable
       ></v-text-field>
-      <v-btn>
+      <v-btn plain color="blue">
         댓글달기!
       </v-btn>
     </v-container>

@@ -1,51 +1,21 @@
 
 <template v-slot:default="dialog">
-  <v-card id='login'
-    
-  >
-    
-    <v-card-title>로그인~</v-card-title>
-    
-
+  <v-card id='login' >
+    <div class='py-5'></div>
     <v-card-actions class="justify-center" >
-      <v-btn
-        outlined
-        
-        @click="dialog.value = false"
+      <a
+      href="https://kauth.kakao.com/oauth/authorize?client_id=cc55fbaa2ba8ee734547019f8cba7abf&redirect_uri=http://localhost:8000/codary/login/kakao&response_type=code"
       >
-      <v-img src="../../assets/google.png" alt=""
-      max-height="34"
-      max-width="78"/>
-      구글로 로그인
-      </v-btn>
+      <img
+        class="kakao_btn"
+        src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+        width="222"
+        @click="loginWithKakao"
+      /> 
+      </a>
+      <br />
     </v-card-actions>
-
-    <v-card-actions class="justify-center" >
-      <v-btn
-        outlined
-        src="../../assets/kakao.png"
-        @click="dialog.value = false"
-      >
-      <v-img src="../../assets/kakao.png" alt=""
-      max-height="34"
-      max-width="78"/>
-      카카오톡으로 로그인
-      </v-btn>
-    </v-card-actions>
-
-    <v-card-actions class="justify-center" >
-      <v-btn
-        outlined
-        
-        @click="dialog.value = false"
-      >
-      <v-img src="../../assets/naver.png" alt=""
-      max-height="34"
-      max-width="78"/>
-      네이버로 로그인
-      </v-btn>
-    </v-card-actions>
-
+    <div class='py-5'></div>
   </v-card>
 </template>
       
@@ -58,10 +28,13 @@ export default {
 
   name: 'Login',
   methods: {
-    change() {
-      return
-      
-    }
+    loginWithKakao: function () {
+      console.log("카카오 클릭");
+      const params = {
+        redirectUri: "http://localhost:8080/auth",
+      };
+      window.Kakao.Auth.authorize(params);
+    },
   }
 }
 </script>
@@ -70,6 +43,6 @@ export default {
   #login {
     background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255)),
-      url("../../assets/login.jpg")
+
   }
 </style>

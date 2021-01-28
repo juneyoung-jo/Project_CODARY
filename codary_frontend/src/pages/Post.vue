@@ -2,8 +2,11 @@
   <div>
     <PostCover/>
     <v-container>
-      <PostViewer/>
-      <Profile/>
+      <v-card class='pa-8 py-8'>
+        <PostViewer/>
+        <div class='py-16'></div>
+        <Profile/>
+      </v-card>
       <CommentWrite/>
       <Comment/>
     </v-container>
