@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
-import com.spring.web.dto.CommentDto;
 import com.spring.web.service.BlogContentsService;
 
 import io.swagger.annotations.Api;
@@ -138,5 +137,26 @@ public class BlogContentsController {
 			e.printStackTrace();
 		}
 		return resEntity;
+	}
+	
+	/**
+	 * 블로그 글 조회수 증가
+	 * 
+	 * @param BlogContentsId
+	 * @return 
+	 */
+	@ApiOperation(value = "블로그 글 클릭 시 조회 수 증가하기", notes ="@param blogContentsId @return ")
+	@GetMapping("increase/view/{blogContentsId}")
+	public ResponseEntity<Map<String, String>> increaseContentsView(@PathVariable int blogContentsId){
+		Map<String, String> map = new HashMap<>();
+		try {
+			contentsService.increaseContentsView(blogContentsId);
+			map.put("msg", "success");
+			return new ResponseEntity<>(map, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("msg", "fail");
+			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+		}
 	}
 }

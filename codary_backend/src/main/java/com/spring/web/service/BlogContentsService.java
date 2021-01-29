@@ -13,5 +13,6 @@ public interface BlogContentsService {
 	void deleteBlogContent(int blogContentsId) throws Exception;
 	List<BlogContentsDto> recommendBlogContents() throws Exception;
 	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId)throws Exception;
+	void increaseContentsView(int blogContentsId) throws Exception;
 
 }

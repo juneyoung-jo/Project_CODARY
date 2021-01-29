@@ -60,8 +60,17 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 		log.put("uid", uid);
 		log.put("blogContentsId", blogContentsId);
 		sqlSession.getMapper(BlogContentsDao.class).writeLog(log);
+		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId); //조회수 증가
 				
 		return sqlSession.getMapper(BlogContentsDao.class).getContent(blogContentsId);
 	}
+
+	@Override
+	@Transactional
+	public void increaseContentsView(int blogContentsId) throws Exception {
+		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId);
+	}
+	
+	
 
 }
