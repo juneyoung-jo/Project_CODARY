@@ -71,6 +71,9 @@ export default {
       this.$refs.toastuiViewer.editor.markdownValue = content
       // console.log(this.editorText)
       // this.editorText = (Editor.getMarkdown())
+
+
+      // axios연결로 에디터와 제목과 태그가 한번에 저장되도록 연결
       
     }
   },

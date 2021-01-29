@@ -9,6 +9,7 @@
 <script>
 export default {
     name:'PostName',
+    // 제목도 따로 저장버튼에 연동되게..
 }
 </script>
 
