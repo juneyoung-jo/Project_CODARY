@@ -4,6 +4,7 @@
       filled
       rounded
       style="width:50%;"
+      placeholder="태그 검색 시 '#'를 앞에 붙여주세요"
     ></v-autocomplete>
   </div>
 
