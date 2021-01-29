@@ -26,8 +26,8 @@
       </v-col>
     </v-row>
     <!-- buttons -->
-    <v-row justify='end' class='mt-0 mb-1'>
-      <v-cols cols='auto'>
+    <v-row justify="end mb-2 mr-2">
+      <v-col cols="auto">
         <!-- search -->
         <router-link class='noline' :to="'/searchpage'">
           <v-btn plain>
@@ -36,38 +36,21 @@
         </router-link>
         <!-- login -->
         <Modal/>
-        <router-link class='noline pa-5' :to="'/bloghome'">
-          <v-badge
-            avatar
-            bordered
-            overlap
-            content="4"
-            class='pb-2'
-            offset-x="10"
-            offset-y="20"
-          >
-            <!-- <template v-slot:badge>
-              <v-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/logos/v.png"></v-img>
-              </v-avatar>
-            </template> -->
-
-            <v-avatar size="40">
-              <v-img src='https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg'></v-img>
-            </v-avatar>
-          </v-badge>
-        </router-link>
-      </v-cols>
+        <!-- 마이페이지가는곳 -->
+        <MainBadge/>
+      </v-col>
     </v-row>
   </v-app-bar>
 </template>
 
 <script>
 import Modal from './Modal'
+import MainBadge from './MainBadge'
 
 export default {
   components: { 
-    'Modal':Modal, 
+    'Modal':Modal,
+    'MainBadge':MainBadge 
   },
   name: 'Nav',
   watch: {

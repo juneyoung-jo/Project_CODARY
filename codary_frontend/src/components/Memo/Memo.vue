@@ -24,31 +24,22 @@
         offset-x
         origin="top right"
         transition="scale-transition"
+        rounded=xl
       >
         <v-card
           class="text-center mb-0"
           width="300"
         >
           <div class="py-3 d-flex flex-column">
-            <div class="d-flex px-3 align-center justify-end">
-              <strong class="mr-13 py-3">MEMO</strong>
-                <NeuElement
-                  tag="v-btn"
-                  type="flat"
-                  height="50px"
-                  width="50px"
-                  radius="50%"
-                  color="#d2d2d2"
-                  :distance="5"
-                  :intensity="0.15"
-                  :blur="10"
-                  @onclick="toggle"
-                >
-
+            <div class="d-flex align-center justify-end">
+              <strong class="mr-15 py-3">MEMO</strong>
+              <v-btn 
+                @click="toggle"
+                plain
+              >
                 <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
                 <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-      
-                </NeuElement>
+              </v-btn>
             </div>
               <MemoInput v-show="memotoggle"/>   
               <MemoList v-show="!memotoggle"/>
@@ -62,9 +53,8 @@
 <script>
 import MemoInput from './MemoInput.vue'
 import MemoList from './MemoList.vue'
-import NeuElement from "vue-neumorphism-element";
 export default {
-  components: { MemoInput,MemoList,NeuElement },
+  components: { MemoInput,MemoList },
     name:'Memo',
     data () {
         return {
