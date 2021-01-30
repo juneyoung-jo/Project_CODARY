@@ -16,14 +16,17 @@ import org.springframework.stereotype.Service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.spring.web.controller.UserController;
 
 @Service
 public class KakaoOauthService implements OAuthService {
 
 	public static final Logger logger = LoggerFactory.getLogger(KakaoOauthService.class);
-	final String client_id = "cc55fbaa2ba8ee734547019f8cba7abf";
-	final String redirect_uri = "http://localhost:8000/codary/login/kakao";
+	final String CLIENT_ID = "cc55fbaa2ba8ee734547019f8cba7abf";
+	final String REDIRECT_URI = "http://localhost:8000/codary/login/kakao";
+	
+//	final String DEPLOY_CLIENT_ID = "621d1c02ff46c2f3b8b95949020e0886";
+//	final String DEPLOY_REDIRECT_URI = "http://i4c105.p.ssafy.io:8000/codary/login/kakao";
+	
 
 	public String getAccessToken(String authorize_code) {
 
@@ -43,8 +46,8 @@ public class KakaoOauthService implements OAuthService {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=" + client_id);
-			sb.append("&redirect_uri=" + redirect_uri);
+			sb.append("&client_id=" + CLIENT_ID);
+			sb.append("&redirect_uri=" + REDIRECT_URI);
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -83,7 +86,9 @@ public class KakaoOauthService implements OAuthService {
 	}
 
 	public HashMap<String, Object> getUserInfoFromOauth(String access_Token) {
-
+		
+		final String DEFAULT_IMG_PATH = "###### DEFAULT_IMAGE #####"; 
+		
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		HashMap<String, Object> userInfo = new HashMap<>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -120,7 +125,11 @@ public class KakaoOauthService implements OAuthService {
 			String providerId = element.getAsJsonObject().get("id").getAsString();
 			String email = "kakao_" + element.getAsJsonObject().get("id").getAsString();
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String profileImg = profile.getAsJsonObject().get("profile_image_url").getAsString();
+			String profileImg = DEFAULT_IMG_PATH; 
+			
+			if(profile.getAsJsonObject().get("profile_image_url") != null) {
+				profileImg = profile.getAsJsonObject().get("profile_image_url").getAsString();
+			}
 
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);

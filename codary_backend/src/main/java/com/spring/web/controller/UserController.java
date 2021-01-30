@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.KakaoOauthService;
@@ -65,8 +64,6 @@ public class UserController {
 				logger.info("#기존회원입니다.");
 				resultMap.put("user", user);
 				resultMap.put("userInfo", userService.findUserInfoById(user.getUid()));
-				System.out.println(user.getBlogId());
-				System.out.println(userService.findBlogById(user.getBlogId().toString()));
 				resultMap.put("blog", userService.findBlogById(user.getBlogId()));
 			}
 		} catch (Exception e) {
