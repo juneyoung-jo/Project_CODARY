@@ -32,7 +32,7 @@
 		where blog_contents_id = #{blogContentsId}
 	</delete>
 	
-	<select id="getAllContent" resultType="BlogContentsDto">
+	<select id="getAllContents" resultType="BlogContentsDto">
 		select *
 		from blogcontents
 	</select>
@@ -44,7 +44,7 @@
 	
 	<update id="increaseContentsView" parameterType="int">
 		update blogcontents
-		set blog_contents_view = (select blog_contents_view from blogcontents where blog_contents_id=#{blogContentsId}) + 1
+		set blog_contents_view = blog_contents_view + 1
 		where blog_contents_id = #{blogContentsId}
 	</update>
 </mapper>
