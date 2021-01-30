@@ -1,11 +1,12 @@
 package com.spring.web.service;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,33 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public List<BlogContentsDto> recommendBlogContents() throws Exception{
 		List<BlogContentsDto> list = sqlSession.getMapper(BlogContentsDao.class).getAllContents();
+		List<BlogContentsDto> recommendList = new LinkedList<>(); //추천 글 리스트
 		
-		return list.subList(0, 20);
+		final int size = 20; //추천 글 갯수
+		Map<Integer, BlogContentsDto> map = new TreeMap<>();
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Iterator<BlogContentsDto> iter = list.iterator();
+		
+		long cur = System.currentTimeMillis()/(1000*60*60);
+		while(iter.hasNext()) {
+			BlogContentsDto blog = iter.next();
+			//날짜 차이 구하기
+			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime()/(1000*60*60);
+			long sub = cur - date;
+			if(sub < 90*60)
+				map.put((int) (blog.getBlogContentsView() + blog.getBlogContentsLike()*3 - (int)sub/1000), blog);
+		}
+		
+		int cnt = 0;
+		for(int key : map.keySet()) {
+			recommendList.add(map.get(key));
+			System.out.println(map.get(key).toString());
+			if(++cnt == size) break;
+		}
+		
+		return recommendList;
 	}
 
 	@Override
@@ -71,6 +97,4 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId);
 	}
 	
-	
-
 }

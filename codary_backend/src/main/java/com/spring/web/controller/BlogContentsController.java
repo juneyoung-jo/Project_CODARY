@@ -159,4 +159,21 @@ public class BlogContentsController {
 			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	/**
+	 * 블로그 글 추천
+	 * 
+	 * @param 
+	 * @return List<BlogContentsDto>
+	 */
+	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogContentsDto")
+	@GetMapping("recommend")
+	public ResponseEntity<List<BlogContentsDto>> recommend() throws Exception{
+		try {
+			return new ResponseEntity<List<BlogContentsDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
 }
