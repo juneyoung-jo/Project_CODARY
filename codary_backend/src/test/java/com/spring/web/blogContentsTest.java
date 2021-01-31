@@ -77,4 +77,16 @@ public class blogContentsTest {
 		}
 	}
 	
+	@Test
+	public void increaseViewTest() {
+		try {
+			dao.increaseContentsView(11);
+			
+			BlogContentsDto blog = dao.getContent(11);
+			assertEquals(3, blog.getBlogContentsView());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

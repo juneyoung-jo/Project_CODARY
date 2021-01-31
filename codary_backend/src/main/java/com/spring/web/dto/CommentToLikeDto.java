@@ -1,5 +1,8 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "CommentToLike : 댓글 좋아요 정보",description = "댓글 좋아요 정보를 나타냄")
 public class CommentToLikeDto {
 
 	private String uid;

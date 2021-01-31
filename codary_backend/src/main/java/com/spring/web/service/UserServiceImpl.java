@@ -2,6 +2,7 @@ package com.spring.web.service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,18 +50,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> save(HashMap<String, Object> userInfo) throws Exception {
 
+		final String BLOG_DEFAULT_IMG = "##### DEFAULT_IMAGE ####";
+
 		String uid = makeUid();
 		String blogId = makeBlogId();
 		String nickname = (String) userInfo.get("nickname");
 		String provider = (String) userInfo.get("provider");
 		String providerId = (String) userInfo.get("providerId");
 		String profileImg = (String) userInfo.get("profileImg");
-		String blogProfile = "blogProfileDefault";
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		UserDto user = new UserDto(uid, blogId, uid, provider, providerId);
 		UserInfoDto info = new UserInfoDto(uid, nickname, profileImg);
-		BlogDto blog = new BlogDto(blogId, 0, nickname, blogProfile, 0);
+		BlogDto blog = new BlogDto(blogId, 0, nickname, BLOG_DEFAULT_IMG, 0);
 
 		resultMap.put("user", user);
 		resultMap.put("userInfo", info);
