@@ -1,6 +1,10 @@
 package com.spring.web.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +67,7 @@ public class PersonalController {
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<MemoContentsDto> memocontentsDto=null;
 		
-//		if(jwtService.isUsable(request.getHeader("access-token"))) { 
+	//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 			try {
 				memocontentsDto=personalService.showMemo(memoid);
 				System.out.println(memocontentsDto);
@@ -72,12 +76,13 @@ public class PersonalController {
 				e.printStackTrace();
 				status=HttpStatus.INTERNAL_SERVER_ERROR;
 			}
-//		}else { 
-//			status=HttpStatus.ACCEPTED;
-//		}
+	//	}else { 
+	//		status=HttpStatus.ACCEPTED;
+	//	}
 	
 		return new ResponseEntity<List<MemoContentsDto>>(memocontentsDto, HttpStatus.OK);
 	}
+	
 	
 	/*좋아요한 블로거 목록보기*/
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
@@ -87,7 +92,7 @@ public class PersonalController {
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogDto> blogDto=null;
 		
-//			if(jwtService.isUsable(request.getHeader("access-token"))) { 
+	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
 					blogDto=personalService.showLikeBloger(uid);
 					System.out.println(blogDto);
@@ -96,9 +101,9 @@ public class PersonalController {
 					e.printStackTrace();
 					status=HttpStatus.INTERNAL_SERVER_ERROR;
 				}
-//			}else { 
-//				status=HttpStatus.ACCEPTED;
-//			}
+	//		}else { 
+	//			status=HttpStatus.ACCEPTED;
+	//		}
 		
 			return new ResponseEntity<List<BlogDto>>(blogDto, HttpStatus.OK);
 	}
@@ -111,7 +116,7 @@ public class PersonalController {
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogContentsDto> blogcontentsDto=null;
 		
-//			if(jwtService.isUsable(request.getHeader("access-token"))) { 
+	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
 					blogcontentsDto=personalService.showLikeBlogContents(uid);
 					System.out.println(blogcontentsDto);
@@ -120,9 +125,9 @@ public class PersonalController {
 					e.printStackTrace();
 					status=HttpStatus.INTERNAL_SERVER_ERROR;
 				}
-//			}else { 
+	//		}else { 
 			
-//			}
+	//		}
 		
 			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, HttpStatus.OK);
 	}
@@ -130,9 +135,23 @@ public class PersonalController {
 	/*잔디*/
 	@ApiOperation(value="잔디", notes="잔디 그래프에 필요한 값(블로그 글을 등록한 횟수)를 반환한다.", response=List.class)
 	@GetMapping("/jandi/{blogid}")
-	public ResponseEntity<List<Map<String, Integer>>> showjandi(@PathVariable String blogid){
-		List<Map<String, Integer>> list=new ArrayList<>();
+	public ResponseEntity<List<Map<String,Integer>>> showjandi(@PathVariable String blogid) throws ParseException{
 		
-		return new ResponseEntity<List<Map<String, Integer>>>(list, HttpStatus.OK);
+		HttpStatus status=HttpStatus.ACCEPTED;
+		List<Map<String, Integer>> result=null;
+		
+		//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
+				try {
+					result=personalService.jandi(blogid);
+					status=HttpStatus.ACCEPTED;
+				}catch(Exception e) {
+					e.printStackTrace();
+					status=HttpStatus.INTERNAL_SERVER_ERROR;
+				}
+		//	}else { 
+				
+		//	}
+		
+		return new ResponseEntity<List<Map<String,Integer>>>(result, HttpStatus.OK);
 	}
 }
