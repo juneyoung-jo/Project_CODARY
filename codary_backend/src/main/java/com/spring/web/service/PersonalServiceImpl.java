@@ -77,14 +77,12 @@ public class PersonalServiceImpl implements PersonalService{
 	      
 	      List<Map<String, Integer>> result= new ArrayList<>(); //결과 담을 result
 	      
-	      int idx=0;
 	      //인덱스날짜가 오늘날짜와 같아질때까지 반복문
 	      while (index.compareTo(today) != 1) {
 	    	  s=df.format(index.getTime());	// ex) 2021-01-31
-	    	  for(int i=idx; i<list.size(); i++) {
+	    	  for(int i=0; i<list.size(); i++) {
 	    		  if(s.equals(list.get(i).getBlogDatetime())) {	//jandiDto에 있는 날짜와 같으면
 	    			  m.put(s, list.get(i).getJandiCnt());
-	    			  idx=i+1;
 	    			  break;
 	    		  }else {	//jandiDto에 안담긴 날짜라면
 	    			  m.put(s, 0);
@@ -95,7 +93,6 @@ public class PersonalServiceImpl implements PersonalService{
 	      }
 	     
 	     result.add(m); //연산이 끝나면 정렬된 m이 result에 담긴다.
-	      
 		return result;
 	}
 
