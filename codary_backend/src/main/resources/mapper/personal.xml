@@ -34,4 +34,5 @@
 		where blog_id=#{blogId}
 		group by Date(blog_datetime);
 	</select>
+	
 </mapper>
