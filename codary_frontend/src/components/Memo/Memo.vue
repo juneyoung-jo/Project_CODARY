@@ -14,38 +14,39 @@
         mdi-clipboard-multiple-outline
       </v-icon>
     </v-card>
-
-    <v-menu
-      :close-on-content-click="false"
-      activator="#settings"
-      bottom
-      content-class="v-settings"
-      left
-      nudge-left="8"
-      offset-x
-      origin="top right"
-      transition="scale-transition"
-    >
-      <v-card
-        class="text-center mb-0"
-        width="300"
+      <v-menu
+        :close-on-content-click="false"
+        activator="#settings"
+        bottom
+        content-class="v-settings"
+        left
+        nudge-left="8"
+        offset-x
+        origin="top right"
+        transition="scale-transition"
+        rounded=xl
       >
-        <div class="py-3 d-flex flex-column">
-          <div class="d-flex px-3 align-center justify-end">
-            <strong class="mr-13 py-3">MEMO</strong>
-            <v-btn 
-              @click="toggle"
-              plain
-            >
-              <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
-              <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-            </v-btn>
+        <v-card
+          class="text-center mb-0"
+          width="300"
+        >
+          <div class="py-3 d-flex flex-column">
+            <div class="d-flex align-center justify-end">
+              <strong class="mr-15 py-3">MEMO</strong>
+              <v-btn 
+                @click="toggle"
+                plain
+              >
+                <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
+                <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
+              </v-btn>
+            </div>
+              <MemoInput v-show="memotoggle"/>   
+              <MemoList v-show="!memotoggle"/>
           </div>
-            <MemoInput v-show="memotoggle"/>   
-            <MemoList v-show="!memotoggle"/>
-        </div>
-      </v-card>
-    </v-menu>
+        </v-card>
+      </v-menu>
+
   </div>
 </template>
 
@@ -71,5 +72,5 @@ export default {
 </script>
 
 <style>
-
+@import '~vue-neumorphism-element/dist/vue-neumorphism-element.css';
 </style>

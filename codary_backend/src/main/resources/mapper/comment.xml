@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.web.dao.CommentDao">
+
+	<select id="listComment" parameterType="map"
+		resultType="commentDto">
+		select *
+		from comment
+		where blog_id = #{blogId}
+		AND blog_contents_id = #{blogContentsId}
+	</select>
+
+	<select id="getUserInfo" parameterType="UserInfoDto"
+		resultType="UserInfoDto">
+		select *
+		from userInfo
+		where uid = #{uid}
+	</select>
+	
+	<insert id="writeComment" parameterType="CommentDto">
+		insert into comment(blog_contents_id,blog_id,comment_content,uid,comment_datetime)
+		values(#{blogContentsId},#{blogId},#{commentContent},#{uid},now())
+	</insert>
+	
+	<delete id="deleteComment" parameterType="int">
+		delete from comment
+		where comment_num = #{commentNum}
+	</delete>
+	
+	<update id="modifyComment" parameterType="CommentDto">
+		update comment
+		set comment_content = #{commentContent}, comment_datetime = now()
+		where comment_num = #{commentNum} 
+	</update>
+	
+	<select id="getCommentLike" parameterType="CommentToLikeDto" resultType="CommentToLikeDto">
+		select *
+		from commenttolike
+		where uid = #{uid}
+		and comment_num = #{commentNum}
+	</select>
+	
+	<update id="upComment" parameterType="CommentToLikeDto">
+		update comment
+		set comment_like = comment_like+1
+		where comment_num = #{commentNum};
+	</update>
+	
+	<insert id="commentLike" parameterType="CommentToLikeDto">
+		insert into commenttolike
+		values(#{uid},#{commentNum})
+	</insert>
+	
+	<update id="downComment" parameterType="CommentToLikeDto">
+		update comment
+		set comment_like = comment_like-1
+		where comment_num = #{commentNum};
+	</update>
+	
+	<delete id="commentLikeCancle" parameterType="CommentToLikeDto">
+		delete from commenttolike
+		where uid = #{uid}
+		AND comment_num = #{commentNum}
+	</delete>
+	
+	<select id="getLog" parameterType="UserDto" resultType="LogDto">
+		select * 
+		from log
+		where uid=#{uid}
+	</select>
+	
+	<select id="getComment" parameterType="UserDto" resultType="CommentDto">
+		select * 
+		from comment
+		where blog_id = #{blogId};
+	</select>
+</mapper>

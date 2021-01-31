@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.web.dao.MemoDao">
+
+	<select id="getMemo" parameterType="int" resultType="MemoContentsDto">
+		select *
+		from memocontents
+		where memo_num = #{memoNum}
+	</select>
+	
+	<insert id="writeMemo" parameterType="MemoContentsDto">
+		insert into memocontents(memo_id, memo_content, memo_time)
+		values (#{memoId}, #{memoContent}, now())
+	</insert>
+	
+	<select id="listMemo" parameterType="String" resultType="MemoContentsDto">
+		select *
+		from memocontents
+		where memo_id = #{memoId}
+	</select>
+	
+ 	<update id="modifyMemo" parameterType="MemoContentsDto">
+		update memocontents
+		set memo_content = #{memoContent}
+		where memo_num = #{memoNum}
+	</update>
+	
+	<delete id="deleteMemo" parameterType="map">
+		delete from memocontents
+		where memo_num = #{memoNum}
+	</delete>
+	
+</mapper>
