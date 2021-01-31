@@ -68,17 +68,17 @@ public class UserServiceImpl implements UserService {
 		resultMap.put("userInfo", info);
 		resultMap.put("blog", blog);
 
+		// 3. blog 테이블 생성
+		sqlSession.getMapper(UserDao.class).makeBlog(blog);
+				
+		// 4. memo 테이블 생성
+		sqlSession.getMapper(UserDao.class).makeMemo(new MemoDto(uid));
+		
 		// 1. user 테이블 생성
 		sqlSession.getMapper(UserDao.class).save(user);
 
 		// 2. userinfo 테이블 생성
 		sqlSession.getMapper(UserDao.class).saveUserInfo(info);
-
-		// 3. blog 테이블 생성
-		sqlSession.getMapper(UserDao.class).makeBlog(blog);
-
-		// 4. memo 테이블 생성
-		sqlSession.getMapper(UserDao.class).makeMemo(new MemoDto(uid));
 
 		return resultMap;
 	}
