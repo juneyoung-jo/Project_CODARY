@@ -1,7 +1,9 @@
 package com.spring.web.service;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
@@ -16,5 +18,5 @@ public interface PersonalService {
 	public List<MemoContentsDto> showMemo(String memoid);
 	public List<BlogDto> showLikeBloger(String uid);
 	public List<BlogContentsDto> showLikeBlogContents(String uid);
-	public List<JandiDto> jandi(String blogid);
+	public List<Map<String, Integer>> jandi(String blogid) throws ParseException;
 }

@@ -55,7 +55,7 @@ public class NaverOauthService implements SocialOauth {
 			JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
 
 			// 인증수단, 인증 서버내 pk값, 이메일, 이름, 프로필 사진
-			String provider = "Naver";
+			String provider = "naver";
 			String providerId = response.getAsJsonObject().get("id").getAsString();
 			String profileImg = response.getAsJsonObject().get("profile_image").getAsString();
 			String nickname = response.getAsJsonObject().get("name").getAsString();

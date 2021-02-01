@@ -28,7 +28,14 @@ public interface SocialOauth {
 	final String NAVER_CLIENT_SECRET = "L2NhJ5foO3";
 	final String NAVER_REDIRECT_URI = "http://localhost:8000/codary/login/naver";
 	final String NAVER_REQUEST_URL = "https://nid.naver.com/oauth2.0/token";
+	
+	final String GOOGLE_CLIENT_ID = "509903905678-vkgf01saln1b88fti0cd3vlivbkcd00g.apps.googleusercontent.com";
+	final String GOOGLE_CLIENT_SECRET = "tfL3NYfxN8mFKwAQa5BJDLqw";
+	final String GOOGLE_REDIRECT_URI = "http://localhost:8000/codary/login/google";
+	final String GOOGLE_REQUEST_URL = "https://oauth2.googleapis.com/token";
 
+	
+	final String DEFAULT_IMG_PATH = "###### DEFAULT_IMAGE #####";
 	public static final Logger logger = LoggerFactory.getLogger(SocialOauth.class);
 
 	public default String getAccessToken(String socialLoginType, String authorizeCode) {
@@ -53,6 +60,8 @@ public interface SocialOauth {
 			sb.append("&code=" + authorizeCode);
 			if (socialLoginType.equals("naver")) {
 				sb.append("&client_secret=" + NAVER_CLIENT_SECRET);
+			}else if(socialLoginType.equals("google")) {
+				sb.append("&client_secret=" + GOOGLE_CLIENT_SECRET);
 			}
 			bw.write(sb.toString());
 			bw.flush();
@@ -75,8 +84,12 @@ public interface SocialOauth {
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 
-			access_Token = element.getAsJsonObject().get("access_token").getAsString();
-			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+			if(socialLoginType.equals("google")) {
+				access_Token = element.getAsJsonObject().get("id_token").getAsString();
+			}else {
+				access_Token = element.getAsJsonObject().get("access_token").getAsString();
+			}
+//			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 
 			// System.out.println("access_token : " + access_Token);
 			// System.out.println("refresh_token : " + refresh_Token);
@@ -102,6 +115,12 @@ public interface SocialOauth {
 			resultMap.put("reqURL", NAVER_REQUEST_URL);
 			resultMap.put("client_id", NAVER_CLIENT_ID);
 			resultMap.put("redirect_uri", NAVER_REDIRECT_URI);
+			return resultMap;
+			
+		case "google":
+			resultMap.put("reqURL", GOOGLE_REQUEST_URL);
+			resultMap.put("client_id", GOOGLE_CLIENT_ID);
+			resultMap.put("redirect_uri", GOOGLE_REDIRECT_URI);
 			return resultMap;
 		default:
 			return null;
