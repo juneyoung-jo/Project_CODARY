@@ -2,7 +2,7 @@
 <template v-slot:default="dialog">
   <v-card id='login' >
     <div class='py-5'></div>
-    <v-card-actions class="justify-center" >
+    <v-card-actions class="justify-center d-flex flex-column">
       <a
       href="https://kauth.kakao.com/oauth/authorize?client_id=cc55fbaa2ba8ee734547019f8cba7abf&redirect_uri=http://localhost:8000/codary/login/kakao&response_type=code"
       >
@@ -13,16 +13,21 @@
         @click="loginWithKakao"
       /> 
       </a>
-      <br />
+      <a
+        href="https://nid.naver.com/oauth2.0/authorize?client_id=WpeeiuJ12wUmEB1bn6hr&redirect_uri=http://localhost:8000/codary/login/naver&response_type=code"
+      >
+        <img
+          class="kakao_btn"
+          src="../../assets/naverlogin.png"
+          width="222"
+        />
+      </a>
     </v-card-actions>
     <div class='py-5'></div>
   </v-card>
 </template>
-      
-
 
 <script>
-
 
 export default {
 
