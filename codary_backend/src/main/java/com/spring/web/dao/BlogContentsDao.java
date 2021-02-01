@@ -19,5 +19,6 @@ public interface BlogContentsDao {
 	List<BlogContentsDto> getAllContents() throws SQLException;
 	int writeLog(Map<String, Object> log) throws SQLException;
 	void increaseContentsView(int blogContentsId) throws SQLException;
+	void usergraphViewCount(int blogContentsId) throws SQLException;
 	
 }

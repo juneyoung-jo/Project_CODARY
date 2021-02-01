@@ -28,7 +28,9 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	private SqlSession sqlSession;
 	
 	@Override
+	@Transactional
 	public BlogContentsDto getContent(int blogContentsId) throws Exception {
+		sqlSession.getMapper(BlogContentsDao.class).usergraphViewCount(blogContentsId);
 		return sqlSession.getMapper(BlogContentsDao.class).getContent(blogContentsId);
 	}
 
