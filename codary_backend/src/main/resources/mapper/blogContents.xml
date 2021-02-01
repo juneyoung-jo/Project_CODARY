@@ -7,7 +7,7 @@
 	<select id="getContent" parameterType="int" resultType="BlogContentsDto">
 		select *
 		from blogcontents
-		where blog_contents_id = #{blogContentsId}
+		where blog_contents_id = #{blogContentsId} and isdeleted = 0;
 	</select>
 	
 	<insert id="writeBlogContent" parameterType="BlogContentsDto">
@@ -27,14 +27,16 @@
 		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
 	</update>
 	
-	<delete id="deleteBlogContent" parameterType="int">
-		delete from blogcontents
+	<update id="deleteBlogContent" parameterType="int">
+		update blogcontents
+		set isdeleted = 1
 		where blog_contents_id = #{blogContentsId}
-	</delete>
+	</update>
 	
 	<select id="getAllContents" resultType="BlogContentsDto">
 		select *
 		from blogcontents
+		where isdeleted = 0
 	</select>
 	
 	<insert id="writeLog" parameterType="map">
