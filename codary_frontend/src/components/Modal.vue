@@ -1,7 +1,7 @@
 <template>
       <v-dialog
         transition="dialog-top-transition"
-        max-width="600">
+        max-width="400">
         <template v-slot:activator="{ on, attrs }">
             <v-btn
               v-bind="attrs"
@@ -9,7 +9,6 @@
               plain
             >로그인</v-btn>
           </template>
-        
         <v-tabs
           v-model="tab"
           background-color="indigo"
@@ -17,19 +16,14 @@
           grow
         >
           <v-tab>
-            Login
+            codary
           </v-tab>
-         
         </v-tabs>
-
-        <v-tabs-items v-model="tab">
+        <v-tabs-items 
+          v-model="tab"
+        >
           <v-tab-item>
-              
             <Login/>  
-          </v-tab-item>
-          <v-tab-item>
-             
-            <Register/>
           </v-tab-item>
         </v-tabs-items>
       </v-dialog>
@@ -37,7 +31,6 @@
 
 <script>
 import Login from './user/Login'
-import Register from './user/Register'
 
 export default {
 
@@ -45,7 +38,6 @@ export default {
   name: 'Modal',
   components: {
     Login,
-    Register,
     
   },
   data () {
@@ -56,6 +48,9 @@ export default {
         ],
       }
     },
+  methods: {
+
+  },
 }
 </script>
 

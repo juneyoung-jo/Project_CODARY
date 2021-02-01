@@ -1,11 +1,16 @@
 <template>
   <v-card-text>
       <v-textarea
-        background-color="amber lighten-4"
-        color="orange orange-darken-4"
+        background-color="blue lighten-4"
+        color="white"
         placeholder="메모하세요"
+        auto-grow
+        rounded
+        solo-inverted
+        flat
+        class='memoinput'
       ></v-textarea>
-      <v-btn outlined>저장</v-btn>
+      <v-btn plain>저장</v-btn>
   </v-card-text>
 </template>
 
@@ -18,3 +23,7 @@
   
   }
 </script>
+<style>
+
+
+</style>
