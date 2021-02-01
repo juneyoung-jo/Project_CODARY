@@ -38,15 +38,16 @@ public class BlogContentsController {
 
 
 	/**
-	 * 해당 블로그의 특정 블로그 글 가져오기
+	 * 다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)
 	 * 
 	 * @param blogId, blogContentsId
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "해당 블로그의 특정 블로그 글 가져오기", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
+	@ApiOperation(value = "다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
 		try {
+			contentsService.increaseContentsView(blogContentsId);
 			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(blogContentsId), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
