@@ -1,7 +1,8 @@
 <template>
       <v-dialog
         transition="dialog-top-transition"
-        max-width="400">
+        max-width="400"
+      >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
               v-bind="attrs"
@@ -14,6 +15,7 @@
           background-color="indigo"
           color="white"
           grow
+          :close-on-content-click="closeOnContentClick"
         >
           <v-tab>
             codary
@@ -46,6 +48,7 @@ export default {
         items: [
           'Login', 'Register',
         ],
+         closeOnContentClick: true,
       }
     },
   methods: {

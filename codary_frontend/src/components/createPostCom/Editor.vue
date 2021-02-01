@@ -66,9 +66,9 @@ export default {
       
       this.editorText = content
 
-      console.log(this.$refs.toastuiViewer)
+      console.log(content)
       
-      this.$refs.toastuiViewer.editor.markdownValue = content
+      // this.$refs.toastuiViewer.editor.markdownValue = content
       // console.log(this.editorText)
       // this.editorText = (Editor.getMarkdown())
 
