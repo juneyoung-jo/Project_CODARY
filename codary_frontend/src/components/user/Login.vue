@@ -28,7 +28,7 @@
           button-color="green"
           :callbackFunction="callbackFunction"
         /> -->
-      </div>
+   
       <button @click="click">버튼</button>
     </v-card-actions>
     <div class="py-5"></div>
