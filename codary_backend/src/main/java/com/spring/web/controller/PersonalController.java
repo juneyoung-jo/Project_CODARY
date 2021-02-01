@@ -156,7 +156,7 @@ public class PersonalController {
 	}
 	
 	/*유저통계*/
-	@ApiOperation(value="잔디", notes="잔디 그래프에 필요한 값(블로그 글을 등록한 횟수)를 반환한다.", response=List.class)
+	@ApiOperation(value="유저통계", notes="유저통계 그래프에 필요한 값(블로그에 방문한 횟수)를 반환한다.", response=List.class)
 	@GetMapping("/usergraph/{blogid}")
 	public ResponseEntity<List<Map<String,Integer>>> usergraph(@PathVariable String blogid) throws ParseException{
 		
