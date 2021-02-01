@@ -22,5 +22,6 @@ public interface PersonalDao {
 	public List<BlogDto> likeBloger(String uid);
 	public List<BlogContentsDto> likeBlogContents(String uid);
 	public List<JandiDto> jandi(String blogid);
-	public List<UsergraphDto> usergraph(String blogid); 
+	public List<UsergraphDto> usergraph(String blogid);
+	public void usergraphViewCount(String blogid);
 }

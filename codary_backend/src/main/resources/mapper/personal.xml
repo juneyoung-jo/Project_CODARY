@@ -42,4 +42,9 @@
 		group by Date(usergraph_date);
 	</select>
 	
+	<insert id="usergraphViewCount" parameterType="String">
+		insert into usergraph(blog_id, usergraph_date, blog_view) 
+		values(#{blogId}, now(), 0);
+	</insert>
+	
 </mapper>
