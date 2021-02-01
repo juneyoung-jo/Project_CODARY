@@ -62,6 +62,7 @@ import {mapState} from 'vuex'
     }),
     methods:{
       selectcover(cover){
+        // 여기도 axios가 들어가야...
         console.log(cover)
       }
     }
