@@ -141,26 +141,26 @@ public class BlogContentsController {
 		return resEntity;
 	}
 	
-	/**
-	 * 블로그 글 조회수 증가
-	 * 
-	 * @param BlogContentsId
-	 * @return 
-	 */
-	@ApiOperation(value = "블로그 글 클릭 시 조회 수 증가하기", notes ="@param blogContentsId @return ")
-	@GetMapping("increase/view/{blogContentsId}")
-	public ResponseEntity<Map<String, String>> increaseContentsView(@PathVariable int blogContentsId){
-		Map<String, String> map = new HashMap<>();
-		try {
-			contentsService.increaseContentsView(blogContentsId);
-			map.put("msg", "success");
-			return new ResponseEntity<>(map, HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-			map.put("msg", "fail");
-			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
-		}
-	}
+//	/**
+//	 * 블로그 글 조회수 증가
+//	 * 
+//	 * @param BlogContentsId
+//	 * @return 
+//	 */
+//	@ApiOperation(value = "블로그 글 클릭 시 조회 수 증가하기", notes ="@param blogContentsId @return ")
+//	@GetMapping("increase/view/{blogContentsId}")
+//	public ResponseEntity<Map<String, String>> increaseContentsView(@PathVariable int blogContentsId){
+//		Map<String, String> map = new HashMap<>();
+//		try {
+//			contentsService.increaseContentsView(blogContentsId);
+//			map.put("msg", "success");
+//			return new ResponseEntity<>(map, HttpStatus.OK);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			map.put("msg", "fail");
+//			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+//		}
+//	}
 	
 	/**
 	 * 블로그 글 추천
