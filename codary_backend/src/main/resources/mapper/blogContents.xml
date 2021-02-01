@@ -47,4 +47,21 @@
 		set blog_contents_view = blog_contents_view + 1
 		where blog_contents_id = #{blogContentsId}
 	</update>
+	
+	<select id="readContentLike" resultType="BlogContentsLikeDto">
+		select *
+		from blogcontentslike
+		where uid = #{uid} and blog_contents_id=#{blog_contents_id}
+	</select>
+	
+	<insert id="createContentLike">
+		insert into blogcontentslike(uid, blog_contents_id)
+		values(#{uid}, #{blog_contents_id})
+	</insert>
+	
+	<delete id="deleteContentLike">
+		delete from blogContentslike
+		where uid = #{uid} and blog_contents_id=#{blog_contents_id}
+	</delete>
+	
 </mapper>
