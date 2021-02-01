@@ -51,17 +51,17 @@
 	<select id="readContentLike" resultType="BlogContentsLikeDto">
 		select *
 		from blogcontentslike
-		where uid = #{uid} and blog_contents_id=#{blog_contents_id}
+		where uid = #{uid} and blog_contents_id = #{blogContentsId}
 	</select>
 	
-	<insert id="createContentLike">
+	<insert id="contentLike" parameterType = "BlogContentsLikeDto">
 		insert into blogcontentslike(uid, blog_contents_id)
-		values(#{uid}, #{blog_contents_id})
+		values(#{uid}, #{blogContentsId})
 	</insert>
 	
-	<delete id="deleteContentLike">
-		delete from blogContentslike
-		where uid = #{uid} and blog_contents_id=#{blog_contents_id}
+	<delete id="contentUnlike" parameterType = "BlogContentsLikeDto">
+		delete from blogcontentslike
+		where uid = #{uid} and blog_contents_id=#{blogContentsId}
 	</delete>
 	
 </mapper>

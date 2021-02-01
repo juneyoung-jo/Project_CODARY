@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogContentsLikeDto;
 
 @Service
 public class BlogContentsServiceImpl implements BlogContentsService{
@@ -100,6 +101,21 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Transactional
 	public void increaseContentsView(int blogContentsId) throws Exception {
 		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId);
+	}
+
+	@Override
+	public BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception {
+		return sqlSession.getMapper(BlogContentsDao.class).readContentLike(like);
+	}
+
+	@Override
+	public void contentLike(BlogContentsLikeDto like) throws Exception {
+		sqlSession.getMapper(BlogContentsDao.class).contentLike(like);
+	}
+
+	@Override
+	public void contentUnlike(BlogContentsLikeDto like) throws Exception {
+		sqlSession.getMapper(BlogContentsDao.class).contentUnlike(like);
 	}
 	
 }
