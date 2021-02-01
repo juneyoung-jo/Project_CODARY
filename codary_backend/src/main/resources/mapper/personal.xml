@@ -35,4 +35,11 @@
 		group by Date(blog_datetime);
 	</select>
 	
+	<select id="usergraph" resultType="usergraphDto" parameterType="String">
+		select Date(usergraph_date) as usergraphDate, count(*) as blogView
+		from usergraph
+		where blog_id=#{blogId}
+		group by Date(usergraph_date);
+	</select>
+	
 </mapper>
