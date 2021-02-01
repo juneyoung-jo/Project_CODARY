@@ -46,7 +46,7 @@ let onSuccess = (data) => {
   console.log(data);
   console.log(data.access_token);
   axios
-    .post("http://localhost:8000/codary/access/kakao", data.access_token)
+    .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
     .then(function (response) {
       console.log(response.data);
       console.log("===============");
