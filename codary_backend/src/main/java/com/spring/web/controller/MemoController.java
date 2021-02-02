@@ -33,10 +33,10 @@ public class MemoController {
 	/**
 	 * 메모 작성하기
 	 * 
-	 * @param MemoContentsDto
+	 * @param MemoContentsDto(memoId, memoContent)
 	 * @return List<MemoContentsDto>
 	 */
-	@ApiOperation(value = "메모 작성하기", notes ="@param : blogContentsDto  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 작성하기", notes ="@param : blogContentsDto(memoId, memoContent)  </br> @return List<MemoContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
 		try {
@@ -68,10 +68,10 @@ public class MemoController {
 	/**
 	 * 메모 수정하기
 	 * 
-	 * @param MemoContentsDto
+	 * @param MemoContentsDto(memoNum, memoContent)
 	 * @return List<MemoContentsDto>
 	 */
-	@ApiOperation(value = "메모 수정하기", notes =" @param MemoContentsDto  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 수정하기", notes =" @param MemoContentsDto(memoId, memoNum, memoContent)  </br> @return List<MemoContentsDto>")
 	@PutMapping
 	public ResponseEntity<List<MemoContentsDto>> modifyMemo(@RequestBody MemoContentsDto memo) throws Exception {
 		int result = memoService.modifyMemo(memo);
