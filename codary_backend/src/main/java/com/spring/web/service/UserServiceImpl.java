@@ -55,13 +55,14 @@ public class UserServiceImpl implements UserService {
 		String uid = makeUid();
 		String blogId = makeBlogId();
 		String nickname = (String) userInfo.get("nickname");
+		String username = nickname;
 		String provider = (String) userInfo.get("provider");
 		String providerId = (String) userInfo.get("providerId");
 		String profileImg = (String) userInfo.get("profileImg");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		UserDto user = new UserDto(uid, blogId, uid, provider, providerId);
-		UserInfoDto info = new UserInfoDto(uid, nickname, profileImg);
+		UserInfoDto info = new UserInfoDto(uid, nickname, username, profileImg);
 		BlogDto blog = new BlogDto(blogId, 0, nickname, BLOG_DEFAULT_IMG, 0);
 
 		resultMap.put("user", user);

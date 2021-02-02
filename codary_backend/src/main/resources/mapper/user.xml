@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="findUserInfoById" parameterType="string" resultType="UserInfoDto">
-		select uid, nickname, profile
+		select uid, nickname, username, profile
 		from userinfo
 		where uid = #{uid}
 	</select>
@@ -35,8 +35,8 @@
 	</insert>
 	
 	<insert id="saveUserInfo" parameterType="UserInfoDto" >
-		insert into userinfo(uid, nickname, profile)
-		values(#{uid}, #{nickname}, #{profile})
+		insert into userinfo(uid, nickname, username, profile)
+		values(#{uid}, #{nickname}, #{username}, #{profile})
 	</insert>
 	
 	<insert id="makeBlog" parameterType="BlogDto" >
