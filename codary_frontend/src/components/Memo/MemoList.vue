@@ -1,21 +1,14 @@
 <template>
   <v-card-text>
       <div>
-        <v-list two-line>
+        <v-list two-line v-for="item in items" :key="item.memoNum">
           <v-list-item-content>
-            <v-list-item-title>Memo1</v-list-item-title>
-            <v-list-item-subtitle>메모입니다</v-list-item-subtitle>
+            <!-- <v-list-item-title>{{item.memoNum}}</v-list-item-title> -->
+            <v-list-item-subtitle>{{item.memoContent}}</v-list-item-subtitle>
           </v-list-item-content>
+          <v-btn>수정버튼</v-btn>
+          <v-btn @click="deleteMemo()">삭제버튼</v-btn>
           <v-divider></v-divider>
-          <v-list-item-content>
-            <v-list-item-title>Memo2</v-list-item-title>
-            <v-list-item-subtitle>메모입니다2</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-divider></v-divider>
-          <v-list-item-content>
-            <v-list-item-title>Memo3</v-list-item-title>
-            <v-list-item-subtitle>메모입니다3</v-list-item-subtitle>
-          </v-list-item-content>
         </v-list>
       </div>
   </v-card-text>
@@ -27,6 +20,7 @@ export default {
     name:'MemoList',
     data() {
       return {
+        items: [],
 
       }
     },
@@ -39,13 +33,19 @@ export default {
         this.axios.get(`memo/${memoId}/`)
         .then(res => {
           console.log(res)
+          this.items = res.data
           // 글 작성된다음 어디로 보내지?
           // this.$router.push({name: 'MainPage'})
         })
         .catch(err => {
           console.log(err)
         })
-      }
+      },
+
+      // deleteMemo(e) {
+        // console.log(e)
+        // const deletingData = document.querySelector
+      // }
     }
 }
 </script>
