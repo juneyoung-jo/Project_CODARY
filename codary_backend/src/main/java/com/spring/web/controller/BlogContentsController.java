@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.service.BlogContentsService;
 
 import io.swagger.annotations.Api;
@@ -33,19 +34,20 @@ public class BlogContentsController {
 	@Autowired
 	private BlogContentsService contentsService;
 	
-	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	public static final Logger logger = LoggerFactory.getLogger(BlogContentsController.class);
 
 
 	/**
-	 * 해당 블로그의 특정 블로그 글 가져오기
+	 * 다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)
 	 * 
 	 * @param blogId, blogContentsId
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "해당 블로그의 특정 블로그 글 가져오기", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
+	@ApiOperation(value = "다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
 		try {
+			contentsService.increaseContentsView(blogContentsId);
 			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(blogContentsId), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -139,26 +141,26 @@ public class BlogContentsController {
 		return resEntity;
 	}
 	
-	/**
-	 * 블로그 글 조회수 증가
-	 * 
-	 * @param BlogContentsId
-	 * @return 
-	 */
-	@ApiOperation(value = "블로그 글 클릭 시 조회 수 증가하기", notes ="@param blogContentsId @return ")
-	@GetMapping("increase/view/{blogContentsId}")
-	public ResponseEntity<Map<String, String>> increaseContentsView(@PathVariable int blogContentsId){
-		Map<String, String> map = new HashMap<>();
-		try {
-			contentsService.increaseContentsView(blogContentsId);
-			map.put("msg", "success");
-			return new ResponseEntity<>(map, HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-			map.put("msg", "fail");
-			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
-		}
-	}
+//	/**
+//	 * 블로그 글 조회수 증가
+//	 * 
+//	 * @param BlogContentsId
+//	 * @return 
+//	 */
+//	@ApiOperation(value = "블로그 글 클릭 시 조회 수 증가하기", notes ="@param blogContentsId @return ")
+//	@GetMapping("increase/view/{blogContentsId}")
+//	public ResponseEntity<Map<String, String>> increaseContentsView(@PathVariable int blogContentsId){
+//		Map<String, String> map = new HashMap<>();
+//		try {
+//			contentsService.increaseContentsView(blogContentsId);
+//			map.put("msg", "success");
+//			return new ResponseEntity<>(map, HttpStatus.OK);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			map.put("msg", "fail");
+//			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+//		}
+//	}
 	
 	/**
 	 * 블로그 글 추천
@@ -176,4 +178,65 @@ public class BlogContentsController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	/**
+	 * 블로그 글 좋아요 눌렀는지 여부
+	 * 
+	 * @param BlogContentLikeDto
+	 * @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)
+	 */
+	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)")
+	@PostMapping("checkContentsLike")
+	public ResponseEntity<BlogContentsLikeDto> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+		try {
+			BlogContentsLikeDto res = contentsService.readBlogContentsLike(like);
+			return new ResponseEntity<BlogContentsLikeDto>(res, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	/**
+	 * 블로그 글 좋아요
+	 * 
+	 * @param BlogContentLikeDto
+	 * @return 
+	 */
+	@ApiOperation(value = "블로그 글 좋아요 누르기", notes = "@param BlogContentsLikeDto </br> @return ")
+	@PostMapping("contentsLike")
+	public ResponseEntity<Map<String, String>> contentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		try {
+			contentsService.contentLike(like);
+			map.put("msg", "success");
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+		}catch(Exception e) {
+			map.put("msg", "fail");
+			e.printStackTrace();
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	/**
+	 * 블로그 글 좋아요 취소
+	 * 
+	 * @param BlogContentLikeDto
+	 * @return 
+	 */
+	@ApiOperation(value = "블로그 글 좋아요 취소하기", notes = "@param BlogContentLikeDto </br> @return ")
+	@PostMapping("contentsUnlike")
+	public ResponseEntity<Map<String, String>> contentsUnlike(@RequestBody BlogContentsLikeDto like) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		try {
+			contentsService.contentUnlike(like);
+			map.put("msg", "success");
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+		}catch(Exception e) {
+			map.put("msg", "fail");
+			e.printStackTrace();
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.NOT_FOUND);
+		}
+	}
+	
 }
