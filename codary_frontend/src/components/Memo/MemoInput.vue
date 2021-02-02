@@ -24,25 +24,45 @@ export default {
     menu: false,
     // 데이터 왜 일케 넣는지? 물어봐야지?
     memoText: '',
+    memoTime: '',
 
   }),
   methods: {
     memoSave() {
-      const sendData = {
+      if ( this.memoTime == "") {
+        // 메모 시간이 있으면 기존의 자료라서 수정으로 넘김
+        const sendData = {
           "memoContent": this.memoText,
           "memoId": "2u1wQOyL8StR",
           // "memoNum": '',
-          "memoTime": ""
+          "memoTime": "",
         }
-      this.axios.post(`memo/`, sendData)
-      .then(res => {
-        console.log(res)
-        // 글 작성된다음 어디로 보내지?
-        // this.$router.push({name: 'MainPage'})
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        this.axios.post(`memo/`, sendData)
+        .then(res => {
+          console.log(res)
+          // 글 작성된다음 어디로 보내지?
+          // this.$router.push({name: 'MainPage'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        const sendData = {
+          "memoContent": this.memoText,
+          "memoId": "2u1wQOyL8StR",
+          // "memoNum": '',
+          "memoTime": this.memoTime,
+        }
+        this.axios.post(`memo/`, sendData)
+        .then(res => {
+          console.log(res)
+          // 글 작성된다음 어디로 보내지?
+          // this.$router.push({name: 'MainPage'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
     }
   }
 
