@@ -23,5 +23,6 @@ public interface BlogContentsDao {
 	BlogContentsLikeDto readContentLike(BlogContentsLikeDto like) throws SQLException;
 	void contentLike(BlogContentsLikeDto like) throws SQLException;
 	void contentUnlike(BlogContentsLikeDto like) throws SQLException;
+	void usergraphViewCount(int blogContentsId) throws SQLException;
 	
 }

@@ -154,4 +154,27 @@ public class PersonalController {
 		
 		return new ResponseEntity<List<Map<String,Integer>>>(result, HttpStatus.OK);
 	}
+	
+	/*유저통계*/
+	@ApiOperation(value="유저통계", notes="유저통계 그래프에 필요한 값(블로그에 방문한 횟수)를 반환한다.", response=List.class)
+	@GetMapping("/usergraph/{blogid}")
+	public ResponseEntity<List<Map<String,Integer>>> usergraph(@PathVariable String blogid) throws ParseException{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		List<Map<String, Integer>> result=null;
+		
+		//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
+				try {
+					result=personalService.usergraph(blogid);
+					status=HttpStatus.ACCEPTED;
+				}catch(Exception e) {
+					e.printStackTrace();
+					status=HttpStatus.INTERNAL_SERVER_ERROR;
+				}
+		//	}else { 
+				
+		//	}
+		
+		return new ResponseEntity<List<Map<String,Integer>>>(result, HttpStatus.OK);
+	}
 }

@@ -66,4 +66,10 @@
 		where uid = #{uid} and blog_contents_id=#{blogContentsId}
 	</delete>
 	
+	<insert id="usergraphViewCount" parameterType="int">
+		insert into usergraph (blog_id, usergraph_date, blog_view) 
+		select blog_id, now(), 0 from blogcontents where blog_contents_id=#{blogContentsId};
+	</insert>
+	
+	
 </mapper>
