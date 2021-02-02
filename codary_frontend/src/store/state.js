@@ -1,11 +1,8 @@
-const Authentication = {
-
-}
-
 const state = {
-
+    isLogin: false,
+    loggedInUserData: null,
+    loggedInUserProfile: null,         
     
 }
 
-export {Authentication}
 export default state

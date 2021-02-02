@@ -34,10 +34,14 @@
             <font-awesome-icon :icon="['fas','search']"/>
           </v-btn>
         </router-link>
-        <!-- login -->
-        <Modal/>
-        <!-- 마이페이지가는곳 -->
-        <MainBadge/>
+        <template v-if="isLogin">
+          <!-- 마이페이지가는곳 -->
+          <MainBadge/>
+        </template>
+        <template v-else>
+          <!-- login -->
+          <Modal/>
+        </template>
       </v-col>
     </v-row>
   </v-app-bar>
@@ -46,16 +50,16 @@
 <script>
 import Modal from './Modal'
 import MainBadge from './MainBadge'
-// import {mapGetters} from 'vuex'
+import {mapState} from 'vuex';
 export default {
   components: { 
     'Modal':Modal,
     'MainBadge':MainBadge 
   },
   name: 'Nav',
-  // computed:{
-  //   ...mapGetters(['LoggedInUserData'])
-  // },
+  computed:{
+    ...mapState(['isLogin'])
+  },
   watch: {
       color (val) {
         this.$vuetify.theme.themes[this.isDark ? 'dark' : 'light'].primary = val
