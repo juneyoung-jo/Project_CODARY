@@ -18,5 +18,5 @@ public interface BlogContentsService {
 	BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception;
 	void contentLike(BlogContentsLikeDto like) throws Exception;
 	void contentUnlike(BlogContentsLikeDto like) throws Exception;
-
+	
 }
