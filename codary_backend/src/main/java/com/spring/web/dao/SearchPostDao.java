@@ -10,5 +10,5 @@ import com.spring.web.dto.BlogPostDto;
 @Repository
 public interface SearchPostDao {
 
-	public List<BlogPostDto> searchPost() throws SQLException;
+	public List<BlogPostDto> searchPost(String keyword) throws SQLException;
 }

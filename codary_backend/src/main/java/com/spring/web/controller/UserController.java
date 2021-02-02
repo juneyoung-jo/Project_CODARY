@@ -48,9 +48,13 @@ public class UserController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
-	/*
+	
+	/**
 	 * 소셜로그인 access_token을 전달 받아 정보 전달 
-	 * */
+	 * 
+	 * @param -
+	 * @return List<BlogPostDto>
+	 */
 	@ApiOperation(value = "소셜사이트로 부터 읽어온 access_token값", notes ="@param : access_token  </br> @return : uid, userInfoDto, blodId, memoId")
 	@PostMapping("/login/{socialLoginType}")
 	public ResponseEntity<Map<String, Object>> access(@PathVariable("socialLoginType") String socialLoginType,

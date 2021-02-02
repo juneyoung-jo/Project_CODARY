@@ -12,14 +12,14 @@ import com.spring.web.dto.BlogPostDto;
 
 @Service
 @Transactional
-public class SearchPostServiceImpl implements SearchPostService{
+public class SearchPostServiceImpl implements SearchPostService {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
-	public List<BlogPostDto> searchPost() throws Exception {
-		return sqlSession.getMapper(SearchPostDao.class).searchPost();
+	public List<BlogPostDto> searchPost(String keyword) throws Exception {
+		return sqlSession.getMapper(SearchPostDao.class).searchPost(keyword);
 	}
 
 }

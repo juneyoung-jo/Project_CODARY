@@ -4,18 +4,27 @@
 
 <mapper namespace="com.spring.web.dao.SearchPostDao">
 
-	<select id="searchPost" resultType="BlogPostDto">
+	<select id="searchPost" parameterType="string" resultType="BlogPostDto">
 		select bc.blog_id,
 				bc.blog_contents_id, bc.blog_contents_title,
 				bc.blog_contents,
-				bc.blog_contents_view, bc.blog_contents_like, bc.blog_datetime,
+				bc.blog_contents_view, bc.blog_contents_like,
+				case when date_format(blog_datetime, '%Y%m%d') = date_format(now(), '%Y%m%d')
+				then date_format(blog_datetime, '%H:%i:%s')
+				else date_format(blog_datetime, '%y.%m.%d')
+				end blog_datetime,
 				bc.blog_contents_cover, info.nickname, info.profile
 		from blogcontents bc inner join user u
 				on bc.blog_id = u.blog_id
 			inner join userinfo info
 				on u.uid = info.uid
 		where bc.isdeleted = 0 and u.isdeleted = 0
-		order by blog_contents_id DESC;
+		<if test="keyword != null and keyword != ''">
+			and bc.blog_contents_title like concat('%', #{keyword}, '%')
+			or bc.blog_contents like concat('%', #{keyword}, '%')
+		</if>
+		order by blog_contents_id DESC
+		limit 0, 30;
 	</select>
 
 
