@@ -13,7 +13,7 @@ import com.spring.web.dto.MemoContentsDto;
 public class MemoServiceImpl implements MemoService{
 
 	@Autowired
-	private MemoServiceImpl mapper;
+	private MemoDao mapper;
 	
 	@Override
 	public MemoContentsDto getMemo(int memoNum) throws Exception {
