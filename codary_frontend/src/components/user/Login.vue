@@ -36,7 +36,6 @@
       
 
 <script>
-import axios from "axios";
 import KakaoLogin from "vue-kakao-login";
 import GoogleLogin from "vue-google-login";
 import {mapMutations, mapState} from 'vuex'
@@ -48,7 +47,6 @@ let onFailure = (data) => {
     console.log("failure");
   };
 
-const vm = this;
 
 export default {
   name: "Login",
@@ -75,17 +73,9 @@ export default {
     ...mapMutations(['fetchLoggedInUserData']),
     ...mapState(['loggedInUserData']),
 
-    kakaoCallback:(data) => {
-      axios
-        .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
-        .then(function (response) {
-          console.log(response.data.access_token);
-          localStorage.setItem('jwt', response.data.access_token)
-          vm.$store.commit('fetchLoggedInUserData', response.data.user)
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    kakaoCallback(data){
+      console.log(data)
+      this.$store.dispatch('kakaoCallback',data)
     },
     googleCallback(data){
       console.log(data)
