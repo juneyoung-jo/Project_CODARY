@@ -7,11 +7,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +44,13 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 
 	@Override
-	public void modifyBlogContent(BlogContentsDto blogContent) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).modifyBlogContent(blogContent);
+	public int modifyBlogContent(BlogContentsDto blogContent) {
+		return sqlSession.getMapper(BlogContentsDao.class).modifyBlogContent(blogContent);
 	}
 
 	@Override
-	public void deleteBlogContent(int blogContentsId) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(blogContentsId);
+	public int deleteBlogContent(int blogContentsId) {
+		return sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(blogContentsId);
 	}
 	
 	@Override
