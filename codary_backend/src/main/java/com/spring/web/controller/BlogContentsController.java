@@ -61,7 +61,7 @@ public class BlogContentsController {
 	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)
 	 * @return List<BlogContentsDto>
 	 */
-	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto  </br> @return List<BlogContentsDto>")
+	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception{
 		try {
@@ -84,7 +84,7 @@ public class BlogContentsController {
 	 * @param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto  </br> @return BlogContentsDto")
+	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
 	@PutMapping
 	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception{
 		int result = contentsService.modifyBlogContent(content);

@@ -24,38 +24,37 @@ import com.spring.web.dto.BlogContentsLikeDto;
 public class BlogContentsServiceImpl implements BlogContentsService{
 
 	@Autowired
-	private SqlSession sqlSession;
+	private BlogContentsDao mapper;
 	
 	@Override
 	@Transactional
 	public BlogContentsDto getContent(int blogContentsId) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).usergraphViewCount(blogContentsId);
-		return sqlSession.getMapper(BlogContentsDao.class).getContent(blogContentsId);
+		return mapper.getContent(blogContentsId);
 	}
 
 	@Override
 	public void writeBlogContent(BlogContentsDto blogContent) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).writeBlogContent(blogContent);
+		mapper.writeBlogContent(blogContent);
 	}
 
 	@Override
 	public List<BlogContentsDto> listBlogContents(String blogId) throws Exception {
-		return sqlSession.getMapper(BlogContentsDao.class).listBlogContents(blogId);
+		return mapper.listBlogContents(blogId);
 	}
 
 	@Override
 	public int modifyBlogContent(BlogContentsDto blogContent) {
-		return sqlSession.getMapper(BlogContentsDao.class).modifyBlogContent(blogContent);
+		return mapper.modifyBlogContent(blogContent);
 	}
 
 	@Override
 	public int deleteBlogContent(int blogContentsId) {
-		return sqlSession.getMapper(BlogContentsDao.class).deleteBlogContent(blogContentsId);
+		return mapper.deleteBlogContent(blogContentsId);
 	}
 	
 	@Override
 	public List<BlogContentsDto> recommendBlogContents() throws Exception{
-		List<BlogContentsDto> list = sqlSession.getMapper(BlogContentsDao.class).getAllContents();
+		List<BlogContentsDto> list = mapper.getAllContents();
 		List<BlogContentsDto> recommendList; //추천 글 리스트
 		
 		final int size = 3; //추천 글 갯수
@@ -91,31 +90,32 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 		Map<String,Object> log = new HashMap<String, Object>();
 		log.put("uid", uid);
 		log.put("blogContentsId", blogContentsId);
-		sqlSession.getMapper(BlogContentsDao.class).writeLog(log);
-		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId); //조회수 증가
+		
+		mapper.writeLog(log);
+		mapper.increaseContentsView(blogContentsId); //조회수 증가
 				
-		return sqlSession.getMapper(BlogContentsDao.class).getContent(blogContentsId);
+		return mapper.getContent(blogContentsId);
 	}
 
 	@Override
 	@Transactional
 	public void increaseContentsView(int blogContentsId) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).increaseContentsView(blogContentsId);
+		mapper.increaseContentsView(blogContentsId);
 	}
 
 	@Override
 	public BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception {
-		return sqlSession.getMapper(BlogContentsDao.class).readContentLike(like);
+		return mapper.readContentLike(like);
 	}
 
 	@Override
 	public void contentLike(BlogContentsLikeDto like) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).contentLike(like);
+		mapper.contentLike(like);
 	}
 
 	@Override
 	public void contentUnlike(BlogContentsLikeDto like) throws Exception {
-		sqlSession.getMapper(BlogContentsDao.class).contentUnlike(like);
+		mapper.contentUnlike(like);
 	}
 	
 }
