@@ -13,7 +13,7 @@ public interface MemoDao {
 	MemoContentsDto getMemo(int memoNum) throws SQLException;
 	void writeMemo(MemoContentsDto memo) throws SQLException;
 	List<MemoContentsDto> listMemo(String memoId) throws SQLException;
-	void modifyMemo(MemoContentsDto memo) throws SQLException;
-	void deleteMemo(int memoNum) throws SQLException;
+	int modifyMemo(MemoContentsDto memo);
+	int deleteMemo(int memoNum);
 	
 }
