@@ -14,8 +14,6 @@ public interface JwtService {
 
 	Map<String, Object> get(String key);
 	
-	Map<String, Object> parseAccessToken(String key);
-
 	String getUserId();
 
 	boolean isUsable(String jwt);

@@ -33,9 +33,12 @@ public class JwtServiceImpl implements JwtService {
 
 	@Override
 	public <T> String create(String key, T data, String subject) {
-		String jwt = Jwts.builder().setHeaderParam("typ", "JWT").setHeaderParam("regDate", System.currentTimeMillis())
+		String jwt = Jwts.builder().setHeaderParam("typ", "JWT")
+				.setHeaderParam("regDate", System.currentTimeMillis())
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * EXPIRE_MINUTES))
-				.setSubject(subject).claim(key, data).signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
+				.setSubject(subject)
+				.claim(key, data)
+				.signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
 		return jwt;
 	}
 	
@@ -113,27 +116,5 @@ public class JwtServiceImpl implements JwtService {
 	public String getUserId() {
 		return (String) this.get("user").get("uId");
 	}
-
-	@Override
-	public Map<String, Object> parseAccessToken(String key) {
-		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		try {
-			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(key);
-			UserDto user = claims.getBody().get("user", UserDto.class);
-			UserInfoDto userinfo = claims.getBody().get("userInfo", UserInfoDto.class);
-			BlogDto blog = claims.getBody().get("blog", BlogDto.class);
-			
-			resultMap.put("user", user);
-			resultMap.put("userinfo", userinfo);
-			resultMap.put("blog", blog);
-			System.out.println(user.toString());
-			System.out.println(userinfo.toString());
-			System.out.println(blog.toString());
-		} catch (Exception e) {
-				logger.error(e.getMessage());
-		}
-		
-		return resultMap;
-	}
+	
 }
