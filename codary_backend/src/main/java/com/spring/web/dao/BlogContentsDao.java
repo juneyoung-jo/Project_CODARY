@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogContentsLikeDto;
 
 @Mapper
 public interface BlogContentsDao {
@@ -19,5 +20,9 @@ public interface BlogContentsDao {
 	List<BlogContentsDto> getAllContents() throws SQLException;
 	int writeLog(Map<String, Object> log) throws SQLException;
 	void increaseContentsView(int blogContentsId) throws SQLException;
+	BlogContentsLikeDto readContentLike(BlogContentsLikeDto like) throws SQLException;
+	void contentLike(BlogContentsLikeDto like) throws SQLException;
+	void contentUnlike(BlogContentsLikeDto like) throws SQLException;
+	void usergraphViewCount(int blogContentsId) throws SQLException;
 	
 }

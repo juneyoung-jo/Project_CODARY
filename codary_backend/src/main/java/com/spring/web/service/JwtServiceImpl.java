@@ -2,6 +2,7 @@ package com.spring.web.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.spring.web.dto.BlogDto;
+import com.spring.web.dto.UserDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.error.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -32,6 +36,18 @@ public class JwtServiceImpl implements JwtService {
 		String jwt = Jwts.builder().setHeaderParam("typ", "JWT").setHeaderParam("regDate", System.currentTimeMillis())
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * EXPIRE_MINUTES))
 				.setSubject(subject).claim(key, data).signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
+		return jwt;
+	}
+	
+	@Override
+	public <T> String create(UserDto user, UserInfoDto userinfo, BlogDto blog,  String subject) {
+		String jwt = Jwts.builder().setHeaderParam("typ", "JWT").setHeaderParam("regDate", System.currentTimeMillis())
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * EXPIRE_MINUTES))
+				.setSubject(subject)
+				.claim("user", user)
+				.claim("userinfo", userinfo)
+				.claim("blog", blog)
+				.signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
 		return jwt;
 	}
 
@@ -96,5 +112,28 @@ public class JwtServiceImpl implements JwtService {
 	@Override
 	public String getUserId() {
 		return (String) this.get("user").get("uId");
+	}
+
+	@Override
+	public Map<String, Object> parseAccessToken(String key) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(key);
+			UserDto user = claims.getBody().get("user", UserDto.class);
+			UserInfoDto userinfo = claims.getBody().get("userInfo", UserInfoDto.class);
+			BlogDto blog = claims.getBody().get("blog", BlogDto.class);
+			
+			resultMap.put("user", user);
+			resultMap.put("userinfo", userinfo);
+			resultMap.put("blog", blog);
+			System.out.println(user.toString());
+			System.out.println(userinfo.toString());
+			System.out.println(blog.toString());
+		} catch (Exception e) {
+				logger.error(e.getMessage());
+		}
+		
+		return resultMap;
 	}
 }

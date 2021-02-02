@@ -8,6 +8,7 @@ public class MemoContentsDto {
 	private String memoId;
 	private String memoContent;
 	private String memoTime;
+	private byte isdeleted;
 
 	public int getMemoNum() {
 		return memoNum;
@@ -41,10 +42,18 @@ public class MemoContentsDto {
 		this.memoTime = memoTime;
 	}
 
+	public byte getIsdeleted() {
+		return isdeleted;
+	}
+
+	public void setIsdeleted(byte isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 	@Override
 	public String toString() {
 		return "MemoContentsDto [memoNum=" + memoNum + ", memoId=" + memoId + ", memoContent=" + memoContent
-				+ ", memoTime=" + memoTime + "]";
+				+ ", memoTime=" + memoTime + ", isdeleted=" + isdeleted + "]";
 	}
 
 }

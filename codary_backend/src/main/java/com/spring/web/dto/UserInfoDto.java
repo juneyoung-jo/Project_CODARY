@@ -8,16 +8,20 @@ public class UserInfoDto {
 
 	@ApiModelProperty(value = "회원 고유번호 13자리")
 	private String uid;
-	@ApiModelProperty(value = "회원명")
+	@ApiModelProperty(value = "닉네임")
 	private String nickname;
+	@ApiModelProperty(value = "회원명")
+	private String username;
 	@ApiModelProperty(value = "프로필 사진")
 	private String profile;
-	
+
 	public UserInfoDto() {
 	}
-	public UserInfoDto(String uid, String nickname, String profile) {
+
+	public UserInfoDto(String uid, String nickname, String username, String profile) {
 		this.uid = uid;
 		this.nickname = nickname;
+		this.username = username;
 		this.profile = profile;
 	}
 
@@ -37,17 +41,20 @@ public class UserInfoDto {
 		this.nickname = nickname;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getProfile() {
 		return profile;
 	}
 
 	public void setProfile(String profile) {
 		this.profile = profile;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfoDto [uid=" + uid + ", nickname=" + nickname + ", profile=" + profile + "]";
 	}
 
 }
