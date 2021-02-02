@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogDto;
@@ -69,9 +68,10 @@ public class UserController {
 				resultMap = userService.save(userInfo);
 			} else {
 				logger.info("#기존회원입니다.");
-				resultMap.put("user", user);
+				resultMap.put("userId", user.getUid());
 				resultMap.put("userInfo", userService.findUserInfoById(user.getUid()));
-				resultMap.put("blog", userService.findBlogById(user.getBlogId()));
+				resultMap.put("blogId", user.getBlogId());
+				resultMap.put("memoId", user.getMemoId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,16 +82,15 @@ public class UserController {
 //		String token = jwtService.create("uId", user.getUid(), "access-token");
 		String token  =  jwtService.create((UserDto)resultMap.get("user"), (UserInfoDto)resultMap.get("userInfo"), (BlogDto)resultMap.get("blog"), "access-token");
 		logger.debug("#토큰정보: " + token);
-		resultMap.put("access-token", token);
+		resultMap.put("access_token", token);
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
 	}
 	
-	
-	@GetMapping("/jwt")
-	public String jwt(String jwt) {
-//		jwtService.parseAccessToken(jwt);
-		return "";
+	@GetMapping("/jwt/test")
+	public String jwtTets() {
+		System.out.println("여기 들어왔습니다.");
+		return "success";
 	}
 	
 	public SocialOauth getSocialOauth(String socialLoginType) {

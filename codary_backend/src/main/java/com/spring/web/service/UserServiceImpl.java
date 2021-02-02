@@ -65,9 +65,11 @@ public class UserServiceImpl implements UserService {
 		UserInfoDto info = new UserInfoDto(uid, nickname, username, profileImg);
 		BlogDto blog = new BlogDto(blogId, 0, nickname, BLOG_DEFAULT_IMG, 0);
 
-		resultMap.put("user", user);
+		resultMap.put("userId", user.getUid());
 		resultMap.put("userInfo", info);
-		resultMap.put("blog", blog);
+		resultMap.put("blogId", user.getBlogId());
+		resultMap.put("memoId", user.getMemoId());
+		
 
 		// 3. blog 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeBlog(blog);
