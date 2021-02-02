@@ -31,13 +31,13 @@ public class MemoServiceImpl implements MemoService{
 	}
 
 	@Override
-	public void modifyMemo(MemoContentsDto memo) throws Exception {
-		sqlSession.getMapper(MemoDao.class).modifyMemo(memo);
+	public int modifyMemo(MemoContentsDto memo) {
+		return sqlSession.getMapper(MemoDao.class).modifyMemo(memo);
 	}
 
 	@Override
-	public void deleteMemo(int memoNum) throws Exception {
-		sqlSession.getMapper(MemoDao.class).deleteMemo(memoNum);
+	public int deleteMemo(int memoNum) {
+		return sqlSession.getMapper(MemoDao.class).deleteMemo(memoNum);
 	}
 
 }

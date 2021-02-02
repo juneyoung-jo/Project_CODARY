@@ -74,13 +74,11 @@ public class MemoController {
 	@ApiOperation(value = "메모 수정하기", notes =" @param MemoContentsDto  </br> @return List<MemoContentsDto>")
 	@PutMapping
 	public ResponseEntity<List<MemoContentsDto>> modifyMemo(@RequestBody MemoContentsDto memo) throws Exception {
-		try {
-			memoService.modifyMemo(memo);
+		int result = memoService.modifyMemo(memo);
+		if(result != 0)
 			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
+		else 
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 	}
 	
 	/**
@@ -92,12 +90,10 @@ public class MemoController {
 	@ApiOperation(value = "메모 삭제하기", notes =" @param memoId, memoNum  </br> @return List<MemoContentsDto>")
 	@DeleteMapping("{memoId}/{memoNum}")
 	public ResponseEntity<List<MemoContentsDto>> deleteMemo(@PathVariable String memoId, @PathVariable int memoNum) throws Exception {
-		try {
-			memoService.deleteMemo(memoNum);
+		int result = memoService.deleteMemo(memoNum);
+		if(result != 0)
 			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
+		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 	}
 }
