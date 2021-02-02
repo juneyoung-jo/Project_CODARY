@@ -16,7 +16,7 @@
 	<select id="getUserInfo" parameterType="UserInfoDto"
 		resultType="UserInfoDto">
 		select *
-		from userInfo
+		from userinfo
 		where uid = #{uid}
 	</select>
 	
