@@ -125,9 +125,10 @@ public class CommentServiceImpl implements CommentService {
 					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 			if (!myLogTime.isBefore(commentLogTime)) continue;
-
-			if (result.get(comments.getBlogContentsId()) == null) result.put(comments.getBlogContentsId(), 1);
-			else result.put(comments.getBlogContentsId(), result.get(comments.getBlogContentsId()) + 1);
+			
+			result.merge(comments.getBlogContentsId(), 1, Integer::sum);
+//			if (result.get(comments.getBlogContentsId()) == null) result.put(comments.getBlogContentsId(), 1);
+//			else result.put(comments.getBlogContentsId(), result.get(comments.getBlogContentsId()) + 1);
 		}
 
 		// 5. 결과 담아서 던지기
