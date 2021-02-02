@@ -13,6 +13,7 @@ import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
+import com.spring.web.dto.UsergraphDto;
 
 @Mapper
 public interface PersonalDao {
@@ -21,4 +22,6 @@ public interface PersonalDao {
 	public List<BlogDto> likeBloger(String uid);
 	public List<BlogContentsDto> likeBlogContents(String uid);
 	public List<JandiDto> jandi(String blogid);
+	public List<UsergraphDto> usergraph(String blogid); 
+	public void usergraphViewCount(String blogid);
 }
