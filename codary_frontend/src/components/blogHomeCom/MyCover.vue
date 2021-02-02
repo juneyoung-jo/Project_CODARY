@@ -1,6 +1,6 @@
 <template>
   <v-img 
-    :src="mycover"
+    src="https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg"
     max-height="300"
     top
   >

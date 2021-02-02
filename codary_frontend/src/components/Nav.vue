@@ -46,13 +46,16 @@
 <script>
 import Modal from './Modal'
 import MainBadge from './MainBadge'
-
+// import {mapGetters} from 'vuex'
 export default {
   components: { 
     'Modal':Modal,
     'MainBadge':MainBadge 
   },
   name: 'Nav',
+  // computed:{
+  //   ...mapGetters(['LoggedInUserData'])
+  // },
   watch: {
       color (val) {
         this.$vuetify.theme.themes[this.isDark ? 'dark' : 'light'].primary = val
