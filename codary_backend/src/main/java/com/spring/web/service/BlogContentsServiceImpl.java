@@ -29,6 +29,7 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	@Transactional
 	public BlogContentsDto getContent(int blogContentsId) throws Exception {
+		mapper.usergraphViewCount(blogContentsId);
 		return mapper.getContent(blogContentsId);
 	}
 
