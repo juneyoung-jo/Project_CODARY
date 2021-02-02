@@ -11,14 +11,14 @@
 	</select>
 	
 	<insert id="writeBlogContent" parameterType="BlogContentsDto">
-		insert into blogcontents(blog_contents_id, blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
-		values (#{blogContentsId}, #{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
+		insert into blogcontents(blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
+		values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
 	</insert>
 	
 	<select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">
 		select *
 		from blogcontents
-		where blog_id = #{blogId}
+		where blog_id = #{blogId} ans isdeleted = 0
 	</select>
 	
  	<update id="modifyBlogContent" parameterType="BlogContentsDto">
