@@ -17,15 +17,15 @@
       
         <v-card-text>
           <h6 class="text-h6 mb-2 text--secondary">
-            {{ job }}
+            job
           </h6>
 
           <h4 class="text-h4 mb-3 text--primary">
-            {{ name }}
+            name
           </h4>
 
           <p class="text--secondary">
-            {{ intro }}
+            intro
           </p>
           <div class='d-flex'>
             <router-link class='noline' :to="'/createpost'">
@@ -91,7 +91,7 @@
                         cols="12"
                         sm="6"
                       >
-                      <v-img :src="photo"></v-img>
+                      <v-img :src="photo" alt="profile"></v-img>
                       </v-col>
                       <v-col
                         cols="12"
@@ -135,12 +135,9 @@
 
 <script>
 
-import {mapState} from 'vuex'
+// import {mapState} from 'vuex'
   export default {
     name: 'Profile',
-    computed:{
-      ...mapState(['photo','name','job','intro'])
-    },
     data: () => ({
      dialog: false,
     }),
