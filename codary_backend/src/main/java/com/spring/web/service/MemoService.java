@@ -8,6 +8,6 @@ public interface MemoService {
 	MemoContentsDto getMemo(int memoNum) throws Exception;
 	void writeMemo(MemoContentsDto memo) throws Exception;
 	List<MemoContentsDto> listMemo(String memoId) throws Exception;
-	void modifyMemo(MemoContentsDto memo) throws Exception;
-	void deleteMemo(int memoNum) throws Exception;
+	int modifyMemo(MemoContentsDto memo);
+	int deleteMemo(int memoNum);
 }

@@ -58,10 +58,10 @@ public class BlogContentsController {
 	/**
 	 * 블로그 글 작성
 	 * 
-	 * @param BlogContentsDto
+	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)
 	 * @return List<BlogContentsDto>
 	 */
-	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto  </br> @return List<BlogContentsDto>")
+	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception{
 		try {
@@ -81,19 +81,17 @@ public class BlogContentsController {
 	/**
 	 * 블로그 글 수정
 	 * 
-	 * @param BlogContentsDto
+	 * @param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto  </br> @return BlogContentsDto")
+	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
 	@PutMapping
 	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception{
-		try {
-			contentsService.modifyBlogContent(content);
+		int result = contentsService.modifyBlogContent(content);
+		if(result == 1) 
 			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
+		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 	}
 	
 	/**
@@ -105,13 +103,11 @@ public class BlogContentsController {
 	@ApiOperation(value = "블로그 글 삭제", notes ="@param blogId, blogContentsId  </br> @return List<BlogContentsDto>")
 	@DeleteMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<List<BlogContentsDto>> delete(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
-		try {
-			contentsService.deleteBlogContent(blogContentsId);
+		int result = contentsService.deleteBlogContent(blogContentsId);
+		if(result == 1)
 			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(blogId), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
+		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 	}
 	
 	/**

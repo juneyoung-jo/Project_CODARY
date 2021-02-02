@@ -13,31 +13,31 @@ import com.spring.web.dto.MemoContentsDto;
 public class MemoServiceImpl implements MemoService{
 
 	@Autowired
-	private SqlSession sqlSession;
+	private MemoServiceImpl mapper;
 	
 	@Override
 	public MemoContentsDto getMemo(int memoNum) throws Exception {
-		return sqlSession.getMapper(MemoDao.class).getMemo(memoNum);
+		return mapper.getMemo(memoNum);
 	}
 	
 	@Override
 	public void writeMemo(MemoContentsDto memo) throws Exception {
-		sqlSession.getMapper(MemoDao.class).writeMemo(memo);
+		mapper.writeMemo(memo);
 	}
 
 	@Override
 	public List<MemoContentsDto> listMemo(String memoId) throws Exception {
-		return sqlSession.getMapper(MemoDao.class).listMemo(memoId);
+		return mapper.listMemo(memoId);
 	}
 
 	@Override
-	public void modifyMemo(MemoContentsDto memo) throws Exception {
-		sqlSession.getMapper(MemoDao.class).modifyMemo(memo);
+	public int modifyMemo(MemoContentsDto memo) {
+		return mapper.modifyMemo(memo);
 	}
 
 	@Override
-	public void deleteMemo(int memoNum) throws Exception {
-		sqlSession.getMapper(MemoDao.class).deleteMemo(memoNum);
+	public int deleteMemo(int memoNum) {
+		return mapper.deleteMemo(memoNum);
 	}
 
 }
