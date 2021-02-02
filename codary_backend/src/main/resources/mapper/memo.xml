@@ -7,7 +7,7 @@
 	<select id="getMemo" parameterType="int" resultType="MemoContentsDto">
 		select *
 		from memocontents
-		where memo_num = #{memoNum}
+		where memo_num = #{memoNum} and isdeleted = 0
 	</select>
 	
 	<insert id="writeMemo" parameterType="MemoContentsDto">
@@ -18,7 +18,7 @@
 	<select id="listMemo" parameterType="String" resultType="MemoContentsDto">
 		select *
 		from memocontents
-		where memo_id = #{memoId}
+		where memo_id = #{memoId} and isdeleted = 0
 	</select>
 	
  	<update id="modifyMemo" parameterType="MemoContentsDto">
@@ -27,9 +27,10 @@
 		where memo_num = #{memoNum}
 	</update>
 	
-	<delete id="deleteMemo" parameterType="map">
-		delete from memocontents
+	<update id="deleteMemo" parameterType="map">
+		update memocontents
+		set isdeleted = 1
 		where memo_num = #{memoNum}
-	</delete>
+	</update>
 	
 </mapper>

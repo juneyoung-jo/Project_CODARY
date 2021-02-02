@@ -1,8 +1,15 @@
-import {Authentication} from './state.js'
-
 const mutations = {
-    fetchLoggedInUserData(state){
-        state.loggedInUserData = Authentication.fetchUserData()
+    fetchLoggedInUserData(state, userInfo){
+        state.loggedInUserData = userInfo;
+        state.isLogin = true;
+    },
+    fetchLoggedInUserProfile(state, userProfile){
+        state.loggedInUserProfile = userProfile;
+    },
+    logout(state) {
+        state.userInfo = null;
+        state.isLogin = false;
+        localStorage.clear();
     }
 }
 

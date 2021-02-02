@@ -1,18 +1,12 @@
 package com.spring.web.dto;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(value = "BlogContentstLikeDto : 블로그 글 좋아요", description = "블로그 글에 대한 좋아요 정보")
 public class BlogContentsLikeDto {
 
-	private int num;
 	private String uid;
 	private int blogContentsId;
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
 
 	public String getUid() {
 		return uid;
@@ -32,7 +26,7 @@ public class BlogContentsLikeDto {
 
 	@Override
 	public String toString() {
-		return "BlogContentsLikeDto [num=" + num + ", uid=" + uid + ", blogContentsId=" + blogContentsId + "]";
+		return "BlogContentsLikeDto [uid=" + uid + ", blogContentsId=" + blogContentsId + "]";
 	}
 
 }

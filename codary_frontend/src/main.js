@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-import { sync } from 'vuex-router-sync'
 import VueFullPage from 'vue-fullpage.js'
 import axios from 'axios'
 
@@ -21,7 +20,7 @@ Vue.prototype.axios = axios // 사용법 => this.axios
 Vue.config.productionTip = false
 Vue.use(VueFullPage);
 
-sync(store,router)
+
 
 new Vue({
   router,
