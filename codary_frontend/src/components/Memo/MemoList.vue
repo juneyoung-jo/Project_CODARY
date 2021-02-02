@@ -25,6 +25,28 @@
 <script>
 export default {
     name:'MemoList',
+    data() {
+      return {
+
+      }
+    },
+    created() {
+      this.getMemoList()
+    },
+    methods: {
+      getMemoList() {
+        const memoId = '2u1wQOyL8StR'
+        this.axios.get(`memo/${memoId}/`)
+        .then(res => {
+          console.log(res)
+          // 글 작성된다음 어디로 보내지?
+          // this.$router.push({name: 'MainPage'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+    }
 }
 </script>
 
