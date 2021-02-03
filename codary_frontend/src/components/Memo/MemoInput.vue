@@ -60,7 +60,7 @@ export default {
           console.log(res)
           // 글 작성된다음 어디로 보내지?
           // this.$router.push({name: 'MainPage'})
-
+          // tnwjdddyd
         })
         .catch(err => {
           console.log(err)
