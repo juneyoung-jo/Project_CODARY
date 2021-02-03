@@ -8,7 +8,7 @@
         <Profile />
       </v-card>
       <CommentWrite @WRITECMT="writeComment" />
-      <Comment :items="items" @DELETECMT="deleteComment" />
+      <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
     </v-container>
   </div>
 </template>
@@ -61,6 +61,9 @@ export default {
           console.log(error);
         }
       );
+    },
+    modifyComment(index, content) {
+      this.items[index].commentContent = content;
     },
   },
 };
