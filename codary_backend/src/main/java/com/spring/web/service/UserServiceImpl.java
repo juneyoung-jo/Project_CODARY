@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> save(HashMap<String, Object> userInfo) throws Exception {
 
-		final String BLOG_DEFAULT_IMG = "##### DEFAULT_IMAGE ####";
+		final String BLOG_DEFAULT_IMG = "https://codaryproject.s3.ap-northeast-2.amazonaws.com/50c5c53450fd40f79b966e16971fcbb2.jpg";
 
 		String uid = makeUid();
 		String blogId = makeBlogId();
@@ -65,9 +65,12 @@ public class UserServiceImpl implements UserService {
 		UserInfoDto info = new UserInfoDto(uid, nickname, username, profileImg);
 		BlogDto blog = new BlogDto(blogId, 0, nickname, BLOG_DEFAULT_IMG, 0);
 
-		resultMap.put("user", user);
-		resultMap.put("userInfo", info);
-		resultMap.put("blog", blog);
+		resultMap.put("uid", user.getUid());
+		resultMap.put("nickname", info.getNickname());
+		resultMap.put("profile", info.getProfile());
+		resultMap.put("blogId", user.getBlogId());
+		resultMap.put("memoId", user.getMemoId());
+		
 
 		// 3. blog 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeBlog(blog);
@@ -114,6 +117,17 @@ public class UserServiceImpl implements UserService {
 				break;
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public void updateNickname(Map<String, String> map) throws Exception {
+		sqlSession.getMapper(UserDao.class).updateNickname(map);
+		return;
+	}
+
+	@Override
+	public void delete(String uid) throws Exception {
+		sqlSession.getMapper(UserDao.class).deleteUser(uid);
 	}
 
 }

@@ -19,4 +19,8 @@ public interface UserService {
 	public BlogDto findBlogById(String blogId) throws SQLException;
 
 	public Map<String, Object> save(HashMap<String, Object> userInfo) throws Exception;
+	
+	public void updateNickname(Map<String, String> map) throws Exception;
+
+	public void delete(String uid) throws Exception;
 }

@@ -35,7 +35,7 @@ public interface SocialOauth {
 	final String GOOGLE_REQUEST_URL = "https://oauth2.googleapis.com/token";
 
 	
-	final String DEFAULT_IMG_PATH = "###### DEFAULT_IMAGE #####";
+	final String DEFAULT_IMG_PATH = "https://codaryproject.s3.ap-northeast-2.amazonaws.com/998a3448910c44e99f503fb9bfdee576.png";
 	public static final Logger logger = LoggerFactory.getLogger(SocialOauth.class);
 
 	public default String getAccessToken(String socialLoginType, String authorizeCode) {

@@ -57,4 +57,11 @@ public class UserInfoDto {
 		this.profile = profile;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfoDto [uid=" + uid + ", nickname=" + nickname + ", username=" + username + ", profile=" + profile
+				+ "]";
+	}
+
+	
 }
