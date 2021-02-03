@@ -13,6 +13,7 @@ import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.PersonalDao;
 import com.spring.web.dto.BlogContentsDto;
@@ -31,6 +32,7 @@ public class PersonalServiceImpl implements PersonalService{
 	private PersonalDao personalDao;
 	
 	@Override
+	@Transactional
 	public List<BlogContentsDto> personalContents(String blogid) {
 		personalDao.usergraphViewCount(blogid);
 		return personalDao.showBlogContents(blogid);
