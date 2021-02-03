@@ -20,7 +20,24 @@ const actions = {
             console.log(error);
           });
         console.log("success");
-      },
+    },
+    
+    kakaoCallback(context,data) {
+      axios
+        .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
+        .then(function (response) {
+          console.log(response.data.access_token);
+          localStorage.setItem('jwt', response.data.access_token)
+          localStorage.setItem('uid', response.data.user.uid)
+          localStorage.setItem('blogId', response.data.user.blogId)
+          localStorage.setItem('memoId', response.data.user.memoId)
+          context.commit('fetchLoggedInUserData', response.data.user)
+          context.commit('fetchLoggedInUserProfile', response.data.userInfo) 
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     LOGOUT({ commit }) {
         commit("logout");
     }
