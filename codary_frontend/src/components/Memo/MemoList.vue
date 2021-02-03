@@ -2,12 +2,12 @@
   <v-card-text>
       <div>
         <v-list two-line v-for="item in items" :key="item.memoNum">
-          <v-list-item-content>
-            <!-- <v-list-item-title>{{item.memoNum}}</v-list-item-title> -->
+          <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
+          <v-list-item-content id="item.memoNum">
             <v-list-item-subtitle>{{item.memoContent}}</v-list-item-subtitle>
           </v-list-item-content>
           <v-btn>수정버튼</v-btn>
-          <v-btn @click="deleteMemo()">삭제버튼</v-btn>
+          <v-btn @click="deleteMemo(item)">삭제버튼</v-btn>
           <v-divider></v-divider>
         </v-list>
       </div>
@@ -34,18 +34,18 @@ export default {
         .then(res => {
           console.log(res)
           this.items = res.data
-          // 글 작성된다음 어디로 보내지?
-          // this.$router.push({name: 'MainPage'})
+          
         })
         .catch(err => {
           console.log(err)
         })
       },
 
-      // deleteMemo(e) {
-        // console.log(e)
-        // const deletingData = document.querySelector
-      // }
+      deleteMemo(item) {
+        console.log(item)
+        // this.$router.push(``)
+        // const deletingData = document.querySelector()
+      }
     }
 }
 </script>

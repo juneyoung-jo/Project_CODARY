@@ -35,13 +35,15 @@ export default {
           "memoContent": this.memoText,
           "memoId": "2u1wQOyL8StR",
           // "memoNum": '',
-          "memoTime": "",
+          // "memoTime": "",
         }
         this.axios.post(`memo/`, sendData)
         .then(res => {
           console.log(res)
           // 글 작성된다음 어디로 보내지?
           // this.$router.push({name: 'MainPage'})
+          this.memoTime == ""
+          // 생성한뒤에 메모칸 초기화
         })
         .catch(err => {
           console.log(err)
@@ -58,6 +60,7 @@ export default {
           console.log(res)
           // 글 작성된다음 어디로 보내지?
           // this.$router.push({name: 'MainPage'})
+
         })
         .catch(err => {
           console.log(err)
