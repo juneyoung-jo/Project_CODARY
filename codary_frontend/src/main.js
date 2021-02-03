@@ -20,8 +20,6 @@ Vue.prototype.axios = axios // 사용법 => this.axios
 Vue.config.productionTip = false
 Vue.use(VueFullPage);
 
-
-
 new Vue({
   router,
   store,
