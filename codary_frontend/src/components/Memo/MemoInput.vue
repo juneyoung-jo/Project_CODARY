@@ -62,6 +62,7 @@ export default {
           // this.$router.push({name: 'MainPage'})
           // tnwjdddyd
           // 수정
+          // 수정
         })
         .catch(err => {
           console.log(err)
