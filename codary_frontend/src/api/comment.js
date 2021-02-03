@@ -18,4 +18,20 @@ function getUserInfo(user, success, fail) {
         .catch(fail);
 }
 
-export {commentList,getUserInfo};
+function writeComment(comment, success, fail) {
+
+    instance
+        .post(`comment/writeComment`,comment)
+        .then(success)
+        .catch(fail);
+}
+
+function deleteComment(commentNum, success, fail) {
+
+    instance
+        .delete(`comment/deleteComment/${commentNum}`)
+        .then(success)
+        .catch(fail);
+}
+
+export {commentList,getUserInfo,writeComment,deleteComment};

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list three-line>
-      <template v-for="(item, index) in items">
+      <template v-for="(item, index) in this.items">
         <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
 
         <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
@@ -14,6 +14,8 @@
 
           <!-- <v-list-item-commentContent> -->
           <v-list-item-title v-html="item.commentContent"></v-list-item-title>
+          <v-btn plain color="blue" @click="updateCmt()">댓글수정</v-btn>
+          <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn>
           <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
           <!-- </v-list-item-commentContent> -->
         </v-list-item>
@@ -24,34 +26,34 @@
 </template>
 
 <script>
-import { commentList } from '@/api/comment.js';
+import { deleteComment } from '@/api/comment.js';
 import CommentDetail from './CommentDetail.vue';
 
 export default {
   name: 'Comment',
+  props: ['items'],
   components: {
     CommentDetail,
   },
   created() {
-    commentList(
-      this.blogContents,
-      (response) => {
-        // console.log(response.data.data);
-        this.items = response.data.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // commentList(
+    //   this.blogContents,
+    //   (response) => {
+    //     // console.log(response.data.data);
+    //     this.items = response.data.data;
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   },
   data() {
     return {
-      blogContentsList: [],
-      blogContents: {
-        blogId: 'mqa6x5p2oESm',
-        blogContentsId: 2,
-      },
-      items: [],
+      // blogContents: {
+      //   blogId: 'mqa6x5p2oESm', // 이 부분 데이터 받아와야 함
+      //   blogContentsId: 2, // 이 부분 데이터 받아와야 함
+      // },
+      // items: [],
       // items: [
       //   { header: 'Today' },
       //   {
@@ -88,6 +90,29 @@ export default {
       //   },
       // ],
     };
+  },
+  methods: {
+    updateCmt() {
+      alert('댓글 수정');
+    },
+    deleteCmt(commentNum, index) {
+      deleteComment(
+        commentNum,
+        (response) => {
+          if (response.data.msg === 'success') {
+            this.$emit('DELETECMT', index);
+            // this.items.splice(index, 1);
+            alert('댓글삭제');
+          } else if (response.data.msg === 'fail') {
+            alert('댓글 삭제 실패?');
+          }
+        },
+        (error) => {
+          alert('삭제실패');
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>
