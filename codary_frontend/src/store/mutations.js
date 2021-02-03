@@ -3,13 +3,10 @@ const mutations = {
         state.loggedInUserData = userInfo;
         state.isLogin = true;
     },
-    fetchLoggedInUserProfile(state, userProfile){
-        state.loggedInUserProfile = userProfile;
-    },
     logout(state) {
-        state.userInfo = null;
+        state.loggedInUserData = null;
         state.isLogin = false;
-        localStorage.clear();
+        localStorage.removeItem("access_token");
     }
 }
 

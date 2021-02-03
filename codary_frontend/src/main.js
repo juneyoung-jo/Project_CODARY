@@ -25,6 +25,9 @@ Vue.use(VueFullPage);
 new Vue({
   router,
   store,
+  beforeCreate() {
+    this.$store.dispatch('getMemberInfoGoogle')
+  },
   vuetify,
   render: h=>h(App)
 }).$mount('#app')
