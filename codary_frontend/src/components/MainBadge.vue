@@ -30,23 +30,22 @@
         <v-list-item>
           <v-list-item-avatar>
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src=this.loggedInUserProfile.profile
               alt="John"
             >
           </v-list-item-avatar>
           <router-link :close-on-content-click="false" class='noline pa-5' :to="'/bloghome'">
           <v-list-item-content>
-            <v-list-item-title>John Leider</v-list-item-title>
+            <v-list-item-title>{{this.loggedInUserProfile.nickname}}</v-list-item-title>
             <v-list-item-subtitle>my blog home</v-list-item-subtitle>
           </v-list-item-content>
           </router-link>
           <v-list-item-action>
             <v-btn
-              fab
-              x-small
               color="primary"
+              @click.prevent='logout'
             >
-              4
+              LOGOUT
             </v-btn>
           </v-list-item-action>
         </v-list-item>
@@ -56,14 +55,31 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
+
   export default {
     name:'MainBadge',
+    computed: {
+      ...mapState(['loggedInUserProfile','userInfo'])
+    },
     data: () => ({
       fav: true,
       menu: false,
       message: false,
       hints: true,
     }),
+    methods: {
+      logout() {
+        this.$store
+        .dispatch('LOGOUT')
+        .then(()=>{
+          if (this.$route.path !== '/') this.$router.replace('/');
+        })
+        .catch(() => {
+          console.log('로그아웃 문제!');
+        });
+      }
+    }
   }
 </script>
 

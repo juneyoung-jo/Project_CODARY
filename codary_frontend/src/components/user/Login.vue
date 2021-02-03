@@ -36,10 +36,9 @@
       
 
 <script>
-import axios from "axios";
 import KakaoLogin from "vue-kakao-login";
 import GoogleLogin from "vue-google-login";
-import {mapMutations, mapGetters} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 // import NaverLogin from "vue-naver-login";
 
 
@@ -72,44 +71,15 @@ export default {
   },
   methods: {
     ...mapMutations(['fetchLoggedInUserData']),
-    ...mapGetters(['LoggedInUserData']),
+    ...mapState(['loggedInUserData']),
 
-    kakaoCallback:(data) => {
-      console.log(data);
-      console.log(data.access_token);
-      axios
-        .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
-        .then(function (response) {
-          console.log(response.data.access_token);
-          localStorage.setItem('jwt', response.data.access_token)
-          
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    kakaoCallback(data){
+      console.log(data)
+      this.$store.dispatch('kakaoCallback',data)
     },
-    googleCallback: (data) => {
-      console.log(data);
-      console.log(data.uc.id_token);
-      axios
-        .post("http://localhost:8000/codary/user/login/google", data.uc.id_token)
-        .then(response=> {
-          localStorage.setItem('jwt', response.data.access_token)
-          // this.$router.push({name:'MainPage'})
-          // console.log(response.data)
-          // console.log(response.user.uid)
-          // console.log(response.user.blogId)
-          // console.log(response.user.memoId)
-          // const payload = {
-          //   uid : response.data.
-          // }
-          // this.$store.commit('fetchLoggedInUserData',payload)
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      console.log("success");
+    googleCallback(data){
+      console.log(data)
+      this.$store.dispatch('googleCallback',data)
     },
     onFailure,
     // callbackFunction,
