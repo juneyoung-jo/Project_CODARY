@@ -19,7 +19,9 @@ public class UserDto {
 	private String providerId;
 	@ApiModelProperty(value = "회원가입 일시")
 	private Timestamp createDate;
-
+	@ApiModelProperty(value = "삭제 여부")
+	private int isdeleted;
+	
 	public UserDto() {}
 	public UserDto(String uid, String blogId, String memoId, String provider, String providerId) {
 		this.uid = uid;
@@ -67,7 +69,17 @@ public class UserDto {
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-
 	
-
+	public int getIsdeleted() {
+		return isdeleted;
+	}
+	public void setIsdeleted(int isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+	@Override
+	public String toString() {
+		return "UserDto [uid=" + uid + ", blogId=" + blogId + ", memoId=" + memoId + ", provider=" + provider
+				+ ", providerId=" + providerId + ", createDate=" + createDate + ", isdeleted=" + isdeleted + "]";
+	}
+	
 }

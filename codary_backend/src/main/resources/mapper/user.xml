@@ -7,13 +7,13 @@
 	<select id="findByProvider" parameterType="map" resultType="UserDto">
 		select uid, blog_id, memo_id, provider, provider_id, create_date
 		from user
-		where provider = #{provider} and provider_id = #{providerId}
+		where provider = #{provider} and provider_id = #{providerId} and isdeleted = 0
 	</select>
 
 	<select id="findById" parameterType="string" resultType="UserDto">
 		select uid, blog_id, memo_id, provider, provider_id, create_date
 		from user
-		where uid = #{uid}
+		where uid = #{uid} and isdeleted = 0
 	</select>
 
 	<select id="findUserInfoById" parameterType="string" resultType="UserInfoDto">
@@ -48,6 +48,19 @@
 		insert into memo(memo_id)
 		values(#{memoId})
 	</insert>
+	
+	<update id="updateNickname" parameterType="map">
+		update userinfo
+		set nickname = #{nickname}
+		where uid = #{uid} 
+	</update>
+	
+	<update id="deleteUser" parameterType="String">
+		update user
+		set isdeleted = 1
+		where uid = #{uid}
+	</update>
+	
 	
 	
 </mapper>
