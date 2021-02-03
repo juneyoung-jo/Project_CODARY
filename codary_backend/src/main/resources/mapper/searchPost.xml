@@ -13,11 +13,18 @@
 				then date_format(blog_datetime, '%H:%i:%s')
 				else date_format(blog_datetime, '%y.%m.%d')
 				end blog_datetime,
-				bc.blog_contents_cover, info.nickname, info.profile
+				bc.blog_contents_cover, info.nickname, info.profile, ifnull(c.comment_cnt, 0 )
 		from blogcontents bc inner join user u
 				on bc.blog_id = u.blog_id
 			inner join userinfo info
 				on u.uid = info.uid
+			left join ( 
+						select count(*) comment_cnt, blog_contents_id
+                        from comment
+                        where isdeleted = 0
+                        group by blog_contents_id
+                        ) c
+			on bc.blog_contents_id = c.blog_contents_id
 		where bc.isdeleted = 0 and u.isdeleted = 0
 		<if test="keyword != null and keyword != ''">
 			and bc.blog_contents_title like concat('%', #{keyword}, '%')
