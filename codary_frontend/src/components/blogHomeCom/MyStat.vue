@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import { userGraph } from '@/api/personal.js';
 
 export default {
@@ -51,17 +52,15 @@ export default {
         250,
         240,
       ],
-      articles: [],
-      userData: {
-        blogId: 'QfIRyFO1HK5H',
-        uId: '2u1wQOyL8StR',
-        memoId: '2u1wQOyL8StR'
-      }, 
+      articles: [], 
     }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
   },
   created(){
     userGraph(
-      this.userData,
+      this.loggedInUserData,
       (response) => {
         // console.log(response)
         this.articles = response.data

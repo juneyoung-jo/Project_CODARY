@@ -90,24 +90,23 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import { personalList } from '@/api/personal.js';
 
 export default {
   name: 'MyPost',
   
   data () {
-      return {
-        articles: [],
-        userData: {
-          blogId: 'QfIRyFO1HK5H',
-          uId: '2u1wQOyL8StR',
-          memoId: '2u1wQOyL8StR'
-        }, 
-      }
+    return {
+      articles: [], 
+    }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
   },
   created(){
     personalList(
-      this.userData,
+      this.loggedInUserData,
       (response) => {
         // console.log(response)
         this.articles = response.data
