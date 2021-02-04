@@ -36,13 +36,8 @@ export default {
         this.comment,
         (response) => {
           if (response.data.msg === 'success') {
-            this.$router.go(this.$router.current);
-            // this.$emit('WRITECMT', {
-            //   blogContentsId: this.comment.blogContentsId,
-            //   blogId: this.comment.blogId,
-            //   commentContent: this.comment.commentContent,
-            //   uid: this.comment.uid,
-            // });
+            // this.$router.go(this.$router.current);
+            this.$emit('WRITECMT');
             this.clearWrite();
           } else if (response.data.msg === 'fail') {
             alert('댓글 달기 실패?');

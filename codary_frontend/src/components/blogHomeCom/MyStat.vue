@@ -25,18 +25,21 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
+import { userGraph } from '@/api/personal.js';
+
+export default {
+  name: 'MyStat',
+  data() {
+    return {
       labels: [
         '1/15',
-        '1/17',
-        '1/19',
-        '1/21',
-        '1/23',
-        '1/25',
-        '1/27',
-        '1/29',
-    
+      '1/17',
+      '1/19',
+      '1/21',
+      '1/23',
+      '1/25',
+      '1/27',
+      '1/29',
       ],
       value: [
         200,
@@ -48,8 +51,28 @@
         250,
         240,
       ],
-    }),
-  }
+      articles: [],
+      userData: {
+        blogId: 'QfIRyFO1HK5H',
+        uId: '2u1wQOyL8StR',
+        memoId: '2u1wQOyL8StR'
+      }, 
+    }
+  },
+  created(){
+    userGraph(
+      this.userData,
+      (response) => {
+        // console.log(response)
+        this.articles = response.data
+      },
+      (err) => {
+        console.log(err)
+      }
+    )        
+  },
+}     
+
 </script>
 
 <style>

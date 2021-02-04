@@ -60,9 +60,9 @@ import {mapState} from 'vuex'
         ]
     }),
     methods:{
-      selectcover(cover){
-        console.log(cover)
-      }
+      // selectcover(cover){
+      //   console.log(cover)
+      // }
     }
 
     

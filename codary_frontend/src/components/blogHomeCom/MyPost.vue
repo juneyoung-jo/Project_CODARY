@@ -57,24 +57,23 @@
       </v-responsive>
       <v-row>
         <v-col
-          v-for="({ src, text, title }, i) in articles"
-          :key="i"
+          v-for="(article, idx) in articles"
+          :key="idx"
           cols="12"
           md="4"
         >
           <v-img
-            :src="src"
+            :src=article.blogContentsCover
             class="mb-4"
             height="275"
             max-width="100%"
           ></v-img>
           <h3
             class="font-weight-black mb-4 text-uppercase"
-            {{articles.blog_contents_title}}
-          ></h3>
+          >{{article.blogContentsTitle}}</h3>
           <div
             class="title font-weight-light mb-5"
-            {{articles.blog_contents_title}}
+            
           ></div>
           <router-link :to="'/viewpost'" class='noline'>
             <v-btn
@@ -91,32 +90,33 @@
 </template>
 
 <script>
-import axios from "axios";
+import { personalList } from '@/api/personal.js';
 
 export default {
   name: 'MyPost',
-  props: {
-    blog_contents_title: {type:String}
-  },
-   data () {
+  
+  data () {
       return {
-        articles: [
-         
-        ],
+        articles: [],
+        userData: {
+          blogId: 'QfIRyFO1HK5H',
+          uId: '2u1wQOyL8StR',
+          memoId: '2u1wQOyL8StR'
+        }, 
       }
-    },
-    created(){
-      axios
-        .get(`http://i4c105.p.ssafy.io:3306/codary/personal`, {
-          params: {}
-        })
-        .then(({data}) => {
-          this.articles = data;
-        })
-        .catch(() => {
-          alert("에러가 발생했습니다.");
-        })
-    },
+  },
+  created(){
+    personalList(
+      this.userData,
+      (response) => {
+        // console.log(response)
+        this.articles = response.data
+      },
+      (err) => {
+        console.log(err)
+      }
+    )        
+  },
 }
 </script>
 
