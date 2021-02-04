@@ -57,24 +57,24 @@
       </v-responsive>
       <v-row>
         <v-col
-          v-for="({ src, text, title }, i) in articles"
-          :key="i"
+          v-for="(article, src, idx) in articles"
+          :key="idx"
           cols="12"
           md="4"
         >
           <v-img
-            :src="src"
+            src="https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
             class="mb-4"
             height="275"
             max-width="100%"
           ></v-img>
           <h3
             class="font-weight-black mb-4 text-uppercase"
-            {{articles.blog_contents_title}}
+            {{article.blog_contents_title}}
           ></h3>
           <div
             class="title font-weight-light mb-5"
-            {{articles.blog_contents_title}}
+            {{article.blog_contents_title}}
           ></div>
           <router-link :to="'/viewpost'" class='noline'>
             <v-btn
@@ -92,26 +92,25 @@
 
 <script>
 import axios from "axios";
+const addr=`http://i4c105.p.ssafy.io:3306/codary/personal`;
 
 export default {
   name: 'MyPost',
   props: {
-    blog_contents_title: {type:String}
+    blog_id: {type:String}
   },
    data () {
       return {
-        articles: [
-         
-        ],
+        articles: [],
       }
     },
     created(){
       axios
-        .get(`http://i4c105.p.ssafy.io:3306/codary/personal`, {
+        .get(addr, {
           params: {}
         })
-        .then(({data}) => {
-          this.articles = data;
+        .then(({response}) => {
+          this.articles = response.data;
         })
         .catch(() => {
           alert("에러가 발생했습니다.");
