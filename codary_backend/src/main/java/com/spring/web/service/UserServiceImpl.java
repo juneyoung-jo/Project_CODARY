@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.UserDao;
 import com.spring.web.dto.BlogDto;
+import com.spring.web.dto.LoginCallBackDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> save(HashMap<String, Object> userInfo) throws Exception {
+	public LoginCallBackDto save(HashMap<String, Object> userInfo) throws Exception {
 
 		final String BLOG_DEFAULT_IMG = "https://codaryproject.s3.ap-northeast-2.amazonaws.com/50c5c53450fd40f79b966e16971fcbb2.jpg";
 
@@ -64,13 +65,13 @@ public class UserServiceImpl implements UserService {
 		UserDto user = new UserDto(uid, blogId, uid, provider, providerId);
 		UserInfoDto info = new UserInfoDto(uid, nickname, username, profileImg);
 		BlogDto blog = new BlogDto(blogId, 0, nickname, BLOG_DEFAULT_IMG, 0);
-
-		resultMap.put("uid", user.getUid());
-		resultMap.put("nickname", info.getNickname());
-		resultMap.put("profile", info.getProfile());
-		resultMap.put("blogId", user.getBlogId());
-		resultMap.put("memoId", user.getMemoId());
+		LoginCallBackDto loginCallBackDto = new LoginCallBackDto();
 		
+		loginCallBackDto.setUid(uid);
+		loginCallBackDto.setBlogId(blogId);
+		loginCallBackDto.setMemoId(uid);
+		loginCallBackDto.setNickname(nickname);
+		loginCallBackDto.setProfile(profileImg);
 
 		// 3. blog 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeBlog(blog);
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
 		// 2. userinfo 테이블 생성
 		sqlSession.getMapper(UserDao.class).saveUserInfo(info);
 
-		return resultMap;
+		return loginCallBackDto;
 	}
 
 	public String makeUid() throws Exception {

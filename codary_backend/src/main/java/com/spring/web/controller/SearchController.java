@@ -3,9 +3,12 @@ package com.spring.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import com.spring.web.service.SearchPostService;
 
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/search")
 public class SearchController {
@@ -23,6 +27,7 @@ public class SearchController {
 	@Autowired
 	private SearchPostService searchPostService;
 
+	public static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
@@ -41,9 +46,10 @@ public class SearchController {
 		if (param.get("keyword") != null && param.get("keyword") != "") {
 			System.out.println("#keyword ::" + (String) param.get("keyword"));
 			keyword = (String) param.get("keyword");
-			keyword = keyword.replace(" ", "");
+			keyword = keyword.trim();
 			// 1. 제목, 내용 검색
 			if (keyword.charAt(0) != '#') {
+				logger.info("#제목, 내용 검색");
 				try {
 					resultMap.put("list", searchPostService.searchPost(keyword));
 				} catch (Exception e) {
@@ -53,10 +59,13 @@ public class SearchController {
 
 			} else {
 				// 2. 태그 검색
+				logger.info("#해쉬 태그 검색");
+				keyword = keyword.replace(" ", "");
+				
 
 			}
 		}else {
-			System.out.println("keyword 안넘어옴!!!");
+			System.out.println("#keyword 생략!!!");
 			try {
 				resultMap.put("list", searchPostService.searchPost(keyword));
 			} catch (Exception e) {
