@@ -2,14 +2,14 @@
   <v-card id="login">
     <div class="py-5"></div>
     <v-card-actions class="justify-center d-flex flex-column">
-      <div>
+      <!-- <div>
         <KakaoLogin
           api-key="cc55fbaa2ba8ee734547019f8cba7abf"
           image="kakao_login_btn_large"
           :on-success="kakaoCallback"
           :on-failure="onFailure"
         />
-      </div>
+      </div> -->
       <div>
         <GoogleLogin
           :params="params"
@@ -36,7 +36,7 @@
       
 
 <script>
-import KakaoLogin from "vue-kakao-login";
+// import KakaoLogin from "vue-kakao-login";
 import GoogleLogin from "vue-google-login";
 import {mapMutations, mapState} from 'vuex'
 // import NaverLogin from "vue-naver-login";
@@ -51,7 +51,7 @@ let onFailure = (data) => {
 export default {
   name: "Login",
   components: {
-    KakaoLogin,
+    // KakaoLogin,
     GoogleLogin,
     // NaverLogin,
   },
