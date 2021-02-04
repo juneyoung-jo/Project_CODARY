@@ -12,8 +12,14 @@
             blogContentsCover,
             blogDatetime,
             blogContentsTitle,
+            blogContentsLike,
+            blogContentsView,
             blogContentsId,
+            blogContents,
             blogId,
+            profile,
+            nickname,
+            commentCnt,
           } in articles"
           :key="blogContentsId"
           cols="12"
@@ -33,10 +39,24 @@
           <router-link
             :to="{
               name: 'ViewPost',
-              params: { blogId: blogId, blogContentsId: blogContentsId },
+              query: {
+                blogId: blogId,
+                blogContentsId: blogContentsId,
+              },
             }"
             class="noline"
           >
+            <v-img
+              :src="profile"
+              class="mb-4"
+              height="30"
+              max-width="30%"
+            ></v-img>
+            <div>
+              {{ nickname }} 댓글 {{ commentCnt }} 좋아요
+              {{ blogContentsLike }} 조회수 {{ blogContentsView }}
+            </div>
+            <div>{{ blogContents | textLengthOverCut }}</div>
             <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading
             </v-btn>
@@ -79,14 +99,29 @@ export default {
   methods: {
     getRecommends() {
       this.axios
-        .get(`blog/recommend`)
+        .get(`search/post?keyword=`)
         .then((res) => {
-          console.log(res);
-          this.articles = res.data;
+          // console.log(res);
+          this.articles = res.data.list;
+          console.log(res.data.list);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+  },
+  filters: {
+    textLengthOverCut(txt, len, lastTxt) {
+      if (len == "" || len == null) {
+        len = 100;
+      }
+      if (lastTxt == "" || lastTxt == null) {
+        lastTxt = "...";
+      }
+      if (txt.length > len) {
+        txt = txt.substr(0, len) + lastTxt;
+      }
+      return txt;
     },
   },
 };
