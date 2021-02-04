@@ -10,67 +10,71 @@
         solo-inverted
         flat
         class='memoinput'
-        v-model="memoText"
-        
+        v-model="memodata.memoContent"
       ></v-textarea>
-      <v-btn plain @click="memoSave">저장</v-btn>
+      <v-btn plain @click="memoSave()">저장</v-btn>
   </v-card-text>
 </template>
 
 <script>
+import { writeMemo, changeMemo } from '@/api/memo.js';
+
 export default {
   name: 'MemoInput',
-  data: () => ({
-    menu: false,
-    // 데이터 왜 일케 넣는지? 물어봐야지?
-    memoText: '',
-    memoTime: '',
-
-  }),
+  props: ['sendingChange'],
+  data() {
+    return {
+      memodata: {
+        memoContent: '',
+        memoTime: '',
+        // memoNum: '',
+        memoId: '2u1wQOyL8StR'
+      }
+    }
+  },
+  watch: {
+    sendingChange(val) {
+      // console.log(val)
+      this.memodata.memoContent = val.memoContent
+      this.memodata.memoTime = val.memoTime
+    } 
+  },
   methods: {
     memoSave() {
-      if ( this.memoTime == "") {
-        // 메모 시간이 있으면 기존의 자료라서 수정으로 넘김
-        const sendData = {
-          "memoContent": this.memoText,
-          "memoId": "2u1wQOyL8StR",
-          // "memoNum": '',
-          // "memoTime": "",
-        }
-        this.axios.post(`memo/`, sendData)
-        .then(res => {
-          console.log(res)
-          // 글 작성된다음 어디로 보내지?
-          // this.$router.push({name: 'MainPage'})
-          this.memoTime == ""
-          // 생성한뒤에 메모칸 초기화
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      if ( this.memodata.memoContent === '') {
+        return
+      }
+      if ( this.memodata.memoTime === '') {
+        writeMemo(
+          this.memodata,
+          () => {
+            // console.log(response)
+            // console.log('저장!')
+            this.memodata.memoContent = ""
+            this.memodata.memoTime = ""       
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
       } else {
-        const sendData = {
-          "memoContent": this.memoText,
-          "memoId": "2u1wQOyL8StR",
-          // "memoNum": '',
-          "memoTime": this.memoTime,
-        }
-        this.axios.post(`memo/`, sendData)
-        .then(res => {
-          console.log(res)
-          // 글 작성된다음 어디로 보내지?
-          // this.$router.push({name: 'MainPage'})
-          // tnwjdddyd
-          // 수정
-          // 수정
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        this.sendingChange.memoContent = this.memodata.memoContent
+
+        changeMemo(
+          this.sendingChange,
+          () => {
+            // console.log(response)
+            // console.log('수정!')
+            this.memodata.memoContent = ""
+            this.memodata.memoTime = ""       
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
       }
     }
   }
-
 }
 </script>
 <style>

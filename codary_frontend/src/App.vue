@@ -3,7 +3,7 @@
     id="app"
   > 
     <Nav/>
-    <memo/>
+    <Memo/>
     <v-main>
       <router-view/>
     </v-main>
