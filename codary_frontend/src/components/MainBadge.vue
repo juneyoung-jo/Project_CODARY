@@ -30,13 +30,13 @@
         <v-list-item>
           <v-list-item-avatar>
             <img
-              :src=this.loggedInUserProfile.profile
+              :src=this.loggedInUserData.profile
               alt="John"
             >
           </v-list-item-avatar>
           <router-link :close-on-content-click="false" class='noline pa-5' :to="'/bloghome'">
           <v-list-item-content>
-            <v-list-item-title>{{this.loggedInUserProfile.nickname}}</v-list-item-title>
+            <v-list-item-title>{{this.loggedInUserData.nickname}}</v-list-item-title>
             <v-list-item-subtitle>my blog home</v-list-item-subtitle>
           </v-list-item-content>
           </router-link>
@@ -60,7 +60,7 @@ import {mapState} from 'vuex';
   export default {
     name:'MainBadge',
     computed: {
-      ...mapState(['loggedInUserProfile','userInfo'])
+      ...mapState(['loggedInUserData','userInfo'])
     },
     data: () => ({
       fav: true,

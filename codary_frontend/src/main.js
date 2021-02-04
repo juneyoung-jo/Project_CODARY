@@ -20,11 +20,12 @@ Vue.prototype.axios = axios // 사용법 => this.axios
 Vue.config.productionTip = false
 Vue.use(VueFullPage);
 
-
-
 new Vue({
   router,
   store,
+  beforeCreate() {
+    this.$store.dispatch('getMemberInfoGoogle')
+  },
   vuetify,
   render: h=>h(App)
 }).$mount('#app')
