@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import { getUserInfo } from '@/api/comment.js';
+import { getUserInfo } from "@/api/comment.js";
 export default {
-  props: ['comment'],
+  props: ["comment"],
   created() {
     getUserInfo(
       this.user,

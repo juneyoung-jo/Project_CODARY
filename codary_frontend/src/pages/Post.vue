@@ -1,14 +1,18 @@
 <template>
   <div>
-    <PostCover />
+    <PostCover :blogContents="blogContents" />
     <v-container>
       <v-card class="pa-8 py-8">
-        <PostViewer />
+        <PostViewer :blogContents="blogContents" />
         <div class="py-16"></div>
-        <Profile />
+        <Profile :blogContents="blogContents" />
       </v-card>
-      <CommentWrite @WRITECMT="writeComment" />
-      <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
+      <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
+      <Comment
+        :items="items"
+        @DELETECMT="deleteComment"
+        @MODIFYCOMMENT="modifyComment"
+      />
     </v-container>
   </div>
 </template>
@@ -24,33 +28,44 @@ import { commentList } from "@/api/comment.js";
 export default {
   components: { PostCover, PostViewer, Profile, Comment, CommentWrite },
   name: "Post",
+  data() {
+    return {
+      items: [],
+      blogContents: {
+        blogId: "",
+        blogContents: "",
+        blogContentsId: "",
+        profile: "",
+        nickname: "",
+        commantCnt: "",
+        blogContentsCover: "",
+        blogDatetime: "",
+        blogContentsTitle: "",
+        blogContentsLike: "",
+        blogContentsView: "",
+      },
+    };
+  },
   created() {
+    this.getBlogContent();
     commentList(
       this.blogContents,
       (response) => {
-        // console.log(response.data.data);
         this.items = response.data.data;
       },
       (error) => {
         console.log(error);
       }
     );
-    this.getBlogContent();
-  },
-  data() {
-    return {
-      items: [],
-      blogContents: {},
-    };
   },
   methods: {
     getBlogContent() {
+      const blogId = this.$route.query.blogId;
+      const blogContentsId = this.$route.query.blogContentsId;
       this.axios
-        .get(
-          `blog/${this.$route.params.blogId}/${this.$route.params.blogContentsId}`
-        )
+        .get(`blog/${blogId}/${blogContentsId}`)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
           this.blogContents = res.data;
         })
         .catch((err) => {
@@ -60,8 +75,8 @@ export default {
     deleteComment(index) {
       this.items.splice(index, 1);
     },
-    writeComment() {
-      // this.items.push(comment);
+    writeComment(comment) {
+      this.items.push(comment);
       commentList(
         this.blogContents,
         (response) => {

@@ -90,7 +90,6 @@ export default {
         (response) => {
           if (response.data.msg === 'success') {
             this.$emit('DELETECMT', index);
-            // this.items.splice(index, 1);
             alert('댓글삭제');
           } else if (response.data.msg === 'fail') {
             alert('댓글 삭제 실패?');
