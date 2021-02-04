@@ -8,6 +8,7 @@
               v-bind="attrs"
               v-on="on"
               plain
+              class='mb-3'
             >로그인</v-btn>
           </template>
         <v-tabs

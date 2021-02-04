@@ -6,7 +6,7 @@ const mutations = {
     logout(state) {
         state.loggedInUserData = null;
         state.isLogin = false;
-        localStorage.removeItem("access_token");
+        localStorage.clear()
     }
 }
 

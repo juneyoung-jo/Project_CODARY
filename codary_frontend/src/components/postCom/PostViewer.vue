@@ -29,16 +29,14 @@ export default {
   name: "PostViewer",
   props: ["blogContents"],
   components: {
-    // viewer: Viewer,
     viewer: Viewer,
+    // 'viewer': Viewer
   },
   data() {
     return {
-      editorText: "##초기값",
+      editorText:
+        '# This is initialValue.\n ## 안녕하세요\n ### 코다리입니다 \n #### 반갑습니다 \n ##### 마크다운으로 작성가능합니다',
     };
-  },
-  created() {
-    // this.editorText = this.blogContents.blogContents;
   },
 };
 </script>
