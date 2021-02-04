@@ -16,41 +16,48 @@
 </template>
 
 <script>
-import { writeComment } from '@/api/comment.js';
+import { writeComment } from "@/api/comment.js";
 export default {
-  name: 'CommentWrite',
+  name: "CommentWrite",
+  props: ["blogContents"],
+  created() {
+    this.comment.blogContentsId = this.blogContents.blogContentsId;
+    this.comment.blogId = this.blogContents.blogId;
+    // uid 로컬 스토리지에 받는 코드 추가 해야 함. ㅎㅎ
+    console.log(this.comment);
+  },
   data() {
     return {
       comment: {
-        blogContentsId: '2', // 받아야 할 정보
-        blogId: 'mqa6x5p2oESm', // 받아야 할 정보
-        commentContent: '',
-        uid: 'VXFXaxa6Eupw', // 로컬스토리지 uid 값 입력
+        blogContentsId: "", // 받아야 할 정보
+        blogId: "", // 받아야 할 정보
+        commentContent: "",
+        uid: "VXFXaxa6Eupw", // 로컬스토리지 uid 값 입력
       },
     };
   },
   methods: {
     write() {
-      if (this.comment.commentContent === '') return;
+      if (this.comment.commentContent === "") return;
       writeComment(
         this.comment,
         (response) => {
-          if (response.data.msg === 'success') {
+          if (response.data.msg === "success") {
             // this.$router.go(this.$router.current);
-            this.$emit('WRITECMT');
+            this.$emit("WRITECMT");
             this.clearWrite();
-          } else if (response.data.msg === 'fail') {
-            alert('댓글 달기 실패?');
+          } else if (response.data.msg === "fail") {
+            alert("댓글 달기 실패?");
           }
         },
         (error) => {
-          alert('로그인 해주세요!');
+          alert("로그인 해주세요!");
           console.log(error);
         }
       );
     },
     clearWrite() {
-      this.comment.commentContent = '';
+      this.comment.commentContent = "";
     },
   },
 };
