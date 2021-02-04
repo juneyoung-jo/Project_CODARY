@@ -52,63 +52,66 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import MemoInput from './MemoInput.vue'
 import MemoList from './MemoList.vue'
 import { memoList } from '@/api/memo.js';
 
 export default {
   components: { MemoInput,MemoList },
-    name:'Memo',
-    data () {
-      return {
-        memotoggle: true,
-        memoLists: [],
-        memoId: '2u1wQOyL8StR',
-        // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로  
-        sendingChange: {}    
-      }
-    },
+  name:'Memo',
+  data () {
+    return {
+      memotoggle: true,
+      memoLists: [],
+      // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로  
+      sendingChange: {}    
+    }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
+  },
 
-    created() {
+  created() {
+    memoList(
+      this.loggedInUserData.memoId,
+      (response) => {
+        this.memoLists = response.data     
+      },
+      (error) => {
+        console.log(error)
+      }
+    )      
+  },
+
+  methods: {
+    getmemoList() {
       memoList(
-        this.memoId,
+        this.loggedInUserData.memoId,
         (response) => {
-          this.memoLists = response.data     
+          this.memoLists = response.data 
         },
         (error) => {
           console.log(error)
         }
-      )      
+      )
     },
 
-    methods: {
-      getmemoList() {
-        memoList(
-          this.memoId,
-          (response) => {
-            this.memoLists = response.data 
-          },
-          (error) => {
-            console.log(error)
-          }
-        )
-      },
 
+    toggle() {
+      this.memotoggle = !this.memotoggle
+      // console.log(this.memotoggle) True 일때가 Input, False가 List
+      this.getmemoList()
+      // console.log(this.loggedInUserData)
+    },
 
-      toggle() {
-        this.memotoggle = !this.memotoggle
-        // console.log(this.memotoggle) True 일때가 Input, False가 List
-        this.getmemoList()
-      },
-
-      
-      startchange(item) {
-        // console.log(item)
-        this.sendingChange = item
-        this.toggle()
-      }
-    }
     
+    startchange(item) {
+      // console.log(item)
+      this.sendingChange = item
+      this.toggle()
+    }
+  }   
 }
 </script>
 
