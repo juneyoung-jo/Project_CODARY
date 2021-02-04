@@ -25,6 +25,9 @@ public class BlogPostDto {
 	private String nickname;
 	@ApiModelProperty(value = "작성자 프로필 이미지")
 	private String profile;
+	@ApiModelProperty(value = "댓글 갯수")
+	private int commentCnt;
+	
 	public String getBlogId() {
 		return blogId;
 	}
@@ -85,13 +88,22 @@ public class BlogPostDto {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	@Override
 	public String toString() {
-		return "BlogPost [blogId=" + blogId + ", blogContentsId=" + blogContentsId + ", blogContentsTitle="
+		return "BlogPostDto [blogId=" + blogId + ", blogContentsId=" + blogContentsId + ", blogContentsTitle="
 				+ blogContentsTitle + ", blogContents=" + blogContents + ", blogContentsView=" + blogContentsView
 				+ ", blogContentsLike=" + blogContentsLike + ", blogDatetime=" + blogDatetime + ", blogContentsCover="
-				+ blogContentsCover + ", nickname=" + nickname + ", profile=" + profile + "]";
+				+ blogContentsCover + ", nickname=" + nickname + ", profile=" + profile + ", commentCnt=" + commentCnt
+				+ "]";
 	}
+	
 }
 /*
 
