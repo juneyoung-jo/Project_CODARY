@@ -13,7 +13,7 @@
 	<select id="showMemo" resultType="MemoContentsDto" parameterType="String">
 		select * 
 		from memocontents
-		where memo_id = #{memoId}
+		where memo_id = #{memoId} and isdeleted = 0
 	</select>
 	
 	<select id="likeBloger" resultType="BlogDto" parameterType="String">
