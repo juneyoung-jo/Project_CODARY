@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { showJandi } from '@/api/personal.js';
+
   const gradients = [
     ['#222'],
     ['#42b3f4'],
@@ -28,8 +30,10 @@
     ['#f72047', '#ffd200', '#1feaea'],
   ]
 
-  export default {
-    data: () => ({
+export default {
+  name: 'grass',
+  data() {
+    return {
       width: 2,
       radius: 10,
       padding: 8,
@@ -41,8 +45,27 @@
       fill: false,
       type: 'trend',
       autoLineWidth: false,
-    }),
-  }
+      articles: [],
+        userData: {
+          blogId: 'QfIRyFO1HK5H',
+          uId: '2u1wQOyL8StR',
+          memoId: '2u1wQOyL8StR'
+        }, 
+    }
+  },
+  created(){
+    showJandi(
+      this.userData,
+      (response) => {
+        // console.log(response)
+        this.articles = response.data
+      },
+      (err) => {
+        console.log(err)
+      }
+    )        
+  },
+}
 </script>
 
 

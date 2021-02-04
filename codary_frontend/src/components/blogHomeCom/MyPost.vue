@@ -109,7 +109,7 @@ export default {
     personalList(
       this.userData,
       (response) => {
-        console.log(response)
+        // console.log(response)
         this.articles = response.data
       },
       (err) => {

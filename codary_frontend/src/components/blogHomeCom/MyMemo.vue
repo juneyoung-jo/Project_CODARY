@@ -8,19 +8,19 @@
       </v-responsive>
       <v-row>
         <v-col
-          v-for="({ text, title }, i) in articles"
-          :key="i"
+          v-for="(article, index) in articles"
+          :key="index"
           cols="12"
           md="4"
         >
           <h3
             class="font-weight-black mb-4 text-uppercase"
-            v-text="title"
-          ></h3>
+            
+          >{{ article.memoContent }}</h3>
           <div
             class="title font-weight-light mb-5"
-            v-text="text"
-          ></div>
+            
+          > {{ article.memoTime }}</div>
         </v-col>
       </v-row>
     </v-container>
@@ -47,14 +47,14 @@ export default {
     showMyMemo(
       this.userData,
       (response) => {
-        console.log(response)
+        // console.log(response)
         this.articles = response.data
       },
       (err) => {
         console.log(err)
       }
     )        
-},
+  },
 }
 </script>
 
