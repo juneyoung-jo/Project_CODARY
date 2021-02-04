@@ -17,14 +17,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.BlogContentsDao;
+import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.UserDto;
+import com.spring.web.dto.UserInfoDto;
 
 @Service
 public class BlogContentsServiceImpl implements BlogContentsService{
 
 	@Autowired
 	private BlogContentsDao mapper;
+	
+	@Autowired
+	private CommentDao commentMapper;
+	
+	private UserInfoDto info = null;
 	
 	@Override
 	@Transactional
@@ -117,6 +125,15 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public void contentUnlike(BlogContentsLikeDto like) throws Exception {
 		mapper.contentUnlike(like);
+	}
+
+	@Override
+	public UserInfoDto userInfo(String blogId) throws Exception {
+		UserDto user = mapper.getUser(blogId);
+		if(user == null) return null;
+		info = new UserInfoDto();
+		info.setUid(user.getUid());
+		return commentMapper.getUserInfo(info);
 	}
 	
 }
