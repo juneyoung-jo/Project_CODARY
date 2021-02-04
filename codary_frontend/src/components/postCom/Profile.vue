@@ -31,8 +31,35 @@
 export default {
   name: "Profile",
   props: ["blogContents"],
-  created() {},
-  methods: {},
+  created() {
+    this.getUserInfo();
+    this.axios
+      .get(`blog/blogUserInfo/${this.blogId}`)
+      .then((res) => {
+        // console.log("여기입니다");
+        // console.log(res.data.profile);
+        this.blogContents.profile = res.data.data.profile;
+        this.blogContents.nickname = res.data.data.nickname;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // this.getUserInfo();
+    // console.log("하이하이하이");
+    // console.log(this.blogContents);
+  },
+  data() {
+    return {
+      blogId: "",
+      // nickname: "",
+      // profile: "",
+    };
+  },
+  methods: {
+    getUserInfo() {
+      this.blogId = this.blogContents.blogId;
+    },
+  },
 };
 </script>
 

@@ -9,13 +9,13 @@
       <v-chip outlined>백준</v-chip>
     </div>
     <v-container class="pa-16">
-      <viewer
+      <!-- <viewer
         :value="editorText"
         height="500px"
         :initialValue="this.blogContents.blogContents"
         viewer="true"
-      />
-      <!-- {{ this.blogContents.blogContents }} -->
+      /> -->
+      {{ this.blogContents.blogContents }}
     </v-container>
   </div>
 </template>
@@ -23,19 +23,19 @@
 <script>
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "codemirror/lib/codemirror.css";
-import { Viewer } from "@toast-ui/vue-editor";
+// import { Viewer } from "@toast-ui/vue-editor";
 
 export default {
   name: "PostViewer",
   props: ["blogContents"],
   components: {
-    viewer: Viewer,
+    // viewer: Viewer,
     // 'viewer': Viewer
   },
   data() {
     return {
       editorText:
-        '# This is initialValue.\n ## 안녕하세요\n ### 코다리입니다 \n #### 반갑습니다 \n ##### 마크다운으로 작성가능합니다',
+        "# This is initialValue.\n ## 안녕하세요\n ### 코다리입니다 \n #### 반갑습니다 \n ##### 마크다운으로 작성가능합니다",
     };
   },
 };

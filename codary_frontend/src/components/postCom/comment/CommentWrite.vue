@@ -24,7 +24,7 @@ export default {
     this.comment.blogContentsId = this.blogContents.blogContentsId;
     this.comment.blogId = this.blogContents.blogId;
     // uid 로컬 스토리지에 받는 코드 추가 해야 함. ㅎㅎ
-    console.log(this.comment);
+    // console.log(this.comment);
   },
   data() {
     return {

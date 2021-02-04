@@ -62,11 +62,14 @@ export default {
     getBlogContent() {
       const blogId = this.$route.query.blogId;
       const blogContentsId = this.$route.query.blogContentsId;
+      this.blogContents.blogId = blogId;
+      this.blogContents.blogContentsId = blogContentsId;
       this.axios
         .get(`blog/${blogId}/${blogContentsId}`)
         .then((res) => {
-          console.log(res.data);
-          this.blogContents = res.data;
+          this.blogContents.blogContentsCover = res.data.blogContentsCover;
+          this.blogContents.blogContentsTitle = res.data.blogContentsTitle;
+          this.blogContents.blogContents = res.data.blogContents;
         })
         .catch((err) => {
           console.log(err);
