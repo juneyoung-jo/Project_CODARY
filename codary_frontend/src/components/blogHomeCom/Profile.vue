@@ -11,7 +11,7 @@
       >
         <v-img
           class="rounded-circle elevation-6"
-          :src="photo"
+          :src="this.loggedInUserData.profile"
           width="128"
         />
       
@@ -21,7 +21,7 @@
           </h6>
 
           <h4 class="text-h4 mb-3 text--primary">
-            name
+            {{ this.loggedInUserData.nickname }}
           </h4>
 
           <p class="text--secondary">
@@ -69,7 +69,7 @@
                         md="4"
                       >
                         <v-text-field
-                          :placeholder="name"
+                          placeholder="name"
                           hint="example of persistent helper text"
                           persistent-hint
                           required
@@ -77,13 +77,13 @@
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                          :placeholder="job"
+                          placeholder="job"
                           required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                          :placeholder="intro"
+                          placeholder="intro"
                           required
                         ></v-text-field>
                       </v-col>
@@ -91,7 +91,7 @@
                         cols="12"
                         sm="6"
                       >
-                      <v-img :src="photo" alt="profile"></v-img>
+                      <v-img :src="this.loggedInUserData.profile" alt="profile"></v-img>
                       </v-col>
                       <v-col
                         cols="12"
@@ -134,13 +134,19 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 
-// import {mapState} from 'vuex'
 export default {
   name: 'Profile',
-  data: () => ({
-    dialog: false,
-  }),
+  data() { 
+    return{
+      dialog: false,
+    }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
   }
+}
+
   
 </script>

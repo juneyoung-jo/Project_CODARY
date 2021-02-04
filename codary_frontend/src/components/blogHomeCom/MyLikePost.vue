@@ -33,23 +33,22 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import { showMyBlogContents } from '@/api/personal.js';
 
 export default {
   name:"MyLikePost",
   data () {
     return {
-      articles: [],
-      userData: {
-        blogId: 'QfIRyFO1HK5H',
-        uId: 'ZTXwiN9VOuuS',
-        memoId: 'ZTXwiN9VOuuS'
-      }, 
+      articles: [], 
     }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
   },
   created(){
     showMyBlogContents(
-      this.userData,
+      this.loggedInUserData,
       (response) => {
         // console.log(response)
         this.articles = response.data

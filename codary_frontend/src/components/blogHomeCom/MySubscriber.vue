@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { showMyBloger } from '@/api/personal.js';
 
 export default {
@@ -38,17 +39,15 @@ export default {
   data () {
     return {
       articles: [],
-        userData: {
-        blogId: 'QfIRyFO1HK5H',
-        uId: '2u1wQOyL8StR',
-        memoId: '2u1wQOyL8StR'
-      },
     }
   }, 
 
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
+  },
   created() {
     showMyBloger(
-      this.userData,
+      this.loggedInUserData,
       (response) => {
         console.log(response)
         this.articles = response.data

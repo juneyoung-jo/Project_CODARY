@@ -19,12 +19,12 @@
 import { deleteMemo } from '@/api/memo.js';
 
 export default {
-    name:'MemoList',
+  name:'MemoList',
     props: ['memoLists'],
     data() {
       return {
-
-      }
+        
+        }
     },
 
     methods: {
