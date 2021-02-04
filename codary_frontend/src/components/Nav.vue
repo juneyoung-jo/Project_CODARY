@@ -1,8 +1,8 @@
 <template>
   <v-app-bar
     app
-   
     elevate-on-scroll
+    class="pt-1"
   >
     <!-- logo -->
     <router-link :to="'/'" class='noline'>
@@ -30,18 +30,20 @@
       <v-col cols="auto">
         <!-- search -->
         <router-link class='noline' :to="'/searchpage'">
-          <v-btn plain>
-            <font-awesome-icon :icon="['fas','search']"/>
+          <v-btn plain class="mb-3 mr-3">
+            <span style="font-size:20px">
+              <font-awesome-icon :icon="['fas','search']"/>
+            </span>
           </v-btn>
         </router-link>
-        <template v-if="isLogin">
-          <!-- 마이페이지가는곳 -->
-          <MainBadge/>
-        </template>
-        <template v-else>
-          <!-- login -->
-          <Modal/>
-        </template>
+          <template v-if="isLogin">
+            <!-- 마이페이지가는곳 -->
+            <MainBadge/>
+          </template>
+          <template v-else>
+            <!-- login -->
+            <Modal/>
+          </template>
       </v-col>
     </v-row>
   </v-app-bar>

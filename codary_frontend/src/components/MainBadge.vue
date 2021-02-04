@@ -4,25 +4,25 @@
     :close-on-content-click="true"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-badge
-          avatar
-          bordered
-          overlap
-          content="4"
-          class='pb-2'
-          offset-x="10"
-          offset-y="20"
-      >
-        <v-avatar
-        v-bind="attrs"
-        v-on="on"
+    
+        <v-badge
+            bordered
+            overlap
+            content="4"
+            class='pb-2'
+            offset-x="10"
+            offset-y="20"
         >
-          <img
-            src="https://cdn.vuetifyjs.com/images/john.jpg"
-            alt="John"
-          >
-        </v-avatar>
-      </v-badge>
+        <span style="font-size: 35px">
+          <font-awesome-icon 
+            :icon="['fas', 'user-circle']"
+            v-bind="attrs"
+            v-on="on"
+          />
+        </span>
+        </v-badge>
+ 
+
     </template>
 
     <v-card>
