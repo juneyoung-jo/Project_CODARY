@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.UserInfoDto;
 
 public interface BlogContentsService {
 	
@@ -18,5 +19,6 @@ public interface BlogContentsService {
 	BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception;
 	void contentLike(BlogContentsLikeDto like) throws Exception;
 	void contentUnlike(BlogContentsLikeDto like) throws Exception;
+	UserInfoDto userInfo(String blogId) throws Exception;
 	
 }

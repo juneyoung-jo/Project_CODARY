@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
 
 import io.swagger.annotations.Api;
@@ -233,6 +235,35 @@ public class BlogContentsController {
 			e.printStackTrace();
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	/**
+	 * 
+	 * 블로그 아이디로 user 정보 가져오기.
+	 * 
+	 * @param blog_id
+	 * @return List<CommentDto>
+	 */
+	@ApiOperation(value = "블로그 아이디로 user 정보 가져오기.", notes ="@param : blogId  </br> @return : UserInfo")
+	@GetMapping("blogUserInfo/{blogId}")
+	public ResponseEntity<Map<String, Object>> userInfo(@PathVariable String blogId) {
+		logger.info("=======유저 정보 가져오기=======");
+		
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			UserInfoDto data = contentsService.userInfo(blogId);
+			map.put("msg", "success");
+			map.put("data", data);
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			e.printStackTrace();
+		}
+		return resEntity;
 	}
 	
 }

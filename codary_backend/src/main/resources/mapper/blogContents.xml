@@ -71,5 +71,10 @@
 		select blog_id, now(), 0 from blogcontents where blog_contents_id=#{blogContentsId};
 	</insert>
 	
+	<select id="getUser" parameterType="String" resultType="UserDto">
+		select * 
+		from user
+		where blog_id = #{blogId}	
+	</select>
 	
 </mapper>
