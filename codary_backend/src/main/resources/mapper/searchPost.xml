@@ -13,7 +13,7 @@
 				then date_format(blog_datetime, '%H:%i:%s')
 				else date_format(blog_datetime, '%y.%m.%d')
 				end blog_datetime,
-				bc.blog_contents_cover, info.nickname, info.profile, ifnull(c.comment_cnt, 0 )
+				bc.blog_contents_cover, info.nickname, info.profile, ifnull(c.comment_cnt, 0 ) comment_cnt
 		from blogcontents bc inner join user u
 				on bc.blog_id = u.blog_id
 			inner join userinfo info
