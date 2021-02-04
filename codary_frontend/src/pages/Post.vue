@@ -8,7 +8,7 @@
         <Profile />
       </v-card>
       <CommentWrite @WRITECMT="writeComment" />
-      <Comment :items="items" @DELETECMT="deleteComment" />
+      <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
     </v-container>
   </div>
 </template>
@@ -49,8 +49,21 @@ export default {
     deleteComment(index) {
       this.items.splice(index, 1);
     },
-    writeComment(comment) {
-      this.items.push(comment);
+    writeComment() {
+      // this.items.push(comment);
+      commentList(
+        this.blogContents,
+        (response) => {
+          // console.log(response.data.data);
+          this.items = response.data.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    modifyComment(index, content) {
+      this.items[index].commentContent = content;
     },
   },
 };

@@ -34,4 +34,12 @@ function deleteComment(commentNum, success, fail) {
         .catch(fail);
 }
 
-export {commentList,getUserInfo,writeComment,deleteComment};
+function modifyComment(comment, success, fail) {
+
+    instance
+        .put(`comment/modifyComment`,comment)
+        .then(success)
+        .catch(fail);
+}
+
+export {commentList,getUserInfo,writeComment,deleteComment,modifyComment};

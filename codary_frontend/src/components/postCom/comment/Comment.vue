@@ -13,9 +13,10 @@
           <CommentDetail :comment="item.uid" />
 
           <!-- <v-list-item-commentContent> -->
-          <v-list-item-title v-html="item.commentContent"></v-list-item-title>
-          <v-btn plain color="blue" @click="updateCmt()">댓글수정</v-btn>
-          <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn>
+          <!-- <v-list-item-title v-html="item.commentContent"></v-list-item-title> -->
+          <CommentRow :item="item" :index="index" @DELETECMT="deleteCmt" @MODIFYCMT="modifyCmt" />
+          <!-- <v-btn plain color="blue" @click="updateCmt()">댓글수정</v-btn> -->
+          <!-- <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn> -->
           <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
           <!-- </v-list-item-commentContent> -->
         </v-list-item>
@@ -28,25 +29,16 @@
 <script>
 import { deleteComment } from '@/api/comment.js';
 import CommentDetail from './CommentDetail.vue';
+import CommentRow from './CommentRow.vue';
 
 export default {
   name: 'Comment',
   props: ['items'],
   components: {
     CommentDetail,
+    CommentRow,
   },
-  created() {
-    // commentList(
-    //   this.blogContents,
-    //   (response) => {
-    //     // console.log(response.data.data);
-    //     this.items = response.data.data;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-  },
+  created() {},
   data() {
     return {
       // blogContents: {
@@ -92,9 +84,6 @@ export default {
     };
   },
   methods: {
-    updateCmt() {
-      alert('댓글 수정');
-    },
     deleteCmt(commentNum, index) {
       deleteComment(
         commentNum,
@@ -112,6 +101,9 @@ export default {
           console.log(error);
         }
       );
+    },
+    modifyCmt(index, content) {
+      this.$emit('MODIFYCOMMENT', index, content);
     },
   },
 };
