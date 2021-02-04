@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.web.dto.LoginCallBackDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.JwtServiceImpl;
@@ -68,34 +69,41 @@ public class UserController {
 
 		UserDto user = null;
 		Map<String, Object> resultMap = new HashMap<>();
+		LoginCallBackDto loginCallBackDto = new LoginCallBackDto();
 
 		try {
 			user = userService.findByProvider(userInfo);
 			resultMap.put("message", SUCCESS);
 			if (user == null) {
 				logger.info("#최초 로그인입니다.");
-				resultMap = userService.save(userInfo);
+				loginCallBackDto = userService.save(userInfo);
 			} else {
 				logger.info("#기존회원입니다.");
 				UserInfoDto info = userService.findUserInfoById(user.getUid());
+				loginCallBackDto.setUid(user.getUid());
+				loginCallBackDto.setBlogId(user.getBlogId());
+				loginCallBackDto.setMemoId(user.getMemoId());
+				loginCallBackDto.setNickname(info.getNickname());
+				loginCallBackDto.setProfile(info.getProfile());
+				loginCallBackDto.setProvider(user.getProvider());
 				
-				resultMap.put("uid", user.getUid());
-				resultMap.put("nickname", info.getNickname());
-				resultMap.put("profile", info.getProfile());
-				resultMap.put("blogId", user.getBlogId());
-				resultMap.put("memoId", user.getMemoId());
+				
 			}
+			resultMap.put("message", SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultMap.put("message", e.getMessage());
 		}
 
-		String token = jwtService.create("uid", resultMap.get("uid"), "access_token");
+		System.out.println(loginCallBackDto.toString());
+		String token = jwtService.create("uid", loginCallBackDto.getUid(), "access_token");
 		logger.debug("#토큰정보: " + token);
 		resultMap.put("access_token", token);
+		resultMap.put("user", loginCallBackDto);
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
+
 
 	@ApiOperation(value = "닉네임 변경", notes ="@param : uid, 변경될 nickname  </br> @return : uid, userInfoDto, blodId, memoId")
 	@PostMapping("/updateNickname")
