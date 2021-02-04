@@ -18,23 +18,23 @@ const actions = {
           });
         console.log("success");
     },
-    // 카카오 토큰 localstorage에 저장
-    kakaoCallback(context,data) {
-      axios
-      .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
-        .then(function (response) {
-          console.log(response.data.user.nickname)
-          let token = data.access_token
-          let provider = response.data.user.provider
-          localStorage.setItem('provider',provider)
-          localStorage.setItem('access_token', token)
-          context.dispatch("getMemberInfo")
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    // 구글 유저 정보 가져오기
+    //카카오 토큰 localstorage에 저장
+    // kakaoCallback(context,data) {
+    //   axios
+    //   .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
+    //     .then(function (response) {
+    //       console.log(response.data.user.nickname)
+    //       let token = data.access_token
+    //       let provider = response.data.user.provider
+    //       localStorage.setItem('provider',provider)
+    //       localStorage.setItem('access_token', token)
+    //       context.dispatch("getMemberInfo")
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // },
+    // 유저 정보 가져오기
     getMemberInfo({ commit }){
       let token = localStorage.getItem("access_token")
       let provider = localStorage.getItem("provider")
