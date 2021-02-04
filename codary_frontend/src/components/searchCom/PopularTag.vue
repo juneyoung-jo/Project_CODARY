@@ -13,6 +13,7 @@
             blogDatetime,
             blogContentsTitle,
             blogContentsId,
+            blogId,
           } in articles"
           :key="blogContentsId"
           cols="12"
@@ -29,7 +30,13 @@
             v-text="blogContentsTitle"
           ></h3>
           <div class="title font-weight-light mb-5" v-text="blogDatetime"></div>
-          <router-link :to="'/viewpost'" class="noline">
+          <router-link
+            :to="{
+              name: 'ViewPost',
+              params: { blogId: blogId, blogContentsId: blogContentsId },
+            }"
+            class="noline"
+          >
             <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading
             </v-btn>
