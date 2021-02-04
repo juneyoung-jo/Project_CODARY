@@ -37,6 +37,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
+          //주서어어어억
           this.blogContents = res.data;
         })
         .catch((err) => {
