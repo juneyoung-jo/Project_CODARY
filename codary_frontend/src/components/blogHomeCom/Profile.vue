@@ -136,11 +136,11 @@
 <script>
 
 // import {mapState} from 'vuex'
-  export default {
-    name: 'Profile',
-    data: () => ({
-     dialog: false,
-    }),
-    }
+export default {
+  name: 'Profile',
+  data: () => ({
+    dialog: false,
+  }),
+  }
   
 </script>
