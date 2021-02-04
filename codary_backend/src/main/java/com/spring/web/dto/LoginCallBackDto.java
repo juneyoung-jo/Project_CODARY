@@ -7,6 +7,7 @@ public class LoginCallBackDto {
 	private String blogId;
 	private String nickname;
 	private String profile;
+	private String provider;
 	
 	public String getUid() {
 		return uid;
@@ -38,10 +39,15 @@ public class LoginCallBackDto {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 	@Override
 	public String toString() {
 		return "LoginCallBackDto [uid=" + uid + ", memoId=" + memoId + ", blogId=" + blogId + ", nickname=" + nickname
-				+ ", profile=" + profile + "]";
+				+ ", profile=" + profile + ", provider=" + provider + "]";
 	}
-	
 }

@@ -73,6 +73,7 @@ public class UserController {
 
 		try {
 			user = userService.findByProvider(userInfo);
+			resultMap.put("message", SUCCESS);
 			if (user == null) {
 				logger.info("#최초 로그인입니다.");
 				loginCallBackDto = userService.save(userInfo);
@@ -84,6 +85,8 @@ public class UserController {
 				loginCallBackDto.setMemoId(user.getMemoId());
 				loginCallBackDto.setNickname(info.getNickname());
 				loginCallBackDto.setProfile(info.getProfile());
+				loginCallBackDto.setProvider(user.getProvider());
+				
 				
 			}
 			resultMap.put("message", SUCCESS);
@@ -100,6 +103,7 @@ public class UserController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
+
 
 	@ApiOperation(value = "닉네임 변경", notes ="@param : uid, 변경될 nickname  </br> @return : uid, userInfoDto, blodId, memoId")
 	@PostMapping("/updateNickname")
