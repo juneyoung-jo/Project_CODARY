@@ -24,7 +24,7 @@ new Vue({
   router,
   store,
   beforeCreate() {
-    this.$store.dispatch('getMemberInfoGoogle')
+    this.$store.dispatch('getMemberInfo')
   },
   vuetify,
   render: h=>h(App)
