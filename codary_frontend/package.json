@@ -23,6 +23,7 @@
     "vue": "^2.6.11",
     "vue-fullpage.js": "^0.1.6",
     "vue-google-login": "^2.0.5",
+    "vue-infinite-loading": "^2.4.5",
     "vue-kakao-login": "^1.0.5",
     "vue-meta": "^2.3.3",
     "vue-naver-login": "^1.0.4",

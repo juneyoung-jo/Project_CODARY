@@ -117,12 +117,14 @@
           style="height:100%"
         >
           <v-container fill-height>
+  
             <v-row>
               <v-col
                 class="text-center"
                 cols="12"
                 tag="h1"
               >
+        
                 <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
                   class="font-weight-bold"
@@ -150,38 +152,22 @@
                   :auto-line-width="autoLineWidth"
                   auto-draw
                 ></v-sparkline>
+      
               </v-col>
             </v-row>
+
           </v-container>
         </v-row>
       </section>
-      <!-- <section id="stats" class="section">
-        <v-parallax 
-          src="https://assets.imgix.net/unsplash/bridge.jpg?auto=compress&w=900&h=600&fit=crop"
-        >
-          <v-container fill-height>
-            <v-row class="mx-auto">
-              <v-col
-                v-for="[value, title] of stats"
-                :key="title"
-                cols="12"
-                md="3"
-              >
-                <div class="text-center">
-                  <div
-                    class="display-3 font-weight-black mb-4"
-                    v-text="value"
-                  ></div>
-                  <div
-                    class="title font-weight-regular text-uppercase"
-                    v-text="title"
-                  ></div>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-parallax>
-      </section> -->
+      <section id="stats" class="section">
+        <v-carousel hide-delimiters height="100%">
+          <v-carousel-item
+            v-for="(item,i) in items"
+            :key="i"
+            :src="item.src"
+          ></v-carousel-item>
+        </v-carousel>
+      </section>
 
   </full-page>
   </v-app>
@@ -235,6 +221,20 @@ export default {
           ['330+', 'Releases'],
           ['1m', 'Downloads/mo'],
           ['5m', 'Total Downloads'],
+        ],
+        items: [
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          },
         ],
         options: {
           licenseKey: 'YOUR_KEY_HEERE',

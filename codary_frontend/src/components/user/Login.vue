@@ -55,7 +55,7 @@ export default {
     GoogleLogin,
     // NaverLogin,
   },
-  data: function () {
+  data() {
     return {
       params: {
         client_id:

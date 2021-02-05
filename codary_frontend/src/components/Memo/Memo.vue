@@ -1,5 +1,6 @@
 <template>
   <div id="settings-wrapper">
+
     <v-card
       id="settings"
       class="py-2 px-4"
@@ -14,6 +15,7 @@
         mdi-clipboard-multiple-outline
       </v-icon>
     </v-card>
+         
       <v-menu
         :close-on-content-click="false"
         activator="#settings"
