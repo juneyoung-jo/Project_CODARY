@@ -3,7 +3,7 @@
     <SelectPostCover @GETCOVER="getCover" />
     <v-container>
       <!-- <PostName /> -->
-      <Editor />
+      <Editor @GETCONTENT="getContent" />
     </v-container>
   </div>
 </template>
@@ -12,6 +12,7 @@
 import Editor from "../components/createPostCom/Editor.vue";
 // import PostName from "../components/createPostCom/PostName.vue";
 import SelectPostCover from "../components/createPostCom/SelectPostCover.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CreatePost",
@@ -21,32 +22,35 @@ export default {
     return {
       blogContents: {
         blogId: "",
-        blogContents: "",
-        blogContentsCover: "",
         blogContentsTitle: "",
+        blogContents: "",
+        blogContentsCover:
+          "https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg",
       },
     };
   },
+  computed: {
+    ...mapGetters(["loggedInUserData"]),
+  },
   methods: {
-    writeContents() {
+    getCover(cover) {
+      this.blogContents.blogContentsCover = cover;
+    },
+    getContent(content, title) {
+      this.blogContents.blogContents = content;
+      this.blogContents.blogContentsTitle = title;
+      this.blogContents.blogId = this.loggedInUserData.blogId;
+      console.log(this.blogContents);
       this.axios
-        .post(`blog`, {
-          blogId: this.blogContents.blogId,
-          blogContentsTitle: this.blogContents.blogContentsTitle,
-          blogContents: this.blogContents.blogContents,
-          blogContentsCover: this.blogContentsCover,
-        })
-        .then((res) => {
-          console.log(res.data);
-          //주서어어어억
-          this.blogContents = res.data;
+        .post(`blog`, this.blogContents)
+        .then(() => {
+          // console.log(res.data);
+          // this.blogContents = res.data;
+          this.$router.push("/searchpage");
         })
         .catch((err) => {
           console.log(err);
         });
-    },
-    getCover(cover) {
-      this.blogContents.blogContentsCover = cover;
     },
   },
 };
