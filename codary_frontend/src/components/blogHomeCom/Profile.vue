@@ -11,17 +11,17 @@
       >
         <v-img
           class="rounded-circle elevation-6"
-          :src="photo"
+          :src=this.loggedInUserData.profile
           width="128"
         />
       
         <v-card-text>
           <h6 class="text-h6 mb-2 text--secondary">
-            job
+            CEO / FOUNDER
           </h6>
 
           <h4 class="text-h4 mb-3 text--primary">
-            name
+            {{ this.loggedInUserData.nickname }}
           </h4>
 
           <p class="text--secondary">
@@ -135,12 +135,15 @@
 
 <script>
 
-// import {mapState} from 'vuex'
+import {mapState} from 'vuex'
 export default {
   name: 'Profile',
   data: () => ({
     dialog: false,
   }),
+  computed:{
+    ...mapState(['loggedInUserData'])
+  }
   }
   
 </script>

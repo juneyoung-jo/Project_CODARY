@@ -72,7 +72,6 @@ export default {
 
 <style>
 .noline{
-  color:black;
   text-decoration: none !important;
 }
 h2{
