@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import { writeComment } from "@/api/comment.js";
+import { writeComment } from '@/api/comment.js';
+import { mapGetters } from 'vuex';
 export default {
-  name: "CommentWrite",
-  props: ["blogContents"],
+  name: 'CommentWrite',
+  props: ['blogContents'],
   created() {
     this.comment.blogContentsId = this.blogContents.blogContentsId;
     this.comment.blogId = this.blogContents.blogId;
@@ -29,35 +30,43 @@ export default {
   data() {
     return {
       comment: {
-        blogContentsId: "", // 받아야 할 정보
-        blogId: "", // 받아야 할 정보
-        commentContent: "",
-        uid: "VXFXaxa6Eupw", // 로컬스토리지 uid 값 입력
+        blogContentsId: '', // 받아야 할 정보
+        blogId: '', // 받아야 할 정보
+        commentContent: '',
+        uid: '', // 로컬스토리지 uid 값 입력
       },
     };
   },
+  computed: {
+    ...mapGetters(['loggedInUserData']),
+  },
   methods: {
     write() {
-      if (this.comment.commentContent === "") return;
+      if (this.comment.commentContent === '') return;
+      if (!this.loggedInUserData.uid) {
+        alert('로그인 해주세요!');
+        return;
+      }
+      this.comment.uid = this.loggedInUserData.uid;
       writeComment(
         this.comment,
         (response) => {
-          if (response.data.msg === "success") {
+          if (response.data.msg === 'success') {
             // this.$router.go(this.$router.current);
-            this.$emit("WRITECMT");
+            this.$emit('WRITECMT');
             this.clearWrite();
-          } else if (response.data.msg === "fail") {
-            alert("댓글 달기 실패?");
+          } else if (response.data.msg === 'fail') {
+            alert('댓글 달기 실패!');
           }
         },
         (error) => {
-          alert("로그인 해주세요!");
+          alert('댓글 달기 실패!');
           console.log(error);
         }
       );
     },
     clearWrite() {
-      this.comment.commentContent = "";
+      this.comment.commentContent = '';
     },
   },
 };
