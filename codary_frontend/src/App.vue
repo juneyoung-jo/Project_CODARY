@@ -22,8 +22,8 @@ export default {
     Memo,
   },
 
-  data: () => ({
+  data() {
     //
-  }),
+  },
 };
 </script>

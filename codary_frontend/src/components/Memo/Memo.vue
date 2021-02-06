@@ -1,6 +1,9 @@
 <template>
   <div id="settings-wrapper">
-
+    <div id="blackBox">
+      <p>보이나?</p>
+      <h1>dasd</h1>
+    </div>
     <v-card
       id="settings"
       class="py-2 px-4"
@@ -16,39 +19,38 @@
       </v-icon>
     </v-card>
          
-      <v-menu
-        :close-on-content-click="false"
-        activator="#settings"
-        bottom
-        content-class="v-settings"
-        left
-        nudge-left="8"
-        offset-x
-        origin="top right"
-        transition="scale-transition"
-        rounded=xl
+    <v-menu
+      :close-on-content-click="false"
+      activator="#settings"
+      bottom
+      content-class="v-settings"
+      left
+      nudge-left="8"
+      offset-y
+      origin="top right"
+      transition="scale-transition"
+      rounded=xl
+    >
+      <v-card
+        class="text-center mb-0"
+        width="300"
       >
-        <v-card
-          class="text-center mb-0"
-          width="300"
-        >
-          <div class="py-3 d-flex flex-column">
-            <div class="d-flex align-center justify-end">
-              <strong class="mr-15 py-3">MEMO</strong>
-              <v-btn 
-                @click="toggle"
-                plain
-              >
-                <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
-                <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-              </v-btn>
-            </div>
-              <MemoInput v-show="memotoggle" :sendingChange='sendingChange'/>   
-              <MemoList v-show="!memotoggle" :memoLists='memoLists' @CHANGEMEMO="startchange"/>
-              
-          </div>
-        </v-card>
-      </v-menu>
+      <div class="py-3 d-flex flex-column">
+        <div class="d-flex align-center justify-end">
+          <strong class="mr-15 py-3">MEMO</strong>
+          <v-btn 
+            @click="toggle"
+            plain
+          >
+            <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
+            <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
+          </v-btn>
+        </div>
+          <MemoInput v-show="memotoggle" :sendingChange='sendingChange'/>   
+          <MemoList v-show="!memotoggle" :memoLists='memoLists' @CHANGEMEMO="startchange"/>
+        </div>
+      </v-card>
+    </v-menu>
 
   </div>
 </template>
@@ -119,4 +121,10 @@ export default {
 
 <style>
 @import '~vue-neumorphism-element/dist/vue-neumorphism-element.css';
+
+#blackBox {
+  background-color: black;
+  color: black;
+  height: 20%;
+}
 </style>
