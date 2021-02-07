@@ -42,19 +42,11 @@ export default {
         blogContentsLike: '',
         blogContentsView: '',
       },
+      user: null,
     };
   },
   created() {
     this.getBlogContent();
-    commentList(
-      this.blogContents,
-      (response) => {
-        this.items = response.data.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   },
   computed: {
     ...mapGetters(['loggedInUserData']),
@@ -66,7 +58,8 @@ export default {
       this.blogContents.blogId = blogId;
       this.blogContents.blogContentsId = blogContentsId;
 
-      if (this.loggedInUserData.blogId === blogId) {
+      // setTimeout(() => {
+      if (this.loggedInUserData !== null && this.loggedInUserData.blogId === blogId) {
         writeLog(
           this.loggedInUserData.uid,
           blogId,
@@ -92,6 +85,16 @@ export default {
             console.log(err);
           });
       }
+      commentList(
+        this.blogContents,
+        (response) => {
+          this.items = response.data.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      // }, 500);
     },
     deleteComment(index) {
       this.items.splice(index, 1);
@@ -111,6 +114,11 @@ export default {
     },
     modifyComment(index, content) {
       this.items[index].commentContent = content;
+    },
+  },
+  watch: {
+    loggedInUserData() {
+      this.getBlogContent();
     },
   },
 };

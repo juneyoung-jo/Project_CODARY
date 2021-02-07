@@ -10,7 +10,8 @@
           <!-- <v-list-item-avatar>
             <v-img :src="item.avatar"></v-img>
           </v-list-item-avatar> -->
-          <CommentDetail :comment="item.uid" />
+
+          <CommentDetail :comment="item" />
 
           <!-- <v-list-item-commentContent> -->
           <!-- <v-list-item-title v-html="item.commentContent"></v-list-item-title> -->

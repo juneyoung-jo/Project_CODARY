@@ -43,7 +43,7 @@ export default {
   methods: {
     write() {
       if (this.comment.commentContent === '') return;
-      if (!this.loggedInUserData.uid) {
+      if (this.loggedInUserData === null || !this.loggedInUserData.uid) {
         alert('로그인 해주세요!');
         return;
       }

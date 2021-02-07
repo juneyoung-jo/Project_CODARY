@@ -4,7 +4,7 @@
       <v-col cols="6" md="12">
         <template v-if="flag">
           <v-list-item-title v-html="item.commentContent"></v-list-item-title>
-          <template v-if="loggedInUserData.uid === item.uid">
+          <template v-if="loggedInUserData !== null && loggedInUserData.uid === item.uid">
             <v-btn plain color="blue" @click="modifyCmt()">댓글수정</v-btn>
             <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn>
           </template>
