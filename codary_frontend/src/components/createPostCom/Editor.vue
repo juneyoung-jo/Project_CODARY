@@ -11,7 +11,7 @@
       :options="editorOptions"
       height="500px"
       initialEditType="markdown"
-      previewStyle="vertical"
+      previewStyle="tab"
     />
     <h3 class="py-8">태그를 입력하세요</h3>
     <v-col cols="12">

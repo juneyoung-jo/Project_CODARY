@@ -1,9 +1,13 @@
 <template>
   <div id="settings-wrapper">
-    <div id="blackBox">
+
+    <div id="blackBox" class="d-flex align-center justify-center">
+      <button @click="move" id="blackBoxButton">왔다리</button>
       <p>보이나?</p>
+      
       <h1>dasd</h1>
     </div>
+
     <v-card
       id="settings"
       class="py-2 px-4"
@@ -26,7 +30,7 @@
       content-class="v-settings"
       left
       nudge-left="8"
-      offset-y
+      offset-x
       origin="top right"
       transition="scale-transition"
       rounded=xl
@@ -69,7 +73,8 @@ export default {
       memotoggle: true,
       memoLists: [],
       // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로  
-      sendingChange: {}    
+      sendingChange: {},
+    
     }
   },
   computed: {
@@ -114,8 +119,19 @@ export default {
       // console.log(item)
       this.sendingChange = item
       this.toggle()
+    },
+
+    move() {
+      const target = document.querySelector('#blackBox')
+      const subtarget = document.querySelector('#blackBoxButton')
+
+      subtarget.classList.contains('goingOn') ? subtarget.classList.remove('goingOn') : subtarget.classList.add('goingOn')
+      setTimeout(function(){
+        target.classList.contains('activate') ? target.classList.remove('activate') : target.classList.add('activate')
+      }, 500)
+      
     }
-  }   
+  }     
 }
 </script>
 
@@ -123,8 +139,33 @@ export default {
 @import '~vue-neumorphism-element/dist/vue-neumorphism-element.css';
 
 #blackBox {
-  background-color: black;
+  background-color: wheat;
+  position: fixed;
+  z-index: 2;
+  right: -282px;
   color: black;
-  height: 20%;
+  height: 100%;
+  width: 282px;
+  transition: 0.5s;
+}
+
+.activate {
+  transition: 0.5s;
+  box-shadow: 0 0 5px 0 black;
+  transform: translateX(-100%);
+}
+
+#blackBoxButton {
+  transition: 0.5s;
+  width: 50px;
+  background-color: crimson;
+
+  position: relative;
+  left: -40%
+}
+
+.goingOn {
+  transition: 0.5s;
+  background-color: blueviolet;
 }
 </style>
