@@ -34,11 +34,12 @@ public class JwtServiceImpl implements JwtService {
 
 	private static final String TK = "codary";
 	private static final int EXPIRE_MINUTES = 60;
+//	private static final int EXPIRE_MINUTES = 3;
 
 	@Override
 	public <T> String create(String key, T data, String subject) {
 		String jwt = Jwts.builder().setHeaderParam("typ", "JWT")
-				.setHeaderParam("regDate", System.currentTimeMillis())
+				.setHeaderParam("regDate", System.currentTimeMillis()) 
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * EXPIRE_MINUTES))
 				.setSubject(subject)
 				.claim(key, data)

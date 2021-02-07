@@ -4,7 +4,7 @@
 
 <mapper namespace="com.spring.web.dao.SearchPostDao">
 
-	<select id="searchPost" parameterType="string" resultType="BlogPostDto">
+	<select id="searchPost" parameterType="SearchParam" resultType="BlogPostDto">
 		select bc.blog_id,
 				bc.blog_contents_id, bc.blog_contents_title,
 				bc.blog_contents,
@@ -31,7 +31,7 @@
 			or bc.blog_contents like concat('%', #{keyword}, '%') )
 		</if>
 		order by blog_contents_id DESC
-		limit 0, 30;
+		limit #{start}, #{spp};
 	</select>
 
 

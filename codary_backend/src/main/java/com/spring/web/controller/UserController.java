@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.LoginCallBackDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
+import com.spring.web.service.BlogContentsService;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.UserService;
 import com.spring.web.service.oauth.GoogleOauthService;
@@ -105,11 +106,9 @@ public class UserController {
 	 * @return 
 	 */
 	@ApiOperation(value = "헤더에 담긴 JWT 토큰 값을 확인, <br> 이를 이용한 유저 정보 검색 및 반환", notes ="@param :  </br> @return : message, user")
-	
 	@GetMapping("/getUserInfo")
 	public ResponseEntity<Map<String, Object>> getUserInfo(
 			HttpServletRequest request ) {
-//		logger.info("#" + jwt + " JWT 전달됨!!");
 		final String jwt = request.getHeader("access_token");
 		String uid = null;
 		uid = jwtService.getUserId(jwt);
@@ -133,6 +132,32 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	/**
+	 * JWT 토큰을 이용한 유저 정보 반환
+	 * 
+	 * @param -
+	 * @return 
+	 */
+	@GetMapping("/getRefreshToken")
+	public ResponseEntity<Map<String, Object>> getRefreshToken(	HttpServletRequest request ) {
+
+		final String jwt = request.getHeader("access_token");
+		Map<String, Object> resultMap = new HashMap<>();
+		String uid = jwtService.getUserId(jwt);
+		
+		if(uid == null ) {
+			resultMap.put("message", FAIL);
+			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		}
+		
+		String token = jwtService.create("uid", uid, "access_token");
+		logger.debug("#토큰정보: " + token);
+		resultMap.put("access_token", token);
+		resultMap.put("message", SUCCESS);
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
 
 	/**
 	 * 유저 닉네임 업데이트
@@ -141,7 +166,7 @@ public class UserController {
 	 * @return LoginCallBackDto
 	 */
 	@ApiOperation(value = "닉네임 변경", notes ="@param : uid, 변경될 nickname  </br> @return : uid, userInfoDto, blodId, memoId")
-	@PostMapping("/updateNickname")
+	@PostMapping("/update/Nickname")
 	public ResponseEntity<Map<String, Object>> updateNickname(@RequestParam("uid") String uid,
 			@RequestParam("nickname") String nickname) {
 
@@ -168,18 +193,34 @@ public class UserController {
 	}
 
 	@ApiOperation(value = "회원 정보 삭제", notes ="@param : 삭제할 유저 아이디(uid)  </br> @return : ")
-	@PostMapping("/deleteUser")
-	public ResponseEntity<Map<String, Object>> updateNickname(@RequestParam("uid") String uid) {
+	@PostMapping("/delete/user")
+	public ResponseEntity<Map<String, Object>> deleteUser(
+//			HttpServletRequest request,
+			@RequestParam("uid") String uid) {
 
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(uid+" 삭제 요청");
+//		final String jwt = request.getHeader("access_token");
+//		String uidCheck = null;
+//		uidCheck = jwtService.getUserId(jwt);
+//		if(uid != uidCheck) {
+//			System.out.println("# uid가 일치하지 않습니다. 잘못된 요청입니다.");
+//		}
+		
 		try {
-			userService.delete(uid);
+			// 해당 유저 정보 읽어오기.
+			UserDto user = userService.findById(uid);
+
+			// User, 블로그, 블로그 글, 댓글 테이블 삭제
+			userService.delete(user.getUid(), user.getBlogId());
+			resultMap.put("message", "success");
+
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			resultMap.put("message", e.getMessage());
 		}
-
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("message", "success");
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
