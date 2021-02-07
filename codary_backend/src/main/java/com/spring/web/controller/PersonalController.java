@@ -52,7 +52,7 @@ public class PersonalController {
 	/*블로거가 쓴 글*/
 	@ApiOperation(value ="블로거가 쓴 글", notes = "해당 블로거가 쓴 글 목록을 반환한다.", response=List.class)
 	@GetMapping("/{blogid}")
-	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid, @RequestParam(defaultValue="1") int page) {
+	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid) {
 		
 		List<BlogContentsDto> blogcontentsList=null;
 		blogcontentsList= personalService.personalContents(blogid);
@@ -63,7 +63,7 @@ public class PersonalController {
 	/*내 메모 불러오기*/
 	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
 	@GetMapping("/memo/{memoid}") 
-	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request, @RequestParam(defaultValue="1") int page) {
+	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<MemoContentsDto> memocontentsDto=null;
@@ -88,7 +88,7 @@ public class PersonalController {
 	/*좋아요한 블로거 목록보기*/
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
 	@GetMapping("/bloger/{blogid}/{uid}")
-	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request, @RequestParam(defaultValue="1") int page){
+	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogDto> blogDto=null;
@@ -112,7 +112,7 @@ public class PersonalController {
 	/*좋아요한 블로그 글 목록보기*/
 	@ApiOperation(value="좋아요한 블로그 글 목록보기", notes="내가 좋아요한 블로그 글들의 목록을 반환한다.", response=List.class)
 	@GetMapping("/blog/{blogid}/{uid}")
-	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request, @RequestParam(defaultValue="1") int page){
+	public ResponseEntity<List<BlogContentsDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<BlogContentsDto> blogcontentsDto=null;
