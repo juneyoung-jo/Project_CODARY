@@ -32,6 +32,7 @@ public class SearchController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	
 	/**
 	 * 블로그 게시글 목록 호출
 	 * 
