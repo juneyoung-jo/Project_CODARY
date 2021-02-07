@@ -13,6 +13,7 @@ import Editor from "../components/createPostCom/Editor.vue";
 // import PostName from "../components/createPostCom/PostName.vue";
 import SelectPostCover from "../components/createPostCom/SelectPostCover.vue";
 import { mapGetters } from "vuex";
+import { writeContent } from "@/api/blogcontent.js";
 
 export default {
   name: "CreatePost",
@@ -40,17 +41,27 @@ export default {
       this.blogContents.blogContents = content;
       this.blogContents.blogContentsTitle = title;
       this.blogContents.blogId = this.loggedInUserData.blogId;
-      console.log(this.blogContents);
-      this.axios
-        .post(`blog`, this.blogContents)
-        .then(() => {
-          // console.log(res.data);
-          // this.blogContents = res.data;
+      // console.log(this.blogContents);
+      // this.axios
+      //   .post(`blog`, this.blogContents)
+      //   .then(() => {
+      //     // console.log(res.data);
+      //     // this.blogContents = res.data;
+      //     this.$router.push("/searchpage");
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+      writeContent(
+        this.blogContents,
+        (res) => {
+          console.log(res);
           this.$router.push("/searchpage");
-        })
-        .catch((err) => {
+        },
+        (err) => {
           console.log(err);
-        });
+        }
+      );
     },
   },
 };

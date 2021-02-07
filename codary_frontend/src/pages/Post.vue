@@ -24,6 +24,7 @@ import Profile from "../components/postCom/Profile.vue";
 import Comment from "../components/postCom/comment/Comment.vue";
 import CommentWrite from "../components/postCom/comment/CommentWrite.vue";
 import { commentList } from "@/api/comment.js";
+import { getContent } from "@/api/blogcontent.js";
 
 export default {
   components: { PostCover, PostViewer, Profile, Comment, CommentWrite },
@@ -62,18 +63,20 @@ export default {
     getBlogContent() {
       const blogId = this.$route.query.blogId;
       const blogContentsId = this.$route.query.blogContentsId;
-      this.blogContents.blogId = blogId;
-      this.blogContents.blogContentsId = blogContentsId;
-      this.axios
-        .get(`blog/${blogId}/${blogContentsId}`)
-        .then((res) => {
+      getContent(
+        blogId,
+        blogContentsId,
+        (res) => {
+          this.blogContents.blogId = blogId;
+          this.blogContents.blogContentsId = blogContentsId;
           this.blogContents.blogContentsCover = res.data.blogContentsCover;
           this.blogContents.blogContentsTitle = res.data.blogContentsTitle;
           this.blogContents.blogContents = res.data.blogContents;
-        })
-        .catch((err) => {
+        },
+        (err) => {
           console.log(err);
-        });
+        }
+      );
     },
     deleteComment(index) {
       this.items.splice(index, 1);
