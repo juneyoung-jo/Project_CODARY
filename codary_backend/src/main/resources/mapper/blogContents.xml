@@ -34,7 +34,7 @@
 	</update>
 	
 	<select id="getAllContents" resultType="BlogPostDto">
-		select b.blog_contents_id, b.blog_id, b.blog_contents_title, b.blog_contents, b.blog_contents_view, b.blog_contents_like, b.blog_datetime, b.blog_contents_cover, ui.nickname, ui.profile, cc.comment_cnt 
+		select b.*, ui.nickname, ui.profile, cc.comment_cnt 
 		from blogcontents b
 			inner join user u using(blog_id)
 		    inner join userinfo ui using(uid)
