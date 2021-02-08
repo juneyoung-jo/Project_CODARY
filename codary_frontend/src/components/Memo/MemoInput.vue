@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import { writeMemo, changeMemo } from '@/api/memo.js';
 
 export default {
@@ -28,9 +29,11 @@ export default {
         memoContent: '',
         memoTime: '',
         // memoNum: '',
-        memoId: '2u1wQOyL8StR'
       }
     }
+  },
+  computed: {
+    ...mapState([ 'loggedInUserData' ])    
   },
   watch: {
     sendingChange(val) {
@@ -45,6 +48,7 @@ export default {
         return
       }
       if ( this.memodata.memoTime === '') {
+        Object.assign(this.memodata, {memoId: this.loggedInUserData.memoId})
         writeMemo(
           this.memodata,
           () => {
@@ -59,7 +63,7 @@ export default {
         )
       } else {
         this.sendingChange.memoContent = this.memodata.memoContent
-
+        Object.assign(this.memodata, {memoId: this.loggedInUserData.memoId})
         changeMemo(
           this.sendingChange,
           () => {
