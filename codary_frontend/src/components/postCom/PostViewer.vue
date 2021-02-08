@@ -10,10 +10,10 @@
     </div>
     <v-container class="pa-16">
       <!-- <viewer
-        :value="editorText"
+        @load="onViewerLoad"
         height="500px"
-        :initialValue="this.blogContents.blogContents"
-        viewer="true"
+        
+        viewer=true
       /> -->
       {{ this.blogContents.blogContents }}
     </v-container>
@@ -34,9 +34,14 @@ export default {
   },
   data() {
     return {
-      editorText:
-        "# This is initialValue.\n ## 안녕하세요\n ### 코다리입니다 \n #### 반갑습니다 \n ##### 마크다운으로 작성가능합니다",
+      viewerText:
+        this.blogContents.blogContents,
     };
+  },
+  methods: {
+    onViewerLoad() {
+        this.viewerText = this.blogContents.blogContents
+    },
   },
 };
 </script>
