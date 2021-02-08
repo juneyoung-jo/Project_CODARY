@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
@@ -161,16 +162,50 @@ public class BlogContentsController {
 //	}
 	
 	/**
-	 * 블로그 글 추천
+	 * 블로그 글 추천(1) - 최신순
 	 * 
 	 * @param 
 	 * @return List<BlogContentsDto>
 	 */
-	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogContentsDto")
-	@GetMapping("recommend")
-	public ResponseEntity<List<BlogContentsDto>> recommend() throws Exception{
+	@ApiOperation(value = "블로그 글 추천(1) - 최신순", notes = "@param </br> @return BlogContentsDto")
+	@GetMapping("recommend/date")
+	public ResponseEntity<List<BlogPostDto>> recommendByDate() throws Exception{
 		try {
-			return new ResponseEntity<List<BlogContentsDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendByDate(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	/**
+	 * 블로그 글 추천(2) - 좋아요순
+	 * 
+	 * @param 
+	 * @return List<BlogContentsDto>
+	 */
+	@ApiOperation(value = "블로그 글 추천(2) - 좋아요순", notes = "@param </br> @return BlogContentsDto")
+	@GetMapping("recommend/like")
+	public ResponseEntity<List<BlogPostDto>> recommendByLike() throws Exception{
+		try {
+			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendByLike(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	/**
+	 * 블로그 글 추천(3) - 조회순
+	 * 
+	 * @param 
+	 * @return List<BlogContentsDto>
+	 */
+	@ApiOperation(value = "블로그 글 추천(3) - 조회순", notes = "@param </br> @return BlogContentsDto")
+	@GetMapping("recommend/view")
+	public ResponseEntity<List<BlogPostDto>> recommendByView() throws Exception{
+		try {
+			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendByView(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

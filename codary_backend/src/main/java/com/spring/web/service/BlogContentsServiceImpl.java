@@ -20,6 +20,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 
@@ -62,35 +63,39 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 	
 	@Override
-	public List<BlogContentsDto> recommendBlogContents() throws Exception{
-		List<BlogContentsDto> list = mapper.getAllContents();
-		List<BlogContentsDto> recommendList; //추천 글 리스트
-		
-		final int size = 3; //추천 글 갯수
-		Set<BlogContentsDto> set = new HashSet<>();
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Iterator<BlogContentsDto> iter = list.iterator();
-		
-		long cur = System.currentTimeMillis()/(24*60*60*1000);
-		while(iter.hasNext()) {
-			BlogContentsDto blog = iter.next();
-			//날짜 차이 구하기
-			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime()/(24*60*60*1000);
-			long sub = cur - date;
-			if(sub < 90)
-				set.add(blog);
-		}
-		recommendList = new ArrayList<BlogContentsDto>(set);
-		Collections.sort(recommendList, new Comparator<BlogContentsDto>() {
+	public List<BlogPostDto> recommendByDate() throws Exception{
+		List<BlogPostDto> list = mapper.getAllContents();
+		Collections.sort(list, new Comparator<BlogPostDto>() {
 			@Override
-			public int compare(BlogContentsDto o1, BlogContentsDto o2) {
-				return o2.getBlogContentsView() + o2.getBlogContentsLike()*3 - o1.getBlogContentsView() - o1.getBlogContentsLike()*3;
+			public int compare(BlogPostDto o1, BlogPostDto o2) {
+				return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
 			}
 		});
-		
-		return recommendList.subList(0, size);
+		return list;
+	}
+	
+	@Override
+	public List<BlogPostDto> recommendByLike() throws Exception{
+		List<BlogPostDto> list = mapper.getAllContents();
+		Collections.sort(list, new Comparator<BlogPostDto>() {
+			@Override
+			public int compare(BlogPostDto o1, BlogPostDto o2) {
+				return o2.getBlogContentsLike() - o1.getBlogContentsLike();
+			}
+		});
+		return list;
+	}
+	
+	@Override
+	public List<BlogPostDto> recommendByView() throws Exception{
+		List<BlogPostDto> list = mapper.getAllContents();
+		Collections.sort(list, new Comparator<BlogPostDto>() {
+			@Override
+			public int compare(BlogPostDto o1, BlogPostDto o2) {
+				return o2.getBlogContentsView() - o1.getBlogContentsView();
+			}
+		});
+		return list;
 	}
 
 	@Override

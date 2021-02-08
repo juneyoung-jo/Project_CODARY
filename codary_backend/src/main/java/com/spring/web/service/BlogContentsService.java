@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.UserInfoDto;
 
 public interface BlogContentsService {
@@ -13,7 +14,9 @@ public interface BlogContentsService {
 	List<BlogContentsDto> listBlogContents(String blogId) throws Exception;
 	int modifyBlogContent(BlogContentsDto blogContent);
 	int deleteBlogContent(int blogContentsId);
-	List<BlogContentsDto> recommendBlogContents() throws Exception;
+	List<BlogPostDto> recommendByDate() throws Exception;
+	List<BlogPostDto> recommendByLike() throws Exception;
+	List<BlogPostDto> recommendByView() throws Exception;
 	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId)throws Exception;
 	void increaseContentsView(int blogContentsId) throws Exception;
 	BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception;
