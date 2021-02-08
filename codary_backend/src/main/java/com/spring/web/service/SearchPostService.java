@@ -10,4 +10,5 @@ import com.spring.web.dto.SearchParam;
 
 public interface SearchPostService {
 	public List<BlogPostDto> searchPost(SearchParam param) throws Exception;
+	public List<BlogPostDto> searchPostByTag(SearchParam param) throws Exception;
 }

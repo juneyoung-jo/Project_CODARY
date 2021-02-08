@@ -24,4 +24,9 @@ public class SearchPostServiceImpl implements SearchPostService {
 		return sqlSession.getMapper(SearchPostDao.class).searchPost(param);
 	}
 
+	@Override
+	public List<BlogPostDto> searchPostByTag(SearchParam param) throws Exception {
+		return sqlSession.getMapper(SearchPostDao.class).searchPostByTag(param);
+	}
+
 }
