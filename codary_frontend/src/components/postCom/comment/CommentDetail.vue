@@ -21,6 +21,7 @@
 <script>
 import { getUserInfo, getCommentLike, commentLike, commentLikeCancle } from '@/api/comment.js';
 import { mapGetters } from 'vuex';
+import { getuidCookie } from '@/util/cookie.js';
 export default {
   props: ['comment'],
   created() {
@@ -39,7 +40,7 @@ export default {
 
     // 댓글의 좋아요 체크
     this.commentLike.commentNum = this.comment.commentNum;
-    this.commentLike.uid = this.loggedInUserData.uid;
+    this.commentLike.uid = getuidCookie();
     getCommentLike(
       this.commentLike,
       (responese) => {

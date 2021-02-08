@@ -22,6 +22,8 @@ import CommentWrite from '../components/postCom/comment/CommentWrite.vue';
 import { commentList } from '@/api/comment.js';
 import { mapGetters } from 'vuex';
 import { writeLog } from '@/api/blogContents.js';
+import { getContent } from '@/api/blogcontent.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   components: { PostCover, PostViewer, Profile, Comment, CommentWrite },
@@ -42,24 +44,31 @@ export default {
         blogContentsLike: '',
         blogContentsView: '',
       },
-      user: null,
+      user: {
+        uid: '',
+        blogId: '',
+      },
     };
   },
   created() {
+    this.initUser();
     this.getBlogContent();
   },
   computed: {
     ...mapGetters(['loggedInUserData']),
   },
   methods: {
+    initUser() {
+      this.user.uid = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
     getBlogContent() {
       const blogId = this.$route.query.blogId;
       const blogContentsId = this.$route.query.blogContentsId;
       this.blogContents.blogId = blogId;
       this.blogContents.blogContentsId = blogContentsId;
 
-      // setTimeout(() => {
-      if (this.loggedInUserData !== null && this.loggedInUserData.blogId === blogId) {
+      if (this.user !== null && this.user.blogId === blogId) {
         writeLog(
           this.loggedInUserData.uid,
           blogId,
@@ -74,16 +83,16 @@ export default {
           }
         );
       } else {
-        this.axios
-          .get(`blog/${blogId}/${blogContentsId}`)
-          .then((res) => {
+        getContent(
+          blogId,
+          blogContentsId,
+          (res) => {
             this.blogContents.blogContentsCover = res.data.blogContentsCover;
             this.blogContents.blogContentsTitle = res.data.blogContentsTitle;
             this.blogContents.blogContents = res.data.blogContents;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+          },
+          (error) => console.log(error)
+        );
       }
       commentList(
         this.blogContents,
@@ -94,7 +103,6 @@ export default {
           console.log(error);
         }
       );
-      // }, 500);
     },
     deleteComment(index) {
       this.items.splice(index, 1);
@@ -117,9 +125,9 @@ export default {
     },
   },
   watch: {
-    loggedInUserData() {
-      this.getBlogContent();
-    },
+    // loggedInUserData() {
+    //   this.getBlogContent();
+    // },
   },
 };
 </script>
