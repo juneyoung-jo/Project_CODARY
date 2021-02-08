@@ -22,6 +22,7 @@
 import PopularTag from "../components/searchCom/PopularTag.vue";
 import SearchResult from "../components/searchCom/SearchResult.vue";
 import SearchInput from "../components/searchCom/SearchInput.vue";
+import { getByDate, getByView, getByLike } from "@/api/search.js";
 
 export default {
   components: { SearchInput, SearchResult, PopularTag },
@@ -55,41 +56,17 @@ export default {
       this.searchBy();
     },
     searchBy() {
-      if (this.selected == 2) this.getByView();
-      else if (this.selected == 3) this.getByLike();
-      else this.getByDate();
-    },
-    getByView() {
-      const keyword = this.keyword.replace(/#/g, "%23");
-      this.axios
-        .get(`search/view/${keyword}`)
-        .then((res) => {
+      if (this.selected == 2)
+        getByView(this.keyword.replace(/#/g, "%23"), (res) => {
           this.list = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
         });
-    },
-    getByLike() {
-      const keyword = this.keyword.replace(/#/g, "%23");
-      this.axios
-        .get(`search/like/${keyword}`)
-        .then((res) => {
+      else if (this.selected == 3)
+        getByLike(this.keyword.replace(/#/g, "%23"), (res) => {
           this.list = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
         });
-    },
-    getByDate() {
-      const keyword = this.keyword.replace(/#/g, "%23");
-      this.axios
-        .get(`search/date/${keyword}`)
-        .then((res) => {
+      else
+        getByDate(this.keyword.replace(/#/g, "%23"), (res) => {
           this.list = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
         });
     },
   },
