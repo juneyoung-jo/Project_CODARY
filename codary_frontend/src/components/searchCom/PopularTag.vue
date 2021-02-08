@@ -25,8 +25,16 @@
           cols="12"
           md="4"
         >
-          <v-img :src="blogContentsCover" class="mb-4" height="275" max-width="100%"></v-img>
-          <h3 class="font-weight-black mb-4 text-uppercase" v-text="blogContentsTitle"></h3>
+          <v-img
+            :src="blogContentsCover"
+            class="mb-4"
+            height="275"
+            max-width="100%"
+          ></v-img>
+          <h3
+            class="font-weight-black mb-4 text-uppercase"
+            v-text="blogContentsTitle"
+          ></h3>
           <div class="title font-weight-light mb-5" v-text="blogDatetime"></div>
           <router-link
             :to="{
@@ -38,9 +46,15 @@
             }"
             class="noline"
           >
-            <v-img :src="profile" class="mb-4" height="30" max-width="30%"></v-img>
+            <v-img
+              :src="profile"
+              class="mb-4"
+              height="30"
+              max-width="30%"
+            ></v-img>
             <div>
-              {{ nickname }} 댓글 {{ commentCnt }} 좋아요 {{ blogContentsLike }} 조회수
+              {{ nickname }} 댓글 {{ commentCnt }} 좋아요
+              {{ blogContentsLike }} 조회수
               {{ blogContentsView }}
             </div>
             <div>{{ blogContents | textLengthOverCut }}</div>
@@ -57,22 +71,42 @@
 
 <script>
 export default {
-  name: 'PopularTag',
+  name: "PopularTag",
   data() {
     return {
       articles: [],
     };
   },
   created() {
-    this.getRecommends();
+    this.getRecommendsByView();
   },
 
   methods: {
-    getRecommends() {
+    getRecommendsByView() {
       this.axios
-        .get(`search/post?keyword=`)
+        .get(`blog/recommend/view`)
         .then((res) => {
-          this.articles = res.data.list;
+          this.articles = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getRecommendsByLike() {
+      this.axios
+        .get(`blog/recommend/like`)
+        .then((res) => {
+          this.articles = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getRecommendsByDate() {
+      this.axios
+        .get(`blog/recommend/date`)
+        .then((res) => {
+          this.articles = res.data;
         })
         .catch((err) => {
           console.log(err);
@@ -81,11 +115,11 @@ export default {
   },
   filters: {
     textLengthOverCut(txt, len, lastTxt) {
-      if (len == '' || len == null) {
+      if (len == "" || len == null) {
         len = 100;
       }
-      if (lastTxt == '' || lastTxt == null) {
-        lastTxt = '...';
+      if (lastTxt == "" || lastTxt == null) {
+        lastTxt = "...";
       }
       if (txt.length > len) {
         txt = txt.substr(0, len) + lastTxt;
