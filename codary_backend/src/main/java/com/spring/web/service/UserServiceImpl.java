@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 		loginCallBackDto.setMemoId(uid);
 		loginCallBackDto.setNickname(nickname);
 		loginCallBackDto.setProfile(profileImg);
+		loginCallBackDto.setProvider(provider);
 
 		// 3. blog 테이블 생성
 		sqlSession.getMapper(UserDao.class).makeBlog(blog);

@@ -87,7 +87,6 @@ public class UserController {
 				loginCallBackDto.setProfile(info.getProfile());
 				loginCallBackDto.setProvider(user.getProvider());
 				
-				
 			}
 			resultMap.put("message", SUCCESS);
 		} catch (Exception e) {
