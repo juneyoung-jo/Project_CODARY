@@ -162,6 +162,24 @@ public class BlogContentsController {
 //	}
 	
 	/**
+	 * 블로그 글 추천
+	 * 
+	 * @param 
+	 * @return List<BlogPostDto>
+	 */
+	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogPostDto")
+	@GetMapping("recommend")
+	public ResponseEntity<List<BlogPostDto>> recommend() throws Exception{
+		try {
+			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	
+	/**
 	 * 블로그 글 추천(1) - 최신순
 	 * 
 	 * @param 

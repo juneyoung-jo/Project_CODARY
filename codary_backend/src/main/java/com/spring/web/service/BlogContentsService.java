@@ -14,6 +14,7 @@ public interface BlogContentsService {
 	List<BlogContentsDto> listBlogContents(String blogId) throws Exception;
 	int modifyBlogContent(BlogContentsDto blogContent);
 	int deleteBlogContent(int blogContentsId);
+	List<BlogPostDto> recommendBlogContents() throws Exception;
 	List<BlogPostDto> recommendByDate() throws Exception;
 	List<BlogPostDto> recommendByLike() throws Exception;
 	List<BlogPostDto> recommendByView() throws Exception;

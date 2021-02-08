@@ -63,6 +63,38 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 	
 	@Override
+	public List<BlogPostDto> recommendBlogContents() throws Exception{
+		List<BlogPostDto> list = mapper.getAllContents();
+		List<BlogPostDto> recommendList; //추천 글 리스트
+		
+		final int size = 3; //추천 글 갯수
+		Set<BlogPostDto> set = new HashSet<>();
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Iterator<BlogPostDto> iter = list.iterator();
+		
+		long cur = System.currentTimeMillis()/(24*60*60*1000);
+		while(iter.hasNext()) {
+			BlogPostDto blog = iter.next();
+			//날짜 차이 구하기
+			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime()/(24*60*60*1000);
+			long sub = cur - date;
+			if(sub < 90)
+				set.add(blog);
+		}
+		recommendList = new ArrayList<BlogPostDto>(set);
+		Collections.sort(recommendList, new Comparator<BlogPostDto>() {
+			@Override
+			public int compare(BlogPostDto o1, BlogPostDto o2) {
+				return o2.getBlogContentsView() + o2.getBlogContentsLike()*3 - o1.getBlogContentsView() - o1.getBlogContentsLike()*3;
+			}
+		});
+		
+		return recommendList.subList(0, size);
+	}
+	
+	@Override
 	public List<BlogPostDto> recommendByDate() throws Exception{
 		List<BlogPostDto> list = mapper.getAllContents();
 		Collections.sort(list, new Comparator<BlogPostDto>() {
