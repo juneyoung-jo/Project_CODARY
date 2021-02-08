@@ -9,12 +9,12 @@
       <v-chip outlined>백준</v-chip>
     </div>
     <v-container class="pa-16">
-      <viewer
+      <!-- <viewer
         @load="onViewerLoad"
         height="500px"
         
         viewer=true
-      />
+      /> -->
       {{ this.blogContents.blogContents }}
     </v-container>
   </div>
@@ -23,13 +23,13 @@
 <script>
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "codemirror/lib/codemirror.css";
-import { Viewer } from "@toast-ui/vue-editor";
+// import { Viewer } from "@toast-ui/vue-editor";
 
 export default {
   name: "PostViewer",
   props: ["blogContents"],
   components: {
-    viewer: Viewer,
+    // viewer: Viewer,
     // 'viewer': Viewer
   },
   data() {
