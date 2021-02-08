@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.web.dto.SearchParam;
 import com.spring.web.service.SearchPostService;
 
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,7 @@ public class SearchController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	
 	/**
 	 * 블로그 게시글 목록 호출
 	 * 
@@ -40,18 +42,33 @@ public class SearchController {
 	@ApiOperation(value = "게시글 목록 호출", notes = "@param :  </br> @return List<BlogPostDto>")
 	@GetMapping("/post")
 	public ResponseEntity<Map<String, Object>> getPost(
-			@RequestParam Map<String, Object> param) {
+			@RequestParam Map<String, String> param) {
+		
+		String currentPage_ = param.get("currentPage");
+		String spp_ = param.get("spp");
+		String keyword = param.get("keyword") != null? param.get("keyword") : "";
+		int spp = spp_ !=null? Integer.parseInt(spp_) : 30;
+		int currentPage = currentPage_ !=null? Integer.parseInt(currentPage_) : 1;
+		int start = (currentPage-1)*spp;
+
+		// 검색을 위한 파라미터 객체 생성
+		SearchParam searchParam = new SearchParam();
+		searchParam.setKeyword(keyword != null? keyword : "");
+		searchParam.setStart(start);
+		searchParam.setSpp(spp);
+		
+		System.out.println("#검색 파라미터: " + searchParam.toString());
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		String keyword = "";
-		if (param.get("keyword") != null && param.get("keyword") != "") {
-			System.out.println("#keyword ::" + (String) param.get("keyword"));
-			keyword = (String) param.get("keyword");
+		if (keyword != null && keyword != "") {
+			System.out.println("#keyword ::" + keyword);
 			keyword = keyword.trim();
+			
 			// 1. 제목, 내용 검색
 			if (keyword.charAt(0) != '#') {
 				logger.info("#제목, 내용 검색");
 				try {
-					resultMap.put("list", searchPostService.searchPost(keyword));
+					resultMap.put("list", searchPostService.searchPost(searchParam));
 				} catch (Exception e) {
 					e.printStackTrace();
 					resultMap.put("message", FAIL);
@@ -67,7 +84,7 @@ public class SearchController {
 		}else {
 			System.out.println("#keyword 생략!!!");
 			try {
-				resultMap.put("list", searchPostService.searchPost(keyword));
+				resultMap.put("list", searchPostService.searchPost(searchParam));
 			} catch (Exception e) {
 				e.printStackTrace();
 				resultMap.put("message", FAIL);

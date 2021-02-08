@@ -8,7 +8,20 @@ public class LoginCallBackDto {
 	private String nickname;
 	private String profile;
 	private String provider;
+	public LoginCallBackDto() {
+	}
 	
+	public LoginCallBackDto(String uid, String memoId, String blogId, String nickname, String profile,
+			String provider) {
+		this.uid = uid;
+		this.memoId = memoId;
+		this.blogId = blogId;
+		this.nickname = nickname;
+		this.profile = profile;
+		this.provider = provider;
+	}
+
+
 	public String getUid() {
 		return uid;
 	}

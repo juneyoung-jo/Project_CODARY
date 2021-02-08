@@ -25,7 +25,7 @@ public class JwtInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		logger.info("# 헤더 내 access_token 값 체크");
 		// OPTION 요청은 통과
 		if(request.getMethod().equals("OPTIONS")) {
 			return true;
