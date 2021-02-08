@@ -42,4 +42,28 @@ function modifyComment(comment, success, fail) {
         .catch(fail);
 }
 
-export {commentList,getUserInfo,writeComment,deleteComment,modifyComment};
+function getCommentLike(comment, success, fail) {
+
+    instance
+        .post(`comment/getCommentLike`,comment)
+        .then(success)
+        .catch(fail);
+}
+
+function commentLike(comment, success, fail) {
+
+    instance
+        .post(`comment/commentLike`,comment)
+        .then(success)
+        .catch(fail);
+}
+
+function commentLikeCancle(comment, success, fail) {
+
+    instance
+        .post(`comment/commentLikeCancle`,comment)
+        .then(success)
+        .catch(fail);
+}
+
+export {commentList,getUserInfo,writeComment,deleteComment,modifyComment,getCommentLike,commentLike,commentLikeCancle};
