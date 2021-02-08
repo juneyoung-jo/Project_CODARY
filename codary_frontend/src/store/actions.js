@@ -7,7 +7,7 @@ const actions = {
           .post("http://localhost:8000/codary/user/login/google", data.uc.id_token)
           .then(response => {
             console.log(response.data.user)
-            let token = data.uc.id_token
+            let token = response.data.access_token
             let provider = response.data.user.provider
             localStorage.setItem('provider',provider)
             localStorage.setItem('access_token', token)
@@ -40,8 +40,13 @@ const actions = {
       let provider = localStorage.getItem("provider")
       if (token) {
         if (provider==="google") {
+          let config = {
+            headers : {
+              "access_token" : token
+            }
+          }
           axios
-              .post("http://localhost:8000/codary/user/login/google", token)
+              .get("http://localhost:8000/codary/user/getUserInfo", config)
               .then(response=> {
                 console.log(response.data.user)
                 console.log(response)
