@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import { writeMemo, changeMemo } from '@/api/memo.js';
 
 export default {
