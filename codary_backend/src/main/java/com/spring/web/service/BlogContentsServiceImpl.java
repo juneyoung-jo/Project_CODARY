@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,42 +91,6 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 		});
 		
 		return recommendList.subList(0, size);
-	}
-	
-	@Override
-	public List<BlogPostDto> recommendByDate() throws Exception{
-		List<BlogPostDto> list = mapper.getAllContents();
-		Collections.sort(list, new Comparator<BlogPostDto>() {
-			@Override
-			public int compare(BlogPostDto o1, BlogPostDto o2) {
-				return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
-			}
-		});
-		return list;
-	}
-	
-	@Override
-	public List<BlogPostDto> recommendByLike() throws Exception{
-		List<BlogPostDto> list = mapper.getAllContents();
-		Collections.sort(list, new Comparator<BlogPostDto>() {
-			@Override
-			public int compare(BlogPostDto o1, BlogPostDto o2) {
-				return o2.getBlogContentsLike() - o1.getBlogContentsLike();
-			}
-		});
-		return list;
-	}
-	
-	@Override
-	public List<BlogPostDto> recommendByView() throws Exception{
-		List<BlogPostDto> list = mapper.getAllContents();
-		Collections.sort(list, new Comparator<BlogPostDto>() {
-			@Override
-			public int compare(BlogPostDto o1, BlogPostDto o2) {
-				return o2.getBlogContentsView() - o1.getBlogContentsView();
-			}
-		});
-		return list;
 	}
 
 	@Override
