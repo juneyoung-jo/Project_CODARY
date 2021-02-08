@@ -20,7 +20,7 @@
             profile,
             nickname,
             commentCnt,
-          } in articles"
+          } in list"
           :key="blogContentsId"
           cols="12"
           md="4"
@@ -72,47 +72,12 @@
 <script>
 export default {
   name: "PopularTag",
+  props: ["list"],
   data() {
-    return {
-      articles: [],
-    };
+    return {};
   },
-  created() {
-    this.getRecommendsByView();
-  },
-
-  methods: {
-    getRecommendsByView() {
-      this.axios
-        .get(`blog/recommend/view`)
-        .then((res) => {
-          this.articles = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getRecommendsByLike() {
-      this.axios
-        .get(`blog/recommend/like`)
-        .then((res) => {
-          this.articles = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getRecommendsByDate() {
-      this.axios
-        .get(`blog/recommend/date`)
-        .then((res) => {
-          this.articles = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+  created() {},
+  methods: {},
   filters: {
     textLengthOverCut(txt, len, lastTxt) {
       if (len == "" || len == null) {
