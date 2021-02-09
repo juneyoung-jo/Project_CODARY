@@ -7,16 +7,17 @@
          mdi-clipboard-multiple-outline
         </v-icon>
       </button>
-
-        <div v-if="isLogin" class="d-flex flex-column">
-          <MemoList @CHANGEMEMO="startchange"/>
-          <MemoInput :sendingChange='sendingChange'/>   
+        <div v-if="isLogin" class="memopage">
+          <MemoList class='memolist' @CHANGEMEMO="startchange"/>
+          <MemoInput class='memoinput' :sendingChange='sendingChange'/>   
         </div>
-
-        <div v-else >
-         
+        <div v-else class='d-flex flex-column align-center ma-16 pa-5 py-16'>
+           <span style="font-size:50px">
+            <font-awesome-icon :icon="['fas','sign-in-alt']"/>
+           </span>
+           <div class='py-2'></div>
           <!-- 사이즈 조절 물어보기 -->
-          <h1>로그인을 해주십셔~</h1>
+          <h5>로그인이 필요합니다</h5>
         </div>
     </div>
   </div>
@@ -110,7 +111,7 @@ export default {
 
 #blackBox {
   position: fixed;
-  z-index: 4;
+  z-index: 2;
   /* 네브바가 5번째 인덱스 */
   right: -282px;
   color: black;
@@ -118,7 +119,6 @@ export default {
   width: 282px;
   transition: 0.5s;
   background-color:rgb(245, 243, 157);
-  z-index: 2;
 }
 
 .activate {
@@ -127,7 +127,7 @@ export default {
 }
 
 #blackBoxButton {
-  z-index: -1;
+  z-index: 1;
   transition: 0.3s;
   width: 60px;
   height: 50px;
@@ -136,12 +136,24 @@ export default {
   position: absolute;
   top: 30%;
   left: -20%;
-  z-index: 1;
+}
+
+/* .memopage {
+  position : relative;
+} */
+
+
+.memolist {
+  position : absolute;
+}
+
+.memoinput {
+  position: absolute;
+  bottom: 10%;
 }
 
 .goingOn {
   transition: all 0.8s ease;
   transform: translateX(2%);
-  background-color: blueviolet;
 }
 </style>

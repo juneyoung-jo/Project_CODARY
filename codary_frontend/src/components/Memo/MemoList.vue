@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       listData: [],
-      dataPerPage: 5,
+      dataPerPage: 3,
       curPageNum: 1,
     }
   },
@@ -119,7 +119,6 @@ export default {
 <style scoped>
 
 #memoListItem {
-
   width: 270px;
   overflow: auto;
   margin: 0;
