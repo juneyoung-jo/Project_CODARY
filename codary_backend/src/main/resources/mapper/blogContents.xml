@@ -77,4 +77,13 @@
 		where blog_id = #{blogId}	
 	</select>
 	
+	<select id="selectHash" parameterType="String" resultType="HashtagDto">
+		select * 
+		from hashtag 
+		<if test="keyword != null and keyword != ''">
+		where hashtag_content like concat('#', #{keyword}, '%')
+		</if>
+	</select>
+	
+	
 </mapper>

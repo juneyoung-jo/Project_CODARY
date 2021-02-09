@@ -20,20 +20,21 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 
 @Service
-public class BlogContentsServiceImpl implements BlogContentsService{
+public class BlogContentsServiceImpl implements BlogContentsService {
 
 	@Autowired
 	private BlogContentsDao mapper;
-	
+
 	@Autowired
 	private CommentDao commentMapper;
-	
+
 	private UserInfoDto info = null;
-	
+
 	@Override
 	@Transactional
 	public BlogContentsDto getContent(int blogContentsId) throws Exception {
@@ -60,49 +61,50 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	public int deleteBlogContent(int blogContentsId) {
 		return mapper.deleteBlogContent(blogContentsId);
 	}
-	
+
 	@Override
-	public List<BlogContentsDto> recommendBlogContents() throws Exception{
+	public List<BlogContentsDto> recommendBlogContents() throws Exception {
 		List<BlogContentsDto> list = mapper.getAllContents();
-		List<BlogContentsDto> recommendList; //추천 글 리스트
-		
-		final int size = 3; //추천 글 갯수
+		List<BlogContentsDto> recommendList; // 추천 글 리스트
+
+		final int size = 3; // 추천 글 갯수
 		Set<BlogContentsDto> set = new HashSet<>();
-		
+
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Iterator<BlogContentsDto> iter = list.iterator();
-		
-		long cur = System.currentTimeMillis()/(24*60*60*1000);
-		while(iter.hasNext()) {
+
+		long cur = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
+		while (iter.hasNext()) {
 			BlogContentsDto blog = iter.next();
-			//날짜 차이 구하기
-			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime()/(24*60*60*1000);
+			// 날짜 차이 구하기
+			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime() / (24 * 60 * 60 * 1000);
 			long sub = cur - date;
-			if(sub < 90)
+			if (sub < 90)
 				set.add(blog);
 		}
 		recommendList = new ArrayList<BlogContentsDto>(set);
 		Collections.sort(recommendList, new Comparator<BlogContentsDto>() {
 			@Override
 			public int compare(BlogContentsDto o1, BlogContentsDto o2) {
-				return o2.getBlogContentsView() + o2.getBlogContentsLike()*3 - o1.getBlogContentsView() - o1.getBlogContentsLike()*3;
+				return o2.getBlogContentsView() + o2.getBlogContentsLike() * 3 - o1.getBlogContentsView()
+						- o1.getBlogContentsLike() * 3;
 			}
 		});
-		
+
 		return recommendList.subList(0, size);
 	}
 
 	@Override
 	@Transactional
 	public BlogContentsDto writeLog(String uid, String blogId, int blogContentsId) throws Exception {
-		Map<String,Object> log = new HashMap<String, Object>();
+		Map<String, Object> log = new HashMap<String, Object>();
 		log.put("uid", uid);
 		log.put("blogContentsId", blogContentsId);
-		
+
 		mapper.writeLog(log);
-		mapper.increaseContentsView(blogContentsId); //조회수 증가
-				
+		mapper.increaseContentsView(blogContentsId); // 조회수 증가
+
 		return mapper.getContent(blogContentsId);
 	}
 
@@ -130,10 +132,16 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public UserInfoDto userInfo(String blogId) throws Exception {
 		UserDto user = mapper.getUser(blogId);
-		if(user == null) return null;
+		if (user == null)
+			return null;
 		info = new UserInfoDto();
 		info.setUid(user.getUid());
 		return commentMapper.getUserInfo(info);
 	}
-	
+
+	@Override
+	public List<HashtagDto> selectHash(String keyword) throws Exception {
+		return mapper.selectHash(keyword);
+	}
+
 }
