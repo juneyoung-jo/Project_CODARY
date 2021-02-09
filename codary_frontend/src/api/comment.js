@@ -66,4 +66,12 @@ function commentLikeCancle(comment, success, fail) {
         .catch(fail);
 }
 
-export {commentList,getUserInfo,writeComment,deleteComment,modifyComment,getCommentLike,commentLike,commentLikeCancle};
+function commentCheck(user, success, fail) {
+
+    instance
+        .post(`comment/commentCheck`,user)
+        .then(success)
+        .catch(fail);
+}
+
+export {commentList,getUserInfo,writeComment,deleteComment,modifyComment,getCommentLike,commentLike,commentLikeCancle,commentCheck};

@@ -10,7 +10,7 @@ function saveUserToCookie(uid,blogId,memoId) {
 
 function getuidCookie() {
 return document.cookie.replace(
-    /(?:(?:^|.*;\s*)user\s*=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)uid\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
 );
 }
