@@ -11,7 +11,7 @@ function getByDate(keyword, success, fail) {
 
 function getByView(keyword, success, fail) {
   instance
-    .get(`search/View/${keyword}`)
+    .get(`search/view/${keyword}`)
     .then(success)
     .catch(fail);
 }
