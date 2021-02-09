@@ -16,6 +16,15 @@
           <div id="viewer" />
         </v-container>
         <Profile :blogContents="blogContents" />
+        <v-btn
+          align="center"
+          class="my-8"
+          outlined
+          color="primary"
+          @click="clickLike()"
+        >
+          좋아요 {{ likeOrNot }}
+        </v-btn>
       </v-card>
       <v-btn
         v-if="this.isItMine"
@@ -57,7 +66,12 @@ import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
 import { commentList } from "@/api/comment.js";
 import { mapGetters } from "vuex";
 import { writeLog } from "@/api/blogContents.js";
-import { getContent } from "@/api/blogcontent.js";
+import {
+  getContent,
+  contentsLikeOrNot,
+  contentsLike,
+  contentsUnlike,
+} from "@/api/blogcontent.js";
 import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 import { deleteContent } from "@/api/blogcontent.js";
 
@@ -84,12 +98,18 @@ export default {
         uid: "",
         blogId: "",
       },
+      blogContentsLike: {
+        uid: "",
+        blogContentsId: "",
+      },
       isItMine: false,
+      likeOrNot: false,
     };
   },
   created() {
     this.initUser();
     this.getBlogContent();
+    this.checkLikeOrNot();
   },
   computed: {
     ...mapGetters(["loggedInUserData"]),
@@ -118,6 +138,8 @@ export default {
             this.blogContents.blogContentsTitle =
               response.data.data.blogContentsTitle;
             this.blogContents.blogContents = response.data.data.blogContents;
+            this.blogContents.blogContentsLike =
+              response.data.data.blogContentsLike;
 
             new Viewer({
               el: document.querySelector("#viewer"),
@@ -174,14 +196,59 @@ export default {
     modifyComment(index, content) {
       this.items[index].commentContent = content;
     },
+    checkLikeOrNot() {
+      this.blogContentsLike.blogContentsId = this.$route.query.blogContentsId;
+      this.blogContentsLike.uid = this.user.uid;
+      contentsLikeOrNot(
+        this.blogContentsLike,
+        (res) => {
+          if (res.data.msg === "yet") this.likeOrNot = false;
+          else this.likeOrNot = true;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+    clickLike() {
+      console.log(this.likeOrNot);
+      console.log(this.user);
+      if (this.user.uid === "") alert("로그인 해주세요");
+      else if (this.likeOrNot) {
+        if (confirm("좋아요를 취소하시겠어요?")) {
+          contentsUnlike(
+            this.blogContentsLike,
+            () => {
+              this.likeOrNot = false;
+              alert("좋아요가 취소되었습니다.");
+            },
+            () => {
+              alert("다시 시도해주세요.");
+            }
+          );
+        }
+      } else {
+        contentsLike(
+          this.blogContentsLike,
+          () => {
+            this.likeOrNot = true;
+            if (this.user.blogId == this.$route.query.blogContentsId)
+              alert("자화자찬?");
+          },
+          () => {
+            alert("다시 시도해주세요.");
+          }
+        );
+      }
+    },
     deletePost() {
       if (confirm("Are you sure?")) {
         deleteContent(
           this.blogContents.blogId,
           this.blogContents.blogContentsId,
-          (res) => {
+          () => {
             alert("삭제가 완료되었습니다.");
-            console.log(res); //삭제 후에 어디로 가야지...?
+            this.$router.go(-1);
           },
           (err) => {
             console.log(err);

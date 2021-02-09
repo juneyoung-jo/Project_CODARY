@@ -180,14 +180,21 @@ public class BlogContentsController {
 	 * 블로그 글 좋아요 눌렀는지 여부
 	 * 
 	 * @param BlogContentLikeDto
-	 * @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)
+	 * @return msg가 "yet"이면 안 누른 상태, "like"이면 누른 상태
 	 */
-	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)")
+	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return msg가 \"yet\"이면 안 누른 상태, \"like\"이면 누른 상태")
 	@PostMapping("checkContentsLike")
-	public ResponseEntity<BlogContentsLikeDto> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+	public ResponseEntity<Map<String, String>> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+		Map<String, String> map = new HashMap<>();
 		try {
 			BlogContentsLikeDto res = contentsService.readBlogContentsLike(like);
-			return new ResponseEntity<BlogContentsLikeDto>(res, HttpStatus.OK);
+			if(res == null) {
+				map.put("msg", "yet");
+				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+			}else {
+				map.put("msg", "like");
+				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
