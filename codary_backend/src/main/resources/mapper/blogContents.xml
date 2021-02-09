@@ -1,89 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.web.dao.BlogContentsDao">
 
-	<select id="getContent" parameterType="int" resultType="BlogContentsDto">
-		select *
-		from blogcontents
-		where blog_contents_id = #{blogContentsId} and isdeleted = 0
-	</select>
-	
-	<insert id="writeBlogContent" parameterType="BlogContentsDto">
-		insert into blogcontents(blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
-		values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
-	</insert>
-	
-	<select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">
-		select *
-		from blogcontents
-		where blog_id = #{blogId} and isdeleted = 0
-	</select>
-	
- 	<update id="modifyBlogContent" parameterType="BlogContentsDto">
-		update blogcontents
-		set blog_contents = #{blogContents}, blog_contents_title = #{blogContentsTitle}, blog_contents_cover = #{blogContentsCover}
-		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
-	</update>
-	
-	<update id="deleteBlogContent" parameterType="int">
-		update blogcontents
-		set isdeleted = 1
-		where blog_contents_id = #{blogContentsId}
-	</update>
-	
-	<select id="getAllContents" resultType="BlogContentsDto">
-		select *
-		from blogcontents
-	</select>
-	
-	<insert id="writeLog" parameterType="map">
-		insert into log
-		values(now(),#{uid},#{blogContentsId});
-	</insert>
-	
-	<update id="increaseContentsView" parameterType="int">
-		update blogcontents
-		set blog_contents_view = blog_contents_view + 1
-		where blog_contents_id = #{blogContentsId}
-	</update>
-	
-	<select id="readContentLike" resultType="BlogContentsLikeDto">
-		select *
-		from blogcontentslike
-		where uid = #{uid} and blog_contents_id = #{blogContentsId}
-	</select>
-	
-	<insert id="contentLike" parameterType = "BlogContentsLikeDto">
-		insert into blogcontentslike(uid, blog_contents_id)
-		values(#{uid}, #{blogContentsId})
-	</insert>
-	
-	<delete id="contentUnlike" parameterType = "BlogContentsLikeDto">
-		delete from blogcontentslike
-		where uid = #{uid} and blog_contents_id=#{blogContentsId}
-	</delete>
-	
-	<insert id="usergraphViewCount" parameterType="int">
-		insert into usergraph (blog_id, usergraph_date, blog_view) 
-		select blog_id, now(), 0 from blogcontents where blog_contents_id=#{blogContentsId};
-	</insert>
-	
-	<select id="getUser" parameterType="String" resultType="UserDto">
-		select * 
-		from user
-		where blog_id = #{blogId}	
-	</select>
-	
-	<select id="getAllHashes" resultType="BlogHashtagDto">
-		select * 
-		from bloghashtag
-	</select>
-	
-	<select id="getAllHashInfo" resultType="HashtagDto">
-		select * 
-		from hashtag	
-	</select>
-	
+   <select id="getContent" parameterType="int" resultType="BlogContentsDto">
+      select *
+      from blogcontents
+      where blog_contents_id = #{blogContentsId} and isdeleted = 0
+   </select>
+   
+   <insert id="writeBlogContent" parameterType="BlogContentsDto">
+      insert into blogcontents(blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
+      values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
+   </insert>
+   
+   <select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">
+      select *
+      from blogcontents
+      where blog_id = #{blogId} and isdeleted = 0
+   </select>
+   
+    <update id="modifyBlogContent" parameterType="BlogContentsDto">
+      update blogcontents
+      set blog_contents = #{blogContents}, blog_contents_title = #{blogContentsTitle}, blog_contents_cover = #{blogContentsCover}
+      where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
+   </update>
+   
+   <update id="deleteBlogContent" parameterType="int">
+      update blogcontents
+      set isdeleted = 1
+      where blog_contents_id = #{blogContentsId}
+   </update>
+   
+   <select id="getAllContents" resultType="BlogContentsDto">
+      select *
+      from blogcontents
+   </select>
+   
+   <insert id="writeLog" parameterType="map">
+      insert into log
+      values(now(),#{uid},#{blogContentsId});
+   </insert>
+   
+   <update id="increaseContentsView" parameterType="int">
+      update blogcontents
+      set blog_contents_view = blog_contents_view + 1
+      where blog_contents_id = #{blogContentsId}
+   </update>
+   
+   <select id="readContentLike" resultType="BlogContentsLikeDto">
+      select *
+      from blogcontentslike
+      where uid = #{uid} and blog_contents_id = #{blogContentsId}
+   </select>
+   
+   <insert id="contentLike" parameterType = "BlogContentsLikeDto">
+      insert into blogcontentslike(uid, blog_contents_id)
+      values(#{uid}, #{blogContentsId})
+   </insert>
+   
+   <delete id="contentUnlike" parameterType = "BlogContentsLikeDto">
+      delete from blogcontentslike
+      where uid = #{uid} and blog_contents_id=#{blogContentsId}
+   </delete>
+   
+   <insert id="usergraphViewCount" parameterType="int">
+      insert into usergraph (blog_id, usergraph_date, blog_view) 
+      select blog_id, now(), 0 from blogcontents where blog_contents_id=#{blogContentsId};
+   </insert>
+   
+   <select id="getUser" parameterType="String" resultType="UserDto">
+      select * 
+      from user
+      where blog_id = #{blogId}   
+   </select>
+   
+   <select id="getHashtagOfPost" parameterType="int" resultType="String">
+      select hashtag_content 
+      from bloghashtag inner join hashtag using(hashtag_id)
+      where blog_contents_id = #{blogContentsId};
+   </select>
+   
 </mapper>

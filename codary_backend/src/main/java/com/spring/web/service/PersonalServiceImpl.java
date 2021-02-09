@@ -34,7 +34,7 @@ public class PersonalServiceImpl implements PersonalService{
 	@Override
 	@Transactional
 	public List<BlogContentsDto> personalContents(String blogid) {
-		personalDao.usergraphViewCount(blogid);
+		//personalDao.usergraphViewCount(blogid);
 		return personalDao.showBlogContents(blogid);
 	}
 
