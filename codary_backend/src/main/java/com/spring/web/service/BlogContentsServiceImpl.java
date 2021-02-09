@@ -109,11 +109,13 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public void contentLike(BlogContentsLikeDto like) throws Exception {
 		mapper.contentLike(like);
+		mapper.increasePostLike(like.getBlogContentsId());
 	}
 
 	@Override
 	public void contentUnlike(BlogContentsLikeDto like) throws Exception {
 		mapper.contentUnlike(like);
+		mapper.decreasePostLike(like.getBlogContentsId());
 	}
 
 	@Override

@@ -49,6 +49,18 @@
 		where blog_contents_id = #{blogContentsId}
 	</update>
 	
+	<update id="increasePostLike" parameterType="int">
+		update blogcontents
+		set blog_contents_like = blog_contents_like + 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
+	<update id="decreasePostLike" parameterType="int">
+		update blogcontents
+		set blog_contents_like = blog_contents_like - 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
 	<select id="readContentLike" resultType="BlogContentsLikeDto">
 		select *
 		from blogcontentslike

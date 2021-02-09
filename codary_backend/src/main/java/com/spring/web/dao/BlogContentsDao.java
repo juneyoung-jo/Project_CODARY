@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
-import com.spring.web.dto.BlogHashtagDto;
-import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 
 @Mapper
@@ -25,7 +23,9 @@ public interface BlogContentsDao {
 	void increaseContentsView(int blogContentsId) throws SQLException;
 	BlogContentsLikeDto readContentLike(BlogContentsLikeDto like) throws SQLException;
 	void contentLike(BlogContentsLikeDto like) throws SQLException;
+	void increasePostLike(int blogContentsId) throws SQLException;
 	void contentUnlike(BlogContentsLikeDto like) throws SQLException;
+	void decreasePostLike(int blogContentsId) throws SQLException;
 	void usergraphViewCount(int blogContentsId) throws SQLException;
 	UserDto getUser(String blogId) throws Exception;
 	List<String> getHashtagOfPost(int blogContentsId) throws Exception;
