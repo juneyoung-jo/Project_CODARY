@@ -5,7 +5,6 @@
   <v-sparkline
     :value="value"
     :label-size="4"
-   
     :labels="labels"
     :gradient="gradient"
     :smooth="radius || false"
