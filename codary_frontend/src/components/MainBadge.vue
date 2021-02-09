@@ -71,7 +71,7 @@ export default {
             // console.log(data.count);
             this.$data.commentCnt += data.count;
           });
-          console.log(this.commentCnt);
+          // console.log(this.commentCnt);
         },
         (error) => console.log(error)
       );

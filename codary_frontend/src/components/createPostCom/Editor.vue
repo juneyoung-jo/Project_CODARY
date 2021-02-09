@@ -64,18 +64,43 @@ export default {
     };
   },
   mounted() {
+    function youtubePlugin() {
+      Editor.codeBlockManager.setReplacer('youtube', (youtubeId) => {
+        // Indentify multiple code blocks
+        //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+        const arr = youtubeId.split('v=');
+        youtubeId = arr[1];
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
+
+        // Avoid sanitizing iframe tag
+        setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+
+        return `<div id="${wrapperId}"></div>`;
+      });
+    }
+
+    function renderYoutube(wrapperId, youtubeId) {
+      const el = document.querySelector(`#${wrapperId}`);
+
+      el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+    }
+
     const editor = new Editor({
       ref: 'toastuiEditor',
       el: document.querySelector('#editor'),
       initialEditType: 'markdown',
       previewStyle: 'tab',
       height: '500px',
+      plugins: [youtubePlugin],
       hooks: {
         addImageBlobHook: (blob, callback) => {
           this.addImageBlobHook(blob, callback);
         },
       },
     });
+
     const btn = document.querySelector('#submit');
     btn.addEventListener('click', () => {
       const editContent = editor.getMarkdown();
