@@ -169,9 +169,9 @@ public class BlogContentsController {
 	 */
 	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("recommend")
-	public ResponseEntity<List<BlogPostDto>> recommend() throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
 		try {
-			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
