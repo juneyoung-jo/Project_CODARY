@@ -105,20 +105,20 @@ export default {
         (error) => console.log(error)
       );
     },
-    datachange() {
-      const content = this.$refs.toastuiEditor.invoke('getMarkdown');
+    // datachange() {
+    //   const content = this.$refs.toastuiEditor.invoke('getMarkdown');
 
-      this.editorText = content;
+    //   this.editorText = content;
 
-      if (this.editorText == null) {
-        alert('내용을 입력해주세요!');
-        return;
-      }
+    //   if (this.editorText == null) {
+    //     alert('내용을 입력해주세요!');
+    //     return;
+    //   }
 
-      console.log(content);
-      console.log('title: ' + this.title);
-      // this.$emit('GETCONTENT', this.editorText, this.title);
-    },
+    //   console.log(content);
+    //   console.log('title: ' + this.title);
+    //   // this.$emit('GETCONTENT', this.editorText, this.title);
+    // },
   },
 };
 </script>
