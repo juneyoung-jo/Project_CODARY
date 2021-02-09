@@ -33,10 +33,13 @@
 		where blog_contents_id = #{blogContentsId}
 	</update>
 	
-	<select id="getAllContents" resultType="BlogContentsDto">
-		select *
-		from blogcontents
-		where isdeleted = 0
+	<select id="getAllContents" resultType="BlogPostDto">
+		select b.*, ui.nickname, ui.profile, cc.comment_cnt 
+		from blogcontents b
+			inner join user u using(blog_id)
+		    inner join userinfo ui using(uid)
+		    inner join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
+		where b.isdeleted = 0
 	</select>
 	
 	<insert id="writeLog" parameterType="map">

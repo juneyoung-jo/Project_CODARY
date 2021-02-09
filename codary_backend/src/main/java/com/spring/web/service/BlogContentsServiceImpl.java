@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +19,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 
@@ -62,30 +62,30 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	}
 	
 	@Override
-	public List<BlogContentsDto> recommendBlogContents() throws Exception{
-		List<BlogContentsDto> list = mapper.getAllContents();
-		List<BlogContentsDto> recommendList; //추천 글 리스트
+	public List<BlogPostDto> recommendBlogContents() throws Exception{
+		List<BlogPostDto> list = mapper.getAllContents();
+		List<BlogPostDto> recommendList; //추천 글 리스트
 		
 		final int size = 3; //추천 글 갯수
-		Set<BlogContentsDto> set = new HashSet<>();
+		Set<BlogPostDto> set = new HashSet<>();
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Iterator<BlogContentsDto> iter = list.iterator();
+		Iterator<BlogPostDto> iter = list.iterator();
 		
 		long cur = System.currentTimeMillis()/(24*60*60*1000);
 		while(iter.hasNext()) {
-			BlogContentsDto blog = iter.next();
+			BlogPostDto blog = iter.next();
 			//날짜 차이 구하기
 			long date = transFormat.parse(blog.getBlogDatetime().substring(0, 10)).getTime()/(24*60*60*1000);
 			long sub = cur - date;
 			if(sub < 90)
 				set.add(blog);
 		}
-		recommendList = new ArrayList<BlogContentsDto>(set);
-		Collections.sort(recommendList, new Comparator<BlogContentsDto>() {
+		recommendList = new ArrayList<BlogPostDto>(set);
+		Collections.sort(recommendList, new Comparator<BlogPostDto>() {
 			@Override
-			public int compare(BlogContentsDto o1, BlogContentsDto o2) {
+			public int compare(BlogPostDto o1, BlogPostDto o2) {
 				return o2.getBlogContentsView() + o2.getBlogContentsLike()*3 - o1.getBlogContentsView() - o1.getBlogContentsLike()*3;
 			}
 		});

@@ -74,10 +74,26 @@ function contentsUnlike(blogContentsLike, success, fail) {
     .catch(fail);
 }
 
-//블로그 글 추천
-function recommend(success, fail) {
+//블로그 글 추천(1) = 최신순
+function recommendByDate(success, fail) {
   instance
-    .get(`blog/recommend`)
+    .get(`blog/recommend/date`)
+    .then(success)
+    .catch(fail);
+}
+
+//블로그 글 추천(2) - 조회순
+function recommendByView(success, fail) {
+  instance
+    .get(`blog/recommend/view`)
+    .then(success)
+    .catch(fail);
+}
+
+//블로그 글 추천(3) - 좋아요순
+function recommendByLike(success, fail) {
+  instance
+    .get(`blog/recommend/like`)
     .then(success)
     .catch(fail);
 }
@@ -92,5 +108,7 @@ export {
   contentsLikeOrNot,
   contentsLike,
   contentsUnlike,
-  recommend,
+  recommendByDate,
+  recommendByLike,
+  recommendByView,
 };
