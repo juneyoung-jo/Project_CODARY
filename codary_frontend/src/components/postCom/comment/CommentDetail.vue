@@ -41,6 +41,7 @@ export default {
     // 댓글의 좋아요 체크
     this.commentLike.commentNum = this.comment.commentNum;
     this.commentLike.uid = getuidCookie();
+
     getCommentLike(
       this.commentLike,
       (responese) => {

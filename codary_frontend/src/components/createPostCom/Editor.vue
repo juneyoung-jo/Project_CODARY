@@ -84,7 +84,30 @@ export default {
     function renderYoutube(wrapperId, youtubeId) {
       const el = document.querySelector(`#${wrapperId}`);
 
-      el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+      el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" ></iframe>`;
+    }
+
+    function blogPlugin() {
+      Editor.codeBlockManager.setReplacer('url', (url) => {
+        // console.log(youtubeId);
+        // Indentify multiple code blocks
+        //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
+
+        setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
+        return `<div id="${wrapperId}"></div>`;
+        // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+      });
+    }
+
+    function renderblogUrl(wrapperId, url) {
+      const el = document.querySelector(`#${wrapperId}`);
+      el.innerHTML = `<iframe width="420" height="315" src="${url}" 
+              frameborder="0" width="500" height="200" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
+              ></iframe>`;
     }
 
     const editor = new Editor({
@@ -92,8 +115,9 @@ export default {
       el: document.querySelector('#editor'),
       initialEditType: 'markdown',
       previewStyle: 'tab',
+      viewer: true,
       height: '500px',
-      plugins: [youtubePlugin],
+      plugins: [youtubePlugin, blogPlugin],
       hooks: {
         addImageBlobHook: (blob, callback) => {
           this.addImageBlobHook(blob, callback);
@@ -104,6 +128,7 @@ export default {
     const btn = document.querySelector('#submit');
     btn.addEventListener('click', () => {
       const editContent = editor.getMarkdown();
+      // console.log(editor.getHtml());
 
       if (this.title === '') {
         alert('제목을 입력해주세요');
