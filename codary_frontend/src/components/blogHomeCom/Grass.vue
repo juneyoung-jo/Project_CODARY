@@ -61,7 +61,7 @@ export default {
       this.loggedInUserData,
       (response) => {
         this.result = response.data[0]
-        console.log(this.result)
+       // console.log(this.result)
         const temp=[];
         //var i=0;
          for(var key in this.result){

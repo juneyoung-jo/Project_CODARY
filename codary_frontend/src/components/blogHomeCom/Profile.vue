@@ -25,7 +25,27 @@
           </h4>
 
           <p class="text--secondary">
-            intro
+            <v-card flat>
+              <v-card-text>
+                <v-container fluid class="pa-0">
+                  <v-row>
+                    <v-col cols="6" sm="3">
+                      팔로우
+                      <template v-if="blogerLikeflag">
+                        <v-btn icon color="pink" @click="blgUnlike()">
+                          <v-icon>mdi-heart</v-icon>
+                        </v-btn>
+                      </template>
+                      <template v-else>
+                        <v-btn icon color="gray" @click="blgLike()">
+                          <v-icon>mdi-heart</v-icon>
+                        </v-btn>
+                      </template>
+                     </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+            </v-card>
           </p>
           <div class='d-flex'>
             <router-link class='noline' :to="'/createpost'">
@@ -135,16 +155,66 @@
 
 <script>
 import {mapState} from 'vuex'
+import { blogerLike, blogerUnlike, readBlogerlike} from '@/api/personal.js';
 
 export default {
   name: 'Profile',
+  created(){
+    readBlogerlike(
+      this.blogerLike,
+      (response) => {
+        console.log(response.data.data);
+        this.blogerLikeflag = response.data.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
   data() { 
     return{
       dialog: false,
+      blogerLike: {
+        uid: 'ZTXwiN9VOuuS',
+        blogId: 'nMmyXgKh86tD',
+      },
+      blogerLikeflag: '',
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
+  },
+  methods: {
+    blgLike(){
+      console.log('들어왔당');
+      blogerLike(
+        this.blogerLike,
+        (response) => {
+          if(response.data.msg === 'success'){
+            this.blogerLikeflag=true;
+            console.log('좋아요누름');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    blgUnlike(){
+      console.log('언팔각이다');
+      blogerUnlike(
+        this.blogerLike,
+        (response) => {
+          if(response.data.msg === 'success'){
+            this.blogerLikeflag = false;
+            console.log('언팔누름');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }
 
