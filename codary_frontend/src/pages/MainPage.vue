@@ -36,11 +36,11 @@
           <v-container fill-height>
             <v-row>
               <v-col
-                cols="3"
+                cols="2"
               >
               </v-col>
               <v-col
-                class="text-left"
+                class="text-left pt-16 align-center"
                 cols="4"
                 tag="h1"
               >
@@ -58,15 +58,21 @@
                   쉽게 공유하세요
                 </span>
                 <v-responsive
-                  class="mx-auto title font-weight-light mb-1"
+                  class="font-weight-light"
                 >
                 <br>
-                  Markdown, 동시편집, 코드복사
+                  Markdown, 코드 공유
                 </v-responsive>
               </v-col>
               <v-col
-               cols="3"
-              ></v-col>
+               cols="4"
+               class="justify-start align-start"
+              >
+                <v-img 
+                  src="@/assets/share.png"
+                >
+                </v-img>
+              </v-col>
             </v-row>
           </v-container>
         </v-row>
@@ -313,7 +319,6 @@ export default {
 #share {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/sha.png");
 }
 #tag {
   background-position: center;

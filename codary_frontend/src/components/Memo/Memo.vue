@@ -1,10 +1,14 @@
 <template>
   <div id="settings-wrapper">
 
-    <div id="blackBox" class="d-flex align-center justify-center">
-      <button @click="move" id="blackBoxButton">{{ this.buttonMassage }}</button>
+    <div id="blackBox" class="d-flex">
+      <button @click="move" id="blackBoxButton" class="d-flex align-center pa-3 pb-3">
+        <v-icon large>
+         mdi-clipboard-multiple-outline
+        </v-icon>
+      </button>
 
-        <div v-if="isLogin">
+        <div v-if="isLogin" class="d-flex flex-column">
           <MemoList @CHANGEMEMO="startchange"/>
           <MemoInput :sendingChange='sendingChange'/>   
         </div>
@@ -15,53 +19,6 @@
           <h1>로그인을 해주십셔~</h1>
         </div>
     </div>
-
-    <v-card
-      id="settings"
-      class="py-2 px-4"
-      color="rgba(0, 0, 0, .3)"
-      dark
-      flat
-      link
-      min-width="100"
-      style="position: fixed; top: 23%; right: -35px; border-radius: 8px; z-index: 1;"
-    >
-      <v-icon large>
-        mdi-clipboard-multiple-outline
-      </v-icon>
-    </v-card>
-         
-    <v-menu
-      :close-on-content-click="false"
-      activator="#settings"
-      bottom
-      content-class="v-settings"
-      left
-      nudge-left="8"
-      offset-x
-      origin="top right"
-      transition="scale-transition"
-      rounded=xl
-    >
-      <v-card
-        class="text-center mb-0"
-        width="300"
-      >
-      <div class="py-3 d-flex flex-column">
-        <div class="d-flex align-center justify-end">
-          <strong class="mr-15 py-3">MEMO</strong>
-          <v-btn 
-            @click="toggle"
-            plain
-          >
-            <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
-            <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-          </v-btn>
-        </div>
-        </div>
-      </v-card>
-    </v-menu>
-
   </div>
 </template>
 
@@ -141,7 +98,6 @@ export default {
       
       setTimeout(function(){
         target.classList.contains('activate') ? target.classList.remove('activate') : target.classList.add('activate')
-        subtarget.innerText === '왔다리' ? subtarget.innerText = "깟다리" : subtarget.innerText = "왔다리"
       }, 500)
       
     }
@@ -153,7 +109,6 @@ export default {
 @import '~vue-neumorphism-element/dist/vue-neumorphism-element.css';
 
 #blackBox {
-  background-color: wheat;
   position: fixed;
   z-index: 4;
   /* 네브바가 5번째 인덱스 */
@@ -162,29 +117,31 @@ export default {
   height: 100%;
   width: 282px;
   transition: 0.5s;
+  background-color:rgb(245, 243, 157);
+  z-index: 2;
 }
 
 .activate {
   transition: all 0.5s ease;
-  box-shadow: 0 0 5px 0 black;
   transform: translateX(-100%);
 }
 
 #blackBoxButton {
   z-index: -1;
-  transition: 0.5s;
-  width: 120px;
+  transition: 0.3s;
+  width: 60px;
   height: 50px;
-  border: dashed;
-
+  border-radius: 5px;
+  background-color:rgb(245, 243, 157);
   position: absolute;
   top: 30%;
-  left: -43%
+  left: -20%;
+  z-index: 1;
 }
 
 .goingOn {
-  transition: all 0.5s ease;
-  transform: translateX(50%);
+  transition: all 0.8s ease;
+  transform: translateX(2%);
   background-color: blueviolet;
 }
 </style>
