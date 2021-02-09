@@ -23,5 +23,6 @@ public interface UserService {
 	
 	public void updateNickname(Map<String, String> map) throws Exception;
 
-	public void delete(String uid) throws Exception;
+	public void delete(String uid, String blogId) throws Exception;
+	
 }

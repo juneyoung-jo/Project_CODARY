@@ -2,10 +2,18 @@
   <div id="settings-wrapper">
 
     <div id="blackBox" class="d-flex align-center justify-center">
-      <button @click="move" id="blackBoxButton">왔다리</button>
-      <p>보이나?</p>
-      
-      <h1>dasd</h1>
+      <button @click="move" id="blackBoxButton">{{ this.buttonMassage }}</button>
+
+        <div v-if="isLogin">
+          <MemoList @CHANGEMEMO="startchange"/>
+          <MemoInput :sendingChange='sendingChange'/>   
+        </div>
+
+        <div v-else >
+         
+          <!-- 사이즈 조절 물어보기 -->
+          <h1>로그인을 해주십셔~</h1>
+        </div>
     </div>
 
     <v-card
@@ -50,8 +58,6 @@
             <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
           </v-btn>
         </div>
-          <MemoInput v-show="memotoggle" :sendingChange='sendingChange'/>   
-          <MemoList v-show="!memotoggle" :memoLists='memoLists' @CHANGEMEMO="startchange"/>
         </div>
       </v-card>
     </v-menu>
@@ -60,10 +66,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import MemoInput from './MemoInput.vue'
 import MemoList from './MemoList.vue'
-import { memoList } from '@/api/memo.js';
+// import { memoList } from '@/api/memo.js';
 
 export default {
   components: { MemoInput,MemoList },
@@ -71,54 +77,60 @@ export default {
   data () {
     return {
       memotoggle: true,
-      memoLists: [],
+      // memoLists: [],
       // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로  
       sendingChange: {},
-    
+
+      buttonMassage: "왔다리"
     }
   },
   computed: {
+    ...mapState([ 'isLogin' ]),    
     ...mapState([ 'loggedInUserData' ])    
   },
 
   created() {
-    memoList(
-      this.loggedInUserData.memoId,
-      (response) => {
-        this.memoLists = response.data     
-      },
-      (error) => {
-        console.log(error)
-      }
-    )      
+    // if (this.isLogin === true) {
+    //   memoList(
+    //     this.loggedInUserData.memoId,
+    //     (response) => {
+    //       this.memoLists = response.data     
+    //     },
+    //     (error) => {
+    //       console.log(error)
+    //     }
+    //   )      
+    // }
   },
 
   methods: {
-    getmemoList() {
-      memoList(
-        this.loggedInUserData.memoId,
-        (response) => {
-          this.memoLists = response.data 
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
-    },
+    // getmemoList() {
+    //   if (this.isLogin === true) {
+    //     memoList(
+    //       this.loggedInUserData.memoId,
+    //       (response) => {
+    //         this.memoLists = response.data 
+    //       },
+    //       (error) => {
+    //         console.log(error)
+    //       }
+    //     )
+    //   }
+    // },
 
 
-    toggle() {
-      this.memotoggle = !this.memotoggle
-      // console.log(this.memotoggle) True 일때가 Input, False가 List
-      this.getmemoList()
-      // console.log(this.loggedInUserData)
-    },
+    // toggle() {
+    //   this.memotoggle = !this.memotoggle
+    //   // console.log(this.memotoggle) True 일때가 Input, False가 List
+    //   this.getmemoList()
+    //   // console.log(this.loggedInUserData)
+    // },
 
     
     startchange(item) {
       // console.log(item)
       this.sendingChange = item
-      this.toggle()
+      // this.toggle()
     },
 
     move() {
@@ -126,8 +138,10 @@ export default {
       const subtarget = document.querySelector('#blackBoxButton')
 
       subtarget.classList.contains('goingOn') ? subtarget.classList.remove('goingOn') : subtarget.classList.add('goingOn')
+      
       setTimeout(function(){
         target.classList.contains('activate') ? target.classList.remove('activate') : target.classList.add('activate')
+        subtarget.innerText === '왔다리' ? subtarget.innerText = "깟다리" : subtarget.innerText = "왔다리"
       }, 500)
       
     }
@@ -141,7 +155,8 @@ export default {
 #blackBox {
   background-color: wheat;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
+  /* 네브바가 5번째 인덱스 */
   right: -282px;
   color: black;
   height: 100%;
@@ -150,22 +165,26 @@ export default {
 }
 
 .activate {
-  transition: 0.5s;
+  transition: all 0.5s ease;
   box-shadow: 0 0 5px 0 black;
   transform: translateX(-100%);
 }
 
 #blackBoxButton {
+  z-index: -1;
   transition: 0.5s;
-  width: 50px;
-  background-color: crimson;
+  width: 120px;
+  height: 50px;
+  border: dashed;
 
-  position: relative;
-  left: -40%
+  position: absolute;
+  top: 30%;
+  left: -43%
 }
 
 .goingOn {
-  transition: 0.5s;
+  transition: all 0.5s ease;
+  transform: translateX(50%);
   background-color: blueviolet;
 }
 </style>

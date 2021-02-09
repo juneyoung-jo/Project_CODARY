@@ -17,7 +17,7 @@
       
         <v-card-text>
           <h6 class="text-h6 mb-2 text--secondary">
-            job
+            CEO / FOUNDER
           </h6>
 
           <h4 class="text-h4 mb-3 text--primary">
