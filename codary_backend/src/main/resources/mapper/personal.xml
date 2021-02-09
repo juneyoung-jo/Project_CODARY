@@ -54,6 +54,12 @@
 	
 	<delete id="blogerUnlike" parameterType = "BlogerLikeDto">
 		delete from blogerlike
-		where uid =#{uid} and blog_id=#{blogId}
+		where uid = #{uid} and blog_id = #{blogId}
 	</delete>
+	
+	<select id="readBlogerLike" resultType="BlogerLikeDto">
+		select *
+		from blogerlike
+		where uid = #{uid} and blog_id = #{blogId}
+	</select>
 </mapper>

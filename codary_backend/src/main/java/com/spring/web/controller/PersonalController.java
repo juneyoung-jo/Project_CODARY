@@ -220,4 +220,21 @@ public class PersonalController {
 		}
 		return new ResponseEntity<Map<String, String>>(result,status);
 	}
+	
+	/*블로거 좋아요 누른 여부*/
+	@ApiOperation(value="블로거 좋아요 누른 여부", notes ="@param BlogerLikeDto </br> @return ")
+	@PostMapping("checkBlogerlike")
+	public ResponseEntity<BlogerLikeDto> readBlogerlike(@RequestBody BlogerLikeDto bld) throws Exception{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		BlogerLikeDto dto=null;
+		try {
+			dto = personalService.readBlogerLike(bld);
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<BlogerLikeDto>(dto,status);
+	}
 }

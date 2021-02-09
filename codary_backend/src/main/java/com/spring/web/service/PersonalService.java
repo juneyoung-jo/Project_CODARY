@@ -22,4 +22,5 @@ public interface PersonalService {
 	public List<Map<String, Integer>> usergraph(String blogid) throws ParseException;
 	public void blogerLike(BlogerLikeDto bld);
 	public void blogerUnlike(BlogerLikeDto bld);
+	public BlogerLikeDto readBlogerLike(BlogerLikeDto bld);
 }
