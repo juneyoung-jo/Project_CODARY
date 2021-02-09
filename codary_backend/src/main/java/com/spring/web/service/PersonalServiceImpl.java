@@ -146,5 +146,10 @@ public class PersonalServiceImpl implements PersonalService{
 		return result;
 	}
 
+	@Override
+	public void blogerLike(BlogerLikeDto bld) {
+		personalDao.blogerLike(bld);
+	}
+
 	
 }

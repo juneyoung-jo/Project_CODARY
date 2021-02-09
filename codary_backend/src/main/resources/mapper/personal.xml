@@ -47,4 +47,8 @@
 		values(#{blogId}, now(), 0);
 	</insert>
 	
+	<insert id="blogerLike" parameterType = "BlogerLikeDto">
+		insert into blogerlike(uid, blog_id)
+		values(#{uid}, #{blogId})
+	</insert>
 </mapper>
