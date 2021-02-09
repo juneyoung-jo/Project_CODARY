@@ -36,7 +36,6 @@
 	<select id="getAllContents" resultType="BlogContentsDto">
 		select *
 		from blogcontents
-		where isdeleted = 0
 	</select>
 	
 	<insert id="writeLog" parameterType="map">
@@ -75,6 +74,16 @@
 		select * 
 		from user
 		where blog_id = #{blogId}	
+	</select>
+	
+	<select id="getAllHashes" resultType="BlogHashtagDto">
+		select * 
+		from bloghashtag
+	</select>
+	
+	<select id="getAllHashInfo" resultType="HashtagDto">
+		select * 
+		from hashtag	
 	</select>
 	
 </mapper>

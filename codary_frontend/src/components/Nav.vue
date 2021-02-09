@@ -1,80 +1,69 @@
 <template>
-  <v-app-bar
-    app
-    elevate-on-scroll
-    class="pt-1"
-  >
+  <v-app-bar app elevate-on-scroll class="pt-1">
     <!-- logo -->
-    <router-link :to="'/'" class='noline'>
+    <router-link :to="'/'" class="noline">
       <h2 style="color:black">codary</h2>
     </router-link>
     <v-spacer></v-spacer>
-    <v-row
-      justify="center"
-    >
-    <!-- dark mode -->
+    <v-row justify="center">
+      <!-- dark mode -->
       <v-col cols="auto">
         Dark Mode
       </v-col>
       <v-col cols="auto">
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          class="ma-0 pa-0"
-          color="secondary"
-          hide-details
-        />
+        <v-switch v-model="$vuetify.theme.dark" class="ma-0 pa-0" color="secondary" hide-details />
       </v-col>
     </v-row>
     <!-- buttons -->
     <v-row justify="end mb-2 mr-2">
       <v-col cols="auto">
         <!-- search -->
-        <router-link class='noline' :to="'/searchpage'">
+        <router-link class="noline" :to="'/searchpage'">
           <v-btn plain class="mb-3 mr-3">
             <span style="font-size:20px">
-              <font-awesome-icon :icon="['fas','search']"/>
+              <font-awesome-icon :icon="['fas', 'search']" />
             </span>
           </v-btn>
         </router-link>
-          <template v-if="isLogin">
-            <!-- 마이페이지가는곳 -->
-            <MainBadge/>
-          </template>
-          <template v-else>
-            <!-- login -->
-            <Modal/>
-          </template>
+        <template v-if="isLogin">
+          <!-- 마이페이지가는곳 -->
+          <MainBadge />
+        </template>
+        <template v-else>
+          <!-- login -->
+          <Modal />
+        </template>
       </v-col>
     </v-row>
   </v-app-bar>
 </template>
 
 <script>
-import Modal from './Modal'
-import MainBadge from './MainBadge'
-import {mapState} from 'vuex';
+import Modal from './Modal';
+import MainBadge from './MainBadge';
+import { mapState } from 'vuex';
 export default {
-  components: { 
-    'Modal':Modal,
-    'MainBadge':MainBadge 
+  components: {
+    Modal: Modal,
+    MainBadge: MainBadge,
   },
   name: 'Nav',
-  computed:{
-    ...mapState(['isLogin'])
+  computed: {
+    ...mapState(['isLogin']),
   },
   watch: {
-      color (val) {
-        this.$vuetify.theme.themes[this.isDark ? 'dark' : 'light'].primary = val
-      },
+    color(val) {
+      this.$vuetify.theme.themes[this.isDark ? 'dark' : 'light'].primary = val;
     },
-}
+  },
+};
 </script>
 
 <style>
-.noline{
+.noline {
   text-decoration: none !important;
 }
-h2{
+h2 {
   margin-left: 30px;
 }
 </style>

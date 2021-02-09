@@ -3,8 +3,18 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <v-card class="pa-8 py-8">
-        <PostViewer :blogContents="blogContents" />
-        <div class="py-16"></div>
+        <!-- <PostViewer :blogContents="blogContents" /> -->
+        <div class="py-2"></div>
+        <h1 class="py-10 pa-14">{{ this.blogContents.blogContentsTitle }}</h1>
+        <div class="pa-13 py-0">
+          <v-chip outlined>코딩초보</v-chip>
+          <v-chip outlined>도와주세요</v-chip>
+          <v-chip outlined>알고리즘</v-chip>
+          <v-chip outlined>백준</v-chip>
+        </div>
+        <v-container class="pa-16">
+          <div id="viewer" />
+        </v-container>
         <Profile :blogContents="blogContents" />
       </v-card>
       <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
@@ -15,16 +25,18 @@
 
 <script>
 import PostCover from '../components/postCom/PostCover.vue';
-import PostViewer from '../components/postCom/PostViewer.vue';
 import Profile from '../components/postCom/Profile.vue';
 import Comment from '../components/postCom/comment/Comment.vue';
 import CommentWrite from '../components/postCom/comment/CommentWrite.vue';
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import { commentList } from '@/api/comment.js';
 import { mapGetters } from 'vuex';
 import { writeLog } from '@/api/blogContents.js';
+import { getContent } from '@/api/blogcontent.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
-  components: { PostCover, PostViewer, Profile, Comment, CommentWrite },
+  components: { PostCover, Profile, Comment, CommentWrite },
   name: 'Post',
   data() {
     return {
@@ -42,48 +54,66 @@ export default {
         blogContentsLike: '',
         blogContentsView: '',
       },
-      user: null,
+      user: {
+        uid: '',
+        blogId: '',
+      },
     };
   },
   created() {
+    this.initUser();
     this.getBlogContent();
   },
   computed: {
     ...mapGetters(['loggedInUserData']),
   },
   methods: {
+    initUser() {
+      this.user.uid = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
     getBlogContent() {
       const blogId = this.$route.query.blogId;
       const blogContentsId = this.$route.query.blogContentsId;
       this.blogContents.blogId = blogId;
       this.blogContents.blogContentsId = blogContentsId;
 
-      // setTimeout(() => {
-      if (this.loggedInUserData !== null && this.loggedInUserData.blogId === blogId) {
+      if (this.user !== null && this.user.blogId === blogId) {
+        // alert('본인글'); // 나중에 지우기.
         writeLog(
-          this.loggedInUserData.uid,
+          this.user.uid,
           blogId,
           blogContentsId,
           (response) => {
             this.blogContents.blogContentsCover = response.data.data.blogContentsCover;
             this.blogContents.blogContentsTitle = response.data.data.blogContentsTitle;
             this.blogContents.blogContents = response.data.data.blogContents;
+
+            new Viewer({
+              el: document.querySelector('#viewer'),
+              initialValue: response.data.data.blogContents,
+            });
           },
           (error) => {
             console.log(error);
           }
         );
       } else {
-        this.axios
-          .get(`blog/${blogId}/${blogContentsId}`)
-          .then((res) => {
+        getContent(
+          blogId,
+          blogContentsId,
+          (res) => {
             this.blogContents.blogContentsCover = res.data.blogContentsCover;
             this.blogContents.blogContentsTitle = res.data.blogContentsTitle;
             this.blogContents.blogContents = res.data.blogContents;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+
+            new Viewer({
+              el: document.querySelector('#viewer'),
+              initialValue: res.data.blogContents,
+            });
+          },
+          (error) => console.log(error)
+        );
       }
       commentList(
         this.blogContents,
@@ -94,7 +124,6 @@ export default {
           console.log(error);
         }
       );
-      // }, 500);
     },
     deleteComment(index) {
       this.items.splice(index, 1);
@@ -114,11 +143,6 @@ export default {
     },
     modifyComment(index, content) {
       this.items[index].commentContent = content;
-    },
-  },
-  watch: {
-    loggedInUserData() {
-      this.getBlogContent();
     },
   },
 };
