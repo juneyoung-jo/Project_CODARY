@@ -7,13 +7,13 @@
 	<select id="showBlogContents" resultType="BlogContentsDto" parameterType="String"> 
 		select *
 		from blogcontents 
-		where blog_id = #{blogId}
+		where blog_id = #{blogId} and isdeleted = 0
 	</select>
 	
 	<select id="showMemo" resultType="MemoContentsDto" parameterType="String">
 		select * 
 		from memocontents
-		where memo_id = #{memoId} and isdeleted = 0
+		where memo_num = #{memoNum} and isdeleted = 0
 	</select>
 	
 	<select id="likeBloger" resultType="BlogDto" parameterType="String">
@@ -31,7 +31,7 @@
 	<select id="jandi" resultType="JandiDto" parameterType="String">
 		select Date(blog_datetime) as blogDatetime, count(*) as jandiCnt
 		from blogcontents
-		where blog_id=#{blogId}
+		where blog_id=#{blogId} and isdeleted = 0
 		group by Date(blog_datetime);
 	</select>
 	
