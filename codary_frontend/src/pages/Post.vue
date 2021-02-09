@@ -79,8 +79,9 @@ export default {
       this.blogContents.blogContentsId = blogContentsId;
 
       if (this.user !== null && this.user.blogId === blogId) {
+        // alert('본인글'); // 나중에 지우기.
         writeLog(
-          this.loggedInUserData.uid,
+          this.user.uid,
           blogId,
           blogContentsId,
           (response) => {
