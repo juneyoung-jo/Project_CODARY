@@ -1,6 +1,7 @@
 package com.spring.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
@@ -18,11 +19,8 @@ public interface BlogContentsService {
 	int modifyBlogContent(BlogContentsDto blogContent);
 
 	int deleteBlogContent(int blogContentsId);
-
-	List<BlogContentsDto> recommendBlogContents() throws Exception;
-
-	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId) throws Exception;
-
+	List<Map<String, Object>> recommendBlogContents() throws Exception;
+	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId)throws Exception;
 	void increaseContentsView(int blogContentsId) throws Exception;
 
 	BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception;

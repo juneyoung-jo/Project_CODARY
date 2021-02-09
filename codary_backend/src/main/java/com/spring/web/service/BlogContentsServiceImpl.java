@@ -7,11 +7,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +20,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -63,11 +64,18 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	}
 
 	@Override
-	public List<BlogContentsDto> recommendBlogContents() throws Exception {
+	public List<Map<String, Object>> recommendBlogContents() throws Exception{
 		List<BlogContentsDto> list = mapper.getAllContents();
-		List<BlogContentsDto> recommendList; // 추천 글 리스트
-
-		final int size = 3; // 추천 글 갯수
+		List<BlogHashtagDto> hashes = mapper.getAllHashes();
+		List<HashtagDto> hashInfo = mapper.getAllHashInfo();
+		Map<Integer, String> map = new HashMap<>();
+		for(HashtagDto h : hashInfo) {
+			map.put(h.getHashtagId(), h.getHashtagContent());
+		}
+		
+		List<Map<String, Object>> recommendList = new LinkedList<>(); //추천 글 리스트
+		
+		final int size = 3; //추천 글 갯수
 		Set<BlogContentsDto> set = new HashSet<>();
 
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,16 +91,39 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 			if (sub < 90)
 				set.add(blog);
 		}
-		recommendList = new ArrayList<BlogContentsDto>(set);
-		Collections.sort(recommendList, new Comparator<BlogContentsDto>() {
+		
+		List<BlogContentsDto> filteredlist = new ArrayList<>(set);
+		Collections.sort(filteredlist, new Comparator<BlogContentsDto>() {
 			@Override
 			public int compare(BlogContentsDto o1, BlogContentsDto o2) {
 				return o2.getBlogContentsView() + o2.getBlogContentsLike() * 3 - o1.getBlogContentsView()
 						- o1.getBlogContentsLike() * 3;
 			}
 		});
+		
+		Iterator<BlogHashtagDto> hashIter;
+		List<String> hashtags;
+		filteredlist = filteredlist.subList(0, size);
+		for(BlogContentsDto post : filteredlist) {
+			hashIter = hashes.iterator();
+			hashtags = new LinkedList<String>();
+			Map<String, Object> m = new HashMap<String, Object>();
+			
+			while(hashIter.hasNext()) {
+				BlogHashtagDto h = hashIter.next();
+				if(h.getBlogContentsId() == post.getBlogContentsId()) 
+					hashtags.add(map.get(h.getHashtagId()));
+			}
 
-		return recommendList.subList(0, size);
+			m.put("blogId", post.getBlogId());
+			m.put("blogContentsId", post.getBlogContentsId());
+			m.put("blogConetentsCover", post.getBlogContentsCover());
+			m.put("blogContentsTitle", post.getBlogContentsTitle());
+			m.put("hashtags", hashtags);
+			
+			recommendList.add(m);
+		}
+		return recommendList;
 	}
 
 	@Override

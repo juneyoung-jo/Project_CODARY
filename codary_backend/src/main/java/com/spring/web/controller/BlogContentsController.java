@@ -165,13 +165,13 @@ public class BlogContentsController {
 	 * 블로그 글 추천
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("recommend")
-	public ResponseEntity<List<BlogContentsDto>> recommend() throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
 		try {
-			return new ResponseEntity<List<BlogContentsDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

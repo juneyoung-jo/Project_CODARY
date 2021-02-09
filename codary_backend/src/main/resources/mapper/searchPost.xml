@@ -69,6 +69,24 @@
 		limit #{start}, #{spp};
 	</select>
 
-
+	<select id="searchTitle" resultType="BlogPostDto">
+		select b.*, ui.profile, ui.nickname, cc.comment_cnt 
+		from blogcontents b
+			inner join user u using(blog_id)
+		    inner join userinfo ui using(uid)
+		    left outer join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
+		where b.isdeleted = 0
+	</select>
+	
+	<select id="searchHash" parameterType="String" resultType="BlogPostDto">
+		select bc.*, ui.nickname, ui.profile, cc.comment_cnt
+		from hashtag h
+		    inner join bloghashtag bh using(hashtag_id)
+		    inner join blogcontents bc using(blog_contents_id)
+		    left outer join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
+		    inner join user u on u.blog_id = bc.blog_id
+		    inner join userinfo ui on u.uid = ui.uid
+		where u.isdeleted = 0 and bc.isdeleted = 0 and h.hashtag_content = #{keyword}
+	</select>
 
 </mapper>
