@@ -53,5 +53,23 @@
 		    inner join userinfo ui on u.uid = ui.uid
 		where u.isdeleted = 0 and bc.isdeleted = 0 and h.hashtag_content = #{keyword}
 	</select>
+	
+	<!-- 
+	<select id="searchByTitle" resultType="hashmap">
+		select blog_contents_id, blog_contents_title
+		from blogcontents
+		where isdeleted = 0
+	</select> -->
+	
+	<select id="searchByHash" resultType="int">
+		select blog_contents_id
+		from hashtag h inner join bloghashtag bh using(hashtag_id)
+		where h.hashtag_id in 
+		<foreach item="keyword" index="index" collection="keywords" open="(" separator="," close=")">
+	    	#{keyword}
+	  	</foreach>
+		group by bh.blog_contents_id
+		having(count(bh.hashtag_id) = #{num})
+	</select>
 
 </mapper>
