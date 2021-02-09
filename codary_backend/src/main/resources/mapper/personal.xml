@@ -51,4 +51,9 @@
 		insert into blogerlike(uid, blog_id)
 		values(#{uid}, #{blogId})
 	</insert>
+	
+	<delete id="blogerUnlike" parameterType = "BlogerLikeDto">
+		delete from blogerlike
+		where uid =#{uid} and blog_id=#{blogId}
+	</delete>
 </mapper>

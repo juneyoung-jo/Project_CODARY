@@ -200,4 +200,24 @@ public class PersonalController {
 		}
 		return new ResponseEntity<Map<String, String>>(result,status);
 	}
+	
+	/*블로거 좋아요 취소(언팔로우)*/
+	@ApiOperation(value="블로거 좋아요 누르기 취소 (언팔로우)", notes ="@param BlogerLikeDto </br> @return ")
+	@PostMapping("blogerUnlike")
+	public ResponseEntity<Map<String, String>> blogerUnlike(@RequestBody BlogerLikeDto bld) throws Exception{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		Map<String, String> result=new HashMap<>();
+		
+		try {
+			personalService.blogerUnlike(bld);
+			result.put("msg", "success");
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			result.put("msg", "fail");
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<Map<String, String>>(result,status);
+	}
 }
