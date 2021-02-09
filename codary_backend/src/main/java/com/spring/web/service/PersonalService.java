@@ -20,4 +20,7 @@ public interface PersonalService {
 	public List<BlogContentsDto> showLikeBlogContents(String uid);
 	public List<Map<String, Integer>> jandi(String blogid) throws ParseException;
 	public List<Map<String, Integer>> usergraph(String blogid) throws ParseException;
+	public void blogerLike(BlogerLikeDto bld);
+	public void blogerUnlike(BlogerLikeDto bld);
+	public BlogerLikeDto readBlogerLike(BlogerLikeDto bld);
 }

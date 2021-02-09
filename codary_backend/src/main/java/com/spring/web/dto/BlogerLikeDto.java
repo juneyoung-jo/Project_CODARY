@@ -2,17 +2,8 @@ package com.spring.web.dto;
 
 public class BlogerLikeDto {
 
-	private int num;
 	private String uid;
 	private int blogId;
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
 
 	public String getUid() {
 		return uid;
@@ -32,7 +23,7 @@ public class BlogerLikeDto {
 
 	@Override
 	public String toString() {
-		return "BlogerLikeDto [num=" + num + ", uid=" + uid + ", blogId=" + blogId + "]";
+		return "BlogerLikeDto [uid=" + uid + ", blogId=" + blogId + "]";
 	}
 
 }
