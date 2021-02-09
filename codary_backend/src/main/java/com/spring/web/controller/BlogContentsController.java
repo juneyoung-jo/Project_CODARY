@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
-import com.spring.web.dto.BlogPostDto;
-import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
 

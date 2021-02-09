@@ -21,7 +21,6 @@ import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogHashtagDto;
-import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
