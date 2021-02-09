@@ -17,47 +17,74 @@
         </v-container>
         <Profile :blogContents="blogContents" />
       </v-card>
+      <v-btn
+        v-if="this.isItMine"
+        id="modify"
+        align="center"
+        class="my-8"
+        outlined
+        color="primary"
+      >
+        수정
+      </v-btn>
+      <v-btn
+        v-if="this.isItMine"
+        id="delete"
+        align="center"
+        class="my-8"
+        outlined
+        color="primary"
+        @click="deletePost()"
+      >
+        삭제
+      </v-btn>
       <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
-      <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
+      <Comment
+        :items="items"
+        @DELETECMT="deleteComment"
+        @MODIFYCOMMENT="modifyComment"
+      />
     </v-container>
   </div>
 </template>
 
 <script>
-import PostCover from '../components/postCom/PostCover.vue';
-import Profile from '../components/postCom/Profile.vue';
-import Comment from '../components/postCom/comment/Comment.vue';
-import CommentWrite from '../components/postCom/comment/CommentWrite.vue';
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
-import { commentList } from '@/api/comment.js';
-import { mapGetters } from 'vuex';
-import { writeLog } from '@/api/blogContents.js';
-import { getContent } from '@/api/blogcontent.js';
-import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
+import PostCover from "../components/postCom/PostCover.vue";
+import Profile from "../components/postCom/Profile.vue";
+import Comment from "../components/postCom/comment/Comment.vue";
+import CommentWrite from "../components/postCom/comment/CommentWrite.vue";
+import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+import { commentList } from "@/api/comment.js";
+import { mapGetters } from "vuex";
+import { writeLog } from "@/api/blogContents.js";
+import { getContent } from "@/api/blogcontent.js";
+import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
+import { deleteContent } from "@/api/blogcontent.js";
 
 export default {
   components: { PostCover, Profile, Comment, CommentWrite },
-  name: 'Post',
+  name: "Post",
   data() {
     return {
       items: [],
       blogContents: {
-        blogId: '',
-        blogContents: '',
-        blogContentsId: '',
-        profile: '',
-        nickname: '',
-        commantCnt: '',
-        blogContentsCover: '',
-        blogDatetime: '',
-        blogContentsTitle: '',
-        blogContentsLike: '',
-        blogContentsView: '',
+        blogId: "",
+        blogContents: "",
+        blogContentsId: "",
+        profile: "",
+        nickname: "",
+        commantCnt: "",
+        blogContentsCover: "",
+        blogDatetime: "",
+        blogContentsTitle: "",
+        blogContentsLike: "",
+        blogContentsView: "",
       },
       user: {
-        uid: '',
-        blogId: '',
+        uid: "",
+        blogId: "",
       },
+      isItMine: false,
     };
   },
   created() {
@@ -65,7 +92,7 @@ export default {
     this.getBlogContent();
   },
   computed: {
-    ...mapGetters(['loggedInUserData']),
+    ...mapGetters(["loggedInUserData"]),
   },
   methods: {
     initUser() {
@@ -80,17 +107,20 @@ export default {
 
       if (this.user !== null && this.user.blogId === blogId) {
         // alert('본인글'); // 나중에 지우기.
+        this.isItMine = true;
         writeLog(
           this.user.uid,
           blogId,
           blogContentsId,
           (response) => {
-            this.blogContents.blogContentsCover = response.data.data.blogContentsCover;
-            this.blogContents.blogContentsTitle = response.data.data.blogContentsTitle;
+            this.blogContents.blogContentsCover =
+              response.data.data.blogContentsCover;
+            this.blogContents.blogContentsTitle =
+              response.data.data.blogContentsTitle;
             this.blogContents.blogContents = response.data.data.blogContents;
 
             new Viewer({
-              el: document.querySelector('#viewer'),
+              el: document.querySelector("#viewer"),
               initialValue: response.data.data.blogContents,
             });
           },
@@ -108,7 +138,7 @@ export default {
             this.blogContents.blogContents = res.data.blogContents;
 
             new Viewer({
-              el: document.querySelector('#viewer'),
+              el: document.querySelector("#viewer"),
               initialValue: res.data.blogContents,
             });
           },
@@ -143,6 +173,21 @@ export default {
     },
     modifyComment(index, content) {
       this.items[index].commentContent = content;
+    },
+    deletePost() {
+      if (confirm("Are you sure?")) {
+        deleteContent(
+          this.blogContents.blogId,
+          this.blogContents.blogContentsId,
+          (res) => {
+            alert("삭제가 완료되었습니다.");
+            console.log(res); //삭제 후에 어디로 가야지...?
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      }
     },
   },
 };

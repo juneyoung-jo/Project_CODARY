@@ -11,9 +11,9 @@ function writeContent(blogContent, success, fail) {
 }
 
 // 블로그 글 삭제
-function deleteContent(blogContent, success, fail) {
+function deleteContent(blogId, blogContentsId, success, fail) {
   instance
-    .delete(`blog/${blogContent.blogId}/${blogContent.blogContentsId}`)
+    .delete(`blog/${blogId}/${blogContentsId}`)
     .then(success)
     .catch(fail);
 }
