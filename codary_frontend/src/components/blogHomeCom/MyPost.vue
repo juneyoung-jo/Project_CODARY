@@ -57,8 +57,8 @@
       </v-responsive>
       <v-row>
         <v-col
-          v-for="(article, idx) in articles"
-          :key="idx"
+          v-for="(article, blogId, blogContentsId) in articles"
+          :key="blogContentsId"
           cols="12"
           md="4"
         >
@@ -75,7 +75,14 @@
             class="title font-weight-light mb-5"
             
           ></div>
-          <router-link :to="'/viewpost'" class='noline'>
+          <router-link :to="{
+              name: 'ViewPost',
+              query: {
+                blogId: blogId,
+                blogContentsId: blogContentsId,
+              },
+            }"
+             class='noline'>
             <v-btn
               class="ml-n4 font-weight-black"
               text
@@ -122,7 +129,7 @@ export default {
        personalList(
       this.user.blogId,
       (response) => {
-        // console.log(response)
+         console.log(response)
         this.articles = response.data
       },
       (err) => {
