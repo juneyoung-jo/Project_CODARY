@@ -50,4 +50,39 @@ function userGraph(userData, success, fail) {
         .catch(fail);
 }
 
-export {personalList, showMyMemo, showMyBloger, showMyBlogContents, showJandi, userGraph};
+  //팔로우
+function blogerLike(blogerLike, success, fail) {
+    instance
+      .post(`personal/blogerLike`, blogerLike)
+      .then(success)
+      .catch(fail);
+  }
+  
+  //언팔로우
+function blogerUnlike(blogerLike, success, fail) {
+    instance
+      .post(`personal/blogerUnlike`, blogerLike)
+      .then(success)
+      .catch(fail);
+  }
+
+  //팔로우 여부
+function readBlogerlike(blogerLike, success, fail) {
+    instance
+      .post(`personal/checkBlogerlike`, blogerLike)
+      .then(success)
+      .catch(fail);
+  }
+  
+
+export {
+    personalList, 
+    showMyMemo, 
+    showMyBloger, 
+    showMyBlogContents, 
+    showJandi, 
+    userGraph,
+    blogerLike,
+    blogerUnlike,
+    readBlogerlike
+};
