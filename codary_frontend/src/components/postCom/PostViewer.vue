@@ -9,38 +9,45 @@
       <v-chip outlined>백준</v-chip>
     </div>
     <v-container class="pa-16">
+      <!-- <div id="viewer" /> -->
       <!-- <viewer
         @load="onViewerLoad"
         height="500px"
-        
-        viewer=true
+        viewer="true"
+        :initialValue="this.blogContents.blogContents"
       /> -->
-      {{ this.blogContents.blogContents }}
+      <!-- {{ this.blogContents.blogContents }} -->
     </v-container>
   </div>
 </template>
 
 <script>
-import "@toast-ui/editor/dist/toastui-editor.css";
-import "codemirror/lib/codemirror.css";
-// import { Viewer } from "@toast-ui/vue-editor";
+import '@toast-ui/editor/dist/toastui-editor.css';
+import 'codemirror/lib/codemirror.css';
+// import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+// import { Viewer } from '@toast-ui/vue-editor';
 
 export default {
-  name: "PostViewer",
-  props: ["blogContents"],
+  name: 'PostViewer',
+  props: ['blogContents'],
   components: {
     // viewer: Viewer,
     // 'viewer': Viewer
   },
+  // mounted() {
+  //   new Viewer({
+  //     el: document.querySelector('#viewer'),
+  //     initialValue: '# 하이하이하이',
+  //   });
+  // },
   data() {
     return {
-      viewerText:
-        this.blogContents.blogContents,
+      viewerText: this.blogContents.blogContents,
     };
   },
   methods: {
     onViewerLoad() {
-        this.viewerText = this.blogContents.blogContents
+      this.viewerText = this.blogContents.blogContents;
     },
   },
 };

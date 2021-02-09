@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {saveUserToCookie } from '@/util/cookie.js'
 
 const actions = {
   // 구글 토큰 localstorage에 저장
@@ -57,6 +58,7 @@ const actions = {
                   nickname: response.data.user.nickname,
                   profile: response.data.user.profile
                 }
+                saveUserToCookie(response.data.user.uid,response.data.user.blogId,response.data.user.memoId)
                 commit('fetchLoggedInUserData', userInfo)        
               })
               .catch(function (error) {

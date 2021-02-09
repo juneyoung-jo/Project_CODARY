@@ -11,6 +11,16 @@ function createInstance() {
     return instance;
 }
 
-export { createInstance };
+function createInstanceFile() {
+    const instance = axios.create({
+        baseURL: API_BASE_URL,
+        header: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    return instance;
+}
+
+export { createInstance,createInstanceFile };
 
 
