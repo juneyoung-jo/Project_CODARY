@@ -28,6 +28,7 @@ public interface BlogContentsDao {
 	void contentUnlike(BlogContentsLikeDto like) throws SQLException;
 	void usergraphViewCount(int blogContentsId) throws SQLException;
 	UserDto getUser(String blogId) throws Exception;
+	List<HashtagDto> selectHash(String keyword) throws Exception;
 	List<BlogHashtagDto> getAllHashes() throws Exception;
 	List<HashtagDto> getAllHashInfo() throws Exception;
 	
