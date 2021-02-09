@@ -156,6 +156,7 @@
 <script>
 import {mapState} from 'vuex'
 import { blogerLike, blogerUnlike, readBlogerlike} from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   name: 'Profile',
@@ -175,8 +176,8 @@ export default {
     return{
       dialog: false,
       blogerLike: {
-        uid: 'ZTXwiN9VOuuS',
-        blogId: 'nMmyXgKh86tD',
+        uid: getuidCookie(),
+        blogId: getblogIdCookie(),
       },
       blogerLikeflag: '',
     }
@@ -185,6 +186,10 @@ export default {
     ...mapState([ 'loggedInUserData' ])    
   },
   methods: {
+  /*  initUser(){
+      this.blogerLike.user = getuidCookie();
+      this.blogerLike.blogId = getblogIdCookie();
+    },*/
     blgLike(){
       console.log('들어왔당');
       blogerLike(

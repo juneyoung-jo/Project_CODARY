@@ -92,6 +92,7 @@
 <script>
 import {mapState} from 'vuex'
 import { personalList } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   name: 'MyPost',
@@ -99,14 +100,27 @@ export default {
   data () {
     return {
       articles: [], 
+      user:{
+        user: '',
+        blogId: '',
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    personalList(
-      this.loggedInUserData,
+      this.initUser();
+      this.mypost();
+  },
+  methods:{
+     initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+    mypost(){
+       personalList(
+      this.user.blogId,
       (response) => {
         // console.log(response)
         this.articles = response.data
@@ -114,8 +128,9 @@ export default {
       (err) => {
         console.log(err)
       }
-    )        
-  },
+    )   
+    }
+  }
 }
 </script>
 

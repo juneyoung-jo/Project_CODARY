@@ -10,6 +10,7 @@
           max-width="calc(100% - 32px)"
         >
           <v-sparkline
+            :label-size="2.4"
             :labels="labels"
             :value="value"
             line-width="2"
@@ -27,6 +28,7 @@
 <script>
 import {mapState} from 'vuex'
 import { userGraph } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   name: 'MyStat',
@@ -35,14 +37,27 @@ export default {
       result: [],
       labels: [],
       value: [], 
+      user: {
+        user: '',
+        blogId: '',
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    userGraph(
-      this.loggedInUserData,
+     this.initUser();
+      this.mystat();
+  },
+  methods:{
+    initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+     mystat(){
+       userGraph(
+      this.user.blogId,
       (response) => {
         // console.log(response)
         this.result = response.data[0]
@@ -72,8 +87,9 @@ export default {
       (err) => {
         console.log(err)
       }
-    )        
-  },
+    ) 
+     }
+  }
 }     
 
 </script>
