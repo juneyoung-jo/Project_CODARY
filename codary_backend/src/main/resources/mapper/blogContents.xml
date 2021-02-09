@@ -76,14 +76,10 @@
 		where blog_id = #{blogId}	
 	</select>
 	
-	<select id="getAllHashes" resultType="BlogHashtagDto">
-		select * 
-		from bloghashtag
-	</select>
-	
-	<select id="getAllHashInfo" resultType="HashtagDto">
-		select * 
-		from hashtag	
+	<select id="getHashtagOfPost" parameterType="int" resultType="String">
+		select hashtag_content 
+		from bloghashtag inner join hashtag using(hashtag_id)
+		where blog_contents_id = #{blogContentsId};
 	</select>
 	
 </mapper>

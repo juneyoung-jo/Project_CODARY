@@ -163,9 +163,9 @@ public class BlogContentsController {
 	 * 블로그 글 추천
 	 * 
 	 * @param 
-	 * @return List<BlogPostDto>
+	 * @return List<Map<String, Object>>
 	 */
-	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogPostDto")
+	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return List<Map<String, Object>>")
 	@GetMapping("recommend")
 	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
 		try {
