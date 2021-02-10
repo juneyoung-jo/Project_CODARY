@@ -2,6 +2,11 @@
 <div>
   <v-spacer><hr></v-spacer>
   <h2 class='py-12'>커밋</h2>
+  <v-div class="subtitle-2 text-center">
+    <h4 v-if="!flag">아직 잔디를 심지 않았어요!<br>
+      게시물을 작성해서 잔디를 심어보세요~
+    </h4>
+  </v-div>
   <v-sparkline
     :value="value"
     :label-size="4"
@@ -54,7 +59,8 @@ export default {
       user: {
         user:'',
         blogId: '',
-      }
+      },
+      flag: true
     }
   },
   created(){
@@ -75,12 +81,14 @@ export default {
       this.user.blogId,
       (response) => {
         this.result = response.data[0]
+        console.log(this.result);
         const temp=[];
-        
+       // const tt=[];
          for(var key in this.result){
           temp.push(this.result[key]);
         }
         this.value=temp;
+        if(temp.length==0) this.flag=false;
 
        var tmp=new Array();
        var j=0;
@@ -96,6 +104,7 @@ export default {
        
       },
       (err) => {
+        this.flag=false;
         console.log(err)
       }
       );
