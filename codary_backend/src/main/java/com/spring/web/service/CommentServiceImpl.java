@@ -119,6 +119,7 @@ public class CommentServiceImpl implements CommentService {
 		if (mylogTime.size() == 0) return null;
 
 		for (CommentDto comments : commentList) {
+			if(mylogTime.get(comments.getBlogContentsId()) == null) continue;
 			LocalDateTime myLogTime = LocalDateTime.parse(mylogTime.get(comments.getBlogContentsId()),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			LocalDateTime commentLogTime = LocalDateTime.parse(comments.getCommentDatetime(),

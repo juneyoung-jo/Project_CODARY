@@ -3,12 +3,22 @@
     <v-container id="user-profile-view" fluid class="profile-back">
       <v-row>
         <v-col cols="9" class="d-flex">
-          <v-img
-            class="rounded-circle elevation-6"
-            :src="this.blogContents.profile"
-            width="128"
-            height="128"
-          />
+          <router-link
+            :to="{
+              name: 'BlogHome',
+              params: {
+                blogId: this.blogId,
+              },
+            }"
+            class="noline rounded-lg"
+          >
+            <v-img
+              class="rounded-circle elevation-6"
+              :src="this.blogContents.profile"
+              width="128"
+              height="128"
+            />
+          </router-link>
           <v-card-text>
             <h6 class="text-h6 mb-2 text--secondary">
               카카오 크루원
@@ -29,8 +39,8 @@
 
 <script>
 export default {
-  name: "Profile",
-  props: ["blogContents"],
+  name: 'Profile',
+  props: ['blogContents'],
   created() {
     this.getUserInfo();
     this.axios
@@ -50,7 +60,7 @@ export default {
   },
   data() {
     return {
-      blogId: "",
+      blogId: '',
       // nickname: "",
       // profile: "",
     };

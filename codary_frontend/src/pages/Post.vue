@@ -2,24 +2,23 @@
   <div>
     <PostCover :blogContents="blogContents" />
     <v-container>
-      <v-card class="pa-8 py-8">
-        <!-- <PostViewer :blogContents="blogContents" /> -->
-        <div class="py-2"></div>
-        <h1 class="py-10 pa-14">{{ this.blogContents.blogContentsTitle }}</h1>
-        <div class="pa-13 py-0">
-          <v-chip outlined>코딩초보</v-chip>
-          <v-chip outlined>도와주세요</v-chip>
-          <v-chip outlined>알고리즘</v-chip>
-          <v-chip outlined>백준</v-chip>
-        </div>
-        <v-container class="pa-16">
-          <div id="viewer" />
-        </v-container>
-        <Profile :blogContents="blogContents" />
-        <v-btn align="center" class="my-8" outlined color="primary" @click="clickLike()">
-          좋아요 {{ likeOrNot }}
-        </v-btn>
-      </v-card>
+      <!-- <PostViewer :blogContents="blogContents" /> -->
+      <div class="py-2"></div>
+      <h1 class="py-10 pa-14">{{ this.blogContents.blogContentsTitle }}</h1>
+      <div class="pa-13 py-0">
+        <v-chip outlined>코딩초보</v-chip>
+        <v-chip outlined>도와주세요</v-chip>
+        <v-chip outlined>알고리즘</v-chip>
+        <v-chip outlined>백준</v-chip>
+      </div>
+      <v-container class="pa-16">
+        <div id="viewer" />
+      </v-container>
+      <Profile :blogContents="blogContents" />
+      <v-btn align="center" class="my-8" outlined color="primary" @click="clickLike()">
+        좋아요 {{ likeOrNot }}
+      </v-btn>
+
       <v-btn v-if="this.isItMine" id="modify" align="center" class="my-8" outlined color="primary">
         수정
       </v-btn>
