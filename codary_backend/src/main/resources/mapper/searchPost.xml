@@ -4,6 +4,7 @@
 
 <mapper namespace="com.spring.web.dao.SearchPostDao">
 
+	<!-- 
 	<select id="searchPost" parameterType="SearchParam" resultType="BlogPostDto">
 		select bc.blog_id,
 				bc.blog_contents_id, bc.blog_contents_title,
@@ -68,7 +69,8 @@
 		order by blog_contents_id DESC
 		limit #{start}, #{spp};
 	</select>
-
+	 -->
+	 
 	<select id="searchTitle" resultType="BlogPostDto">
 		select b.*, ui.profile, ui.nickname, cc.comment_cnt 
 		from blogcontents b
@@ -105,6 +107,27 @@
 	  	</foreach>
 		group by bh.blog_contents_id
 		having(count(bh.hashtag_id) = #{num})
+	</select>
+	
+	<select id="getPostInfo" resultType="BlogPostDto">
+		select *
+		from blogcontents
+		where blog_contents_id in
+		<foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+	    	#{id}
+	  	</foreach>
+	</select>
+	
+	<select id="getCommentInfo" parameterType="int" resultType="int">
+		select comment_num
+		from comment
+		where blog_contents_id = #{blogContentsId};
+	</select>
+	
+	<select id="getUserProfile" parameterType="String" resultType="map">
+		select blog_id, nickname, profile
+		from userinfo inner join user using(uid)
+		where blog_id = #{blogId};
 	</select>
 
 </mapper>
