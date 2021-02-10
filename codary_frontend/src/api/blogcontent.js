@@ -92,5 +92,5 @@ export {
   contentsLikeOrNot,
   contentsLike,
   contentsUnlike,
-  recommend,
+  recommend
 };

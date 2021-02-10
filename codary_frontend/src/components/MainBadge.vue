@@ -1,9 +1,5 @@
 <template>
-  <v-menu 
-    v-model="menu" 
-    :close-on-content-click="true"
-    offset-y
-  >
+  <v-menu v-model="menu" :close-on-content-click="true" offset-y>
     <template v-slot:activator="{ on, attrs }">
       <v-badge bordered overlap :content="commentCnt" class="pb-2" offset-x="10" offset-y="20">
         <span style="font-size: 35px">
@@ -20,7 +16,9 @@
           </v-list-item-avatar>
           <router-link :close-on-content-click="false" class="noline pa-5" :to="'/bloghome'">
             <v-list-item-content>
-              <v-list-item-title class='myname'>{{ this.loggedInUserData.nickname }}</v-list-item-title>
+              <v-list-item-title class="myname">{{
+                this.loggedInUserData.nickname
+              }}</v-list-item-title>
               <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>
           </router-link>
@@ -71,11 +69,10 @@ export default {
       commentCheck(
         this.user,
         (response) => {
+          if (response.data.data === null) return;
           response.data.data.forEach((data) => {
-            // console.log(data.count);
             this.$data.commentCnt += data.count;
           });
-          // console.log(this.commentCnt);
         },
         (error) => console.log(error)
       );
@@ -95,6 +92,6 @@ export default {
 </script>
 <style>
 .myname {
-  color:black;
+  color: black;
 }
 </style>

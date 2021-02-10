@@ -46,7 +46,7 @@ export default {
       this.commentLike,
       (responese) => {
         // console.log(responese.data.data);
-        console.log(this.commentLike);
+        // console.log(this.commentLike);
         this.commentLikeflag = responese.data.data;
       },
       (error) => {

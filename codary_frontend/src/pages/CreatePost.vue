@@ -9,38 +9,41 @@
 </template>
 
 <script>
-import Editor from "../components/createPostCom/Editor.vue";
+import Editor from '../components/createPostCom/Editor.vue';
 // import PostName from "../components/createPostCom/PostName.vue";
-import SelectPostCover from "../components/createPostCom/SelectPostCover.vue";
-import { mapGetters } from "vuex";
-import { writeContent } from "@/api/blogcontent.js";
+import SelectPostCover from '../components/createPostCom/SelectPostCover.vue';
+import { mapGetters } from 'vuex';
+import { writeContent } from '@/api/blogcontent.js';
 
 export default {
-  name: "CreatePost",
+  name: 'CreatePost',
   // components: { Editor, SelectPostCover, PostName },
   components: { Editor, SelectPostCover },
   data() {
     return {
       blogContents: {
-        blogId: "",
-        blogContentsTitle: "",
-        blogContents: "",
+        blogId: '',
+        blogContentsTitle: '',
+        blogContents: '',
         blogContentsCover:
-          "https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg",
+          'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
+        hastTag: [],
       },
     };
   },
   computed: {
-    ...mapGetters(["loggedInUserData"]),
+    ...mapGetters(['loggedInUserData']),
   },
   methods: {
     getCover(cover) {
       this.blogContents.blogContentsCover = cover;
     },
-    getContent(content, title) {
+
+    getContent(content, title, selectedTags) {
       this.blogContents.blogContents = content;
       this.blogContents.blogContentsTitle = title;
       this.blogContents.blogId = this.loggedInUserData.blogId;
+      this.blogContents.hastTag = selectedTags;
       // console.log(this.blogContents);
       // this.axios
       //   .post(`blog`, this.blogContents)
@@ -52,11 +55,23 @@ export default {
       //   .catch((err) => {
       //     console.log(err);
       //   });
+
+      // writeContent(
+      //   this.blogContents,
+      //   () => {
+      //     // console.log(res);
+      //     this.$router.push('/searchpage');
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //   }
+      // );
+
       writeContent(
         this.blogContents,
         () => {
           // console.log(res);
-          this.$router.push("/searchpage");
+          this.$router.push('/searchpage');
         },
         (err) => {
           console.log(err);
