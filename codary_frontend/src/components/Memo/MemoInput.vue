@@ -1,18 +1,18 @@
 <template>
-  <v-card-text>
-      <v-textarea
-        id="MemoSave"
-        background-color="blue lighten-4"
-        color="white"
-        placeholder="메모하세요"
-        auto-grow
-        rounded
-        solo-inverted
-        flat
-        class='pa-0'
-        v-model="memodata.memoContent"
-      ></v-textarea>
-      <v-btn plain @click="memoSave()">저장</v-btn>
+  <v-card-text
+    class='d-flex flex-column'  
+  >
+    <v-textarea
+      id="MemoSave"
+      background-color="white"
+      placeholder="메모하세요"
+      auto-grow
+      solo-inverted
+      flat
+      class='pa-0'
+      v-model="memodata.memoContent"
+    ></v-textarea>
+    <v-btn plain @click="memoSave()">저장</v-btn>
   </v-card-text>
 </template>
 
