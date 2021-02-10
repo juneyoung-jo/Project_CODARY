@@ -81,8 +81,8 @@
           <router-link :to="{
               name: 'ViewPost',
               query: {
-                blogId: blogId,
-                blogContentsId: blogContentsId,
+                blogId: article.blogId,
+                blogContentsId: article.blogContentsId,
               },
             }"
              class='noline'>
