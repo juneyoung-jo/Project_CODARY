@@ -182,7 +182,11 @@ public class SearchController {
 				// 2. 태그 검색
 				logger.info("#해쉬 태그 검색");
 				keyword = keyword.replace(" ", "");
-				
+				try {
+					resultMap.put("list", searchPostService.searchPostByTag(searchParam));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 			}
 		}else {

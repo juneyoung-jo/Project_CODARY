@@ -1,28 +1,33 @@
 <template>
   <div class="d-flex flex-column">
     <v-text-field v-model="title" label="제목을 입력하세요" class="py-12" large></v-text-field>
-    <!-- <editor
-      ref="toastuiEditor"
-      :initialValue="editorText"
-      :options="editorOptions"
-      height="500px"
-      initialEditType="markdown"
-      previewStyle="tab"
-    /> -->
+
     <div id="editor" />
     <h3 class="py-8">태그를 입력하세요</h3>
-    <v-col cols="12">
-      <v-autocomplete
-        v-model="values"
-        :items="items"
-        dense
-        chips
-        small-chips
-        label="Solo"
-        multiple
-        solo
-      ></v-autocomplete>
-    </v-col>
+    <!-- start  ###################################### -->
+    <h3 class="py-8">태그를 입력하세요</h3>
+    <tags-input
+      element-id="tags"
+      v-model="selectedTags"
+      @keyup.enter="print"
+      placeholder="태그를 입력해주세요."
+      typeahead-style="badges"
+      :existing-tags="existingtags"
+      :typeahead="true"
+    >
+      <template v-slot:selected-tag="{ tag, index, removeTag }">
+        <span v-html="tag.value"></span>
+
+        <a
+          v-show="!disabled"
+          href="#"
+          class="tags-input-remove"
+          @click.prevent="removeTag(index)"
+        ></a>
+      </template>
+    </tags-input>
+
+    <!-- end ###################################### -->
     <v-btn id="submit" align="center" class="my-8" outlined color="primary">
       저장
     </v-btn>
@@ -36,6 +41,7 @@
 </template>
 
 <script>
+
 // import '@toast-ui/editor/dist/toastui-editor.css';
 // import 'codemirror/lib/codemirror.css';
 // import { Editor } from '@toast-ui/vue-editor';
@@ -45,11 +51,18 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import Editor from '@toast-ui/editor';
 import 'highlight.js/styles/github.css';
 import { fileUpload } from '@/api/fileUpload.js';
+import VoerroTagsInput from "@voerro/vue-tagsinput";
+import axios from "axios";
+
 
 export default {
   name: 'Editor',
   components: {
     // editor: Editor,
+    "tags-input": VoerroTagsInput,
+  },
+  created() {
+    this.getHashtag();
   },
   data() {
     return {
@@ -57,28 +70,81 @@ export default {
       editorOptions: {
         hideModeSwitch: true,
       },
+
       title: '',
-      items: ['코딩초보', '도와주세요', '알고리즘', '백준'],
-      values: ['코딩초보', '도와주세요'],
-      value: null,
+       // ########################
+      existingtags: [],
+      selectedTags: [],
+      // ########################
+
     };
   },
   mounted() {
+    function youtubePlugin() {
+      Editor.codeBlockManager.setReplacer('youtube', (youtubeId) => {
+        // Indentify multiple code blocks
+        //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+        const arr = youtubeId.split('v=');
+        youtubeId = arr[1];
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
+
+        // Avoid sanitizing iframe tag
+        setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+
+        return `<div id="${wrapperId}"></div>`;
+      });
+    }
+
+    function renderYoutube(wrapperId, youtubeId) {
+      const el = document.querySelector(`#${wrapperId}`);
+
+      el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" ></iframe>`;
+    }
+
+    function blogPlugin() {
+      Editor.codeBlockManager.setReplacer('url', (url) => {
+        // console.log(youtubeId);
+        // Indentify multiple code blocks
+        //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
+
+        setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
+        return `<div id="${wrapperId}"></div>`;
+        // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+      });
+    }
+
+    function renderblogUrl(wrapperId, url) {
+      const el = document.querySelector(`#${wrapperId}`);
+      el.innerHTML = `<iframe width="420" height="315" src="${url}" 
+              frameborder="0" width="500" height="200" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
+              ></iframe>`;
+    }
+
     const editor = new Editor({
       ref: 'toastuiEditor',
       el: document.querySelector('#editor'),
       initialEditType: 'markdown',
       previewStyle: 'tab',
+      viewer: true,
       height: '500px',
+      plugins: [youtubePlugin, blogPlugin],
       hooks: {
         addImageBlobHook: (blob, callback) => {
           this.addImageBlobHook(blob, callback);
         },
       },
     });
+
     const btn = document.querySelector('#submit');
     btn.addEventListener('click', () => {
       const editContent = editor.getMarkdown();
+      // console.log(editor.getHtml());
 
       if (this.title === '') {
         alert('제목을 입력해주세요');
@@ -105,22 +171,192 @@ export default {
         (error) => console.log(error)
       );
     },
-    // datachange() {
-    //   const content = this.$refs.toastuiEditor.invoke('getMarkdown');
 
-    //   this.editorText = content;
+    // ####start 해시태그
+    getHashtag: function () {
+      var vm = this;
+      console.log("#해시태그 읽어오기");
+      axios
+        .get("http://localhost:8000/codary/blog/getHashtag", "")
+        .then((response) => {
+          console.log(response.data.list[0]);
+          for (var i = 0; i < response.data.list.length; i++) {
+            console.log(
+              i +
+                " " +
+                response.data.list[i].hashtagId +
+                " " +
+                response.data.list[i].hashtagContent
+            );
+            const d = {
+              key: response.data.list[i].hashtagId,
+              value: response.data.list[i].hashtagContent,
+            };
+            vm.existingtags.push(d);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
-    //   if (this.editorText == null) {
-    //     alert('내용을 입력해주세요!');
-    //     return;
-    //   }
+    print: function () {
+      console.log("선택된 태그: ");
+      for (var i = 0; i < this.selectedTags.length; i++) {
+        console.log(
+          this.selectedTags[i].key + " " + this.selectedTags[i].value
+        );
+      }
+    },
 
-    //   console.log(content);
-    //   console.log('title: ' + this.title);
-    //   // this.$emit('GETCONTENT', this.editorText, this.title);
-    // },
+    // ####end hashtag
+
   },
 };
 </script>
 
-<style></style>
+
+<style>
+/* The input */
+.tags-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tags-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+}
+
+.tags-input input:focus {
+  outline: none;
+}
+
+.tags-input input[type="text"] {
+  color: #495057;
+}
+
+.tags-input-wrapper-default {
+  padding: 0.5em 0.25em;
+
+  background: #fff;
+
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+  border-color: #dbdbdb;
+}
+
+.tags-input-wrapper-default.active {
+  border: 1px solid #8bbafe;
+  box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);
+  outline: 0 none;
+}
+
+/* The tag badges & the remove icon */
+.tags-input span {
+  margin-right: 0.3em;
+}
+
+.tags-input-remove {
+  cursor: pointer;
+  position: absolute;
+  display: inline-block;
+  right: 0.3em;
+  top: 0.3em;
+  padding: 0.5em;
+  overflow: hidden;
+}
+
+.tags-input-remove:focus {
+  outline: none;
+}
+
+.tags-input-remove:before,
+.tags-input-remove:after {
+  content: "";
+  position: absolute;
+  width: 75%;
+  left: 0.15em;
+  background: #5dc282;
+
+  height: 2px;
+  margin-top: -1px;
+}
+
+.tags-input-remove:before {
+  transform: rotate(45deg);
+}
+.tags-input-remove:after {
+  transform: rotate(-45deg);
+}
+
+/* Tag badge styles */
+.tags-input-badge {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tags-input-badge-pill {
+  padding-right: 1.25em;
+  padding-left: 0.6em;
+  border-radius: 10em;
+}
+.tags-input-badge-pill.disabled {
+  padding-right: 0.6em;
+}
+
+.tags-input-badge-selected-default {
+  color: #212529;
+  background-color: #f0f1f2;
+}
+
+/* Typeahead */
+.typeahead-hide-btn {
+  color: #999 !important;
+  font-style: italic;
+}
+
+/* Typeahead - badges */
+.typeahead-badges > span {
+  cursor: pointer;
+  margin-right: 0.3em;
+}
+
+/* Typeahead - dropdown */
+.typeahead-dropdown {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.typeahead-dropdown li {
+  padding: 0.25em 1em;
+  cursor: pointer;
+}
+
+/* Typeahead elements style/theme */
+.tags-input-typeahead-item-default {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.tags-input-typeahead-item-highlighted-default {
+  color: #fff;
+  background-color: #007bff !important;
+}
+</style>

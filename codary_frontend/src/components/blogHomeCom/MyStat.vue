@@ -10,6 +10,7 @@
           max-width="calc(100% - 32px)"
         >
           <v-sparkline
+            :label-size="2.4"
             :labels="labels"
             :value="value"
             line-width="2"
@@ -27,49 +28,68 @@
 <script>
 import {mapState} from 'vuex'
 import { userGraph } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   name: 'MyStat',
   data() {
     return {
-      labels: [
-        '1/15',
-      '1/17',
-      '1/19',
-      '1/21',
-      '1/23',
-      '1/25',
-      '1/27',
-      '1/29',
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
-      ],
-      articles: [], 
+      result: [],
+      labels: [],
+      value: [], 
+      user: {
+        user: '',
+        blogId: '',
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    userGraph(
-      this.loggedInUserData,
+     this.initUser();
+      this.mystat();
+  },
+  methods:{
+    initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+     mystat(){
+       userGraph(
+      this.user.blogId,
       (response) => {
         // console.log(response)
-        this.articles = response.data
+        this.result = response.data[0]
+        console.log(this.result);
+        const temp=[];
+        for(var key in this.result){
+          temp.push(this.result[key]);
+          //i++;
+          //if(i==5) break;
+        }
+        this.value=temp;
+
+        var tmp=new Array();
+      // var j=0;
+       for(var idx in this.result){
+        // if(j==5) break;
+       // if(j%28==0) {
+          tmp.push(idx.substring(5,10));
+       // }else{
+       //   tmp.push(' ');
+       // }
+       // j++;
+       }
+       this.labels=tmp;
+       
       },
       (err) => {
         console.log(err)
       }
-    )        
-  },
+    ) 
+     }
+  }
 }     
 
 </script>

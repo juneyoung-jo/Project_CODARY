@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     transition="dialog-top-transition"
-    max-width="400"
+    max-width="460"
   >
     <template v-slot:activator="{ on, attrs }">
         <v-btn

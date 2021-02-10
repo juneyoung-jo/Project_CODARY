@@ -31,29 +31,50 @@
 <script>
 import {mapState} from 'vuex'
 import { showMyMemo } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie, getmemoIdCookie } from '@/util/cookie.js';
+
 
 export default {
   name:"MyMemo",
   data () {
     return {
       articles: [],
+      user: {
+        user: '',
+        blogId: '',
+        memoId: ''
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    showMyMemo(
-      this.loggedInUserData,
+      this.initUser();
+      this.mymemo();
+  },
+  methods:{
+    initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+      this.user.memoId = getmemoIdCookie();
+      console.log(this.user.memoId);
+    },
+    mymemo(){
+      console.log('메모다');
+      showMyMemo(
+      this.user.memoId,
       (response) => {
         // console.log(response)
         this.articles = response.data
+        console.log(this.articles)
       },
       (err) => {
         console.log(err)
       }
-    )        
-  },
+    )     
+    }
+  }
 }
 </script>
 

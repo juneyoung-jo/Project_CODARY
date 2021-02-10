@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.web.dao.BlogContentsDao">
 
@@ -33,13 +33,9 @@
 		where blog_contents_id = #{blogContentsId}
 	</update>
 	
-	<select id="getAllContents" resultType="BlogPostDto">
-		select b.*, ui.nickname, ui.profile, cc.comment_cnt 
-		from blogcontents b
-			inner join user u using(blog_id)
-		    inner join userinfo ui using(uid)
-		    inner join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
-		where b.isdeleted = 0
+	<select id="getAllContents" resultType="BlogContentsDto">
+		select *
+		from blogcontents
 	</select>
 	
 	<insert id="writeLog" parameterType="map">
@@ -79,5 +75,24 @@
 		from user
 		where blog_id = #{blogId}	
 	</select>
+	
+	<select id="selectHash" parameterType="String" resultType="HashtagDto">
+		select * 
+		from hashtag 
+		<if test="keyword != null and keyword != ''">
+		where hashtag_content like concat('#', #{keyword}, '%')
+		</if>
+	</select>
+	
+	<select id="getAllHashes" resultType="BlogHashtagDto">
+		select * 
+		from bloghashtag
+	</select>
+	
+	<select id="getAllHashInfo" resultType="HashtagDto">
+		select * 
+		from hashtag	
+	</select>
+
 	
 </mapper>

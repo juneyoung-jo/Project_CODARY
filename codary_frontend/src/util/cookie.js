@@ -1,7 +1,7 @@
 
 function saveUserToCookie(uid,blogId,memoId) {
     const date = new Date();
-    date.setTime(date.getTime() + 1*24*60*60);
+    date.setTime(date.getTime() + 1*24*60*60*1000);
       document.cookie = `uid=${uid};expires=${date.toUTCString()};path=/`;
       document.cookie = `blogId=${blogId};expires=${date.toUTCString()};path=/`;
       document.cookie = `memoId=${memoId};expires=${date.toUTCString()};path=/`;
@@ -10,7 +10,7 @@ function saveUserToCookie(uid,blogId,memoId) {
 
 function getuidCookie() {
 return document.cookie.replace(
-    /(?:(?:^|.*;\s*)user\s*=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)uid\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
 );
 }

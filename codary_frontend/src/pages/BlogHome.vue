@@ -18,7 +18,7 @@ import Menu from '../components/blogHomeCom/Menu'
 
 export default {
   name: 'BlogHome',
-  components: { Profile,MyCover, Grass, Menu, }
+  components: { Profile,MyCover, Grass, Menu}
 
 }
 </script>

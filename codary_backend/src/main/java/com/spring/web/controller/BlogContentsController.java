@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
-import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
 
@@ -169,9 +169,9 @@ public class BlogContentsController {
 	 */
 	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("recommend")
-	public ResponseEntity<List<BlogPostDto>> recommend() throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
 		try {
-			return new ResponseEntity<List<BlogPostDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -266,5 +266,27 @@ public class BlogContentsController {
 		}
 		return resEntity;
 	}
+	
+	@GetMapping("/getHashtag")
+	public ResponseEntity<Map<String, Object>> getHashtag(String keyword) {
+
+		System.out.println("#hashtag 정보 읽어오기");
+		keyword = keyword != null? keyword : "";
+		System.out.println("#검색어 " + keyword);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashtagDto> selectHash = null;
+		try {
+			selectHash = contentsService.selectHash(keyword);
+			resultMap.put("list", selectHash);
+			resultMap.put("msg", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultMap.put("msg", "fail");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	
 	
 }

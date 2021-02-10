@@ -34,7 +34,7 @@ public class PersonalServiceImpl implements PersonalService{
 	@Override
 	@Transactional
 	public List<BlogContentsDto> personalContents(String blogid) {
-		personalDao.usergraphViewCount(blogid);
+		//personalDao.usergraphViewCount(blogid);
 		return personalDao.showBlogContents(blogid);
 	}
 
@@ -144,6 +144,25 @@ public class PersonalServiceImpl implements PersonalService{
 	     
 	     result.add(m); //연산이 끝나면 정렬된 m이 result에 담긴다.
 		return result;
+	}
+
+	@Override
+	public void blogerLike(BlogerLikeDto bld) {
+		personalDao.blogerLike(bld);
+	}
+
+	@Override
+	public void blogerUnlike(BlogerLikeDto bld) {
+		personalDao.blogerUnlike(bld);
+	}
+
+	@Override
+	public boolean readBlogerLike(BlogerLikeDto bld) {
+		BlogerLikeDto dto=personalDao.readBlogerLike(bld);
+		if (dto == null)
+			return false;
+		else
+			return true;
 	}
 
 	

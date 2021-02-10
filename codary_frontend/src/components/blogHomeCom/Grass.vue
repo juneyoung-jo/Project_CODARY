@@ -5,7 +5,6 @@
   <v-sparkline
     :value="value"
     :label-size="4"
-   
     :labels="labels"
     :gradient="gradient"
     :smooth="radius || false"
@@ -24,6 +23,7 @@
 <script>
 import {mapState} from 'vuex'
 import { showJandi } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
   const gradients = [
     ['#222'],
@@ -40,7 +40,6 @@ export default {
     return {
       result: [],
       labels: [],
-     // showlabels:[],
       width: 2,
       radius: 10,
       padding: 8,
@@ -52,30 +51,40 @@ export default {
       fill: false,
       type: 'trend',
       autoLineWidth: false,
+      user: {
+        user:'',
+        blogId: '',
+      }
     }
+  },
+  created(){
+    this.initUser();
+    this.jandi(); 
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
-  created(){
-    showJandi(
-      this.loggedInUserData,
+  methods: {
+    initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+    jandi(){
+      console.log('잔디실행');
+      showJandi(
+      this.user.blogId,
       (response) => {
         this.result = response.data[0]
-        console.log(this.result)
         const temp=[];
-        //var i=0;
+        
          for(var key in this.result){
           temp.push(this.result[key]);
-          //i++;
-          //if(i==5) break;
         }
         this.value=temp;
 
        var tmp=new Array();
        var j=0;
        for(var idx in this.result){
-        // if(j==5) break;
         if(j%30==0) {
           tmp.push(idx.substring(0,7));
         }else{
@@ -89,8 +98,10 @@ export default {
       (err) => {
         console.log(err)
       }
-    )        
-  },
+      );
+      
+    }  
+  }
 }
 </script>
 
