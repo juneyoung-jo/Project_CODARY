@@ -13,6 +13,8 @@ public interface BlogContentsService {
 	BlogContentsDto getContent(int blogContentsId) throws Exception;
 
 	void writeBlogContent(BlogContentsDto blogContent) throws Exception;
+	
+	void writeHash(HashtagDto hash) throws Exception;
 
 	List<BlogContentsDto> listBlogContents(String blogId) throws Exception;
 

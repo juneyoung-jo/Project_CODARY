@@ -15,6 +15,11 @@
 		values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
 	</insert>
 	
+	<insert id="writeHash" parameterType="HashtagDto" useGeneratedKeys="true" keyProperty="hashtag_id">
+		insert into hashtag(hashtag_content) 
+		values(#{hashtagContent})
+	</insert>
+	
 	<select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">
 		select *
 		from blogcontents

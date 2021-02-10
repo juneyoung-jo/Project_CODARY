@@ -16,6 +16,7 @@ public interface BlogContentsDao {
 	
 	BlogContentsDto getContent(int blogContentsId) throws SQLException;
 	void writeBlogContent(BlogContentsDto blogContent) throws SQLException;
+	void writeHash(HashtagDto hash) throws SQLException;
 	List<BlogContentsDto> listBlogContents(String blogId) throws SQLException;
 	int modifyBlogContent(BlogContentsDto blogContent);
 	int deleteBlogContent(int blogContentsId);

@@ -41,6 +41,11 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	public void writeBlogContent(BlogContentsDto blogContent) throws Exception {
 		mapper.writeBlogContent(blogContent);
 	}
+	
+	@Override
+	public void writeHash(HashtagDto hash) throws Exception{
+		mapper.writeHash(hash);
+	}
 
 	@Override
 	public List<BlogContentsDto> listBlogContents(String blogId) throws Exception {
