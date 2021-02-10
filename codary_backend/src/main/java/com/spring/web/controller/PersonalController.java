@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,7 +83,7 @@ public class PersonalController {
 	//		status=HttpStatus.ACCEPTED;
 	//	}
 	
-		return new ResponseEntity<List<MemoContentsDto>>(memocontentsDto, HttpStatus.OK);
+		return new ResponseEntity<List<MemoContentsDto>>(memocontentsDto, status);
 	}
 	
 	
@@ -106,7 +108,7 @@ public class PersonalController {
 	//			status=HttpStatus.ACCEPTED;
 	//		}
 		
-			return new ResponseEntity<List<BlogDto>>(blogDto, HttpStatus.OK);
+			return new ResponseEntity<List<BlogDto>>(blogDto, status);
 	}
 	
 	/*좋아요한 블로그 글 목록보기*/
@@ -130,7 +132,7 @@ public class PersonalController {
 			
 	//		}
 		
-			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, HttpStatus.OK);
+			return new ResponseEntity<List<BlogContentsDto>>(blogcontentsDto, status);
 	}
 	
 	/*잔디*/
@@ -153,7 +155,7 @@ public class PersonalController {
 				
 		//	}
 		
-		return new ResponseEntity<List<Map<String,Integer>>>(result, HttpStatus.OK);
+		return new ResponseEntity<List<Map<String,Integer>>>(result, status);
 	}
 	
 	/*유저통계*/
@@ -176,6 +178,66 @@ public class PersonalController {
 				
 		//	}
 		
-		return new ResponseEntity<List<Map<String,Integer>>>(result, HttpStatus.OK);
+		return new ResponseEntity<List<Map<String,Integer>>>(result, status);
+	}
+	
+	/*블로거 좋아요 (팔로우)*/
+	@ApiOperation(value="블로거 좋아요 누르기 (팔로우)", notes ="@param BlogerLikeDto </br> @return ")
+	@PostMapping("blogerLike")
+	public ResponseEntity<Map<String, String>> blogerLike(@RequestBody BlogerLikeDto bld) throws Exception{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		Map<String, String> result=new HashMap<>();
+		
+		try {
+			personalService.blogerLike(bld);
+			result.put("msg", "success");
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			result.put("msg", "fail");
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<Map<String, String>>(result,status);
+	}
+	
+	/*블로거 좋아요 취소(언팔로우)*/
+	@ApiOperation(value="블로거 좋아요 누르기 취소 (언팔로우)", notes ="@param BlogerLikeDto </br> @return ")
+	@PostMapping("blogerUnlike")
+	public ResponseEntity<Map<String, String>> blogerUnlike(@RequestBody BlogerLikeDto bld) throws Exception{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		Map<String, String> result=new HashMap<>();
+		
+		try {
+			personalService.blogerUnlike(bld);
+			result.put("msg", "success");
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			result.put("msg", "fail");
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<Map<String, String>>(result,status);
+	}
+	
+	/*블로거 좋아요 누른 여부*/
+	@ApiOperation(value="블로거 좋아요 누른 여부", notes ="@param BlogerLikeDto </br> @return ")
+	@PostMapping("checkBlogerlike")
+	public ResponseEntity<Map<String, Object>> readBlogerlike(@RequestBody BlogerLikeDto bld) throws Exception{
+		
+		HttpStatus status=HttpStatus.ACCEPTED;
+		Map<String, Object> result = new HashMap<String,Object>();
+		try {
+			boolean data = personalService.readBlogerLike(bld);
+			result.put("msg", "success");
+			result.put("data", data);
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			result.put("msg", "fail");
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<Map<String, Object>>(result,status);
 	}
 }
