@@ -6,6 +6,9 @@
         width="56"
       >
       </v-responsive>
+      <v-div class="subtitle-2 text-center">
+        <h4 v-if="this.articles.length==0">좋아요한 게시글이 없어요!</h4>
+      </v-div>
       <v-row>
         <v-col
           v-for="(article, idx) in articles"
@@ -45,7 +48,8 @@ export default {
       user: {
         user:'',
         blogId: '',
-      }
+      },
+    //  flag: true
     }
   },
   computed: {

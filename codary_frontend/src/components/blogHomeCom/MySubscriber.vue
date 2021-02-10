@@ -1,6 +1,14 @@
 <template>
   <section id="blog">
-    <v-container class='ma-10 pa-16'>
+    <v-container>
+      <v-responsive
+        class="mx-auto mb-12"
+        width="56"
+      >
+      </v-responsive>
+      <v-div class="subtitle-2 text-center">
+        <h4 v-if="this.articles.length==0">팔로잉한 유저가 없어요!</h4>
+      </v-div>
       <v-row>
         <v-col
           v-for="(article, src, index) in articles"

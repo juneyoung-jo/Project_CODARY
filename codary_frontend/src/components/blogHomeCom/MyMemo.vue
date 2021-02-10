@@ -6,6 +6,9 @@
         width="56"
       >
       </v-responsive>
+      <v-div class="subtitle-2 text-center">
+        <h4 v-if="this.articles.length==0">작성한 메모가 없어요!</h4>
+      </v-div>
       <v-row>
         <v-col
           v-for="(article, index) in articles"
@@ -67,7 +70,7 @@ export default {
       (response) => {
         // console.log(response)
         this.articles = response.data
-        console.log(this.articles)
+        //console.log(this.articles)
       },
       (err) => {
         console.log(err)

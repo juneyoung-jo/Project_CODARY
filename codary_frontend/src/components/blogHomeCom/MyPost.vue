@@ -55,6 +55,9 @@
         <v-divider class="mb-1"></v-divider>
         <v-divider></v-divider>
       </v-responsive>
+      <v-div class="subtitle-2 text-center">
+        <h4 v-if="this.articles.length==0">작성한 글이 없어요!</h4>
+      </v-div>
       <v-row>
         <v-col
           v-for="(article, blogId, blogContentsId) in articles"
