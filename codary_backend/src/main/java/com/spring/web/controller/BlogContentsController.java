@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
 
@@ -264,5 +266,27 @@ public class BlogContentsController {
 		}
 		return resEntity;
 	}
+	
+	@GetMapping("/getHashtag")
+	public ResponseEntity<Map<String, Object>> getHashtag(String keyword) {
+
+		System.out.println("#hashtag 정보 읽어오기");
+		keyword = keyword != null? keyword : "";
+		System.out.println("#검색어 " + keyword);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashtagDto> selectHash = null;
+		try {
+			selectHash = contentsService.selectHash(keyword);
+			resultMap.put("list", selectHash);
+			resultMap.put("msg", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultMap.put("msg", "fail");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	
 	
 }

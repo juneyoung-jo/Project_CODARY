@@ -41,10 +41,12 @@ export default {
     // 댓글의 좋아요 체크
     this.commentLike.commentNum = this.comment.commentNum;
     this.commentLike.uid = getuidCookie();
+
     getCommentLike(
       this.commentLike,
       (responese) => {
         // console.log(responese.data.data);
+        console.log(this.commentLike);
         this.commentLikeflag = responese.data.data;
       },
       (error) => {
@@ -69,6 +71,10 @@ export default {
   },
   methods: {
     cmtLike() {
+      if (this.commentLike.uid === '') {
+        alert('로그인 해주세요!');
+        return;
+      }
       commentLike(
         this.commentLike,
         (response) => {
@@ -85,6 +91,10 @@ export default {
     },
     cmtLikeCancle() {
       // alert('좋아요 취소!');
+      if (this.commentLike.uid === '') {
+        alert('로그인 해주세요!');
+        return;
+      }
       commentLikeCancle(
         this.commentLike,
         (response) => {

@@ -33,7 +33,7 @@ public class JwtServiceImpl implements JwtService {
 	public static final Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
 	private static final String TK = "codary";
-	private static final int EXPIRE_MINUTES = 60;
+	private static final int EXPIRE_MINUTES = 60*10;
 //	private static final int EXPIRE_MINUTES = 3;
 
 	@Override
