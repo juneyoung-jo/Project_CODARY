@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 
 @Mapper
