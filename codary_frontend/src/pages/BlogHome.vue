@@ -5,7 +5,7 @@
       <Profile/>
       <Grass/>
       <Menu/>
-    <router-view></router-view>
+      <router-view></router-view>
     </v-container>
   </div>
 </template>
