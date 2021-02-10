@@ -3,7 +3,7 @@ package com.spring.web.dto;
 public class BlogerLikeDto {
 
 	private String uid;
-	private int blogId;
+	private String blogId;
 
 	public String getUid() {
 		return uid;
@@ -13,11 +13,11 @@ public class BlogerLikeDto {
 		this.uid = uid;
 	}
 
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
 

@@ -57,8 +57,8 @@
       </v-responsive>
       <v-row>
         <v-col
-          v-for="(article, idx) in articles"
-          :key="idx"
+          v-for="(article, blogId, blogContentsId) in articles"
+          :key="blogContentsId"
           cols="12"
           md="4"
         >
@@ -75,7 +75,14 @@
             class="title font-weight-light mb-5"
             
           ></div>
-          <router-link :to="'/viewpost'" class='noline'>
+          <router-link :to="{
+              name: 'ViewPost',
+              query: {
+                blogId: blogId,
+                blogContentsId: blogContentsId,
+              },
+            }"
+             class='noline'>
             <v-btn
               class="ml-n4 font-weight-black"
               text
@@ -92,6 +99,7 @@
 <script>
 import {mapState} from 'vuex'
 import { personalList } from '@/api/personal.js';
+import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 
 export default {
   name: 'MyPost',
@@ -99,23 +107,37 @@ export default {
   data () {
     return {
       articles: [], 
+      user:{
+        user: '',
+        blogId: '',
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    personalList(
-      this.loggedInUserData,
+      this.initUser();
+      this.mypost();
+  },
+  methods:{
+     initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+    mypost(){
+       personalList(
+      this.user.blogId,
       (response) => {
-        // console.log(response)
+         console.log(response)
         this.articles = response.data
       },
       (err) => {
         console.log(err)
       }
-    )        
-  },
+    )   
+    }
+  }
 }
 </script>
 

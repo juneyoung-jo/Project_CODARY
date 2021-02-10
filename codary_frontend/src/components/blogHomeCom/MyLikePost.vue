@@ -35,20 +35,35 @@
 <script>
 import {mapState} from 'vuex'
 import { showMyBlogContents } from '@/api/personal.js';
+import {getuidCookie, getblogIdCookie} from '@/util/cookie.js';
 
 export default {
   name:"MyLikePost",
   data () {
     return {
       articles: [], 
+      user: {
+        user:'',
+        blogId: '',
+      }
     }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
   created(){
-    showMyBlogContents(
-      this.loggedInUserData,
+    this.initUser();
+    this.mylikepost();
+  },
+  methods:{
+     initUser(){
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+    mylikepost(){
+      showMyBlogContents(
+      this.user.user,
+      this.user.blogId,
       (response) => {
         // console.log(response)
         this.articles = response.data
@@ -57,7 +72,9 @@ export default {
         console.log(err)
       }
     )        
+    }
   }
+
 }
 </script>
 

@@ -13,7 +13,7 @@
 	<select id="showMemo" resultType="MemoContentsDto" parameterType="String">
 		select * 
 		from memocontents
-		where memo_num = #{memoNum} and isdeleted = 0
+		where memo_id = #{memoId} and isdeleted = 0
 	</select>
 	
 	<select id="likeBloger" resultType="BlogDto" parameterType="String">
@@ -42,10 +42,10 @@
 		group by Date(usergraph_date);
 	</select>
 	
-	<insert id="usergraphViewCount" parameterType="String">
-		insert into usergraph(blog_id, usergraph_date, blog_view) 
-		values(#{blogId}, now(), 0);
-	</insert>
+	<!--  <insert id="usergraphViewCount" parameterType="String">
+		insert into usergraph (usergraph_date, blog_view, blog_id) 
+		values (now(), 1, #{blogId}) on duplicate key update blog_id=#{blogId}, usergraph_date=now(), blog_view=blog_view+1;
+	</insert>-->
 	
 	<insert id="blogerLike" parameterType = "BlogerLikeDto">
 		insert into blogerlike(uid, blog_id)

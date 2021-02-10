@@ -1,3 +1,5 @@
+import { deleteCookie } from '@/util/cookie.js'
+
 const mutations = {
     fetchLoggedInUserData(state, userInfo){
         state.loggedInUserData = userInfo;
@@ -7,6 +9,7 @@ const mutations = {
         state.loggedInUserData = null;
         state.isLogin = false;
         localStorage.clear()
+        deleteCookie();
     }
 }
 

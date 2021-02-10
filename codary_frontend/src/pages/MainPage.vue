@@ -36,8 +36,12 @@
           <v-container fill-height>
             <v-row>
               <v-col
-                class="text-left"
-                cols="12"
+                cols="2"
+              >
+              </v-col>
+              <v-col
+                class="text-left pt-16 align-center"
+                cols="4"
                 tag="h1"
               >
                 <span
@@ -54,11 +58,20 @@
                   쉽게 공유하세요
                 </span>
                 <v-responsive
-                  class="mx-auto title font-weight-light mb-1"
+                  class="font-weight-light"
                 >
                 <br>
-                  Markdown, 동시편집, 코드복사
+                  Markdown, 코드 공유
                 </v-responsive>
+              </v-col>
+              <v-col
+               cols="4"
+               class="justify-start align-start"
+              >
+                <v-img 
+                  src="@/assets/share.png"
+                >
+                </v-img>
               </v-col>
             </v-row>
           </v-container>
@@ -72,40 +85,81 @@
           justify="center"
           style="height:100%"
         >
-          <v-container fill-height>
-            <v-row>
-              <v-col
-                class="text-end"
-                cols="12"
-                tag="h1"
+            <v-col
+              cols="7"  
+            >
+              <v-carousel 
+                hide-delimiters
+                show-arrows
               >
-                <span
-                :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                  class="font-weight-bold"
+                <v-carousel-item
+                  v-for="(item,i) in cards"
+                  :key="i"
+                  :src="item.blogContentsCover"
+                  :to="{
+                    name: 'ViewPost',
+                    query: {
+                      blogId: item.blogId,
+                      blogContentsId: item.blogContentsId,
+                    },
+                  }"
                 >
-                  태그를 
-                </span>
-                <br>
-                <span
-                  :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
-                  class="font-weight-bold"
-                >
-                  이용하세요
-                </span>
-                <v-responsive
-                  class="mx-auto title font-weight-light mb-1"
-                >
-                <br>
-                  태그로 소통이 시작됩니다.
-                </v-responsive>
-                <v-responsive
-                  class="mx-auto title font-weight-light"
-                >
-                  태그를 이용해 도움을 청할수도, 커뮤니티를 만들 수도 있습니다.
-                </v-responsive>
-              </v-col>
-            </v-row>
-          </v-container>
+                  <v-row
+                    class="fill-height"
+                    align="end"
+                    justify="center"
+                  >
+                    <v-chip
+                      filled
+                      color="cyan"
+                      class='mb-10'
+                    >
+                      {{item.blogContentsTitle}}
+                    </v-chip>
+                  </v-row>
+                </v-carousel-item>
+              </v-carousel>
+            </v-col>
+            <v-col
+              cols="1"
+            >
+            </v-col>
+            <v-col
+              class="text-end"
+              cols="2"
+              tag="h1"
+            >
+              <span
+              :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                class="font-weight-bold"
+              >
+                태그를 
+              </span>
+              <br>
+              <span
+                :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-2']"
+                class="font-weight-bold"
+              >
+                이용하세요
+              </span>
+              <v-responsive
+                class="mx-auto title font-weight-light mb-1"
+              >
+              <br>
+                태그로 소통이 시작됩니다.
+              </v-responsive>
+              <v-responsive
+                class="mx-auto title font-weight-light"
+              >
+                태그를 이용해 도움을 청할수도,
+              </v-responsive>
+              <v-responsive
+                class="mx-auto title font-weight-light"
+              >
+                커뮤니티를 만들 수도 있습니다.
+              </v-responsive>
+            </v-col>
+     
         </v-row>
       </section>
       <section id="grass" class="section">
@@ -117,14 +171,12 @@
           style="height:100%"
         >
           <v-container fill-height>
-  
             <v-row>
               <v-col
                 class="text-center"
                 cols="12"
                 tag="h1"
               >
-        
                 <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
                   class="font-weight-bold"
@@ -133,7 +185,7 @@
                 </span>
                 <br>
                 <v-responsive
-                  class="mx-auto title font-weight-light mb-1"
+                  class="mx-auto title font-weight-light mb-16"
                   max-width="720"
                 >
                 <br>
@@ -159,22 +211,13 @@
           </v-container>
         </v-row>
       </section>
-      <section id="stats" class="section">
-        <v-carousel hide-delimiters height="100%">
-          <v-carousel-item
-            v-for="(item,i) in items"
-            :key="i"
-            :src="item.src"
-          ></v-carousel-item>
-        </v-carousel>
-      </section>
 
   </full-page>
   </v-app>
 </template>
 
 <script>
-
+import{ recommend } from '@/api/blogcontent.js';
 const gradients = [
   ['#222'],
   ['#42b3f4'],
@@ -186,6 +229,16 @@ const gradients = [
 export default {
 
   name: 'MainPage',
+  created() {
+    recommend(
+      (response) => {
+        this.cards = response.data
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  },
   data () {
     return {
       width: 2,
@@ -236,6 +289,7 @@ export default {
             src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
           },
         ],
+        cards: [],
         options: {
           licenseKey: 'YOUR_KEY_HEERE',
           menu: '#menu',
@@ -247,7 +301,7 @@ export default {
     methods: {
       componentsReady() {
         this.$refs.fullpage.init()
-      }, 
+      },
     },
 }
 </script>
@@ -265,12 +319,10 @@ export default {
 #share {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/sha.png");
 }
 #tag {
   background-position: center;
   background-size: unset;
-  background-image: url("../assets/tag.jpg");
 }
 #grass {
   background-position: center;

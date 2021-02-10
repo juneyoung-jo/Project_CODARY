@@ -54,8 +54,8 @@ export default {
       //   });
       writeContent(
         this.blogContents,
-        (res) => {
-          console.log(res);
+        () => {
+          // console.log(res);
           this.$router.push("/searchpage");
         },
         (err) => {

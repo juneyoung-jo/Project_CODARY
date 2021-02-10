@@ -23,8 +23,12 @@ public interface BlogContentsDao {
 	void increaseContentsView(int blogContentsId) throws SQLException;
 	BlogContentsLikeDto readContentLike(BlogContentsLikeDto like) throws SQLException;
 	void contentLike(BlogContentsLikeDto like) throws SQLException;
+	void increasePostLike(int blogContentsId) throws SQLException;
 	void contentUnlike(BlogContentsLikeDto like) throws SQLException;
+	void decreasePostLike(int blogContentsId) throws SQLException;
 	void usergraphViewCount(int blogContentsId) throws SQLException;
 	UserDto getUser(String blogId) throws Exception;
+	List<String> getHashtagOfPost(int blogContentsId) throws Exception;
+	List<HashtagDto> selectHash(String keyword) throws Exception;
 	
 }

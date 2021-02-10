@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.CommentDto;
+import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
 
@@ -164,13 +165,13 @@ public class BlogContentsController {
 	 * 블로그 글 추천
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<Map<String, Object>>
 	 */
-	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return List<Map<String, Object>>")
 	@GetMapping("recommend")
-	public ResponseEntity<List<BlogContentsDto>> recommend() throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
 		try {
-			return new ResponseEntity<List<BlogContentsDto>>(contentsService.recommendBlogContents(), HttpStatus.OK);
+			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -181,14 +182,21 @@ public class BlogContentsController {
 	 * 블로그 글 좋아요 눌렀는지 여부
 	 * 
 	 * @param BlogContentLikeDto
-	 * @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)
+	 * @return msg가 "yet"이면 안 누른 상태, "like"이면 누른 상태
 	 */
-	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return BlogContentsLikeDto(null이면 안 누른 상태, null이 아니면 누른 상태)")
+	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return msg가 \"yet\"이면 안 누른 상태, \"like\"이면 누른 상태")
 	@PostMapping("checkContentsLike")
-	public ResponseEntity<BlogContentsLikeDto> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+	public ResponseEntity<Map<String, String>> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+		Map<String, String> map = new HashMap<>();
 		try {
 			BlogContentsLikeDto res = contentsService.readBlogContentsLike(like);
-			return new ResponseEntity<BlogContentsLikeDto>(res, HttpStatus.OK);
+			if(res == null) {
+				map.put("msg", "yet");
+				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+			}else {
+				map.put("msg", "like");
+				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -265,5 +273,27 @@ public class BlogContentsController {
 		}
 		return resEntity;
 	}
+	
+	@GetMapping("/getHashtag")
+	public ResponseEntity<Map<String, Object>> getHashtag(String keyword) {
+
+		System.out.println("#hashtag 정보 읽어오기");
+		keyword = keyword != null? keyword : "";
+		System.out.println("#검색어 " + keyword);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashtagDto> selectHash = null;
+		try {
+			selectHash = contentsService.selectHash(keyword);
+			resultMap.put("list", selectHash);
+			resultMap.put("msg", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultMap.put("msg", "fail");
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	
 	
 }
