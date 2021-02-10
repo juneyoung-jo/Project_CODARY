@@ -1,20 +1,32 @@
 <template>
-  <v-card-text id="memoListItem">
-      <div>
-        <v-list two-line v-for="item in this.calData" :key="item.memoNum">
-          <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
-          <v-list-item-content id="item.memoNum">
-            <v-list-item-subtitle>{{item.memoContent}}</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-btn @click="changingMemo(item)">수정버튼</v-btn>
-          <v-btn @click="deletingMemo(item, item.memoNum)">삭제버튼</v-btn>
-          <v-divider></v-divider>
-        </v-list>
-      </div>
-       <v-pagination
-        v-model="curPageNum"
-        :length="numOfPages">
-      </v-pagination>
+  <v-card-text 
+    id="memoListItem"
+    class='pa-10'
+  >
+    <div> 
+      <v-list 
+        v-for="item in this.calData" 
+        :key="item.memoNum"
+        class='d-flex flex-column transparent'
+      >
+        <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
+        <v-list-item-content id="item.memoNum">
+          <v-list-item-subtitle class='pa-2'>{{item.memoContent}}</v-list-item-subtitle>
+        </v-list-item-content>
+        <div class='d-flex justify-end'>
+          <v-btn small fab plain @click="changingMemo(item)">
+            <font-awesome-icon :icon="['fas','edit']"/>
+          </v-btn>
+          <v-btn small fab plain @click="deletingMemo(item, item.memoNum)">
+            <font-awesome-icon :icon="['fas','trash-alt']"/>
+          </v-btn>
+        </div>
+      </v-list>
+    </div>
+      <v-pagination
+      v-model="curPageNum"
+      :length="numOfPages">
+    </v-pagination>
   </v-card-text>
 </template>
 
@@ -30,7 +42,7 @@ export default {
   data() {
     return {
       listData: [],
-      dataPerPage: 5,
+      dataPerPage: 3,
       curPageNum: 1,
     }
   },
@@ -107,25 +119,11 @@ export default {
 <style scoped>
 
 #memoListItem {
-  height: 500px;
   width: 270px;
   overflow: auto;
   margin: 0;
   padding: 0;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
-}
-::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
-}
+
 
 </style>

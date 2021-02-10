@@ -2,50 +2,50 @@ import { createInstance } from "./index.js";
 
 const instance = createInstance();
 
-function personalList(userData, success, fail) {
+function personalList(blogId, success, fail) {
 
     instance
-        .get(`personal/${userData.blogId}`)
+        .get(`personal/${blogId}`)
         .then(success)
         .catch(fail);
 }
 
-function showMyMemo(userData, success, fail) {
+function showMyMemo(memoId, success, fail) {
 
     instance
-        .get(`personal/memo/${userData.memoId}`)
+        .get(`personal/memo/${memoId}`)
         .then(success)
         .catch(fail);
 }
 
-function showMyBloger(userData, success, fail) {
+function showMyBloger(blogId, uId, success, fail) {
 
     instance
-        .get(`personal/bloger/${userData.blogId}/${userData.uId}`)
+        .get(`personal/bloger/${blogId}/${uId}`)
         .then(success)
         .catch(fail);
 }
 
-function showMyBlogContents(userData, success, fail) {
+function showMyBlogContents(blogId, uId, success, fail) {
 
     instance
-        .get(`personal/blog/${userData.blogId}/${userData.uId}`)
+        .get(`personal/blog/${blogId}/${uId}`)
         .then(success)
         .catch(fail);
 }
 
-function showJandi(userData, success, fail) {
+function showJandi(blogId, success, fail) {
 
     instance
-        .get(`personal/jandi/${userData.blogId}`)
+        .get(`personal/jandi/${blogId}`)
         .then(success)
         .catch(fail);
 }
 
-function userGraph(userData, success, fail) {
+function userGraph(blogId, success, fail) {
 
     instance
-        .get(`personal/usergraph/${userData.blogId}`)
+        .get(`personal/usergraph/${blogId}`)
         .then(success)
         .catch(fail);
 }

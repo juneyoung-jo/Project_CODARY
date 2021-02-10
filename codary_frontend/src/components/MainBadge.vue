@@ -1,5 +1,9 @@
 <template>
-  <v-menu v-model="menu" :close-on-content-click="true">
+  <v-menu 
+    v-model="menu" 
+    :close-on-content-click="true"
+    offset-y
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-badge bordered overlap :content="commentCnt" class="pb-2" offset-x="10" offset-y="20">
         <span style="font-size: 35px">
@@ -11,13 +15,13 @@
     <v-card>
       <v-list>
         <v-list-item>
-          <v-list-item-avatar>
+          <v-list-item-avatar class="ma-3">
             <img :src="this.loggedInUserData.profile" alt="John" />
           </v-list-item-avatar>
           <router-link :close-on-content-click="false" class="noline pa-5" :to="'/bloghome'">
             <v-list-item-content>
-              <v-list-item-title>{{ this.loggedInUserData.nickname }}</v-list-item-title>
-              <v-list-item-subtitle>my blog home</v-list-item-subtitle>
+              <v-list-item-title class='myname'>{{ this.loggedInUserData.nickname }}</v-list-item-title>
+              <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>
           </router-link>
           <v-list-item-action>
@@ -89,5 +93,8 @@ export default {
   },
 };
 </script>
-
-<style></style>
+<style>
+.myname {
+  color:black;
+}
+</style>

@@ -7,7 +7,7 @@
 	<select id="showBlogContents" resultType="BlogContentsDto" parameterType="String"> 
 		select *
 		from blogcontents 
-		where blog_id = #{blogId}
+		where blog_id = #{blogId} and isdeleted = 0
 	</select>
 	
 	<select id="showMemo" resultType="MemoContentsDto" parameterType="String">
@@ -31,7 +31,7 @@
 	<select id="jandi" resultType="JandiDto" parameterType="String">
 		select Date(blog_datetime) as blogDatetime, count(*) as jandiCnt
 		from blogcontents
-		where blog_id=#{blogId}
+		where blog_id=#{blogId} and isdeleted = 0
 		group by Date(blog_datetime);
 	</select>
 	
@@ -42,9 +42,24 @@
 		group by Date(usergraph_date);
 	</select>
 	
-	<insert id="usergraphViewCount" parameterType="String">
-		insert into usergraph(blog_id, usergraph_date, blog_view) 
-		values(#{blogId}, now(), 0);
+	<!--  <insert id="usergraphViewCount" parameterType="String">
+		insert into usergraph (usergraph_date, blog_view, blog_id) 
+		values (now(), 1, #{blogId}) on duplicate key update blog_id=#{blogId}, usergraph_date=now(), blog_view=blog_view+1;
+	</insert>-->
+	
+	<insert id="blogerLike" parameterType = "BlogerLikeDto">
+		insert into blogerlike(uid, blog_id)
+		values(#{uid}, #{blogId})
 	</insert>
 	
+	<delete id="blogerUnlike" parameterType = "BlogerLikeDto">
+		delete from blogerlike
+		where uid = #{uid} and blog_id = #{blogId}
+	</delete>
+	
+	<select id="readBlogerLike" resultType="BlogerLikeDto">
+		select *
+		from blogerlike
+		where uid = #{uid} and blog_id = #{blogId}
+	</select>
 </mapper>

@@ -23,19 +23,9 @@
           } in list"
           :key="blogContentsId"
           cols="12"
-          md="4"
+          md="3"
         >
-          <v-img
-            :src="blogContentsCover"
-            class="mb-4"
-            height="275"
-            max-width="100%"
-          ></v-img>
-          <h3
-            class="font-weight-black mb-4 text-uppercase"
-            v-text="blogContentsTitle"
-          ></h3>
-          <div class="title font-weight-light mb-5" v-text="blogDatetime"></div>
+          <div>
           <router-link
             :to="{
               name: 'ViewPost',
@@ -46,6 +36,20 @@
             }"
             class="noline"
           >
+          <v-hover v-slot="{ hover }" open-delay="90">
+
+            <v-img v-if="hover"
+              :src="blogContentsCover"
+              class="mb-4"
+              height="275"
+              max-width="100%"
+            ></v-img>
+            <h3
+              class="font-weight-black mb-4 text-uppercase"
+              v-text="blogContentsTitle"
+            ></h3>
+            <div class="title font-weight-light mb-5" v-text="blogDatetime">
+            </div>
             <v-img
               :src="profile"
               class="mb-4"
@@ -61,7 +65,9 @@
             <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading
             </v-btn>
+          </v-hover>
           </router-link>
+          </div>
         </v-col>
       </v-row>
     </v-container>

@@ -1,8 +1,8 @@
 <template>
   <v-app id="app">
     <Nav />
-    <Memo />
     <v-main>
+      <Memo />
       <router-view />
     </v-main>
   </v-app>

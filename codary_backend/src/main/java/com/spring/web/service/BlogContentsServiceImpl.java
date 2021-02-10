@@ -19,16 +19,16 @@ import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
 
 @Service
-public class BlogContentsServiceImpl implements BlogContentsService{
+public class BlogContentsServiceImpl implements BlogContentsService {
 
 	@Autowired
 	private BlogContentsDao mapper;
-	
+
 	@Autowired
 	private CommentDao commentMapper;
-	
+
 	private UserInfoDto info = null;
-	
+
 	@Override
 	@Transactional
 	public BlogContentsDto getContent(int blogContentsId) throws Exception {
@@ -55,7 +55,7 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	public int deleteBlogContent(int blogContentsId) {
 		return mapper.deleteBlogContent(blogContentsId);
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> recommendBlogContents() throws Exception{
 		List<Map<String, Object>> recommendList = new LinkedList<>(); //추천 글 리스트
@@ -85,13 +85,13 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	@Transactional
 	public BlogContentsDto writeLog(String uid, String blogId, int blogContentsId) throws Exception {
-		Map<String,Object> log = new HashMap<String, Object>();
+		Map<String, Object> log = new HashMap<String, Object>();
 		log.put("uid", uid);
 		log.put("blogContentsId", blogContentsId);
-		
+
 		mapper.writeLog(log);
-		mapper.increaseContentsView(blogContentsId); //조회수 증가
-				
+		mapper.increaseContentsView(blogContentsId); // 조회수 증가
+
 		return mapper.getContent(blogContentsId);
 	}
 
@@ -121,10 +121,16 @@ public class BlogContentsServiceImpl implements BlogContentsService{
 	@Override
 	public UserInfoDto userInfo(String blogId) throws Exception {
 		UserDto user = mapper.getUser(blogId);
-		if(user == null) return null;
+		if (user == null)
+			return null;
 		info = new UserInfoDto();
 		info.setUid(user.getUid());
 		return commentMapper.getUserInfo(info);
 	}
-	
+
+	@Override
+	public List<HashtagDto> selectHash(String keyword) throws Exception {
+		return mapper.selectHash(keyword);
+	}
+
 }

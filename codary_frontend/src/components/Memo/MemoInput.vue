@@ -9,7 +9,7 @@
         rounded
         solo-inverted
         flat
-        class='memoinput'
+        class='pa-0'
         v-model="memodata.memoContent"
       ></v-textarea>
       <v-btn plain @click="memoSave()">저장</v-btn>
@@ -82,6 +82,5 @@ export default {
 }
 </script>
 <style>
-
 
 </style>

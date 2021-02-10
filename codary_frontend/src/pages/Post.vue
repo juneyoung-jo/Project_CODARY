@@ -141,8 +141,56 @@ export default {
             this.blogContents.blogContentsLike =
               response.data.data.blogContentsLike;
 
+            function youtubePlugin() {
+              Viewer.codeBlockManager.setReplacer('youtube', (youtubeId) => {
+                // console.log(youtubeId);
+                // Indentify multiple code blocks
+                //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+                const arr = youtubeId.split('v=');
+                youtubeId = arr[1];
+
+                const wrapperId = `yt${Math.random()
+                  .toString(36)
+                  .substr(2, 10)}`;
+
+                setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+                return `<div id="${wrapperId}"></div>`;
+                // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+              });
+            }
+
+            function renderYoutube(wrapperId, youtubeId) {
+              const el = document.querySelector(`#${wrapperId}`);
+              el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen ></iframe>`;
+            }
+
+            function blogPlugin() {
+              Viewer.codeBlockManager.setReplacer('url', (url) => {
+                // console.log(youtubeId);
+                // Indentify multiple code blocks
+                //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+
+                const wrapperId = `yt${Math.random()
+                  .toString(36)
+                  .substr(2, 10)}`;
+
+                setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
+                return `<div id="${wrapperId}"></div>`;
+                // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+              });
+            }
+
+            function renderblogUrl(wrapperId, url) {
+              const el = document.querySelector(`#${wrapperId}`);
+              el.innerHTML = `<iframe width="420" height="315" src="${url}" 
+              frameborder="0" width="500" height="200" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
+              ></iframe>`;
+            }
+
             new Viewer({
-              el: document.querySelector("#viewer"),
+              el: document.querySelector('#viewer'),
+              viewer: true,
+              plugins: [youtubePlugin, blogPlugin],
               initialValue: response.data.data.blogContents,
             });
           },
@@ -159,8 +207,56 @@ export default {
             this.blogContents.blogContentsTitle = res.data.blogContentsTitle;
             this.blogContents.blogContents = res.data.blogContents;
 
+            function youtubePlugin() {
+              Viewer.codeBlockManager.setReplacer('youtube', (youtubeId) => {
+                // console.log(youtubeId);
+                // Indentify multiple code blocks
+                //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+                const arr = youtubeId.split('v=');
+                youtubeId = arr[1];
+
+                const wrapperId = `yt${Math.random()
+                  .toString(36)
+                  .substr(2, 10)}`;
+
+                setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+                return `<div id="${wrapperId}"></div>`;
+                // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+              });
+            }
+
+            function renderYoutube(wrapperId, youtubeId) {
+              const el = document.querySelector(`#${wrapperId}`);
+              el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen ></iframe>`;
+            }
+
+            function blogPlugin() {
+              Viewer.codeBlockManager.setReplacer('url', (url) => {
+                // console.log(youtubeId);
+                // Indentify multiple code blocks
+                //https://www.youtube.com/watch?v=Dxt5WGd-ED0
+
+                const wrapperId = `yt${Math.random()
+                  .toString(36)
+                  .substr(2, 10)}`;
+
+                setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
+                return `<div id="${wrapperId}"></div>`;
+                // return `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`;
+              });
+            }
+
+            function renderblogUrl(wrapperId, url) {
+              const el = document.querySelector(`#${wrapperId}`);
+              el.innerHTML = `<iframe width="420" height="315" src="${url}" 
+              frameborder="0" width="500" height="200" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
+              ></iframe>`;
+            }
+
             new Viewer({
-              el: document.querySelector("#viewer"),
+              el: document.querySelector('#viewer'),
+              viewer: true,
+              plugins: [youtubePlugin, blogPlugin],
               initialValue: res.data.blogContents,
             });
           },
