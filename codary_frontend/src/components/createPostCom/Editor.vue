@@ -151,7 +151,7 @@ export default {
 
       if (this.selectedTags !== null) {
         this.selectedTags.forEach((data) => {
-          if (data.key === '') data.key = null;
+          if (data.key === '') data.key = -1;
         });
       }
 
