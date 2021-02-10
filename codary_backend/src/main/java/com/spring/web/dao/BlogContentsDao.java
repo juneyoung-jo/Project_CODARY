@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 
@@ -17,6 +18,7 @@ public interface BlogContentsDao {
 	BlogContentsDto getContent(int blogContentsId) throws SQLException;
 	void writeBlogContent(BlogContentsDto blogContent) throws SQLException;
 	void writeHash(HashtagDto hash) throws SQLException;
+	void writeBlogHash(BlogHashtagDto blogHash) throws SQLException;
 	List<BlogContentsDto> listBlogContents(String blogId) throws SQLException;
 	int modifyBlogContent(BlogContentsDto blogContent);
 	int deleteBlogContent(int blogContentsId);

@@ -21,13 +21,6 @@ public class HashtagDto {
 	public void setHashtagId(int hashtagId) {
 		this.hashtagId = hashtagId;
 	}
-	public int getHashtag_id() {
-		return hashtagId;
-	}
-	
-	public void setHashtag_id(int hashtagId) {
-		this.hashtagId = hashtagId;
-	}
 
 	public String getHashtagContent() {
 		return hashtagContent;

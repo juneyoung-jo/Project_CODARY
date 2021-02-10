@@ -15,6 +15,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -45,6 +46,11 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	@Override
 	public void writeHash(HashtagDto hash) throws Exception{
 		mapper.writeHash(hash);
+	}
+	
+	@Override
+	public void writeBlogHash(BlogHashtagDto blogHash) throws Exception{
+		mapper.writeBlogHash(blogHash);
 	}
 
 	@Override

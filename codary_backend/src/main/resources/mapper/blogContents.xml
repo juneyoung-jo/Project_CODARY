@@ -10,14 +10,19 @@
 		where blog_contents_id = #{blogContentsId} and isdeleted = 0
 	</select>
 	
-	<insert id="writeBlogContent" parameterType="BlogContentsDto">
+	<insert id="writeBlogContent" parameterType="BlogContentsDto" useGeneratedKeys="true" keyProperty="blogContentsId">
 		insert into blogcontents(blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
 		values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
 	</insert>
 	
-	<insert id="writeHash" parameterType="HashtagDto" useGeneratedKeys="true" keyProperty="hashtag_id">
+	<insert id="writeHash" parameterType="HashtagDto" useGeneratedKeys="true" keyProperty="hashtagId">
 		insert into hashtag(hashtag_content) 
 		values(#{hashtagContent})
+	</insert>
+	
+	<insert id="writeBlogHash" parameterType="BlogHashtagDto" >
+		insert into bloghashtag(hashtag_id, blog_contents_id, blog_id)
+		values(#{hashtagId}, #{blogContentsId}, #{blogId})
 	</insert>
 	
 	<select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">

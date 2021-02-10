@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
@@ -61,8 +62,11 @@ public class BlogContentsController {
 	/**
 	 * 블로그 글 작성
 	 * 
+	 * 1. 블로그 컨텐츠 생성
+	 * 2. 해시태그 생성
+	 * 3. 블로그해시태그 생성
+	 * 
 	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents,
-	 *                                blogContentsCover)
 	 * @return List<BlogContentsDto>
 	 */
 	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
@@ -70,27 +74,33 @@ public class BlogContentsController {
 	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception {
 		System.out.println("#글작성 호출 ");
 		try {
-			// 1. 블로그 컨텐츠 작성
+			// 1. 블로그 컨텐츠 테이블 insert
 			contentsService.writeBlogContent(content);
-
-			// 2. 해시태그 삽입
+			System.out.println("#블로그 컨텐츠 번호: " + content.getBlogContentsId());
+			// 2. 해시태그 테이블 insert
 			List<Map<String, String>> hashTag = content.getHashTag();
 			for (int i = 0; i < hashTag.size(); i++) {
+				// 2-1. 해시태그값 파싱
 				int key = Integer.parseInt(hashTag.get(i).get("key"));
 				String value = hashTag.get(i).get("value");
-				
+
 				HashtagDto hash = new HashtagDto(key, value);
-				System.out.println("before: " + key + " " + value);
+				BlogHashtagDto blogHash = null;
+				// 2-2. 해시태그 테이블에 존재하지 않는 태그라면 insert
 				if (key < 0) {
 					contentsService.writeHash(hash);
 				}
-				System.out.println("after: " + hash.getHashtagId() + " " + value);
+				// 3. 블로그해시태그 테이블에 insert
+				blogHash = new BlogHashtagDto(hash.getHashtagId(), 
+						content.getBlogContentsId(), content.getBlogId());
+				contentsService.writeBlogHash(blogHash);
+				
+				System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
 
 			}
-			
-			return new ResponseEntity<List<BlogContentsDto>>(
-						contentsService.listBlogContents(content.getBlogId()),
-						HttpStatus.OK);
+
+			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(content.getBlogId()),
+					HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
