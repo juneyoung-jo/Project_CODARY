@@ -3,7 +3,7 @@
     <v-text-field v-model="title" label="제목을 입력하세요" class="py-12" large></v-text-field>
 
     <div id="editor" />
-    <h3 class="py-8">태그를 입력하세요</h3>
+
     <!-- start  ###################################### -->
     <h3 class="py-8">태그를 입력하세요</h3>
     <tags-input
@@ -18,12 +18,7 @@
       <template v-slot:selected-tag="{ tag, index, removeTag }">
         <span v-html="tag.value"></span>
 
-        <a
-          v-show="!disabled"
-          href="#"
-          class="tags-input-remove"
-          @click.prevent="removeTag(index)"
-        ></a>
+        <a href="#" class="tags-input-remove" @click.prevent="removeTag(index)"></a>
       </template>
     </tags-input>
 
@@ -41,7 +36,6 @@
 </template>
 
 <script>
-
 // import '@toast-ui/editor/dist/toastui-editor.css';
 // import 'codemirror/lib/codemirror.css';
 // import { Editor } from '@toast-ui/vue-editor';
@@ -51,15 +45,14 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import Editor from '@toast-ui/editor';
 import 'highlight.js/styles/github.css';
 import { fileUpload } from '@/api/fileUpload.js';
-import VoerroTagsInput from "@voerro/vue-tagsinput";
-import axios from "axios";
-
+import VoerroTagsInput from '@voerro/vue-tagsinput';
+import axios from 'axios';
 
 export default {
   name: 'Editor',
   components: {
     // editor: Editor,
-    "tags-input": VoerroTagsInput,
+    'tags-input': VoerroTagsInput,
   },
   created() {
     this.getHashtag();
@@ -72,14 +65,14 @@ export default {
       },
 
       title: '',
-       // ########################
+      // ########################
       existingtags: [],
       selectedTags: [],
       // ########################
-
     };
   },
   mounted() {
+    // 코드펜 임베드 나중에
     function youtubePlugin() {
       Editor.codeBlockManager.setReplacer('youtube', (youtubeId) => {
         // Indentify multiple code blocks
@@ -100,7 +93,7 @@ export default {
     function renderYoutube(wrapperId, youtubeId) {
       const el = document.querySelector(`#${wrapperId}`);
 
-      el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}" ></iframe>`;
+      el.innerHTML = `<iframe width="100%" height="380px" src="https://www.youtube.com/embed/${youtubeId}" ></iframe>`;
     }
 
     function blogPlugin() {
@@ -121,8 +114,8 @@ export default {
 
     function renderblogUrl(wrapperId, url) {
       const el = document.querySelector(`#${wrapperId}`);
-      el.innerHTML = `<iframe width="420" height="315" src="${url}" 
-              frameborder="0" width="500" height="200" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
+      el.innerHTML = `<iframe width="100%" height="400px" src="${url}"
+              frameborder="0" marginwidth="0" marginheight="0" scrolling="auto" style="border:1 solid navy"
               ></iframe>`;
     }
 
@@ -156,7 +149,13 @@ export default {
         return;
       }
 
-      this.$emit('GETCONTENT', editContent, this.title);
+      if (this.selectedTags !== null) {
+        this.selectedTags.forEach((data) => {
+          if (data.key === '') data.key = null;
+        });
+      }
+
+      this.$emit('GETCONTENT', editContent, this.title, this.selectedTags);
     });
   },
   methods: {
@@ -173,21 +172,17 @@ export default {
     },
 
     // ####start 해시태그
-    getHashtag: function () {
+    getHashtag: function() {
       var vm = this;
-      console.log("#해시태그 읽어오기");
+      console.log('#해시태그 읽어오기');
       axios
-        .get("http://localhost:8000/codary/blog/getHashtag", "")
+        .get('http://localhost:8000/codary/blog/getHashtag', '')
         .then((response) => {
-          console.log(response.data.list[0]);
+          // console.log(response.data.list[0]);
           for (var i = 0; i < response.data.list.length; i++) {
-            console.log(
-              i +
-                " " +
-                response.data.list[i].hashtagId +
-                " " +
-                response.data.list[i].hashtagContent
-            );
+            // console.log(
+            //   i + ' ' + response.data.list[i].hashtagId + ' ' + response.data.list[i].hashtagContent
+            // );
             const d = {
               key: response.data.list[i].hashtagId,
               value: response.data.list[i].hashtagContent,
@@ -195,26 +190,23 @@ export default {
             vm.existingtags.push(d);
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     },
 
-    print: function () {
-      console.log("선택된 태그: ");
-      for (var i = 0; i < this.selectedTags.length; i++) {
-        console.log(
-          this.selectedTags[i].key + " " + this.selectedTags[i].value
-        );
-      }
+    print: function() {
+      // console.log('선택된 태그: ');
+      // console.log(this.selectedTags);
+      // for (var i = 0; i < this.selectedTags.length; i++) {
+      //   console.log(this.selectedTags[i].key + ' ' + this.selectedTags[i].value);
+      // }
     },
 
     // ####end hashtag
-
   },
 };
 </script>
-
 
 <style>
 /* The input */
@@ -234,7 +226,7 @@ export default {
   outline: none;
 }
 
-.tags-input input[type="text"] {
+.tags-input input[type='text'] {
   color: #495057;
 }
 
@@ -275,7 +267,7 @@ export default {
 
 .tags-input-remove:before,
 .tags-input-remove:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 75%;
   left: 0.15em;
