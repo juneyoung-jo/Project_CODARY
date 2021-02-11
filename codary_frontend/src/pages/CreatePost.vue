@@ -72,8 +72,7 @@ export default {
       //   .catch((err) => {
       //     console.log(err);
       //   });
-      console.log(this.blogContents.blogContentsId);
-      if (this.blogContents.blogContentsId != undefined) {
+      if (this.blogContents.blogContentsId.length > 0) {
         modifyContent(
           this.blogContents,
           () => {
@@ -85,12 +84,17 @@ export default {
           }
         );
       } else {
-        console.log(this.blogContents.blogContentsId);
         writeContent(
           this.blogContents,
-          () => {
+          (res) => {
             // console.log(res);
-            this.$router.push("/viewpost");
+            this.$router.push({
+              name: "ViewPost",
+              query: {
+                blogId: this.user.blogId,
+                blogContentsId: res.data,
+              },
+            });
           },
           (err) => {
             console.log(err);

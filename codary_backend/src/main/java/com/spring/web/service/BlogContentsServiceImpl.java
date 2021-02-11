@@ -38,8 +38,9 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	}
 
 	@Override
-	public void writeBlogContent(BlogContentsDto blogContent) throws Exception {
-		mapper.writeBlogContent(blogContent);
+	public int writeBlogContent(BlogContentsDto blogContent) throws Exception {
+		int cnt = mapper.writeBlogContent(blogContent);
+		return blogContent.getBlogContentsId();
 	}
 
 	@Override

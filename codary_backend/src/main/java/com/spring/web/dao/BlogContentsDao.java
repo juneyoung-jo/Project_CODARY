@@ -15,7 +15,7 @@ import com.spring.web.dto.UserDto;
 public interface BlogContentsDao {
 	
 	BlogContentsDto getContent(int blogContentsId) throws SQLException;
-	void writeBlogContent(BlogContentsDto blogContent) throws SQLException;
+	int writeBlogContent(BlogContentsDto blogContent) throws SQLException;
 	List<BlogContentsDto> listBlogContents(String blogId) throws SQLException;
 	int modifyBlogContent(BlogContentsDto blogContent);
 	int deleteBlogContent(int blogContentsId);
