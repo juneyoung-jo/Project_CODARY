@@ -1,17 +1,19 @@
 <template>
   <div class="py-12">
     <Search-input @GETKEYWORD="getkeyword" />
-    <select v-model="selected" @change="changeSelect($event)">
-      <option disabled value="">정렬 기준</option>
-      <option
-        v-for="option in options"
-        :key="option.value"
-        v-bind:value="option.value"
-      >
-        {{ option.text }}
-      </option>
-    </select>
     <v-container>
+      <div class="d-flex ">
+        <select v-model="selected" @change="changeSelect($event)">
+          <option disabled value="">정렬 기준</option>
+          <option
+            v-for="option in options"
+            :key="option.value"
+            v-bind:value="option.value"
+          >
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
       <SearchResult v-if="this.isSearched" :list="list" />
       <Popular-tag v-else :list="list" />
     </v-container>

@@ -1,12 +1,12 @@
 <template>
-  <div class="py-6 pa-8">
+  <div class="py-6 pa-12">
     <v-container id="user-profile-view" fluid class="profile-back">
       <v-row>
-        <v-col cols="9" class="d-flex">
+        <v-col class="d-flex align-center">
           <router-link
             :to="{
               name: 'BlogHome',
-              params: {
+              query: {
                 blogId: this.blogId,
               },
             }"
@@ -15,16 +15,15 @@
             <v-img
               class="rounded-circle elevation-6"
               :src="this.blogContents.profile"
-              width="128"
-              height="128"
+              width="80"
+              height="80"
             />
           </router-link>
           <v-card-text>
-            <h6 class="text-h6 mb-2 text--secondary">
+            <h6 class="text-h6 text--secondary">
               카카오 크루원
             </h6>
-
-            <h4 class="text-h4 mb-3 text--primary">
+            <h4 class="text-h4 text--primary">
               {{ this.blogContents.nickname }}
             </h4>
             <p class="text--secondary">

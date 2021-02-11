@@ -3,15 +3,15 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <div class="py-2"></div>
-      <h1 class="py-10 pa-14">{{ this.blogContents.blogContentsTitle }}</h1>
-      <div class="pa-13 py-0">
+      
+      <h1 class="py-10 pa-12">{{ this.blogContents.blogContentsTitle }}</h1>
+      <div class="pa-12 py-0">
         <v-chip outlined>코딩초보</v-chip>
         <v-chip outlined>도와주세요</v-chip>
         <v-chip outlined>알고리즘</v-chip>
         <v-chip outlined>백준</v-chip>
       </div>
-      <v-container class="pa-16">
+      <v-container class="pa-12">
         <div id="viewer" />
       </v-container>
       <Profile :blogContents="blogContents" />
