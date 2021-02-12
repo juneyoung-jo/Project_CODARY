@@ -27,11 +27,13 @@ export default new Vuetify({
             secondary: colors.indigo.lighten3,
             accent:colors.grey.darken4,
             error: colors.red.accent3,
+            blackwhite: colors.white
           },
           dark: {
             background: colors.grey.darken4,
             primary: colors.blue.lighten3,
             accent: colors.grey.lighten5,
+            blackwhite: colors.black
           },
         },
       },

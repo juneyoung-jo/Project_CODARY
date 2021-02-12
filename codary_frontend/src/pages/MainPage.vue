@@ -54,7 +54,7 @@
         <v-col cols="7" class='d-flex flex-column pb-16'>
           <v-carousel 
             hide-delimiters 
-            show-arrows
+            show-arrows-on-hover
           >
             <v-carousel-item
               v-for="(item,i) in cards"

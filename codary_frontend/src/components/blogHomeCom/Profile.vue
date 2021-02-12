@@ -1,10 +1,10 @@
 <template>
-  <div class="py-12">
-    <v-container class='profilebox' id="user-profile-view" fluid tag="section">
+  <v-container fluid>
+    <v-sheet color="background" class='mt-0 pa-10 profilebox' id="user-profile-view" fluid tag="section">
       <v-row>
         <v-col class="d-flex flex-column">
           <v-img
-            class="rounded-circle elevation-6 ml-8 mt-10"
+            class="rounded-circle elevation-6 ml-8 mt-7"
             :src="this.loggedInUserData.profile"
             width="130"
             height="130"
@@ -49,7 +49,7 @@
                 </v-card-text>
               </v-card>
             </p>
-            <div class="d-flex">
+            <div class="d-flex mb-16">
               <router-link class="noline" :to="'/createpost'">
                 <v-btn color="dark" min-width="100" rounded outlined>
                   글 작성
@@ -110,8 +110,8 @@
               </v-dialog>
             </div>
           </v-card-text>
-    </v-container>
-  </div>
+    </v-sheet>
+  </v-container>
 </template>
 
 <script>
@@ -187,6 +187,6 @@ export default {
 <style>
 .profilebox {
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  border-radius: 12px;
 }
 </style>

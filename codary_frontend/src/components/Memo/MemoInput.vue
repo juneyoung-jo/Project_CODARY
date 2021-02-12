@@ -2,12 +2,14 @@
   <v-card-text class="d-flex flex-column align-center">
     <v-textarea
       id="MemoSave"
-      background-color="white"
       placeholder="메모하세요"
       auto-grow
       solo-inverted
       flat
-      class="pa-0 ma-0"
+      light
+      background-color="white"
+      color="black"
+      class="pa-0 ma-0 memoinputarea"
       v-model="memodata.memoContent"
     ></v-textarea>
     <button id="button" @click="memoSave()">저장하기</button>
@@ -98,6 +100,10 @@ export default {
 #button:hover {
   color:white;
   background-color: #1ECD97;
+}
+
+.memoinputarea {
+  color: black !important;
 }
   /* button:active {
     //letter-spacing: 2px;

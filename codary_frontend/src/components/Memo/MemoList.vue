@@ -2,13 +2,12 @@
   <v-card-text 
     id="memoListItem"
     class='pa-10'
-    color="background"
   >
     <div class='mb-7'> 
       <v-list 
         v-for="item in this.calData" 
         :key="item.memoNum"
-        class='d-flex flex-column backcolor'
+        class='d-flex flex-column'
       >
         <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
         <v-list-item-content id="item.memoNum">
@@ -125,9 +124,6 @@ export default {
   overflow: auto;
   margin: 0;
   padding: 0;
-}
-.backcolor {
-  background-color: yellow;
 }
 
 </style>
