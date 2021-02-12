@@ -6,7 +6,7 @@
 
         <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
 
-        <v-list-item v-else :key="item.commentNum">
+        <v-sheet v-else :key="item.commentNum" class="pa-0">
           <!-- <v-list-item-avatar>
             <v-img :src="item.avatar"></v-img>
           </v-list-item-avatar> -->
@@ -18,7 +18,9 @@
           <CommentRow :item="item" :index="index" @DELETECMT="deleteCmt" @MODIFYCMT="modifyCmt" />
           <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
           <!-- </v-list-item-commentContent> -->
-        </v-list-item>
+         <hr>
+          <div class="py-3"></div>
+        </v-sheet>
       </template>
     </v-list>
     <div class="py-16"></div>

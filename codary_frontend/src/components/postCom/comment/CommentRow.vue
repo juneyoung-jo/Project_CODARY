@@ -1,12 +1,16 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="6" md="12">
+      <v-col cols="6" md="12" class="py-3 pa-0 pl-5">
         <template v-if="flag">
           <v-list-item-title v-html="item.commentContent"></v-list-item-title>
           <template v-if="loggedInUserData !== null && loggedInUserData.uid === item.uid">
-            <v-btn plain color="blue" @click="modifyCmt()">댓글수정</v-btn>
-            <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn>
+            <v-btn plain color="blue" @click="modifyCmt()">
+              <font-awesome-icon :icon="['fas','edit']"/> : 수우저엉
+            </v-btn>
+            <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">
+              <font-awesome-icon :icon="['fas','trash-alt']"/> : 사악제에
+            </v-btn>
           </template>
         </template>
         <template v-else>

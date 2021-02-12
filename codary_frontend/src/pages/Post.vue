@@ -6,21 +6,22 @@
       
       <h1 class="py-10 pa-12">{{ this.blogContents.blogContentsTitle }}</h1>
       <div class="pa-12 py-0">
-        <v-chip outlined>코딩초보</v-chip>
-        <v-chip outlined>도와주세요</v-chip>
-        <v-chip outlined>알고리즘</v-chip>
+        <v-chip outlined class="mr-2">코딩초보</v-chip>
+        <v-chip outlined class="mr-2">도와주세요</v-chip>
+        <v-chip outlined class="mr-2">알고리즘</v-chip>
         <v-chip outlined>백준</v-chip>
       </div>
-      <v-container class="pa-12">
+      <v-container class="py-8 pa-12">
         <div id="viewer" />
+        <v-btn align="center" class="mt-9" outlined color="primary" @click="clickLike()">
+          좋아요? {{ likeOrNot }}
+        </v-btn>
       </v-container>
       <Profile :blogContents="blogContents" />
-      <v-btn align="center" class="my-8" outlined color="primary" @click="clickLike()">
-        좋아요 {{ likeOrNot }}
-      </v-btn>
+      <div class="pl-12">
 
       <v-btn v-if="this.isItMine" id="modify" align="center" class="my-8" outlined color="primary">
-        수정
+        글 수정
       </v-btn>
       <v-btn
         v-if="this.isItMine"
@@ -31,10 +32,13 @@
         color="primary"
         @click="deletePost()"
       >
-        삭제
+        글 삭제
       </v-btn>
+      </div>
+      <div class="px-12">
       <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
       <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
+      </div>
     </v-container>
   </div>
 </template>

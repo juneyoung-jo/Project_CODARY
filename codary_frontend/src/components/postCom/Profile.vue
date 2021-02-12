@@ -2,7 +2,7 @@
   <div class="py-6 pa-12">
     <v-container id="user-profile-view" fluid class="profile-back">
       <v-row>
-        <v-col class="d-flex align-center">
+        <v-col class="d-flex align-center pa-0">
           <router-link
             :to="{
               name: 'BlogHome',
@@ -26,9 +26,9 @@
             <h4 class="text-h4 text--primary">
               {{ this.blogContents.nickname }}
             </h4>
-            <p class="text--secondary">
+            <span class="text--secondary">
               개발자를 위한 블로그를 개발중인 개발자
-            </p>
+            </span>
           </v-card-text>
         </v-col>
       </v-row>
