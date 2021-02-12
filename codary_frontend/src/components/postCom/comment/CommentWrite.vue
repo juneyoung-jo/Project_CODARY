@@ -1,16 +1,18 @@
 <template>
   <div>
     <div class="py-7"></div>
-    <h1>Comment</h1>
-    <v-container class="d-flex">
+    
+    <v-container class="d-flex pa-0">
       <v-text-field
         v-model="comment.commentContent"
         label="여기에 댓글을 입력하세요"
         clearable
+        @keyup.enter="write()"
       ></v-text-field>
-      <v-btn plain color="blue" @click="write()">
+      <v-btn elevation="2" plain color="blue" large class="mx-3" @click="write()">
         댓글달기!
       </v-btn>
+      
     </v-container>
   </div>
 </template>
