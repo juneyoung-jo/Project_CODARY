@@ -59,15 +59,15 @@ export default {
     },
     searchBy() {
       if (this.selected == 2)
-        getByView(this.keyword.replace(/#/g, "%23"), (res) => {
+        getByView(this.keyword, (res) => {
           this.list = res.data;
         });
       else if (this.selected == 3)
-        getByLike(this.keyword.replace(/#/g, "%23"), (res) => {
+        getByLike(this.keyword, (res) => {
           this.list = res.data;
         });
       else
-        getByDate(this.keyword.replace(/#/g, "%23"), (res) => {
+        getByDate(this.keyword, (res) => {
           this.list = res.data;
         });
     },

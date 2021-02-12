@@ -118,7 +118,7 @@ export default {
   height: 100%;
   width: 282px;
   transition: 0.5s;
-  background-color:rgb(245, 243, 157);
+  background-color:aliceblue;
 }
 
 .activate {
@@ -132,7 +132,7 @@ export default {
   width: 60px;
   height: 50px;
   border-radius: 5px;
-  background-color:rgb(245, 243, 157);
+  background-color: aliceblue;
   position: absolute;
   top: 30%;
   left: -20%;

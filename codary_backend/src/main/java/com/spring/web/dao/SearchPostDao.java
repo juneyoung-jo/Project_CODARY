@@ -14,5 +14,8 @@ public interface SearchPostDao {
 	List<BlogPostDto> searchTitle() throws SQLException;
 	List<BlogPostDto> searchHash(String keyword) throws SQLException;
 	List<Integer> searchByHash(Map<String, Object> map) throws SQLException;
-	List<Map<String, Object>> searchByTitle() throws SQLException;
+	List<Integer> getCommentInfo(int blogContentsId) throws SQLException;
+	Map<String, String> getUserProfile(String blogId) throws SQLException;
+	List<BlogPostDto> getPostInfo(List<Integer> list) throws SQLException;
+//	List<Map<String, Object>> searchByTitle() throws SQLException;
 }
