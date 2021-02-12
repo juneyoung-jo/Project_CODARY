@@ -76,6 +76,7 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("blogId", post.getBlogId());
 			m.put("blogContentsId", post.getBlogContentsId());
+			m.put("blogContentsTitle", post.getBlogContentsTitle());
 			m.put("blogConetentsCover", post.getBlogContentsCover());
 			m.put("hashtags", mapper.getHashtagOfPost(post.getBlogContentsId()));
 			recommendList.add(m);
