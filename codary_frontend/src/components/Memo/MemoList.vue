@@ -3,11 +3,11 @@
     id="memoListItem"
     class='pa-10'
   >
-    <div> 
+    <div class='mb-7'> 
       <v-list 
         v-for="item in this.calData" 
         :key="item.memoNum"
-        class='d-flex flex-column transparent'
+        class='d-flex flex-column transparent backcolor'
       >
         <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
         <v-list-item-content id="item.memoNum">
@@ -21,6 +21,9 @@
             <font-awesome-icon :icon="['fas','trash-alt']"/>
           </v-btn>
         </div>
+        <div class='py-2'>
+        </div>
+        <hr>
       </v-list>
     </div>
       <v-pagination
@@ -124,6 +127,8 @@ export default {
   margin: 0;
   padding: 0;
 }
-
+.backcolor {
+  background-color: yellow;
+}
 
 </style>
