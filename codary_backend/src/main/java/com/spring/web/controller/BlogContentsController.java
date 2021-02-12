@@ -62,14 +62,13 @@ public class BlogContentsController {
 	 * 블로그 글 작성
 	 * 
 	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)
-	 * @return List<BlogContentsDto>
+	 * @return int(blogContentsId)
 	 */
-	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
+	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return int(blogContentsId)")
 	@PostMapping
-	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception{
+	public ResponseEntity<Integer> write(@RequestBody BlogContentsDto content) throws Exception{
 		try {
-			contentsService.writeBlogContent(content);
-			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(content.getBlogId()), HttpStatus.OK);
+			return new ResponseEntity<Integer>(contentsService.writeBlogContent(content), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

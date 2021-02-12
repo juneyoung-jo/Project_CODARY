@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import '@toast-ui/editor/dist/toastui-editor.css';
-import 'codemirror/lib/codemirror.css';
+import "@toast-ui/editor/dist/toastui-editor.css";
+import "codemirror/lib/codemirror.css";
 // import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 // import { Viewer } from '@toast-ui/vue-editor';
 
 export default {
-  name: 'PostViewer',
-  props: ['blogContents'],
+  name: "PostViewer",
+  props: ["blogContents"],
   components: {
     // viewer: Viewer,
     // 'viewer': Viewer

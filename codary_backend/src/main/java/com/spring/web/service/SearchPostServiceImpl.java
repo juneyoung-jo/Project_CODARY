@@ -33,17 +33,22 @@ public class SearchPostServiceImpl implements SearchPostService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("num", keywords.size());
 		map.put("keywords", keywords);
-		List<Integer> results = mapper.searchByHash(map); // 검색 결과에 적합한 블로그 글 아이디 리스트
+		List<Integer> list = mapper.searchByHash(map); // 검색 결과에 적합한 블로그 글 아이디 리스트
 //		logger.info("결과 크기: " + results.size());
 //		for(Integer i : results) {
 //			logger.info("결과: " + i);
 //		}
 
-		//////////////////////////
-		// BlogPostDto로 만드는 로직 //
-		/////////////////////////
+		List<BlogPostDto> result = mapper.getPostInfo(list); //BlogContents정보
+		Map<String, String> profile;
+		for(BlogPostDto post: result) {
+			post.setCommentCnt(mapper.getCommentInfo(post.getBlogContentsId()).size());
+			profile = mapper.getUserProfile(post.getBlogId());
+			post.setProfile(profile.get("profile"));
+			post.setNickname(profile.get("nickname"));
+		}
 
-		return null;
+		return result;
 	}
 
 	@Override
@@ -79,107 +84,5 @@ public class SearchPostServiceImpl implements SearchPostService {
 	public List<BlogPostDto> searchAll() throws Exception {
 		return mapper.searchTitle();
 	}
-
-//	@Override
-//	public List<BlogPostDto> orderByDate(String keyword) throws Exception {
-//		List<BlogPostDto> list;
-//		if(keyword.charAt(0) == '#')
-//			list = sqlSession.getMapper(SearchPostDao.class).searchHash(keyword);
-//		else {
-//			list = new LinkedList<>();
-//			List<BlogPostDto> result = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//			for(BlogPostDto bpd : result) {
-//				if(bpd.getBlogContentsTitle().contains(keyword))
-//					list.add(bpd);
-//			}
-//		}
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
-//			}
-//		});
-//		return list;
-//	}
-//
-//	@Override
-//	public List<BlogPostDto> orderByDate() throws Exception {
-//		List<BlogPostDto> list = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
-//			}
-//		});
-//		return list;
-//	}
-//
-//	@Override
-//	public List<BlogPostDto> orderByView(String keyword) throws Exception {
-//		List<BlogPostDto> list;
-//		if(keyword.charAt(0) == '#')
-//			list = sqlSession.getMapper(SearchPostDao.class).searchHash(keyword);
-//		else {
-//			list = new LinkedList<>();
-//			List<BlogPostDto> result = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//			for(BlogPostDto bpd : result) {
-//				if(bpd.getBlogContentsTitle().contains(keyword))
-//					list.add(bpd);
-//			}
-//		}
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogContentsView() - o1.getBlogContentsView();
-//			}
-//		});
-//		return list;
-//	}
-//
-//	@Override
-//	public List<BlogPostDto> orderByView() throws Exception {
-//		List<BlogPostDto> list = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogContentsView() - o1.getBlogContentsView();
-//			}
-//		});
-//		return list;
-//	}
-//
-//	@Override
-//	public List<BlogPostDto> orderByLike(String keyword) throws Exception {
-//		List<BlogPostDto> list;
-//		if(keyword.charAt(0) == '#')
-//			list = sqlSession.getMapper(SearchPostDao.class).searchHash(keyword);
-//		else {
-//			list = new LinkedList<>();
-//			List<BlogPostDto> result = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//			for(BlogPostDto bpd : result) {
-//				if(bpd.getBlogContentsTitle().contains(keyword))
-//					list.add(bpd);
-//			}
-//		}
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogContentsLike() - o1.getBlogContentsLike();
-//			}
-//		});
-//		return list;
-//	}
-//
-//	@Override
-//	public List<BlogPostDto> orderByLike() throws Exception {
-//		List<BlogPostDto> list = sqlSession.getMapper(SearchPostDao.class).searchTitle();
-//		Collections.sort(list, new Comparator<BlogPostDto>() {
-//			@Override
-//			public int compare(BlogPostDto o1, BlogPostDto o2) {
-//				return o2.getBlogContentsLike() - o1.getBlogContentsLike();
-//			}
-//		});
-//		return list;
-//	}
 
 }

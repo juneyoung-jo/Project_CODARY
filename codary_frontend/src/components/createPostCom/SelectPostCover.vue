@@ -6,9 +6,7 @@
       <v-col md="4" align="start">
         <v-dialog transition="dialog-top-transition" max-width="600">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" class="ml-3">
-              커버수정
-            </v-btn>
+            <v-btn v-bind="attrs" v-on="on" class="ml-3"> 커버수정 </v-btn>
           </template>
           <template v-slot:default="dialog">
             <v-card class="d-flex flex-column pa-8">
@@ -51,17 +49,18 @@ import { mapState } from 'vuex';
 import { fileUpload } from '@/api/fileUpload.js';
 
 export default {
-  name: 'SelectPostCover',
+  name: "SelectPostCover",
+  props: ["blogContents"],
   computed: {
-    ...mapState(['mycover']),
+    ...mapState(["mycover"]),
   },
   data() {
     return {
       covers: [
-        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/afrc2021-0004-24.jpg',
-        'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
-        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
-        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg',
+        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/afrc2021-0004-24.jpg",
+        "https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg",
+        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg",
+        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg",
       ],
       currentImg:
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
