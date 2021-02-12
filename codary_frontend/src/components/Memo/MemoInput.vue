@@ -1,5 +1,5 @@
 <template>
-  <v-card-text class="d-flex flex-column">
+  <v-card-text class="d-flex flex-column align-center">
     <v-textarea
       id="MemoSave"
       background-color="white"
@@ -7,10 +7,10 @@
       auto-grow
       solo-inverted
       flat
-      class="pa-0"
+      class="pa-0 ma-0"
       v-model="memodata.memoContent"
     ></v-textarea>
-    <v-btn tile small outlined @click="memoSave()" color="teal">저장하기</v-btn>
+    <button id="button" @click="memoSave()">저장하기</button>
   </v-card-text>
 </template>
 
@@ -79,4 +79,66 @@ export default {
   },
 };
 </script>
-<style></style>
+
+<style>
+#button {
+  outline:none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius:40px;
+  
+  border: 2px solid #1ECD97;
+  color: #1ECD97;
+  letter-spacing:1px;
+  text-shadow:0;
+
+}
+
+#button:hover {
+  color:white;
+  background-color: #1ECD97;
+}
+  /* button:active {
+    //letter-spacing: 2px;
+    letter-spacing: 2px ;
+  },
+  button:after {
+    content:"SUBMIT";
+  }
+
+.onclic {
+  width: 40px;
+  border-color:gray;
+  border-width:3px;
+  font-size:0;
+  border-left-color:green;
+  animation: rotating 2s 0.25s linear infinite;
+
+  onclic:after {
+    content:"";
+  }
+ onclic:hover {
+    color:green;
+    background: white;
+  }
+},
+.validate {
+  font-size:13px;
+  color: white;
+  background: green;
+  &:after {
+    font-family:'FontAwesome';
+    content:"\f00c";
+  }
+},
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+</style>

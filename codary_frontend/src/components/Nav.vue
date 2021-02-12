@@ -1,8 +1,8 @@
 <template>
-  <v-app-bar app elevate-on-scroll class="pt-1">
+  <v-app-bar color="background" app elevate-on-scroll class="pt-1">
     <!-- logo -->
     <router-link :to="'/'" class="noline">
-      <h2 style="color:black">codary</h2>
+      <h2>codary</h2>
     </router-link>
     <v-spacer></v-spacer>
     <v-row justify="center">
@@ -15,11 +15,11 @@
       </v-col>
     </v-row>
     <!-- buttons -->
-    <v-row justify="end">
+    <v-row justify="end mb-2" class='mr-4'>
       <v-col cols="auto">
         <!-- search -->
         <router-link class="noline" :to="'/searchpage'">
-          <v-btn plain class="mb-3 mr-3">
+          <v-btn plain fab class="mb-3 mr-3 p-0">
             <span style="font-size:20px">
               <font-awesome-icon :icon="['fas', 'search']" />
             </span>

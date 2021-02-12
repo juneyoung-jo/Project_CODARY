@@ -18,11 +18,12 @@
     </section>
 
     <section id="share" class="section">
-      <v-row no-gutters align="center" class="mx-auto" justify="center" style="height:100%">
+      <v-row no-gutters style="height:100%">
         <v-container fill-height>
           <v-row>
-            <v-col cols="2"> </v-col>
-            <v-col class="text-left pt-16 align-center" cols="4" tag="h1">
+            <v-col cols="2"></v-col>
+            <v-col cols="4" tag="h1">
+              <div class='py-16'></div>
               <span
                 :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
                 class="font-weight-bold"
@@ -41,8 +42,8 @@
                 Markdown, 코드 공유
               </v-responsive>
             </v-col>
-            <v-col cols="4" class="justify-start align-start">
-              <v-img src="@/assets/share.png"> </v-img>
+            <v-col cols="4" class="d-flex flex-column pb-16 mb-16">
+              <v-img src="@/assets/share.png"></v-img>
             </v-col>
           </v-row>
         </v-container>
@@ -50,12 +51,15 @@
     </section>
     <section id="tag" class="section">
       <v-row no-gutters align="center" class="mx-auto" justify="center" style="height:100%">
-        <v-col cols="7">
-          <v-carousel hide-delimiters show-arrows>
+        <v-col cols="7" class='d-flex flex-column pb-16'>
+          <v-carousel 
+            hide-delimiters 
+            show-arrows
+          >
             <v-carousel-item
-              v-for="(item, i) in cards"
+              v-for="(item,i) in cards"
               :key="i"
-              :src="item.blogContentsCover"
+              :src="item.blogConetentsCover"
               :to="{
                 name: 'ViewPost',
                 query: {
@@ -64,10 +68,26 @@
                 },
               }"
             >
-              <v-row class="fill-height" align="end" justify="center">
-                <v-chip filled color="cyan" class="mb-10">
-                  {{ item.blogContentsTitle }}
-                </v-chip>
+              <v-row
+                class="fill-height"
+                align="end"
+                justify="center"
+              >
+              <v-item-group>
+                <v-item
+                  v-for="(hashtag,i) in item.hashtags"
+                  :key="i"
+                  class='ma-1'
+                >
+                  <v-chip
+                    filled
+                    color="primary"
+                    class='mb-10'
+                  >
+                    {{hashtag}}
+                  </v-chip>
+                </v-item>
+              </v-item-group>
               </v-row>
             </v-carousel-item>
           </v-carousel>
@@ -97,6 +117,7 @@
           <v-responsive class="mx-auto title font-weight-light">
             커뮤니티를 만들 수도 있습니다.
           </v-responsive>
+          <div class='py-16'></div>
         </v-col>
       </v-row>
     </section>
@@ -231,7 +252,7 @@ export default {
 
 <style>
 * {
-  font-family: 'Raleway', 'Noto Sans KR', sans-serif;
+  font-family: 'Poppins','Noto Sans KR', sans-serif;
 }
 #memo {
   background-position: center;

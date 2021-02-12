@@ -21,9 +21,7 @@
             <font-awesome-icon :icon="['fas','trash-alt']"/>
           </v-btn>
         </div>
-        <div class='py-2'>
-        </div>
-        <hr>
+
       </v-list>
     </div>
       <v-pagination
