@@ -77,13 +77,17 @@ export default {
     },
     jandi(){
       console.log('잔디실행');
+       if(this.user.blogId!==this.$route.query.blogId){
+        //내가 아니면 
+        this.user.blogId=this.$route.query.blogId;
+      }
       showJandi(
       this.user.blogId,
       (response) => {
         this.result = response.data[0]
-        console.log(this.result);
+       // console.log(this.result);
         const temp=[];
-       // const tt=[];
+       
          for(var key in this.result){
           temp.push(this.result[key]);
         }
