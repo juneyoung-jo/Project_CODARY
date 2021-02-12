@@ -1,25 +1,33 @@
 <template>
   <div class="py-12">
-    <v-container id="user-profile-view" fluid tag="section">
+    <v-container class='profilebox' id="user-profile-view" fluid tag="section">
       <v-row>
-        <v-col cols="12">
+        <v-col class="d-flex flex-column">
           <v-img
-            class="rounded-circle elevation-6"
+            class="rounded-circle elevation-6 ml-8 mt-10"
             :src="this.loggedInUserData.profile"
-            width="128"
+            width="130"
+            height="130"
           />
+          <v-card-text class='ml-4 mt-5 mb-3'>
+              <h6 class="text-h6 text--secondary">
+                CEO / FOUNDER
+              </h6>
+              <h4 class="font-weight-medium text-h4 text--primary">
+                {{ this.loggedInUserData.nickname }}
+              </h4>
+              <br>
+              <span class="text--secondary">
+                개발자를 위한 블로그를 개발중인 개발자
+              </span>
+          </v-card-text>
+        </v-col>
+      </v-row>
+  
 
           <v-card-text>
-            <h6 class="text-h6 mb-2 text--secondary">
-              CEO / FOUNDER
-            </h6>
-
-            <h4 class="text-h4 mb-3 text--primary">
-              {{ this.loggedInUserData.nickname }}
-            </h4>
-
             <p class="text--secondary">
-              <v-card flat>
+              <v-card flat class='mb-10'>
                 <v-card-text>
                   <v-container fluid class="pa-0">
                     <v-row>
@@ -102,8 +110,6 @@
               </v-dialog>
             </div>
           </v-card-text>
-        </v-col>
-      </v-row>
     </v-container>
   </div>
 </template>
@@ -178,3 +184,9 @@ export default {
   },
 };
 </script>
+<style>
+.profilebox {
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+</style>

@@ -1,7 +1,6 @@
 <template>
   <section id="blog">
     <v-container>
-      <h2 class="font-weight-bold mb-3 text-uppercase text-start">검색 결과</h2>
       <v-responsive class="mx-auto mb-12" width="56">
         <v-divider class="mb-1"></v-divider>
         <v-divider></v-divider>
@@ -37,9 +36,9 @@
           >
             <v-hover v-slot="{ hover }">
               <v-card
-                :elevation="hover ? 12 : 2"
+                :elevation="hover ? 7 : 0"
                 class="contentCard"
-                style="height:400px; transition:1s;"
+                style="height:400px; transition: 0.3s;"
               >
                 <div>
                   <v-img
@@ -63,7 +62,7 @@
                   </div>
                 </div>
                 <div style="padding:10px">
-                  <h2 class="font-weight-black mb-3 ml-0" v-text="blogContentsTitle"></h2>
+                  <h2 class="font-weight-bold mb-3 ml-0" v-text="blogContentsTitle"></h2>
                   <h4 class="mb-2">태그 들어갈 자리</h4>
 
                   <div class="d-flex align-end mb-3">

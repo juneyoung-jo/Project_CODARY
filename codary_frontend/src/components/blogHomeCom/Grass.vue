@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-spacer><hr></v-spacer>
+  <v-spacer></v-spacer>
   <h2 class='py-12'>커밋</h2>
   <v-div class="subtitle-2 text-center">
     <h4 v-if="!flag">아직 잔디를 심지 않았어요!<br>

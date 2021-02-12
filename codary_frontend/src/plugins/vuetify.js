@@ -31,7 +31,7 @@ export default new Vuetify({
           dark: {
             background: colors.grey.darken4,
             primary: colors.blue.lighten3,
-            accent: colors.grey.lighten5
+            accent: colors.grey.lighten5,
           },
         },
       },
