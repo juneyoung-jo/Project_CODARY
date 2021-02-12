@@ -14,7 +14,7 @@
           <v-list-item-avatar class="ma-3">
             <img :src="this.loggedInUserData.profile" alt="John" />
           </v-list-item-avatar>
-          <router-link :close-on-content-click="false" class="noline pa-5" :to="'/bloghome'">
+          <router-link :close-on-content-click="false" class="noline pa-5" :to="{name: 'BlogHome', query: { blogId: this.user.blogId}}">
             <v-list-item-content>
               <v-list-item-title class="myname">{{
                 this.loggedInUserData.nickname

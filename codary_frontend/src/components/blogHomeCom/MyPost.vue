@@ -177,10 +177,19 @@ export default {
   methods:{
      initUser(){
       this.user.user = getuidCookie();
-      this.user.blogId = getblogIdCookie();
+      this.user.blogId = getblogIdCookie();     
     },
+
     mypost(){
-       personalList(
+       // console.log("받은값 "+this.$route.query.blogId);
+       // console.log("나 "+this.user.blogId);
+
+      if(this.user.blogId!==this.$route.query.blogId){
+        //내가 아니면 
+        this.user.blogId=this.$route.query.blogId;
+      }
+      
+      personalList(
       this.user.blogId,
       (response) => {
          console.log(response)
@@ -191,10 +200,28 @@ export default {
       }
     )   
     }
+  },
+  filters: {
+    textLengthOverCut(txt, len, lastTxt) {
+      if (len == '' || len == null) {
+        len = 100;
+      }
+      if (lastTxt == '' || lastTxt == null) {
+        lastTxt = '...';
+      }
+      if (txt.length > len) {
+        txt = txt.substr(0, len) + lastTxt;
+      }
+      return txt;
+    },
   }
 }
 </script>
 
 <style>
-
+.contentCard:hover {
+  transition-duration: all 1s ease;
+  transform: translateY(-8px), scale(8%);
+  
+}
 </style>
