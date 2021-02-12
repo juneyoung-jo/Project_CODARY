@@ -11,7 +11,11 @@
           <template v-slot:default="dialog">
             <v-card class="d-flex flex-column pa-8">
               <h3 class="text-center py-4">커버 사진 골라보세요</h3>
-              <v-card class="text-center mb-4" v-for="(cover, idx) in covers" :key="idx">
+              <v-card
+                class="text-center mb-4"
+                v-for="(cover, idx) in covers"
+                :key="idx"
+              >
                 <v-img :src="cover" @click="selectcover(cover)"></v-img>
               </v-card>
               <v-file-input
@@ -45,8 +49,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { fileUpload } from '@/api/fileUpload.js';
+import { mapState } from "vuex";
+import { fileUpload } from "@/api/fileUpload.js";
 
 export default {
   name: "SelectPostCover",
@@ -63,11 +67,17 @@ export default {
         "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg",
       ],
       currentImg:
-        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
-      uploadImg: '',
+        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg",
+      uploadImg: "",
     };
   },
+  created() {
+    if (this.blogContents != null) this.init();
+  },
   methods: {
+    init() {
+      this.currentImg = this.blogContents.blogContentsCover;
+    },
     selectcover(cover) {
       this.currentImg = cover;
       // this.$emit('GETCOVER', cover);
@@ -78,13 +88,13 @@ export default {
       // console.log(this.currentImg);
     },
     upload() {
-      if (this.uploadImg === '') {
-        alert('이미지를 올려주세요');
+      if (this.uploadImg === "") {
+        alert("이미지를 올려주세요");
         return;
       }
 
       let formData = new FormData();
-      formData.append('file', this.uploadImg);
+      formData.append("file", this.uploadImg);
 
       //엑시오스
       fileUpload(
@@ -98,11 +108,11 @@ export default {
       );
     },
     close() {
-      if (this.currentImg === '') {
-        alert('이미지를 선택해 주세요');
+      if (this.currentImg === "") {
+        alert("이미지를 선택해 주세요");
         return;
       }
-      this.$emit('GETCOVER', this.currentImg);
+      this.$emit("GETCOVER", this.currentImg);
     },
   },
 };
