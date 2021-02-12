@@ -16,28 +16,22 @@
         <v-btn align="center" class="mt-9" outlined color="primary" @click="clickLike()">
           좋아요? {{ likeOrNot }}
         </v-btn>
+      
       </v-container>
+      
       <Profile :blogContents="blogContents" />
-      <v-btn
-        align="center"
-        class="my-8"
-        outlined
-        color="primary"
-        @click="clickLike()"
-      >
-        좋아요 {{ likeOrNot }}
-      </v-btn>
+     
 
       <v-btn
         v-if="this.isItMine"
         id="modify"
         align="center"
-        class="my-8"
+        class="mx-12"
         outlined
         color="primary"
         @click="editPost()"
       >
-        수정
+        글 수정
       </v-btn>
       <v-btn
         v-if="this.isItMine"
@@ -50,10 +44,9 @@
       >
         글 삭제
       </v-btn>
-      </div>
       <div class="px-12">
-      <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
-      <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
+        <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
+        <Comment :items="items" @DELETECMT="deleteComment" @MODIFYCOMMENT="modifyComment" />
       </div>
     </v-container>
   </div>
