@@ -21,7 +21,7 @@ public interface UserService {
 
 	public LoginCallBackDto save(HashMap<String, Object> userInfo) throws Exception;
 	
-	public void updateNickname(Map<String, String> map) throws Exception;
+	public void updateUserInfo(UserInfoDto info) throws Exception;
 
 	public void delete(String uid, String blogId) throws Exception;
 	

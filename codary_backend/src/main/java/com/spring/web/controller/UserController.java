@@ -1,5 +1,6 @@
 package com.spring.web.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.services.codecommit.model.UserInfo;
 import com.spring.web.dto.LoginCallBackDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -132,12 +134,6 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
-	/**
-	 * JWT 토큰을 이용한 유저 정보 반환
-	 * 
-	 * @param -
-	 * @return 
-	 */
 	@GetMapping("/getRefreshToken")
 	public ResponseEntity<Map<String, Object>> getRefreshToken(	HttpServletRequest request ) {
 
@@ -158,37 +154,60 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	/**
+	 * 프로필 정보 모달창
+	 * uid를 이용한 유저 정보 반환
+	 * 
+	 * @param -
+	 * @return 
+	 */
+	@GetMapping("/profileInfo/{uid}")
+	public ResponseEntity<Map<String, Object>> profileInfo( 
+			@PathVariable String uid ) {
+
+		System.out.println("#"+ uid +" 프로필 정보 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		UserInfoDto info;
+		try {
+			info = userService.findUserInfoById(uid);
+			if(info == null ) {
+				resultMap.put("message", "잘못된 회원정보 입니다.");
+			}else {
+				resultMap.put("message", SUCCESS);
+				resultMap.put("info", info);
+				logger.info("#Get userInfo: {}", info);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			resultMap.put("message", "잘못된 회원정보 입니다.");
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
 
 	/**
-	 * 유저 닉네임 업데이트
+	 * 회원 정보 수정
 	 * 
-	 * @param uid, nickname
-	 * @return LoginCallBackDto
+	 * @param UserInfoDto
+	 * @return 
 	 */
-	@ApiOperation(value = "닉네임 변경", notes ="@param : uid, 변경될 nickname  </br> @return : uid, userInfoDto, blodId, memoId")
-	@PostMapping("/update/Nickname")
-	public ResponseEntity<Map<String, Object>> updateNickname(@RequestParam("uid") String uid,
-			@RequestParam("nickname") String nickname) {
-
-		Map<String, String> map = new HashMap<String, String>();
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		map.put("uid", uid);
-		map.put("nickname", nickname);
-		LoginCallBackDto loginCallBackDto = null;
-	
+	@ApiOperation(value = "회원 정보 수정", notes ="@param : UserInfoDto </br> @return : ")
+	@PostMapping("/updateInfo")
+	public ResponseEntity<Map<String, Object>> updateInfo(
+			@RequestBody UserInfoDto info) {
+		System.out.println("#회원정보 수정 호출!!!");
+		logger.info("#Get userInfo: {}", info);
+		Map<String, Object> resultMap = new HashMap<>();
+		
 		try {
-			// 유저 닉네임 정보 업데이트
-			userService.updateNickname(map);
-			// 업데이트된 정보 다시 불러오기
-			loginCallBackDto = getLoginCallBackByUid(uid);
-			resultMap.put("message", SUCCESS);
+			userService.updateUserInfo(info);
+			resultMap.put("message", "정보 수정이 완료되었습니다.");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			resultMap.put("message", e.getMessage());
+			resultMap.put("message", "정보 수정에 실패하였습니다.");
 		}
-		resultMap.put("user", loginCallBackDto);
-
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 
@@ -200,12 +219,6 @@ public class UserController {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(uid+" 삭제 요청");
-//		final String jwt = request.getHeader("access_token");
-//		String uidCheck = null;
-//		uidCheck = jwtService.getUserId(jwt);
-//		if(uid != uidCheck) {
-//			System.out.println("# uid가 일치하지 않습니다. 잘못된 요청입니다.");
-//		}
 		
 		try {
 			// 해당 유저 정보 읽어오기.
