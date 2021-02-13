@@ -39,9 +39,8 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	}
 
 	@Override
-	public void writeBlogContent(BlogContentsDto blogContent) throws Exception {
-		mapper.writeBlogContent(blogContent);
-		return;
+	public int writeBlogContent(BlogContentsDto blogContent) throws Exception {
+		return mapper.writeBlogContent(blogContent);
 	}
 	
 	@Override
