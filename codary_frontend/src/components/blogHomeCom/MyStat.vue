@@ -2,6 +2,11 @@
 <div class='py-12'>
     <strong>블로그 방문자 수</strong>
     <div class='py-12'></div>
+    <v-div class="subtitle-2 text-center">
+      <h4 v-if="!flag">아직 블로그에 방문한 사람이 없어요!<br>
+        블로그를 홍보하세요~
+      </h4>
+    </v-div>
     <v-row>
       <v-col>
          <v-sheet
@@ -40,7 +45,8 @@ export default {
       user: {
         user: '',
         blogId: '',
-      }
+      },
+      flag: true
     }
   },
   computed: {
@@ -69,6 +75,7 @@ export default {
           //if(i==5) break;
         }
         this.value=temp;
+        if(temp.length==0) this.flag=false;
 
         var tmp=new Array();
       // var j=0;
@@ -85,6 +92,7 @@ export default {
        
       },
       (err) => {
+        this.flag=false;
         console.log(err)
       }
     ) 

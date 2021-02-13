@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex flex-column">
-    <v-text-field v-model="title" label="제목을 입력하세요" class="py-12" large></v-text-field>
+    <v-text-field v-model="title" label="제목을 입력하세요" class="py-12" large
+      >}</v-text-field
+    >
 
     <div id="editor" />
 
@@ -18,7 +20,11 @@
       <template v-slot:selected-tag="{ tag, index, removeTag }">
         <span v-html="tag.value"></span>
 
-        <a href="#" class="tags-input-remove" @click.prevent="removeTag(index)"></a>
+        <a
+          href="#"
+          class="tags-input-remove"
+          @click.prevent="removeTag(index)"
+        ></a>
       </template>
     </tags-input>
 
@@ -40,31 +46,31 @@
 // import 'codemirror/lib/codemirror.css';
 // import { Editor } from '@toast-ui/vue-editor';
 
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import Editor from '@toast-ui/editor';
-import 'highlight.js/styles/github.css';
-import { fileUpload } from '@/api/fileUpload.js';
-import VoerroTagsInput from '@voerro/vue-tagsinput';
-import axios from 'axios';
+import "codemirror/lib/codemirror.css";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import Editor from "@toast-ui/editor";
+import "highlight.js/styles/github.css";
+import { fileUpload } from "@/api/fileUpload.js";
+import VoerroTagsInput from "@voerro/vue-tagsinput";
+import axios from "axios";
 
 export default {
-  name: 'Editor',
+  name: "Editor",
+  props: ["blogContents"],
   components: {
     // editor: Editor,
-    'tags-input': VoerroTagsInput,
+    "tags-input": VoerroTagsInput,
   },
   created() {
+    this.init();
     this.getHashtag();
   },
   data() {
     return {
-      editorText: '# This is initialValue.',
+      editorText: "# This is initialValue.",
       editorOptions: {
         hideModeSwitch: true,
       },
-
-      title: '',
       // ########################
       existingtags: [],
       selectedTags: [],
@@ -74,14 +80,12 @@ export default {
   mounted() {
     // 코드펜 임베드 나중에
     function youtubePlugin() {
-      Editor.codeBlockManager.setReplacer('youtube', (youtubeId) => {
+      Editor.codeBlockManager.setReplacer("youtube", (youtubeId) => {
         // Indentify multiple code blocks
         //https://www.youtube.com/watch?v=Dxt5WGd-ED0
-        const arr = youtubeId.split('v=');
+        const arr = youtubeId.split("v=");
         youtubeId = arr[1];
-        const wrapperId = `yt${Math.random()
-          .toString(36)
-          .substr(2, 10)}`;
+        const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
 
         // Avoid sanitizing iframe tag
         setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
@@ -97,14 +101,12 @@ export default {
     }
 
     function blogPlugin() {
-      Editor.codeBlockManager.setReplacer('url', (url) => {
+      Editor.codeBlockManager.setReplacer("url", (url) => {
         // console.log(youtubeId);
         // Indentify multiple code blocks
         //https://www.youtube.com/watch?v=Dxt5WGd-ED0
 
-        const wrapperId = `yt${Math.random()
-          .toString(36)
-          .substr(2, 10)}`;
+        const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
 
         setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
         return `<div id="${wrapperId}"></div>`;
@@ -120,12 +122,13 @@ export default {
     }
 
     const editor = new Editor({
-      ref: 'toastuiEditor',
-      el: document.querySelector('#editor'),
-      initialEditType: 'markdown',
-      previewStyle: 'tab',
+      ref: "toastuiEditor",
+      el: document.querySelector("#editor"),
+      initialEditType: "markdown",
+      previewStyle: "tab",
       viewer: true,
-      height: '500px',
+      height: "500px",
+      initialValue: this.editorText,
       plugins: [youtubePlugin, blogPlugin],
       hooks: {
         addImageBlobHook: (blob, callback) => {
@@ -134,18 +137,18 @@ export default {
       },
     });
 
-    const btn = document.querySelector('#submit');
-    btn.addEventListener('click', () => {
+    const btn = document.querySelector("#submit");
+    btn.addEventListener("click", () => {
       const editContent = editor.getMarkdown();
       // console.log(editor.getHtml());
 
-      if (this.title === '') {
-        alert('제목을 입력해주세요');
+      if (this.title === "") {
+        alert("제목을 입력해주세요");
         return;
       }
 
-      if (editContent === '') {
-        alert('내용을 입력해주세요');
+      if (editContent === "") {
+        alert("내용을 입력해주세요");
         return;
       }
 
@@ -155,28 +158,31 @@ export default {
         });
       }
 
-      this.$emit('GETCONTENT', editContent, this.title, this.selectedTags);
+      this.$emit("GETCONTENT", editContent, this.title, this.selectedTags);
     });
   },
   methods: {
+    init() {
+      this.editorText = this.blogContents.blogContents;
+      this.title = this.blogContents.blogContentsTitle;
+    },
     addImageBlobHook(blob, callback) {
       let formData = new FormData();
 
-      formData.append('file', blob);
+      formData.append("file", blob);
 
       fileUpload(
         formData,
-        (response) => callback(response.data, 'img'),
+        (response) => callback(response.data, "img"),
         (error) => console.log(error)
       );
     },
-
     // ####start 해시태그
-    getHashtag: function() {
+    getHashtag: function () {
       var vm = this;
-      console.log('#해시태그 읽어오기');
+      console.log("#해시태그 읽어오기");
       axios
-        .get('http://localhost:8000/codary/blog/getHashtag', '')
+        .get("http://localhost:8000/codary/blog/getHashtag", "")
         .then((response) => {
           // console.log(response.data.list[0]);
           for (var i = 0; i < response.data.list.length; i++) {
@@ -190,12 +196,12 @@ export default {
             vm.existingtags.push(d);
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },
 
-    print: function() {
+    print: function () {
       // console.log('선택된 태그: ');
       // console.log(this.selectedTags);
       // for (var i = 0; i < this.selectedTags.length; i++) {
@@ -226,7 +232,7 @@ export default {
   outline: none;
 }
 
-.tags-input input[type='text'] {
+.tags-input input[type="text"] {
   color: #495057;
 }
 
@@ -267,7 +273,7 @@ export default {
 
 .tags-input-remove:before,
 .tags-input-remove:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 75%;
   left: 0.15em;

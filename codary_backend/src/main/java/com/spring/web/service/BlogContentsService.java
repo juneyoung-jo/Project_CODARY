@@ -25,8 +25,11 @@ public interface BlogContentsService {
 	int modifyBlogContent(BlogContentsDto blogContent);
 
 	int deleteBlogContent(int blogContentsId);
+	
 	List<Map<String, Object>> recommendBlogContents() throws Exception;
+	
 	BlogContentsDto writeLog(String uid, String blogId, int blogContentsId)throws Exception;
+	
 	void increaseContentsView(int blogContentsId) throws Exception;
 
 	BlogContentsLikeDto readBlogContentsLike(BlogContentsLikeDto like) throws Exception;

@@ -39,7 +39,7 @@
               <v-card
                 :elevation="hover ? 12 : 2"
                 class="contentCard"
-                style="height:400px; transition:5s;"
+                style="height:400px; transition:1s;"
               >
                 <div>
                   <v-img
@@ -124,7 +124,7 @@ export default {
 
 <style>
 .contentCard:hover {
-  transition-duration: all 5s ease;
+  transition-duration: all 1s ease;
   transform: translateY(-8px);
 }
 </style>

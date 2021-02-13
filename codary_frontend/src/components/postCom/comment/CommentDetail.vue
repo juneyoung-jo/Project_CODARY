@@ -1,20 +1,21 @@
 <template>
-  <div>
-    <img :src="user.profile" />
-    <h3>{{ user.nickname }}</h3>
-    <h5>좋아요 : {{ this.comment.commentLike }}</h5>
-    <template v-if="loggedInUserData !== null">
-      <template v-if="!commentLikeflag">
-        <v-btn plain color="blue" @click="cmtLike()">
-          좋아요!
-        </v-btn>
+  <div class="d-flex align-center">
+    <img :src="user.profile" width="40px" height="40px" style="border-radius:20px"/>
+    <h3 class="ml-3">{{ user.nickname }}</h3>
+    <div class="ml-3">
+      <template v-if="loggedInUserData !== null">
+        <template v-if="!commentLikeflag">
+          <v-btn plain color="blue" class="pa-0" outlined @click="cmtLike()">
+            <font-awesome-icon :icon="['fas','heart']"/> : {{ this.comment.commentLike }}
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn plain color="red" outlined @click="cmtLikeCancle()">
+            <font-awesome-icon :icon="['fas','heart-broken']"/> : {{ this.comment.commentLike }}
+          </v-btn>
+        </template>
       </template>
-      <template v-else>
-        <v-btn plain color="red" @click="cmtLikeCancle()">
-          좋아요 취소!
-        </v-btn>
-      </template>
-    </template>
+    </div>
   </div>
 </template>
 

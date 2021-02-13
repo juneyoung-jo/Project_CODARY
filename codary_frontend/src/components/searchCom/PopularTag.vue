@@ -1,9 +1,9 @@
 <template>
   <section id="blog">
     <v-container>
-      <h2 class="font-weight-bold mb-3 text-uppercase text-start">
+      <!-- <h2 class="font-weight-bold mb-3 text-uppercase text-start">
         인기태그
-      </h2>
+      </h2> -->
 
       <v-responsive class="mx-auto mb-12" width="56">
         <v-divider class="mb-1"></v-divider>
@@ -42,7 +42,7 @@
               <v-card
                 :elevation="hover ? 12 : 2"
                 class="contentCard"
-                style="height:400px; transition:5s;"
+                style="height:400px; transition:1s;"
               >
                 <div>
                   <v-img
@@ -69,8 +69,8 @@
                   <h2 class="font-weight-black mb-3 ml-0" v-text="blogContentsTitle"></h2>
                   <h4 class="mb-2">태그 들어갈 자리</h4>
 
-                  <div class="d-flex align-end mb-3">
-                    <v-img :src="profile" class="mr-3" height="40" max-width="40px"></v-img>
+                  <div class="d-flex align-center mb-3">
+                    <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
                     <span>
                       {{ nickname }}
                     </span>
@@ -129,7 +129,8 @@ export default {
 
 <style>
 .contentCard:hover {
-  transition-duration: all 5s ease;
-  transform: translateY(-8px);
+  transition-duration: all 1s ease;
+  transform: translateY(-8px), scale(8%);
+  
 }
 </style>
