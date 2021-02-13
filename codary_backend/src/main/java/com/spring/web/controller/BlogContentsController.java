@@ -79,24 +79,26 @@ public class BlogContentsController {
 			System.out.println("#블로그 컨텐츠 번호: " + content.getBlogContentsId());
 			// 2. 해시태그 테이블 insert
 			List<Map<String, String>> hashTag = content.getHashTag();
-			for (int i = 0; i < hashTag.size(); i++) {
-				// 2-1. 해시태그값 파싱
-				int key = Integer.parseInt(hashTag.get(i).get("key"));
-				String value = hashTag.get(i).get("value");
-
-				HashtagDto hash = new HashtagDto(key, value);
-				BlogHashtagDto blogHash = null;
-				// 2-2. 해시태그 테이블에 존재하지 않는 태그라면 insert
-				if (key < 0) {
-					contentsService.writeHash(hash);
+			if(hashTag != null) {
+				for (int i = 0; i < hashTag.size(); i++) {
+					// 2-1. 해시태그값 파싱
+					int key = Integer.parseInt(hashTag.get(i).get("key"));
+					String value = hashTag.get(i).get("value");
+	
+					HashtagDto hash = new HashtagDto(key, value);
+					BlogHashtagDto blogHash = null;
+					// 2-2. 해시태그 테이블에 존재하지 않는 태그라면 insert
+					if (key < 0) {
+						contentsService.writeHash(hash);
+					}
+					// 3. 블로그해시태그 테이블에 insert
+					blogHash = new BlogHashtagDto(hash.getHashtagId(), 
+							content.getBlogContentsId(), content.getBlogId());
+					contentsService.writeBlogHash(blogHash);
+					
+					System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
+	
 				}
-				// 3. 블로그해시태그 테이블에 insert
-				blogHash = new BlogHashtagDto(hash.getHashtagId(), 
-						content.getBlogContentsId(), content.getBlogId());
-				contentsService.writeBlogHash(blogHash);
-				
-				System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
-
 			}
 
 			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(content.getBlogId()),
