@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,6 +69,8 @@ public class BlogContentsController {
 	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents,
 	 * @return int(blogContentsId)
 	 */
+
+//	@CacheEvict(cacheNames = {"get_Contents"}, allEntries = true)
 	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return int(blogContentsId)")
 	@PostMapping
 	public ResponseEntity<Integer> write(@RequestBody BlogContentsDto content) throws Exception {

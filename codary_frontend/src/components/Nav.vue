@@ -15,7 +15,7 @@
       </v-col>
     </v-row>
     <!-- buttons -->
-    <v-row justify="end mb-2 mr-2">
+    <v-row justify="end">
       <v-col cols="auto">
         <!-- search -->
         <router-link class="noline" :to="'/searchpage'">
