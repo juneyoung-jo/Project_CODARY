@@ -66,6 +66,8 @@ export default {
   created(){
     this.initUser();
     this.jandi(); 
+    //location.reload();
+   // console.log('잔디 새로고침');
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
@@ -80,6 +82,11 @@ export default {
        if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 
         this.user.blogId=this.$route.query.blogId;
+      }
+       if(typeof this.$route.query.blogId==='undefined'){
+        //나이면
+        this.user.blogId=getblogIdCookie();
+        //console.log("언디파인드실행")
       }
       showJandi(
       this.user.blogId,

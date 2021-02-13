@@ -1,52 +1,6 @@
 <template>
   <div class='py-12'>
-    <h2>
-      Choose tags
-    </h2>
-    <v-card-text>
-      <v-chip-group
-        column
-        multiple
-      >
-        <v-chip
-          filter
-          outlined
-        >
-          Elevator
-        </v-chip>
-        <v-chip
-          filter
-          outlined
-        >
-          Washer / Dryer
-        </v-chip>
-        <v-chip
-          filter
-          outlined
-        >
-          Fireplace
-        </v-chip>
-        <v-chip
-          filter
-          outlined
-        >
-          Wheelchair access
-        </v-chip>
-        <v-chip
-          filter
-          outlined
-        >
-          Dogs ok
-        </v-chip>
-        <v-chip
-          filter
-          outlined
-        >
-          Cats ok
-        </v-chip>
-      </v-chip-group>
-    </v-card-text>
-
+   
     <v-container>
       <v-responsive
         class="mx-auto mb-12"
@@ -187,6 +141,11 @@ export default {
       if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 
         this.user.blogId=this.$route.query.blogId;
+      }
+      if(typeof this.$route.query.blogId==='undefined'){
+        //나이면
+        this.user.blogId=getblogIdCookie();
+        //console.log("언디파인드실행")
       }
       
       personalList(
