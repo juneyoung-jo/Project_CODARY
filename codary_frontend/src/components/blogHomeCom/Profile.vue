@@ -100,8 +100,10 @@
                             accept="image/png, image/jpeg, image/bmp"
                             placeholder="Pick an avatar"
                             prepend-icon="mdi-camera"
+                            @change="selectImg"
                           ></v-file-input>
                         </v-col>
+                        <v-btn @click="upload">사진 업로드</v-btn>
                         <!-- ############################################ -->
                         <!-- ############################################ -->
                       </v-row>
@@ -129,6 +131,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { fileUpload } from "@/api/fileUpload.js";
 import { blogerLike, blogerUnlike, readBlogerlike } from "@/api/personal.js";
 import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 
@@ -160,6 +163,7 @@ export default {
       // profile: this.loggedInUserData.profile,
       imgUrl: "",
       uploadImg: [],
+      uploadFile: "",
     };
   },
   computed: {
@@ -208,8 +212,38 @@ export default {
     },
     updateInfo() {
       console.log("#updateUserInfo 호출");
-      console.log("현재이미지: " + this.imgUrl);
+      const info = {
+        nickname: this.nickname,
+        job: this.job,
+        intro: this.intro,
+        img: this.getImgUrl(),
+      };
+      console.log("유저 정보: " + info);
+      console.log("이미지 정보: " + this.getImgUrl());
       this.dialog = false;
+    },
+    selectImg(img) {
+      this.uploadFile = img;
+    },
+    upload() {
+      if (this.uploadFile === "") {
+        alert("이미지를 업로드 해주세요");
+        return false;
+      } else {
+        const formData = new FormData();
+        formData.append("file", this.uploadFile);
+        fileUpload(
+          formData,
+          (response) => {
+            if (response.data === null) return;
+            this.imgUrl = response.data;
+          },
+          (error) => console.log(error)
+        );
+      }
+    },
+    getImgUrl() {
+      return this.imgUrl;
     },
     initImgUrl() {
       this.imgUrl = this.loggedInUserData.profile;
