@@ -283,7 +283,10 @@ export default {
     },
     // 정보 수정 취소
     close() {
-      this.imgUrl = this.loggedInUserData.profile;
+      this.nickname_ = this.nickname;
+      this.job_ = this.job;
+      this.intro_ = this.intro;
+      this.imgUrl_ = this.imgUrl;
       this.dialog = false;
     },
   },
