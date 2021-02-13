@@ -1,6 +1,6 @@
 <template>
   <div>
-      <MyCover/>
+    <MyCover />
     <v-container>
       <Profile/>
       <Grass/>
@@ -35,6 +35,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

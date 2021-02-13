@@ -3,9 +3,8 @@
     src="https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg"
     max-height="300"
     top
+    class='py-0 my-0'
   >
-  <v-row class='py-16'></v-row>
-  <v-row class='py-8'></v-row>
     <v-row class="py-16">
       <v-col
         md="8"

@@ -56,7 +56,7 @@ function blogerLike(blogerLike, success, fail) {
       .post(`personal/blogerLike`, blogerLike)
       .then(success)
       .catch(fail);
-  }
+    }
   
   //언팔로우
 function blogerUnlike(blogerLike, success, fail) {
@@ -73,10 +73,25 @@ function readBlogerlike(blogerLike, success, fail) {
       .then(success)
       .catch(fail);
   }
-  
-function getUserInfo(blogId, success, fail){
+
+/**
+ * 내 블로그 홈에서 프로필 정보 읽어오는 함수
+ */
+function getUserInfo(uid, success, fail) {
+    console.log("# "+ uid+  " 로 프로필 정보 읽어오기!!")
     instance
-        .get(`personal/userinfo/${blogId}`)
+        .get(`user/profileInfo/${uid}`)
+        .then(success)
+        .catch(fail);
+}
+
+/**
+ * 프로필 정보 수정 함수
+ */
+function updateUserinfo(userinfo, success, fail) {
+    console.log("#유저 정보 수정!!")
+    instance
+        .post(`user/updateInfo`, userinfo)
         .then(success)
         .catch(fail);
 }
@@ -91,5 +106,6 @@ export {
     blogerLike,
     blogerUnlike,
     readBlogerlike,
-    getUserInfo
+    getUserInfo,
+    updateUserinfo
 };

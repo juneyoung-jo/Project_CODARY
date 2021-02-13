@@ -147,8 +147,8 @@ public class UserServiceImpl implements UserService {
 	 * UserInfo 닉네임 업데이트
 	 * */
 	@Override
-	public void updateNickname(Map<String, String> map) throws Exception {
-		sqlSession.getMapper(UserDao.class).updateNickname(map);
+	public void updateUserInfo(UserInfoDto info) throws Exception {
+		sqlSession.getMapper(UserDao.class).updateUserInfo(info);
 		return;
 	}
 	/**

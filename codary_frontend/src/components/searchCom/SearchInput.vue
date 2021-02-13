@@ -8,12 +8,19 @@
     ></v-autocomplete> -->
     <v-text-field
       v-model="keyword"
-      label="태그 검색 시 '#'를 앞에 붙여주세요"
+      class='font-weight-bold'
       style="width:50%;"
-      large
+      flat
+      solo-inverted
       @keyup.enter="search()"
       @blur="erase()"
-    ></v-text-field>
+    >
+      <template v-slot:label>
+        <div class='ml-2'>
+          태그 검색 시 '#'를 앞에 붙여주세요
+        </div>
+      </template>
+    </v-text-field>
   </div>
 </template>
 
