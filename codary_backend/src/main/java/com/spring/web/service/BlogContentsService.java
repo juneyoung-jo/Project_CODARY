@@ -1,6 +1,5 @@
 package com.spring.web.service;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public interface BlogContentsService {
 
 	BlogContentsDto getContent(int blogContentsId) throws Exception;
 
-	void writeBlogContent(BlogContentsDto blogContent) throws Exception;
+	int writeBlogContent(BlogContentsDto blogContent) throws Exception;
 	
 	void writeHash(HashtagDto hash) throws Exception;
 	

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogHashtagDto;
-import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
@@ -67,16 +66,16 @@ public class BlogContentsController {
 	 * 3. 블로그해시태그 생성
 	 * 
 	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents,
-	 * @return List<BlogContentsDto>
+	 * @return int(blogContentsId)
 	 */
-	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
+	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return int(blogContentsId)")
 	@PostMapping
-	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception {
+	public ResponseEntity<Integer> write(@RequestBody BlogContentsDto content) throws Exception {
 		System.out.println("#글작성 호출 ");
 		try {
 			// 1. 블로그 컨텐츠 테이블 insert
-			contentsService.writeBlogContent(content);
-			System.out.println("#블로그 컨텐츠 번호: " + content.getBlogContentsId());
+			int blogContentsId = contentsService.writeBlogContent(content);
+//			System.out.println("#블로그 컨텐츠 번호: " + content.getBlogContentsId());
 			// 2. 해시태그 테이블 insert
 			List<Map<String, String>> hashTag = content.getHashTag();
 			if(hashTag != null) {
@@ -93,16 +92,13 @@ public class BlogContentsController {
 					}
 					// 3. 블로그해시태그 테이블에 insert
 					blogHash = new BlogHashtagDto(hash.getHashtagId(), 
-							content.getBlogContentsId(), content.getBlogId());
+							blogContentsId, content.getBlogId());
 					contentsService.writeBlogHash(blogHash);
 					
 					System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
-	
 				}
 			}
-
-			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(content.getBlogId()),
-					HttpStatus.OK);
+			return new ResponseEntity<Integer>(blogContentsId, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
