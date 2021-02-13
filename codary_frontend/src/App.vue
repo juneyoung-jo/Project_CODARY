@@ -27,3 +27,8 @@ export default {
   },
 };
 </script>
+<style>
+#app {
+  background-color: var(--v-background-base);
+}
+</style>

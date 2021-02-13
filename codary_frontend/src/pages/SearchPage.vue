@@ -2,9 +2,9 @@
   <div class="py-12">
     <Search-input @GETKEYWORD="getkeyword" />
     <v-container>
-      <div class="d-flex ">
-        <select v-model="selected" @change="changeSelect($event)">
-          <option disabled value="">정렬 기준</option>
+      <div class="d-flex selectsort ma-2">
+        <select class='now' v-model="selected" @change="changeSelect($event)">
+          <option disabled>정렬 기준</option>
           <option
             v-for="option in options"
             :key="option.value"
@@ -12,7 +12,7 @@
           >
             {{ option.text }}
           </option>
-        </select>
+        </select>  
       </div>
       <SearchResult v-if="this.isSearched" :list="list" />
       <Popular-tag v-else :list="list" />
@@ -75,4 +75,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.selectsort select {
+  padding: 12px;
+  width: 200px;
+  border: none;
+  font-size: 16px;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+  appearance: button;
+  outline: none;
+  border-radius: 2%;
+  background-color: white;
+}
+
+.selectsort select option {
+  padding: 10px;
+  color:black
+}
+
+.now {
+  color: black;
+}
+</style>

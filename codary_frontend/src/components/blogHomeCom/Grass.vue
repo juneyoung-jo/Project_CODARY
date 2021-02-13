@@ -1,12 +1,12 @@
 <template>
-<div>
-  <v-spacer><hr></v-spacer>
-  <h2 class='py-12'>커밋</h2>
-  <v-div class="subtitle-2 text-center">
+<div class="mb-16 pa-16">
+  <v-spacer></v-spacer>
+  <h2 class='pt-3'>커밋</h2>
+  <div class="subtitle-2 text-center">
     <h4 v-if="!flag">아직 잔디를 심지 않았어요!<br>
       게시물을 작성해서 잔디를 심어보세요~
     </h4>
-  </v-div>
+  </div>
   <v-sparkline
     :value="value"
     :label-size="4"

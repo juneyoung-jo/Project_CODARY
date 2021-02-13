@@ -15,9 +15,10 @@
           :key="index"
           cols="12"
           md="4"
+          class='d-flex flex-column align-center'
         >
         <v-avatar
-          size="300"
+          size="160"
         >
           <v-img
             src='https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'

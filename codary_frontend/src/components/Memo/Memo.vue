@@ -1,16 +1,16 @@
 <template>
   <div id="settings-wrapper">
 
-    <div id="blackBox" class="d-flex">
-      <button @click="move" id="blackBoxButton" class="d-flex align-center pa-3 pb-3">
+    <v-sheet id="blackBox" class="d-flex">
+      <v-btn @click="move" id="blackBoxButton" color="primary" class="d-flex align-center pa-3 pb-3">
         <v-icon large>
          mdi-clipboard-multiple-outline
         </v-icon>
-      </button>
-        <div v-if="isLogin" class="memopage">
+      </v-btn>
+        <v-sheet v-if="isLogin" class="memopage">
           <MemoList class='memolist' @CHANGEMEMO="startchange"/>
           <MemoInput class='memoinput' :sendingChange='sendingChange'/>   
-        </div>
+        </v-sheet>
         <div v-else class='d-flex flex-column align-center ma-16 pa-5 py-16'>
            <span style="font-size:50px">
             <font-awesome-icon :icon="['fas','sign-in-alt']"/>
@@ -19,7 +19,7 @@
           <!-- 사이즈 조절 물어보기 -->
           <h5>로그인이 필요합니다</h5>
         </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -118,7 +118,6 @@ export default {
   height: 100%;
   width: 282px;
   transition: 0.5s;
-  background-color:aliceblue;
 }
 
 .activate {
@@ -132,7 +131,6 @@ export default {
   width: 60px;
   height: 50px;
   border-radius: 5px;
-  background-color: aliceblue;
   position: absolute;
   top: 30%;
   left: -20%;
@@ -153,7 +151,7 @@ export default {
 }
 
 .goingOn {
-  transition: all 0.8s ease;
+  transition: 0.5s ease;
   transform: translateX(2%);
 }
 </style>

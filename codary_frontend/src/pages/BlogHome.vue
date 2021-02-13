@@ -5,7 +5,8 @@
       <Profile />
       <Grass />
       <Menu />
-      <router-view></router-view>
+      <router-view class='px-5'></router-view>
+      <div class='py-16'></div>
     </v-container>
   </div>
 </template>
