@@ -5,16 +5,15 @@
         <v-col cols="12">
           <v-img
             class="rounded-circle elevation-6"
-            :src="this.loggedInUserData.profile"
+            :src="this.imgUrl"
             width="128"
           />
 
           <v-card-text>
-            <h6 class="text-h6 mb-2 text--secondary">CEO / FOUNDER</h6>
-
             <h4 class="text-h4 mb-3 text--primary">
-              {{ this.loggedInUserData.nickname }}
+              {{ this.nickname }}
             </h4>
+            <h6 class="text-h6 mb-2 text--secondary">{{ this.job }}</h6>
 
             <p class="text--secondary">
               <v-card flat>
@@ -65,7 +64,7 @@
                           <!-- 닉네임 -->
                           <v-text-field
                             placeholder="name"
-                            v-model="nickname"
+                            v-model="nickname_"
                             hint="example of persistent helper text"
                             persistent-hint
                             required
@@ -74,7 +73,7 @@
                         <!-- 직업 -->
                         <v-col cols="12">
                           <v-text-field
-                            v-model="job"
+                            v-model="job_"
                             placeholder="job"
                             required
                           ></v-text-field>
@@ -82,7 +81,7 @@
                         <!-- 소개글 -->
                         <v-col cols="12">
                           <v-text-field
-                            v-model="intro"
+                            v-model="intro_"
                             placeholder="intro"
                             required
                           ></v-text-field>
@@ -91,19 +90,19 @@
                         <!-- ############################################ -->
                         <!-- 이미지 -->
                         <v-col cols="12" sm="6">
-                          <v-img :src="imgUrl" alt="profile"></v-img>
+                          <v-img :src="imgUrl_" alt="profile"></v-img>
                         </v-col>
                         <!-- 이미지 업로드 -->
                         <v-col cols="12" sm="6">
                           <v-file-input
-                            v-model="uploadImg"
                             accept="image/png, image/jpeg, image/bmp"
                             placeholder="Pick an avatar"
                             prepend-icon="mdi-camera"
                             @change="selectImg"
                           ></v-file-input>
+                          <v-btn @click="upload">사진 업로드</v-btn>
                         </v-col>
-                        <v-btn @click="upload">사진 업로드</v-btn>
+
                         <!-- ############################################ -->
                         <!-- ############################################ -->
                       </v-row>
@@ -132,7 +131,13 @@
 <script>
 import { mapState } from "vuex";
 import { fileUpload } from "@/api/fileUpload.js";
-import { blogerLike, blogerUnlike, readBlogerlike } from "@/api/personal.js";
+import {
+  blogerLike,
+  blogerUnlike,
+  readBlogerlike,
+  getUserInfo,
+  updateUserinfo,
+} from "@/api/personal.js";
 import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 
 export default {
@@ -147,7 +152,20 @@ export default {
         console.log(error);
       }
     );
-    this.initImgUrl();
+    // 1. uid를 가지고, 유저 프로필 정보를 읽어온다.
+    getUserInfo(
+      getuidCookie(),
+      (response) => {
+        console.log(response);
+        this.nickname_ = this.nickname = response.data.info.nickname;
+        this.job_ = this.job = response.data.info.job;
+        this.intro_ = this.intro = response.data.info.intro;
+        this.imgUrl_ = this.imgUrl = response.data.info.profile;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   data() {
     return {
@@ -160,10 +178,14 @@ export default {
       nickname: "",
       job: "",
       intro: "",
-      // profile: this.loggedInUserData.profile,
       imgUrl: "",
-      uploadImg: [],
+
+      nickname_: "",
+      job_: "",
+      intro_: "",
+      imgUrl_: "",
       uploadFile: "",
+      // profile: this.loggedInUserData.profile,
     };
   },
   computed: {
@@ -210,16 +232,30 @@ export default {
         }
       );
     },
+    // 회원 정보수정
     updateInfo() {
-      console.log("#updateUserInfo 호출");
+      // 1. 수정할 회원 정보 객체 생성
       const info = {
-        nickname: this.nickname,
-        job: this.job,
-        intro: this.intro,
-        img: this.getImgUrl(),
+        uid: getuidCookie(),
+        nickname: this.nickname_,
+        job: this.job_,
+        intro: this.intro_,
+        profile: this.imgUrl_,
       };
-      console.log("유저 정보: " + info);
-      console.log("이미지 정보: " + this.getImgUrl());
+      // 2. 회원정보 수정 요청
+      updateUserinfo(
+        info,
+        (response) => {
+          console.log(response);
+          this.nickname = this.nickname_;
+          this.job = this.job_;
+          this.intro = this.intro_;
+          this.imgUrl = this.imgUrl_;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
       this.dialog = false;
     },
     selectImg(img) {
@@ -236,7 +272,7 @@ export default {
           formData,
           (response) => {
             if (response.data === null) return;
-            this.imgUrl = response.data;
+            this.imgUrl_ = response.data;
           },
           (error) => console.log(error)
         );
@@ -245,11 +281,9 @@ export default {
     getImgUrl() {
       return this.imgUrl;
     },
-    initImgUrl() {
-      this.imgUrl = this.loggedInUserData.profile;
-    },
+    // 정보 수정 취소
     close() {
-      this.uploadImg = [];
+      this.imgUrl = this.loggedInUserData.profile;
       this.dialog = false;
     },
   },

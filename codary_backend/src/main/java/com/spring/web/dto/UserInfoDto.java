@@ -14,6 +14,11 @@ public class UserInfoDto {
 	private String username;
 	@ApiModelProperty(value = "프로필 사진")
 	private String profile;
+	@ApiModelProperty(value = "직업")
+	private String job;
+	@ApiModelProperty(value = "소개글")
+	private String intro;
+	
 
 	public UserInfoDto() {
 	}
@@ -23,6 +28,14 @@ public class UserInfoDto {
 		this.nickname = nickname;
 		this.username = username;
 		this.profile = profile;
+	}
+
+	public UserInfoDto(String uid, String nickname, String profile, String job, String intro) {
+		this.uid = uid;
+		this.nickname = nickname;
+		this.profile = profile;
+		this.job = job;
+		this.intro = intro;
 	}
 
 	public String getUid() {
@@ -56,11 +69,29 @@ public class UserInfoDto {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	
+	
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 
 	@Override
 	public String toString() {
 		return "UserInfoDto [uid=" + uid + ", nickname=" + nickname + ", username=" + username + ", profile=" + profile
-				+ "]";
+				+ ", job=" + job + ", intro=" + intro + "]";
 	}
 
 	

@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="findUserInfoById" parameterType="string" resultType="UserInfoDto">
-		select uid, nickname, username, profile
+		select uid, nickname, username, profile, job, intro
 		from userinfo
 		where uid = #{uid}
 	</select>
@@ -49,9 +49,10 @@
 		values(#{memoId})
 	</insert>
 	
-	<update id="updateNickname" parameterType="map">
+	<update id="updateUserInfo" parameterType="map">
 		update userinfo
-		set nickname = #{nickname}
+		set nickname = #{nickname}, job = #{job},
+			 intro = #{intro}, profile = #{profile}
 		where uid = #{uid} 
 	</update>
 	
