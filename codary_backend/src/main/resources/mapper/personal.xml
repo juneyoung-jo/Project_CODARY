@@ -62,4 +62,12 @@
 		from blogerlike
 		where uid = #{uid} and blog_id = #{blogId}
 	</select>
+	
+	<select id="findUser" resultType="UserInfoDto" parameterType="String">
+		select * 
+		from userinfo 
+		where uid=(
+			select uid from user where blog_id=#{blogId}
+			);
+	</select>
 </mapper>

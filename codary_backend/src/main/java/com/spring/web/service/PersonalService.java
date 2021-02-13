@@ -12,6 +12,7 @@ import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
+import com.spring.web.dto.UserInfoDto;
 
 public interface PersonalService {
 	public List<BlogContentsDto> personalContents(String blogid);
@@ -23,4 +24,5 @@ public interface PersonalService {
 	public void blogerLike(BlogerLikeDto bld);
 	public void blogerUnlike(BlogerLikeDto bld);
 	public boolean readBlogerLike(BlogerLikeDto bld);
+	public UserInfoDto findUser(String blogid);
 }

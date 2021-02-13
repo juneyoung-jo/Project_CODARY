@@ -72,7 +72,7 @@ function readBlogerlike(blogerLike, success, fail) {
       .post(`personal/checkBlogerlike`, blogerLike)
       .then(success)
       .catch(fail);
-}
+  }
 
 /**
  * 내 블로그 홈에서 프로필 정보 읽어오는 함수

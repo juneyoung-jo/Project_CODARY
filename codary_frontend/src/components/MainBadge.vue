@@ -18,10 +18,18 @@
           <v-list-item-avatar class="ma-5">
             <img :src="this.loggedInUserData.profile" alt="John" />
           </v-list-item-avatar>
-          <router-link :close-on-content-click="false" class="noline pa-5" :to="'/bloghome'">
-            <v-list-item-content class='mt-1'>
-              <v-list-item-title color="primary" class='myname'>{{ this.loggedInUserData.nickname }}</v-list-item-title>
-              <v-list-item-subtitle class='py-1'>내 블로그 홈 가기</v-list-item-subtitle>
+          <router-link :close-on-content-click="false" class="noline pa-5" 
+          :to="{
+            name: 'BlogHome', 
+            query: { 
+              blogId: this.user.blogId
+              }
+            }">
+            <v-list-item-content>
+              <v-list-item-title class="myname">{{
+                this.loggedInUserData.nickname
+              }}</v-list-item-title>
+              <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>
           </router-link>
           <v-list-item-action>
@@ -65,6 +73,7 @@ export default {
     initUser() {
       this.user.uid = getuidCookie();
       this.user.blogId = getblogIdCookie();
+     // console.log("메인벳지에서 보낸값 "+this.user.blogId);
     },
     cmtCheck() {
       if (this.user.uid === '') return;

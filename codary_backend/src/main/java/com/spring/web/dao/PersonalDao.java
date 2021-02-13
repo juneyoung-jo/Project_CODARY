@@ -13,6 +13,7 @@ import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.dto.UsergraphDto;
 
 @Mapper
@@ -27,4 +28,5 @@ public interface PersonalDao {
 	public void blogerLike(BlogerLikeDto bld);
 	public void blogerUnlike(BlogerLikeDto bld);
 	public BlogerLikeDto readBlogerLike(BlogerLikeDto bld);
+	public UserInfoDto findUser(String blogid);
 }

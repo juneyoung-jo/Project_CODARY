@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.PersonalService;
 
@@ -51,16 +55,31 @@ public class PersonalController {
 	@Autowired
 	private PersonalService personalService;
 	
-	/*블로거가 쓴 글*/
-	@ApiOperation(value ="블로거가 쓴 글", notes = "해당 블로거가 쓴 글 목록을 반환한다.", response=List.class)
+	/*블로거가 쓴 글 (최신순으로) */
+	@ApiOperation(value ="블로거가 쓴 글", notes = "해당 블로거가 쓴 글 목록을 최신순으로 반환한다.", response=List.class)
 	@GetMapping("/{blogid}")
 	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid) {
 		
 		List<BlogContentsDto> blogcontentsList=null;
-		blogcontentsList= personalService.personalContents(blogid);
+		HttpStatus status=HttpStatus.ACCEPTED;
 		
-		return new ResponseEntity<List<BlogContentsDto>>(blogcontentsList, HttpStatus.OK);
+		try {
+			blogcontentsList= personalService.personalContents(blogid);
+			Collections.sort(blogcontentsList, new Comparator<BlogContentsDto>() {
+				@Override
+				public int compare(BlogContentsDto o1, BlogContentsDto o2) {
+					return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
+				}
+			});
+			status=HttpStatus.OK;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			status=HttpStatus.NO_CONTENT;
+		}
+		return new ResponseEntity<List<BlogContentsDto>>(blogcontentsList, status);
 	}
+	
 	
 	/*내 메모 불러오기*/
 	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
@@ -239,5 +258,21 @@ public class PersonalController {
 			status=HttpStatus.NOT_FOUND;
 		}
 		return new ResponseEntity<Map<String, Object>>(result,status);
+	}
+	
+	/*유저정보를 받는다 */
+	@ApiOperation(value ="유저정보", notes = "개인블로그에 필요한 유저 정보를 받는다")
+	@GetMapping("/userinfo/{blogid}")
+	public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String blogid) {
+		UserInfoDto udo=null;
+		HttpStatus status=HttpStatus.ACCEPTED;
+		try {
+			udo=personalService.findUser(blogid);
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<UserInfoDto>(udo,status);
 	}
 }
