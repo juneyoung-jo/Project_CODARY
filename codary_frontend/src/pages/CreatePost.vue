@@ -72,7 +72,7 @@ export default {
       //   .catch((err) => {
       //     console.log(err);
       //   });
-      if (this.blogContents.blogContentsId.length > 0) {
+      if (this.blogContents.blogContentsId !== "") {
         modifyContent(
           this.blogContents,
           () => {
