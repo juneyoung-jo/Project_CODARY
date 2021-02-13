@@ -95,6 +95,6 @@ export default {
 }
 
 .now {
-  color: #283593;
+  color: black;
 }
 </style>

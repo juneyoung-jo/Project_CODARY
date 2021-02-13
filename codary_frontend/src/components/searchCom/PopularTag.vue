@@ -6,7 +6,6 @@
       </h2> -->
 
       <v-responsive class="mx-auto mb-12" width="56">
-        <v-divider class="mb-1"></v-divider>
       </v-responsive>
 
       <v-row>
@@ -65,11 +64,11 @@
                   </div>
                 </div>
                 <!-- 텍스트 -->
-                <div class='px-5 py-3'>
-                  <h2 class="font-weight-bold mb-3 ml-0" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2">태그 들어갈 자리</h4>
+                <div class='pl-5 py-3'>
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5" v-text="blogContentsTitle"></h2>
+                  <h4 class="mb-2 pl-1">태그 들어갈 자리</h4>
 
-                  <div class="d-flex align-center mb-3">
+                  <div class="d-flex align-center mb-3 pl-1">
                     <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
                     <span>
                       {{ nickname }}

@@ -2,8 +2,6 @@
   <section id="blog">
     <v-container>
       <v-responsive class="mx-auto mb-12" width="56">
-        <v-divider class="mb-1"></v-divider>
-        <v-divider></v-divider>
       </v-responsive>
       <v-row>
         <v-col
@@ -22,7 +20,7 @@
           } in list"
           :key="blogContentsId"
           cols="12"
-          md="3"
+          md="4"
         >
           <router-link
             :to="{
@@ -56,24 +54,24 @@
                     style="position:absolute; top:0% "
                     transition="fade-transition"
                   >
-                    <div class="d-flex align-center pl-2 white--black " style="height:150px">
+                    <div class="d-flex align-center pl-2 pr-2 white--black " style="height:150px">
                       {{ blogContents | textLengthOverCut }}
                     </div>
                   </div>
                 </div>
-                <div style="padding:10px">
-                  <h2 class="font-weight-bold mb-3 ml-0" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2">태그 들어갈 자리</h4>
+                <div class="pl-5 py-3">
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5" v-text="blogContentsTitle"></h2>
+                  <h4 class="mb-2 pl-1">태그 들어갈 자리</h4>
 
-                  <div class="d-flex align-end mb-3">
-                    <v-img :src="profile" class="mr-3" height="40" max-width="40px"></v-img>
+                  <div class="d-flex align-end mb-3 pl-1">
+                    <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
                     <span>
                       {{ nickname }}
                     </span>
                   </div>
                 </div>
 
-                <div class="d-flex align-end flex-column mr-3">
+                <div class="d-flex align-end flex-column mr-3 px-3">
                   <span class="font-weight-light">
                     <font-awesome-icon :icon="['fas', 'comment-dots']" />
                     {{ commentCnt }}

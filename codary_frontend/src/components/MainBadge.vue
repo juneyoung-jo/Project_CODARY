@@ -13,13 +13,13 @@
     </template>
 
     <v-card style="width:400px">
-      <v-list>
+      <v-list color="background">
         <v-list-item>
           <v-list-item-avatar class="ma-5">
             <img :src="this.loggedInUserData.profile" alt="John" />
           </v-list-item-avatar>
           <router-link :close-on-content-click="false" class="noline pa-5" :to="'/bloghome'">
-            <v-list-item-content >
+            <v-list-item-content class='mt-1'>
               <v-list-item-title color="primary" class='myname'>{{ this.loggedInUserData.nickname }}</v-list-item-title>
               <v-list-item-subtitle class='py-1'>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>

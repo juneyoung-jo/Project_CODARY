@@ -149,6 +149,7 @@
                 :type="type"
                 :auto-line-width="autoLineWidth"
                 auto-draw
+                class='mt-16 pb-16'
               ></v-sparkline>
             </v-col>
           </v-row>
