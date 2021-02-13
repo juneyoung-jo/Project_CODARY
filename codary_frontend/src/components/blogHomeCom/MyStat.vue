@@ -1,17 +1,15 @@
 <template>
-<div class='py-12'>
-    <strong>블로그 방문자 수</strong>
-    <div class='py-12'></div>
-    <v-div class="subtitle-2 text-center">
+<container class='py-12'>
+    <div class="subtitle-2 text-center">
       <h4 v-if="!flag">아직 블로그에 방문한 사람이 없어요!<br>
         블로그를 홍보하세요~
       </h4>
-    </v-div>
+    </div>
     <v-row>
       <v-col>
          <v-sheet
           class="v-sheet--offset mx-auto"
-          elevation="12"
+          elevation="1"
           max-width="calc(100% - 32px)"
         >
           <v-sparkline
@@ -21,12 +19,20 @@
             line-width="2"
             padding="16"
           ></v-sparkline>
+          <div class='py-2'></div>
+          <v-text 
+            color="primary" 
+            class='font-weight-medium d-flex justify-center'
+          >
+            Number of visitors
+          </v-text>
+          <div class='py-4'></div>
         </v-sheet>
         
       </v-col>
     </v-row>
     <div class='py-16'></div>
-</div>
+</container>
   
 </template>
 

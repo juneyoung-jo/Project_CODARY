@@ -1,6 +1,6 @@
 <template>
-<div class='py-12'>
- <v-tabs grow>
+<div class='py-12 pt-16 pa-10'>
+ <v-tabs grow color="primary" background-color="background">
     <v-tab v-for="tab in tabs" :key="tab.id" @click="updateRouter(tab.route)">
       {{ tab.name }}
     </v-tab>

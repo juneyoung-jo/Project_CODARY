@@ -1,11 +1,13 @@
 <template>
-  <v-app id="app">
-    <Nav />
-    <v-main>
-      <Memo />
-      <router-view />
-    </v-main>
-  </v-app>
+  <div id="app">
+    <v-app>
+      <Nav />
+      <v-main>
+        <Memo />
+        <router-view />
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
 <script>
@@ -13,7 +15,7 @@ import Memo from './components/Memo/Memo';
 import Nav from './components/Nav';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     Nav,
     Memo,
@@ -25,3 +27,8 @@ export default {
   },
 };
 </script>
+<style>
+#app {
+  background-color: var(--v-background-base);
+}
+</style>

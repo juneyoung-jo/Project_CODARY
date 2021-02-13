@@ -6,7 +6,6 @@
       </h2> -->
 
       <v-responsive class="mx-auto mb-12" width="56">
-        <v-divider class="mb-1"></v-divider>
       </v-responsive>
 
       <v-row>
@@ -40,36 +39,36 @@
           >
             <v-hover v-slot="{ hover }">
               <v-card
-                :elevation="hover ? 12 : 2"
+                :elevation="hover ? 7 : 0"
                 class="contentCard"
-                style="height:400px; transition:1s;"
+                flat
+                style="height:400px; transition: 0.3s;"
               >
-                <div>
-                  <v-img
-                    :src="blogContentsCover"
-                    class="mb-4"
-                    :style="hover ? { opacity: 0.4 } : { opacity: 1 }"
-                    height="150px"
-                    max-width="100%"
-                  >
-                  </v-img>
-
-                  <div
-                    v-if="hover"
-                    class="d-flex align-center pl-2 white--black "
-                    style="position:absolute; top:0% "
-                    transition="fade-transition"
-                  >
-                    <div class="d-flex align-center pl-2 white--black " style="height:150px">
-                      {{ blogContents | textLengthOverCut }}
-                    </div>
+                <!-- 사진 -->
+                <v-img
+                  :src="blogContentsCover"
+                  class="mb-4"
+                  :style="hover ? { opacity: 0.4 } : { opacity: 1 }"
+                  height="150px"
+                  max-width="100%"
+                >
+                </v-img>
+                <div
+                  v-if="hover"
+                  class="d-flex align-center pl-2 white--black "
+                  style="position:absolute; top:0% "
+                  transition="fade-transition"
+                >
+                  <div class="d-flex align-center pl-2 pr-2 white--black " style="height:150px">
+                    {{ blogContents | textLengthOverCut }}
                   </div>
                 </div>
-                <div style="padding:10px">
-                  <h2 class="font-weight-black mb-3 ml-0" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2">태그 들어갈 자리</h4>
+                <!-- 텍스트 -->
+                <div class='pl-5 py-3'>
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5" v-text="blogContentsTitle"></h2>
+                  <h4 class="mb-2 pl-1">태그 들어갈 자리</h4>
 
-                  <div class="d-flex align-center mb-3">
+                  <div class="d-flex align-center mb-3 pl-1">
                     <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
                     <span>
                       {{ nickname }}
@@ -77,7 +76,7 @@
                   </div>
                 </div>
 
-                <div class="d-flex align-end flex-column mr-3">
+                <div class="d-flex align-end flex-column mr-3 px-3">
                   <span class="font-weight-light">
                     <font-awesome-icon :icon="['fas', 'comment-dots']" />
                     {{ commentCnt }}
@@ -129,8 +128,7 @@ export default {
 
 <style>
 .contentCard:hover {
-  transition-duration: all 1s ease;
-  transform: translateY(-8px), scale(8%);
-  
+  transition-duration: all 0.2s ease;
+  transform: translateY(-4px), scale(8%);  
 }
 </style>
