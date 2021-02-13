@@ -36,6 +36,7 @@ import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.PersonalService;
 
@@ -257,5 +258,21 @@ public class PersonalController {
 			status=HttpStatus.NOT_FOUND;
 		}
 		return new ResponseEntity<Map<String, Object>>(result,status);
+	}
+	
+	/*유저정보를 받는다 */
+	@ApiOperation(value ="유저정보", notes = "개인블로그에 필요한 유저 정보를 받는다")
+	@GetMapping("/userinfo/{blogid}")
+	public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String blogid) {
+		UserInfoDto udo=null;
+		HttpStatus status=HttpStatus.ACCEPTED;
+		try {
+			udo=personalService.findUser(blogid);
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<UserInfoDto>(udo,status);
 	}
 }

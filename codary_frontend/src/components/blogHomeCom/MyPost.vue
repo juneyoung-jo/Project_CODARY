@@ -181,8 +181,8 @@ export default {
     },
 
     mypost(){
-       // console.log("받은값 "+this.$route.query.blogId);
-       // console.log("나 "+this.user.blogId);
+        console.log("Mypost받은값 "+this.$route.query.blogId);
+        console.log("Mypost나 "+this.user.blogId);
 
       if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 

@@ -74,6 +74,12 @@ function readBlogerlike(blogerLike, success, fail) {
       .catch(fail);
   }
   
+function getUserInfo(blogId, success, fail){
+    instance
+        .get(`personal/userinfo/${blogId}`)
+        .then(success)
+        .catch(fail);
+}
 
 export {
     personalList, 
@@ -84,5 +90,6 @@ export {
     userGraph,
     blogerLike,
     blogerUnlike,
-    readBlogerlike
+    readBlogerlike,
+    getUserInfo
 };

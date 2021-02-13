@@ -23,6 +23,7 @@ import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
 import com.spring.web.dto.MemoDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.dto.UsergraphDto;
 
 @Service
@@ -163,6 +164,11 @@ public class PersonalServiceImpl implements PersonalService{
 			return false;
 		else
 			return true;
+	}
+
+	@Override
+	public UserInfoDto findUser(String blogid) {
+		return personalDao.findUser(blogid);
 	}
 
 	

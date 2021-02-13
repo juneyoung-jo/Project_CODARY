@@ -14,7 +14,13 @@
           <v-list-item-avatar class="ma-3">
             <img :src="this.loggedInUserData.profile" alt="John" />
           </v-list-item-avatar>
-          <router-link :close-on-content-click="false" class="noline pa-5" :to="{name: 'BlogHome', query: { blogId: this.user.blogId}}">
+          <router-link :close-on-content-click="false" class="noline pa-5" 
+          :to="{
+            name: 'BlogHome', 
+            query: { 
+              blogId: this.user.blogId
+              }
+            }">
             <v-list-item-content>
               <v-list-item-title class="myname">{{
                 this.loggedInUserData.nickname
@@ -63,6 +69,7 @@ export default {
     initUser() {
       this.user.uid = getuidCookie();
       this.user.blogId = getblogIdCookie();
+     // console.log("메인벳지에서 보낸값 "+this.user.blogId);
     },
     cmtCheck() {
       if (this.user.uid === '') return;
