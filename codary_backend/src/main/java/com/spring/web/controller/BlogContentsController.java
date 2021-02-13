@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.CommentDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
@@ -36,9 +37,8 @@ import io.swagger.annotations.ApiOperation;
 public class BlogContentsController {
 	@Autowired
 	private BlogContentsService contentsService;
-	
-	public static final Logger logger = LoggerFactory.getLogger(BlogContentsController.class);
 
+	public static final Logger logger = LoggerFactory.getLogger(BlogContentsController.class);
 
 	/**
 	 * 다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)
@@ -46,87 +46,123 @@ public class BlogContentsController {
 	 * @param blogId, blogContentsId
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)", notes ="@param blogId, blogContentsId  </br> @return BlogContentsDto")
+	@ApiOperation(value = "다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)", notes = "@param blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("{blogId}/{blogContentsId}")
-	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
+	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId)
+			throws Exception {
 		try {
 			contentsService.increaseContentsView(blogContentsId);
 			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(blogContentsId), HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	/**
 	 * 블로그 글 작성
 	 * 
-	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)
-	 * @return int(blogContentsId)
+	 * 1. 블로그 컨텐츠 생성
+	 * 2. 해시태그 생성
+	 * 3. 블로그해시태그 생성
+	 * 
+	 * @param BlogContentsDto(blogId, blogContentsTitle, blogContents,
+	 * @return List<BlogContentsDto>
 	 */
-	@ApiOperation(value = "블로그 글 작성", notes ="@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return int(blogContentsId)")
+	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return List<BlogContentsDto>")
 	@PostMapping
-	public ResponseEntity<Integer> write(@RequestBody BlogContentsDto content) throws Exception{
+	public ResponseEntity<List<BlogContentsDto>> write(@RequestBody BlogContentsDto content) throws Exception {
+		System.out.println("#글작성 호출 ");
 		try {
-			return new ResponseEntity<Integer>(contentsService.writeBlogContent(content), HttpStatus.OK);
-		}catch(Exception e) {
+			// 1. 블로그 컨텐츠 테이블 insert
+			contentsService.writeBlogContent(content);
+			System.out.println("#블로그 컨텐츠 번호: " + content.getBlogContentsId());
+			// 2. 해시태그 테이블 insert
+			List<Map<String, String>> hashTag = content.getHashTag();
+			for (int i = 0; i < hashTag.size(); i++) {
+				// 2-1. 해시태그값 파싱
+				int key = Integer.parseInt(hashTag.get(i).get("key"));
+				String value = hashTag.get(i).get("value");
+
+				HashtagDto hash = new HashtagDto(key, value);
+				BlogHashtagDto blogHash = null;
+				// 2-2. 해시태그 테이블에 존재하지 않는 태그라면 insert
+				if (key < 0) {
+					contentsService.writeHash(hash);
+				}
+				// 3. 블로그해시태그 테이블에 insert
+				blogHash = new BlogHashtagDto(hash.getHashtagId(), 
+						content.getBlogContentsId(), content.getBlogId());
+				contentsService.writeBlogHash(blogHash);
+				
+				System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
+
+			}
+
+			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(content.getBlogId()),
+					HttpStatus.OK);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 //	@GetMapping("{blogId}")
 //	public ResponseEntity<List<BlogContentsDto>> list(@PathVariable int blogId) throws Exception{
 //		return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(blogId), HttpStatus.OK);
 //	}
-	
+
 	/**
 	 * 블로그 글 수정
 	 * 
-	 * @param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)
+	 * @param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover,
+	 *                                      blogId, blogContentsId)
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "블로그 글 수정", notes ="@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
+	@ApiOperation(value = "블로그 글 수정", notes = "@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
 	@PutMapping
-	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception{
+	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception {
 		int result = contentsService.modifyBlogContent(content);
-		if(result == 1) 
-			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()), HttpStatus.OK);
+		if (result == 1)
+			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()),
+					HttpStatus.OK);
 		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
-	
+
 	/**
 	 * 블로그 글 삭제
 	 * 
 	 * @param blogId, blogContentsId
 	 * @return List<BlogContentsDto>
 	 */
-	@ApiOperation(value = "블로그 글 삭제", notes ="@param blogId, blogContentsId  </br> @return List<BlogContentsDto>")
+	@ApiOperation(value = "블로그 글 삭제", notes = "@param blogId, blogContentsId  </br> @return List<BlogContentsDto>")
 	@DeleteMapping("{blogId}/{blogContentsId}")
-	public ResponseEntity<List<BlogContentsDto>> delete(@PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
+	public ResponseEntity<List<BlogContentsDto>> delete(@PathVariable String blogId, @PathVariable int blogContentsId)
+			throws Exception {
 		int result = contentsService.deleteBlogContent(blogContentsId);
-		if(result == 1)
+		if (result == 1)
 			return new ResponseEntity<List<BlogContentsDto>>(contentsService.listBlogContents(blogId), HttpStatus.OK);
 		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
-	
+
 	/**
 	 * 내 블로그 글 클릭 시 Log남기고 글 가져오기
 	 * 
 	 * @param blogId, blogContentsId
 	 * @return BlogContentsDto
 	 */
-	@ApiOperation(value = "내 블로그 글 클릭 시 Log남기고 글 가져오기", notes ="@param uid, blogId, blogContentsId  </br> @return BlogContentsDto")
+	@ApiOperation(value = "내 블로그 글 클릭 시 Log남기고 글 가져오기", notes = "@param uid, blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("log/{uid}/{blogId}/{blogContentsId}")
-	public ResponseEntity<Map<String,Object>> writeLog(@PathVariable String uid, @PathVariable String blogId, @PathVariable int blogContentsId) throws Exception{
+	public ResponseEntity<Map<String, Object>> writeLog(@PathVariable String uid, @PathVariable String blogId,
+			@PathVariable int blogContentsId) throws Exception {
 		logger.info("=======내 블로그 글 클릭 시 Log남기고 글 가져오기=======");
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		try {
-			BlogContentsDto data = contentsService.writeLog(uid,blogId, blogContentsId);
+			BlogContentsDto data = contentsService.writeLog(uid, blogId, blogContentsId);
 			map.put("msg", "success");
 			map.put("data", data);
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
@@ -138,7 +174,7 @@ public class BlogContentsController {
 		}
 		return resEntity;
 	}
-	
+
 //	/**
 //	 * 블로그 글 조회수 증가
 //	 * 
@@ -159,24 +195,25 @@ public class BlogContentsController {
 //			return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 //		}
 //	}
-	
+
 	/**
 	 * 블로그 글 추천
 	 * 
-	 * @param 
+	 * @param
 	 * @return List<Map<String, Object>>
 	 */
 	@ApiOperation(value = "블로그 글 추천", notes = "@param </br> @return List<Map<String, Object>>")
 	@GetMapping("recommend")
-	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception{
+	public ResponseEntity<List<Map<String, Object>>> recommend() throws Exception {
 		try {
-			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(), HttpStatus.OK);
-		}catch(Exception e) {
+			return new ResponseEntity<List<Map<String, Object>>>(contentsService.recommendBlogContents(),
+					HttpStatus.OK);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
-	
+
 	/**
 	 * 블로그 글 좋아요 눌렀는지 여부
 	 * 
@@ -185,65 +222,66 @@ public class BlogContentsController {
 	 */
 	@ApiOperation(value = "블로그 글 좋아요 눌렀는지 여부", notes = "@param BlogContentLikeDto </br> @return msg가 \"yet\"이면 안 누른 상태, \"like\"이면 누른 상태")
 	@PostMapping("checkContentsLike")
-	public ResponseEntity<Map<String, String>> readBlogContentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+	public ResponseEntity<Map<String, String>> readBlogContentsLike(@RequestBody BlogContentsLikeDto like)
+			throws Exception {
 		Map<String, String> map = new HashMap<>();
 		try {
 			BlogContentsLikeDto res = contentsService.readBlogContentsLike(like);
-			if(res == null) {
+			if (res == null) {
 				map.put("msg", "yet");
 				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
-			}else {
+			} else {
 				map.put("msg", "like");
 				return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	/**
 	 * 블로그 글 좋아요
 	 * 
 	 * @param BlogContentLikeDto
-	 * @return 
+	 * @return
 	 */
 	@ApiOperation(value = "블로그 글 좋아요 누르기", notes = "@param BlogContentsLikeDto </br> @return ")
 	@PostMapping("contentsLike")
-	public ResponseEntity<Map<String, String>> contentsLike(@RequestBody BlogContentsLikeDto like) throws Exception{
+	public ResponseEntity<Map<String, String>> contentsLike(@RequestBody BlogContentsLikeDto like) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		try {
 			contentsService.contentLike(like);
 			map.put("msg", "success");
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			map.put("msg", "fail");
 			e.printStackTrace();
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	/**
 	 * 블로그 글 좋아요 취소
 	 * 
 	 * @param BlogContentLikeDto
-	 * @return 
+	 * @return
 	 */
 	@ApiOperation(value = "블로그 글 좋아요 취소하기", notes = "@param BlogContentLikeDto </br> @return ")
 	@PostMapping("contentsUnlike")
-	public ResponseEntity<Map<String, String>> contentsUnlike(@RequestBody BlogContentsLikeDto like) throws Exception{
+	public ResponseEntity<Map<String, String>> contentsUnlike(@RequestBody BlogContentsLikeDto like) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		try {
 			contentsService.contentUnlike(like);
 			map.put("msg", "success");
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			map.put("msg", "fail");
 			e.printStackTrace();
 			return new ResponseEntity<Map<String, String>>(map, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * 블로그 아이디로 user 정보 가져오기.
@@ -251,11 +289,11 @@ public class BlogContentsController {
 	 * @param blog_id
 	 * @return List<CommentDto>
 	 */
-	@ApiOperation(value = "블로그 아이디로 user 정보 가져오기.", notes ="@param : blogId  </br> @return : UserInfo")
+	@ApiOperation(value = "블로그 아이디로 user 정보 가져오기.", notes = "@param : blogId  </br> @return : UserInfo")
 	@GetMapping("blogUserInfo/{blogId}")
 	public ResponseEntity<Map<String, Object>> userInfo(@PathVariable String blogId) {
 		logger.info("=======유저 정보 가져오기=======");
-		
+
 		ResponseEntity<Map<String, Object>> resEntity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -272,12 +310,12 @@ public class BlogContentsController {
 		}
 		return resEntity;
 	}
-	
+
 	@GetMapping("/getHashtag")
 	public ResponseEntity<Map<String, Object>> getHashtag(String keyword) {
 
 		System.out.println("#hashtag 정보 읽어오기");
-		keyword = keyword != null? keyword : "";
+		keyword = keyword != null ? keyword : "";
 		System.out.println("#검색어 " + keyword);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<HashtagDto> selectHash = null;
@@ -290,9 +328,7 @@ public class BlogContentsController {
 			resultMap.put("msg", "fail");
 			e.printStackTrace();
 		}
-		return new ResponseEntity<Map<String,Object>>(resultMap, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
-	
-	
-	
+
 }

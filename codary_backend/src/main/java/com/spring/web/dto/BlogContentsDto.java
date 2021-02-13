@@ -1,5 +1,8 @@
 package com.spring.web.dto;
 
+import java.util.List;
+import java.util.Map;
+
 import io.swagger.annotations.ApiModel;
 
 @ApiModel(value = "BlogContentstDto : 블로그 글", description = "블로그에 작성한 글에 대한 정보")
@@ -14,6 +17,7 @@ public class BlogContentsDto {
 	private String blogDatetime;
 	private String blogContentsCover;
 	private byte isdeleted;
+	private List<Map<String, String>> hashTag;
 	
 	public int getBlogContentsId() {
 		return blogContentsId;
@@ -87,12 +91,31 @@ public class BlogContentsDto {
 		this.isdeleted = isDeleted;
 	}
 	
+	
+	public byte getIsdeleted() {
+		return isdeleted;
+	}
+
+	public void setIsdeleted(byte isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	public List<Map<String, String>> getHashTag() {
+		return hashTag;
+	}
+
+	public void setHashTag(List<Map<String, String>> hashTag) {
+		this.hashTag = hashTag;
+	}
+
 	@Override
 	public String toString() {
 		return "BlogContentsDto [blogContentsId=" + blogContentsId + ", blogId=" + blogId + ", blogContentsTitle="
 				+ blogContentsTitle + ", blogContents=" + blogContents + ", blogContentsView=" + blogContentsView
 				+ ", blogContentsLike=" + blogContentsLike + ", blogDatetime=" + blogDatetime + ", blogContentsCover="
-				+ blogContentsCover + ", isDeleted=" + isdeleted + "]";
+				+ blogContentsCover + ", isdeleted=" + isdeleted + ", hashTag=" + hashTag + "]";
 	}
+
+	
 	
 }

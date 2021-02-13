@@ -1,10 +1,12 @@
 package com.spring.web.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 
@@ -12,7 +14,11 @@ public interface BlogContentsService {
 
 	BlogContentsDto getContent(int blogContentsId) throws Exception;
 
-	int writeBlogContent(BlogContentsDto blogContent) throws Exception;
+	void writeBlogContent(BlogContentsDto blogContent) throws Exception;
+	
+	void writeHash(HashtagDto hash) throws Exception;
+	
+	void writeBlogHash(BlogHashtagDto blogHash) throws Exception;
 
 	List<BlogContentsDto> listBlogContents(String blogId) throws Exception;
 
