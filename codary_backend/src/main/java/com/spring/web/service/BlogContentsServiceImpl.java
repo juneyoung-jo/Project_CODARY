@@ -15,6 +15,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -41,6 +42,16 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	public int writeBlogContent(BlogContentsDto blogContent) throws Exception {
 		int cnt = mapper.writeBlogContent(blogContent);
 		return blogContent.getBlogContentsId();
+	}
+	
+	@Override
+	public void writeHash(HashtagDto hash) throws Exception{
+		mapper.writeHash(hash);
+	}
+	
+	@Override
+	public void writeBlogHash(BlogHashtagDto blogHash) throws Exception{
+		mapper.writeBlogHash(blogHash);
 	}
 
 	@Override
@@ -76,6 +87,7 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("blogId", post.getBlogId());
 			m.put("blogContentsId", post.getBlogContentsId());
+			m.put("blogContentsTitle", post.getBlogContentsTitle());
 			m.put("blogConetentsCover", post.getBlogContentsCover());
 			m.put("hashtags", mapper.getHashtagOfPost(post.getBlogContentsId()));
 			recommendList.add(m);

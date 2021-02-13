@@ -28,7 +28,7 @@ export default {
         blogContentsId: "",
         blogContentsCover:
           "https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg",
-        hastTag: [],
+        hashTag: [],
       },
       user: {
         uid: "",
@@ -60,7 +60,7 @@ export default {
       this.blogContents.blogContents = content;
       this.blogContents.blogContentsTitle = title;
       this.blogContents.blogId = this.user.blogId;
-      this.blogContents.hastTag = selectedTags;
+      this.blogContents.hashTag = selectedTags;
       // console.log(this.blogContents);
       // this.axios
       //   .post(`blog`, this.blogContents)

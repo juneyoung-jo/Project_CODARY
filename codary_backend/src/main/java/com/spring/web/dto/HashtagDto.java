@@ -5,6 +5,15 @@ public class HashtagDto {
 	private int hashtagId;
 	private String hashtagContent;
 
+	public HashtagDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public HashtagDto(int hashtagId, String hashtagContent) {
+		this.hashtagId = hashtagId;
+		this.hashtagContent = hashtagContent;
+	}
+
 	public int getHashtagId() {
 		return hashtagId;
 	}

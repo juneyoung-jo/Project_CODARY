@@ -56,7 +56,7 @@ function blogerLike(blogerLike, success, fail) {
       .post(`personal/blogerLike`, blogerLike)
       .then(success)
       .catch(fail);
-  }
+    }
   
   //언팔로우
 function blogerUnlike(blogerLike, success, fail) {
@@ -73,7 +73,13 @@ function readBlogerlike(blogerLike, success, fail) {
       .then(success)
       .catch(fail);
   }
-  
+
+function updateUserinfo() {
+    // instance
+    //     .post(`personal/--`, '')
+    //     .then(success)
+    //     .catch(fail);
+}
 
 export {
     personalList, 
@@ -84,5 +90,6 @@ export {
     userGraph,
     blogerLike,
     blogerUnlike,
-    readBlogerlike
+    readBlogerlike,
+    updateUserinfo
 };
