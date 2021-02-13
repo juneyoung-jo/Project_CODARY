@@ -6,6 +6,15 @@ public class BlogHashtagDto {
 	private int blogContentsId;
 	private String blogId;
 
+	public BlogHashtagDto() {
+	}
+
+	public BlogHashtagDto(int hashtagId, int blogContentsId, String blogId) {
+		this.hashtagId = hashtagId;
+		this.blogContentsId = blogContentsId;
+		this.blogId = blogId;
+	}
+
 	public int getHashtagId() {
 		return hashtagId;
 	}
