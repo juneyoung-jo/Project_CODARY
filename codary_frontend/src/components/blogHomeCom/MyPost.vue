@@ -145,13 +145,12 @@ export default {
       if(typeof this.$route.query.blogId==='undefined'){
         //나이면
         this.user.blogId=getblogIdCookie();
-        //console.log("언디파인드실행")
       }
       
       personalList(
       this.user.blogId,
       (response) => {
-         console.log(response)
+        //console.log(response)
         this.articles = response.data
       },
       (err) => {

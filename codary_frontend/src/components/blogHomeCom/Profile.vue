@@ -223,6 +223,7 @@ export default {
       otherjob:"",
       otherintro:"",
       otherimgUrl:"",
+
     };
   },
   computed: {
@@ -233,6 +234,11 @@ export default {
       console.log("#파일 업로드 감지!!");
       console.log(this.uploadImg);
     },
+    $route:function () {
+      this.initUser();
+      this.OtherInfo();
+      this.checkblogerLike();
+    }
   },
   methods: {
     initUser(){
@@ -270,7 +276,6 @@ export default {
     );
     },
     blgLike() {
-      console.log("들어왔당");
       this.blogerLike.blogId=this.$route.query.blogId,
       this.blogerLike.uid=getuidCookie(),
       blogerLike(
@@ -287,7 +292,6 @@ export default {
       );
     },
     blgUnlike() {
-      console.log("언팔각이다");
       this.blogerLike.blogId=this.$route.query.blogId,
       this.blogerLike.uid=getuidCookie(),
       blogerUnlike(

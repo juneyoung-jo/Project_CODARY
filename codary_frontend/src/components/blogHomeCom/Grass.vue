@@ -69,6 +69,12 @@ export default {
     //location.reload();
    // console.log('잔디 새로고침');
   },
+  watch: {
+    $route:function () {
+       this.initUser();
+       this.jandi();
+    }
+  },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
   },
