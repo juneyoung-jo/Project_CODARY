@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="writeMemo" parameterType="MemoContentsDto">
-		insert into memocontents(memo_id, memo_content, memo_time)
-		values (#{memoId}, #{memoContent}, now())
+		insert into memocontents(memo_id, memo_content, memo_link, memo_time)
+		values (#{memoId}, #{memoContent}, #{memoLink}, now())
 	</insert>
 	
 	<select id="listMemo" parameterType="String" resultType="MemoContentsDto">

@@ -33,10 +33,10 @@ public class MemoController {
 	/**
 	 * 메모 작성하기
 	 * 
-	 * @param MemoContentsDto(memoId, memoContent)
+	 * @param MemoContentsDto(memoId, memoContent, memoLink)
 	 * @return List<MemoContentsDto>
 	 */
-	@ApiOperation(value = "메모 작성하기", notes ="@param : blogContentsDto(memoId, memoContent)  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 작성하기", notes ="@param : MemoContentsDto(memoId, memoContent, memoLink)  </br> @return List<MemoContentsDto>")
 	@PostMapping
 	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
 		try {
