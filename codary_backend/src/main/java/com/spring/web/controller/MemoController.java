@@ -36,18 +36,16 @@ public class MemoController {
 	 * 메모 작성하기
 	 * 
 	 * @param MemoContentsDto(memoId, memoContent, memoLink)
-	 * @return List<MemoContentsDto>
+	 * @return int(0: 실패, 1:t성공)
 	 */
-	@ApiOperation(value = "메모 작성하기", notes ="@param : MemoContentsDto(memoId, memoContent, memoLink)  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 작성하기", notes ="@param : MemoContentsDto(memoId, memoContent, memoLink)  </br> @return int(0: 실패, 1:t성공)")
 	@PostMapping
-	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
-		try {
-			memoService.writeMemo(memo);
-			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Integer> writeMemo(@RequestBody MemoContentsDto memo) {
+		int result = memoService.writeMemo(memo);
+		if(result == 1)
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 	}
 	
 	/**

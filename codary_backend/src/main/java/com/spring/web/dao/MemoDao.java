@@ -11,7 +11,7 @@ import com.spring.web.dto.MemoContentsDto;
 public interface MemoDao {
 
 	MemoContentsDto getMemo(int memoNum) throws SQLException;
-	void writeMemo(MemoContentsDto memo) throws SQLException;
+	int writeMemo(MemoContentsDto memo);
 	List<MemoContentsDto> listMemo(String memoId) throws SQLException;
 	int modifyMemo(MemoContentsDto memo);
 	int deleteMemo(int memoNum);
