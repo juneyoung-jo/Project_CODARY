@@ -9,17 +9,20 @@
         style="height:100%"
         src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia23900.jpg"
       >
-        <v-container fill-height>
-          <v-row>
-            <v-col class="text-center" cols="12" tag="h1"> </v-col>
-          </v-row>
+        <v-container fill-height class='page'>
+          <button class='downbutton' @click="$refs.fullpage.api.moveSectionDown()">
+            <img src="http://image.flaticon.com/icons/svg/3/3907.svg" id="arrow" class="animated bounce">
+          </button>
         </v-container>
       </v-row>
     </section>
 
     <section id="share" class="section">
       <v-row no-gutters style="height:100%">
-        <v-container fill-height>
+        <v-container fill-height class='page'>
+          <button class='downbutton' @click="$refs.fullpage.api.moveSectionDown()">
+            <img src="http://image.flaticon.com/icons/svg/3/3907.svg" id="arrow" class="animated bounce">
+          </button>
           <v-row>
             <v-col cols="2"></v-col>
             <v-col cols="4" tag="h1">
@@ -49,77 +52,80 @@
         </v-container>
       </v-row>
     </section>
-    <section id="tag" class="section">
-      <v-row no-gutters align="center" class="mx-auto" justify="center" style="height:100%">
-        <v-col cols="7" class='d-flex flex-column pb-16'>
-          <v-carousel 
-            hide-delimiters 
-            show-arrows-on-hover
-          >
-            <v-carousel-item
-              v-for="(item,i) in cards"
-              :key="i"
-              :src="item.blogConetentsCover"
-              :to="{
-                name: 'ViewPost',
-                query: {
-                  blogId: item.blogId,
-                  blogContentsId: item.blogContentsId,
-                },
-              }"
+    <section id="tag" class="section page">
+        <button class='downbutton' @click="$refs.fullpage.api.moveSectionDown()">
+            <img src="http://image.flaticon.com/icons/svg/3/3907.svg" id="arrow" class="animated bounce">
+        </button>
+        <v-row no-gutters align="center" class="mx-auto" justify="center" style="height:100%">
+          <v-col cols="7" class='d-flex flex-column pb-16'>
+            <v-carousel 
+              hide-delimiters 
+              show-arrows-on-hover
             >
-              <v-row
-                class="fill-height"
-                align="end"
-                justify="center"
+              <v-carousel-item
+                v-for="(item,i) in cards"
+                :key="i"
+                :src="item.blogConetentsCover"
+                :to="{
+                  name: 'ViewPost',
+                  query: {
+                    blogId: item.blogId,
+                    blogContentsId: item.blogContentsId,
+                  },
+                }"
               >
-              <v-item-group>
-                <v-item
-                  v-for="(hashtag,i) in item.hashtags"
-                  :key="i"
-                  class='ma-1'
+                <v-row
+                  class="fill-height"
+                  align="end"
+                  justify="center"
                 >
-                  <v-chip
-                    filled
-                    color="primary"
-                    class='mb-10'
+                <v-item-group>
+                  <v-item
+                    v-for="(hashtag,i) in item.hashtags"
+                    :key="i"
+                    class='ma-1'
                   >
-                    {{hashtag}}
-                  </v-chip>
-                </v-item>
-              </v-item-group>
-              </v-row>
-            </v-carousel-item>
-          </v-carousel>
-        </v-col>
-        <v-col cols="1"> </v-col>
-        <v-col class="text-end" cols="2" tag="h1">
-          <span
-            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-            class="font-weight-bold"
-          >
-            태그를
-          </span>
-          <br />
-          <span
-            :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-            class="font-weight-bold"
-          >
-            이용하세요
-          </span>
-          <v-responsive class="mx-auto title font-weight-light mb-1">
+                    <v-chip
+                      filled
+                      color="primary"
+                      class='mb-10'
+                    >
+                      {{hashtag}}
+                    </v-chip>
+                  </v-item>
+                </v-item-group>
+                </v-row>
+              </v-carousel-item>
+            </v-carousel>
+          </v-col>
+          <v-col cols="1"> </v-col>
+          <v-col class="text-end" cols="2" tag="h1">
+            <span
+              :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+              class="font-weight-bold"
+            >
+              태그를
+            </span>
             <br />
-            태그로 소통이 시작됩니다.
-          </v-responsive>
-          <v-responsive class="mx-auto title font-weight-light">
-            태그를 이용해 도움을 청할수도,
-          </v-responsive>
-          <v-responsive class="mx-auto title font-weight-light">
-            커뮤니티를 만들 수도 있습니다.
-          </v-responsive>
-          <div class='py-16'></div>
-        </v-col>
-      </v-row>
+            <span
+              :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+              class="font-weight-bold"
+            >
+              이용하세요
+            </span>
+            <v-responsive class="mx-auto title font-weight-light mb-1">
+              <br />
+              태그로 소통이 시작됩니다.
+            </v-responsive>
+            <v-responsive class="mx-auto title font-weight-light">
+              태그를 이용해 도움을 청할수도,
+            </v-responsive>
+            <v-responsive class="mx-auto title font-weight-light">
+              커뮤니티를 만들 수도 있습니다.
+            </v-responsive>
+            <div class='py-16'></div>
+          </v-col>
+        </v-row>
     </section>
     <section id="grass" class="section">
       <v-row no-gutters align="center" class="mx-auto" justify="center" style="height:100%">
@@ -236,9 +242,7 @@ export default {
       ],
       cards: [],
       options: {
-        licenseKey: 'YOUR_KEY_HEERE',
         menu: '#menu',
-
         sectionsColor: [''],
       },
     };
@@ -271,5 +275,28 @@ export default {
 #grass {
   background-position: center;
   background-size: unset;
+}
+.page {
+  position: relative;
+}
+.downbutton {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  color: red;
+}
+
+.downbutton img {
+  margin: 0px 0 0 -40px;
+  line-height: 60px;
+  position: absolute;
+  left: 60%;
+  bottom: 0px;
+}
+.bounce {
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+  animation: bounce 3.6s ease infinite;
+  transform-origin: 50% 50%;
 }
 </style>
