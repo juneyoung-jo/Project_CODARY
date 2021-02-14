@@ -47,9 +47,9 @@ import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
       initUser(){
        this.user.user = getuidCookie();
        this.user.blogId = getblogIdCookie();    
-        console.log("메뉴이닛유저");
-        console.log("쿠키값 "+this.user.blogId);
-        console.log("받은값 "+this.$route.query.blogId);
+       // console.log("메뉴이닛유저");
+       // console.log("쿠키값 "+this.user.blogId);
+       // console.log("받은값 "+this.$route.query.blogId);
 
         if(this.user.blogId===this.$route.query.blogId || typeof this.$route.query.blogId==='undefined'){
         //나야 

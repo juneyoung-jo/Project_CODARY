@@ -260,8 +260,8 @@ public class PersonalController {
 		return new ResponseEntity<Map<String, Object>>(result,status);
 	}
 	
-	/*유저정보를 받는다 */
-	@ApiOperation(value ="유저정보", notes = "개인블로그에 필요한 유저 정보를 받는다")
+	/*타인의 개인블로그에 필요한 유저정보를 받는다 */
+	@ApiOperation(value ="유저정보", notes = "타인의 개인블로그에 필요한 유저 정보를 받는다")
 	@GetMapping("/userinfo/{blogid}")
 	public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String blogid) {
 		UserInfoDto udo=null;
