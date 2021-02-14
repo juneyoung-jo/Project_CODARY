@@ -66,6 +66,7 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 
 	@Override
 	public int deleteBlogContent(int blogContentsId) {
+		mapper.deleteCommentOfPost(blogContentsId);
 		return mapper.deleteBlogContent(blogContentsId);
 	}
 
