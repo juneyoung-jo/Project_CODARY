@@ -109,15 +109,15 @@ public class PersonalController {
 	/*좋아요한 블로거 목록보기*/
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
 	@GetMapping("/bloger/{blogid}/{uid}")
-	public ResponseEntity<List<UserInfoDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
+	public ResponseEntity<List<Map<String, Object>>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
-		List<UserInfoDto> UserInfoDto=null;
+		List<Map<String, Object>> m=null;
 		
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
-					UserInfoDto=personalService.showLikeBloger(uid);
-					System.out.println(UserInfoDto);
+					m=personalService.showLikeBloger(uid);
+					
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -127,7 +127,7 @@ public class PersonalController {
 	//			status=HttpStatus.ACCEPTED;
 	//		}
 		
-			return new ResponseEntity<List<UserInfoDto>>(UserInfoDto, status);
+			return new ResponseEntity<List<Map<String, Object>>>(m, status);
 	}
 	
 	/*좋아요한 블로그 글 목록보기*/

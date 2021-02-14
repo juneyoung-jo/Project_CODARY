@@ -45,7 +45,8 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<UserInfoDto> showLikeBloger(String uid) {
+	public List<Map<String, Object>> showLikeBloger(String uid) {
+		System.out.println(personalDao.likeBloger(uid));
 		return personalDao.likeBloger(uid);
 	}
 

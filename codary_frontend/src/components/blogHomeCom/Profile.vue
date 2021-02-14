@@ -19,7 +19,9 @@
               {{ this.nickname }}
             </h4>
             <h6 class="text-h6 mb-2 text--secondary">{{ this.job }}</h6>
-
+            <v-col cols="12">
+              {{ this.intro}}
+            </v-col>
             <div class="d-flex mb-16">
               <router-link class="noline" :to="'/createpost'">
                 <v-btn color="dark" min-width="100" rounded outlined>
@@ -127,7 +129,10 @@
               {{ this.othernickname }}
             </h4>
             <h6 class="text-h6 mb-2 text--secondary">{{ this.otherjob }}</h6>
-
+          
+            <v-col cols="12">
+              {{ this.otherintro}}
+            </v-col>
             <p class="text--secondary">
               <v-card flat class='mb-10'>
                 <v-card-text>

@@ -30,7 +30,15 @@
             class="font-weight-black"
             text
           >
+          <router-link :close-on-content-click="false" class="noline pa-5" 
+          :to="{
+            name: 'BlogHome', 
+            query: { 
+              blogId: article.blog_id
+              }
+            }">
             {{article.nickname}}
+          </router-link>
           </v-btn>
         </v-col>
       </v-row>
