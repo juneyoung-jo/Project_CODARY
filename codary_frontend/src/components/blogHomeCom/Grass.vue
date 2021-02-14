@@ -60,7 +60,7 @@ export default {
         user:'',
         blogId: '',
       },
-      flag: true
+      flag: true,
     }
   },
   created(){
@@ -72,6 +72,7 @@ export default {
   watch: {
     $route:function () {
        this.initUser();
+       this.flag=true;
        this.jandi();
     }
   },

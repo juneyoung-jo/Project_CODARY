@@ -81,8 +81,8 @@ public class PersonalController {
 	}
 	
 	
-	/*내 메모 불러오기*/
-	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
+	/*내 메모 불러오기 (최신순)*/
+	@ApiOperation(value="내 메모 불러오기 (최신순)", notes = "내가쓴 메모 목록을 최신순으로 반환한다.", response=List.class)
 	@GetMapping("/memo/{memoid}") 
 	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
 		
@@ -92,7 +92,12 @@ public class PersonalController {
 	//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 			try {
 				memocontentsDto=personalService.showMemo(memoid);
-				System.out.println(memocontentsDto);
+				Collections.sort(memocontentsDto, new Comparator<MemoContentsDto>() {
+					@Override
+					public int compare(MemoContentsDto o1, MemoContentsDto o2) {
+						return o2.getMemoTime().compareTo(o1.getMemoTime());
+					}
+				});
 				status=HttpStatus.ACCEPTED;
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -117,7 +122,6 @@ public class PersonalController {
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
 					m=personalService.showLikeBloger(uid);
-					
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -141,7 +145,6 @@ public class PersonalController {
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
 					blogcontentsDto=personalService.showLikeBlogContents(uid);
-					System.out.println(blogcontentsDto);
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
