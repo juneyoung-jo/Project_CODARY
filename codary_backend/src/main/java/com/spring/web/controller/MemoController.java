@@ -1,5 +1,7 @@
 package com.spring.web.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +60,14 @@ public class MemoController {
 	@GetMapping("{memoId}")
 	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable String memoId) throws Exception {
 		try {
-			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+			List<MemoContentsDto> list = memoService.listMemo(memoId);
+			Collections.sort(list, new Comparator<MemoContentsDto>() {
+				@Override
+				public int compare(MemoContentsDto o1, MemoContentsDto o2) {
+					return o2.getMemoTime().compareTo(o1.getMemoTime());
+				}
+			});
+			return new ResponseEntity<List<MemoContentsDto>>(list, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
