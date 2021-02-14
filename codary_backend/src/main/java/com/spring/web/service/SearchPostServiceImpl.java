@@ -82,7 +82,7 @@ public class SearchPostServiceImpl implements SearchPostService {
 	}
 
 	@Override
-//	@Cacheable(value = "get_Contents")
+	@Cacheable(value = "get_Contents")
 	public List<BlogPostDto> searchAll() throws Exception {
 		return mapper.searchTitle();
 	}
