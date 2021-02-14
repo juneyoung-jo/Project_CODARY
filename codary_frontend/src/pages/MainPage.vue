@@ -12,23 +12,26 @@
           <v-sheet class='downbutton'>
             <div class="scroll-down" @click="$refs.fullpage.api.moveSectionDown()"></div>
           </v-sheet>
-          <v-row class='d-flex flex-column mb-16'>
-            <v-col class='d-flex' cols="6">
-              <div
-                :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
-                class="font-weight-bold"
+          <v-row class='d-flex mb-16 pb-16'>
+              <v-col cols='1'></v-col>
+              <v-col class='d-flex flex-column' cols='6'>
+                <v-sheet
+                  :class="[$vuetify.breakpoint.smAndDown ? 'display-2' : 'display-3']"
+                  class="font-weight-bold text-right Scodarymain pa-4"
+                  style="color:white"
+                  color="secondary"
+                >
+                  codary
+                </v-sheet>
+              </v-col>
+            <v-col class='d-flex flex-column mt-8' cols="4">
+            <v-col cols='1'></v-col>
+              <v-sheet
+                class="font-weight-bold headline"
+                color="background"
               >
                 모두를 위한 코딩 다이어리
-              </div>
-            </v-col>
-            <v-col class='d-flex' cols='6'>
-              <div
-                :class="[$vuetify.breakpoint.smAndDown ? 'display-3' : 'display-4']"
-                class="font-weight-bold codarymain"
-                style="font-family:'Poppins'"
-              >
-                codary
-              </div>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-container>
