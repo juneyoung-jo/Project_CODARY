@@ -16,10 +16,16 @@
 		where memo_id = #{memoId} and isdeleted = 0
 	</select>
 	
-	<select id="likeBloger" resultType="BlogDto" parameterType="String">
+	<select id="likeBloger" resultType="UserInfoDto" parameterType="String">
 		select * 
-		from blog inner join blogerlike using (blog_id)
-		where blogerlike.uid = #{uid};
+      from userinfo 
+      where uid in (
+         select uid from user where blog_id in (
+            select blog_id 
+            from blog inner join blogerlike using (blog_id)
+            where blogerlike.uid = #{uid}
+            )
+      );
 	</select>
 	
 	<select id="likeBlogContents" resultType="BlogContentsDto" parameterType="String">

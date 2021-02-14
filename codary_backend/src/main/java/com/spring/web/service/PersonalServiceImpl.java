@@ -45,7 +45,7 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<BlogDto> showLikeBloger(String uid) {
+	public List<UserInfoDto> showLikeBloger(String uid) {
 		return personalDao.likeBloger(uid);
 	}
 

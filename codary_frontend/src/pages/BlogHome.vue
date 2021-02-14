@@ -19,6 +19,16 @@ import Menu from '../components/blogHomeCom/Menu'
 export default {
   name: 'BlogHome',
   components: { Profile,MyCover, Grass, Menu},
+ /* data(){
+    return {
+      componentKey:0
+    }
+  },
+  methods:{
+    forceRerender(){
+      this.componentKey +=1;
+    }
+  }*/
   /*create(){
     this.init();
   },

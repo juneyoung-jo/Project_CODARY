@@ -172,16 +172,7 @@ import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 export default {
   created() {
     this.initUser();
-    readBlogerlike(
-      this.blogerLike,
-      (response) => {
-       // console.log(response.data.data);
-        this.blogerLikeflag = response.data.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.checkblogerLike();
     // 1. uid를 가지고, 유저 프로필 정보를 읽어온다.
     getUserInfo(
       getuidCookie(),
@@ -218,6 +209,7 @@ export default {
       uploadFile: "",
       // profile: this.loggedInUserData.profile,
       user:{
+        uid:getuidCookie(),
         blogId:getblogIdCookie(),
       },
       isMe:false,
@@ -239,12 +231,10 @@ export default {
   },
   methods: {
     initUser(){
-      if(this.user.blogId===this.$route.query.blogId){
+      if(this.user.blogId===this.$route.query.blogId || typeof this.$route.query.blogId==='undefined'){
         this.isMe=true;
-        //console.log("프로필나야 "+this.isMe);
       }else{
         this.isMe=false;
-       // console.log("프로필나아니야 "+ this.isMe);
       }
     },
     OtherInfo(){
@@ -261,8 +251,23 @@ export default {
         }
       )
     },
+    checkblogerLike(){
+      this.blogerLike.blogId=this.$route.query.blogId,
+      this.blogerLike.uid=getuidCookie(),
+      readBlogerlike(
+      this.blogerLike,
+      (response) => {
+        this.blogerLikeflag = response.data.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    },
     blgLike() {
       console.log("들어왔당");
+      this.blogerLike.blogId=this.$route.query.blogId,
+      this.blogerLike.uid=getuidCookie(),
       blogerLike(
         this.blogerLike,
         (response) => {
@@ -278,6 +283,8 @@ export default {
     },
     blgUnlike() {
       console.log("언팔각이다");
+      this.blogerLike.blogId=this.$route.query.blogId,
+      this.blogerLike.uid=getuidCookie(),
       blogerUnlike(
         this.blogerLike,
         (response) => {
