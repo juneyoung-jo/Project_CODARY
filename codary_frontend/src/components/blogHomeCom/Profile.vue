@@ -276,20 +276,24 @@ export default {
     );
     },
     blgLike() {
-      this.blogerLike.blogId=this.$route.query.blogId,
-      this.blogerLike.uid=getuidCookie(),
-      blogerLike(
-        this.blogerLike,
-        (response) => {
-          if (response.data.msg === "success") {
-            this.blogerLikeflag = true;
-            console.log("좋아요누름");
+      if (this.user.uid === "") alert("로그인 해주세요");
+      else{
+        this.blogerLike.blogId=this.$route.query.blogId,
+        this.blogerLike.uid=getuidCookie(),
+      
+        blogerLike(
+          this.blogerLike,
+          (response) => {
+            if (response.data.msg === "success") {
+              this.blogerLikeflag = true;
+              console.log("좋아요누름");
+            }
+          },
+          (error) => {
+            console.log(error);
           }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      }
     },
     blgUnlike() {
       this.blogerLike.blogId=this.$route.query.blogId,
