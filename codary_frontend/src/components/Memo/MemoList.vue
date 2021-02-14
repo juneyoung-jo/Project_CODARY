@@ -2,8 +2,8 @@
   <v-card-text id="memoListItem" class="pa-10">
     <div class="mb-7">
       <v-list
-        v-for="item in this.calData"
-        :key="item.memoNum"
+        v-for="(item, index) in this.calData"
+        :key="index"
         class="d-flex flex-column"
       >
         <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
@@ -13,10 +13,10 @@
           }}</v-list-item-subtitle>
         </v-list-item-content>
         <div class="d-flex justify-end">
-          <v-btn small fab plain @click="changingMemo(item)">
+          <v-btn small fab plain @click="changingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'edit']" />
           </v-btn>
-          <v-btn small fab plain @click="deletingMemo(item, item.memoNum)">
+          <v-btn small fab plain @click="deletingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
           </v-btn>
         </div>
@@ -29,15 +29,15 @@
 
 <script>
 import { deleteMemo } from "@/api/memo.js";
-import { memoList } from "@/api/memo.js";
+// import { memoList } from "@/api/memo.js";
 import { mapState } from "vuex";
+// import { getmemoIdCookie } from "@/util/cookie.js";
 
 export default {
   name: "MemoList",
-  // props: ['memoLists'],
+  props: ["listData"],
   data() {
     return {
-      listData: [],
       dataPerPage: 3,
       curPageNum: 1,
     };
@@ -57,54 +57,26 @@ export default {
       return this.listData.slice(this.startOffset, this.endOffset);
     },
   },
-
-  created() {
-    if (this.isLogin === true) {
-      memoList(
-        this.loggedInUserData.memoId,
-        (response) => {
-          this.listData = response.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-  },
-
   methods: {
-    getmemoList() {
-      if (this.isLogin === true) {
-        memoList(
-          this.loggedInUserData.memoId,
-          (response) => {
-            this.memoLists = response.data;
+    deletingMemo(item, index) {
+      if (confirm("삭제하시겠습니까?")) {
+        deleteMemo(
+          item,
+          () => {
+            this.$emit("DELETEMEMO", index);
+            alert("삭제되었습니다.");
           },
           (error) => {
+            alert("삭제실패");
             console.log(error);
           }
         );
       }
     },
-
-    deletingMemo(item, memoNum) {
-      deleteMemo(
-        item,
-        () => {
-          const findinfIndex = this.listData.findIndex(memoNum);
-          // console.log(response)
-          // console.log('삭제')
-          this.listData.splice(findinfIndex, 1);
-        },
-        (error) => {
-          alert("삭제실패");
-          console.log(error);
-        }
-      );
-    },
-
-    changingMemo(item) {
-      this.$emit("CHANGEMEMO", item);
+    changingMemo(item, index) {
+      if (confirm("수정하시겠습니까?")) {
+        this.$emit("MODIFYMEMO", index, item.memoContent, item.memoNum);
+      }
     },
   },
 };

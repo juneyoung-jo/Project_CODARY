@@ -23,7 +23,7 @@
 	
  	<update id="modifyMemo" parameterType="MemoContentsDto">
 		update memocontents
-		set memo_content = #{memoContent}
+		set memo_content = #{memoContent}, memo_time = now()
 		where memo_num = #{memoNum}
 	</update>
 	
