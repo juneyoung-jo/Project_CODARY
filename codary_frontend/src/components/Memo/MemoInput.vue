@@ -17,45 +17,50 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { writeMemo, changeMemo } from '@/api/memo.js';
+import { mapState } from "vuex";
+import { writeMemo, changeMemo } from "@/api/memo.js";
 
 export default {
-  name: 'MemoInput',
-  props: ['sendingChange'],
+  name: "MemoInput",
+  props: ["sendingChange"],
   data() {
     return {
       memodata: {
-        memoContent: '',
-        memoTime: '',
+        memoContent: "",
+        memoTime: "",
+        memoLink: "",
         // memoNum: '',
       },
     };
   },
   computed: {
-    ...mapState(['loggedInUserData']),
+    ...mapState(["loggedInUserData"]),
   },
   watch: {
     sendingChange(val) {
       // console.log(val)
       this.memodata.memoContent = val.memoContent;
       this.memodata.memoTime = val.memoTime;
+      this.memodata.memoLink = window.location.href;
     },
   },
   methods: {
     memoSave() {
-      if (this.memodata.memoContent === '') {
+      if (this.memodata.memoContent === "") {
         return;
       }
-      if (this.memodata.memoTime === '') {
+      if (this.memodata.memoTime === "") {
         Object.assign(this.memodata, { memoId: this.loggedInUserData.memoId });
+        console.log(window.location.href);
+        this.memodata.memoLink = window.location.href;
         writeMemo(
           this.memodata,
           () => {
             // console.log(response)
             // console.log('저장!')
-            this.memodata.memoContent = '';
-            this.memodata.memoTime = '';
+            this.memodata.memoContent = "";
+            this.memodata.memoTime = "";
+            this.memodata.memoLink = "";
           },
           (error) => {
             console.log(error);
@@ -64,13 +69,14 @@ export default {
       } else {
         this.sendingChange.memoContent = this.memodata.memoContent;
         Object.assign(this.memodata, { memoId: this.loggedInUserData.memoId });
+        this.memodata.memoLink = window.location.href;
         changeMemo(
           this.sendingChange,
           () => {
             // console.log(response)
             // console.log('수정!')
-            this.memodata.memoContent = '';
-            this.memodata.memoTime = '';
+            this.memodata.memoContent = "";
+            this.memodata.memoTime = "";
           },
           (error) => {
             console.log(error);
@@ -84,28 +90,27 @@ export default {
 
 <style>
 #button {
-  outline:none;
+  outline: none;
   height: 40px;
   text-align: center;
   width: 130px;
-  border-radius:40px;
-  
-  border: 2px solid #1ECD97;
-  color: #1ECD97;
-  letter-spacing:1px;
-  text-shadow:0;
+  border-radius: 40px;
 
+  border: 2px solid #1ecd97;
+  color: #1ecd97;
+  letter-spacing: 1px;
+  text-shadow: 0;
 }
 
 #button:hover {
-  color:white;
-  background-color: #1ECD97;
+  color: white;
+  background-color: #1ecd97;
 }
 
 .memoinputarea {
   color: black !important;
 }
-  /* button:active {
+/* button:active {
     //letter-spacing: 2px;
     letter-spacing: 2px ;
   },
