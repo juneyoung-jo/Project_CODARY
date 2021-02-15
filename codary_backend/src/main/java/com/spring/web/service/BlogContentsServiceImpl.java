@@ -63,6 +63,12 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	public int modifyBlogContent(BlogContentsDto blogContent) {
 		return mapper.modifyBlogContent(blogContent);
 	}
+	
+	@Override
+	public void deleteOldHash(BlogContentsDto blogContent) throws Exception{
+		mapper.deleteOldHash(blogContent);
+		return;
+	}
 
 	@Override
 	public int deleteBlogContent(int blogContentsId) {

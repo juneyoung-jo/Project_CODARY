@@ -22,6 +22,8 @@ public interface BlogContentsService {
 	List<BlogContentsDto> listBlogContents(String blogId) throws Exception;
 
 	int modifyBlogContent(BlogContentsDto blogContent);
+	
+	void deleteOldHash(BlogContentsDto blogContent) throws Exception;
 
 	int deleteBlogContent(int blogContentsId);
 	

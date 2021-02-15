@@ -123,7 +123,38 @@ public class BlogContentsController {
 	@ApiOperation(value = "블로그 글 수정", notes = "@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
 	@PutMapping
 	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception {
+		System.out.println("#글수정 호출 ");
+		System.out.println(content.toString());
+		
+		// 1. 게시글 수정
 		int result = contentsService.modifyBlogContent(content);
+		
+		// 2. 기존 해시태그 정보 삭제
+		contentsService.deleteOldHash(content);
+		
+		// 3. 해시태그 내용 삽입
+		List<Map<String, String>> hashTag = content.getHashTag();
+		if(hashTag != null) {
+			for (int i = 0; i < hashTag.size(); i++) {
+				// 2-1. 해시태그값 파싱
+				int key = Integer.parseInt(hashTag.get(i).get("key"));
+				String value = hashTag.get(i).get("value");
+
+				HashtagDto hash = new HashtagDto(key, value);
+				BlogHashtagDto blogHash = null;
+				// 2-2. 해시태그 테이블에 존재하지 않는 태그라면 insert
+				if (key < 0) {
+					contentsService.writeHash(hash);
+				}
+				// 3. 블로그해시태그 테이블에 insert
+				blogHash = new BlogHashtagDto(hash.getHashtagId(), 
+						content.getBlogContentsId(), content.getBlogId());
+				contentsService.writeBlogHash(blogHash);
+				
+				System.out.println("#해시태그 key: " + hash.getHashtagId() + " value:" + value);
+			}
+		}
+		
 		if (result == 1)
 			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()),
 					HttpStatus.OK);

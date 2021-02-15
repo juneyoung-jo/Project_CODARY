@@ -37,6 +37,12 @@
 		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
 	</update>
 	
+	<delete id="deleteOldHash" parameterType="BlogContentsDto">
+		delete from bloghashtag
+		where blog_contents_id = #{blogContentsId}
+	</delete>
+	
+	
 	<update id="deleteBlogContent" parameterType="int">
 		update blogcontents
 		set isdeleted = 1
