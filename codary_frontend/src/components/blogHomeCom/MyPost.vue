@@ -9,9 +9,9 @@
         <v-divider class="mb-1"></v-divider>
         <v-divider></v-divider>
       </v-responsive>
-      <v-div class="subtitle-2 text-center">
+      <div class="subtitle-2 text-center">
         <h4 v-if="this.articles.length==0">작성한 글이 없어요!</h4>
-      </v-div>
+      </div>
 
       <v-row>
         <v-col
@@ -135,8 +135,8 @@ export default {
     },
 
     mypost(){
-        console.log("Mypost받은값 "+this.$route.query.blogId);
-        console.log("Mypost나 "+this.user.blogId);
+       // console.log("Mypost받은값 "+this.$route.query.blogId);
+       // console.log("Mypost나 "+this.user.blogId);
 
       if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 
@@ -145,13 +145,12 @@ export default {
       if(typeof this.$route.query.blogId==='undefined'){
         //나이면
         this.user.blogId=getblogIdCookie();
-        //console.log("언디파인드실행")
       }
       
       personalList(
       this.user.blogId,
       (response) => {
-         console.log(response)
+        //console.log(response)
         this.articles = response.data
       },
       (err) => {

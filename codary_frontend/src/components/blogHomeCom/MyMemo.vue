@@ -6,9 +6,9 @@
         width="56"
       >
       </v-responsive>
-      <v-div class="subtitle-2 text-center">
+      <div class="subtitle-2 text-center">
         <h4 v-if="this.articles.length==0">작성한 메모가 없어요!</h4>
-      </v-div>
+      </div>
       <v-row>
         <v-col
           v-for="(article, index) in articles"
