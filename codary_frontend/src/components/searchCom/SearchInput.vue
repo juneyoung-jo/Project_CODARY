@@ -10,7 +10,6 @@
       placeholder="태그 검색 시 '#'를 앞에 붙여주세요"
     ></v-autocomplete> -->
 
-  
     <v-text-field
       v-model="keyword"
       class='font-weight-bold mr-2'
@@ -22,13 +21,10 @@
       
     >
       <template v-slot:label>
-        <div class='ml-2 my-0'>
-          제목 또는 태그를 선택한 후에 검색해요
-        </div>
+        <div class="ml-2 my-0">제목 또는 태그를 선택한 후에 검색해요</div>
       </template>
     </v-text-field>
-  </div> 
-
+  </div>
 </template>
 
 <script>
@@ -38,7 +34,6 @@ export default {
     return {
       keyword: "",
       titlesearch: true,
- 
     };
   },
   methods: {
