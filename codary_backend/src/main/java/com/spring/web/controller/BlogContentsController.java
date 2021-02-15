@@ -70,7 +70,7 @@ public class BlogContentsController {
 	 * @return int(blogContentsId)
 	 */
 
-//	@CacheEvict(cacheNames = {"get_Contents"}, allEntries = true)
+	@CacheEvict(cacheNames = {"get_Contents"}, allEntries = true)
 	@ApiOperation(value = "블로그 글 작성", notes = "@param BlogContentsDto(blogId, blogContentsTitle, blogContents, blogContentsCover)  </br> @return int(blogContentsId)")
 	@PostMapping
 	public ResponseEntity<Integer> write(@RequestBody BlogContentsDto content) throws Exception {
@@ -120,6 +120,7 @@ public class BlogContentsController {
 	 *                                      blogId, blogContentsId)
 	 * @return BlogContentsDto
 	 */
+	@CacheEvict(cacheNames = {"get_Contents"}, allEntries = true)
 	@ApiOperation(value = "블로그 글 수정", notes = "@param BlogContentsDto(blogContents, blogContentsTitle, blogContentsCover, blogId, blogContentsId)  </br> @return BlogContentsDto")
 	@PutMapping
 	public ResponseEntity<BlogContentsDto> modify(@RequestBody BlogContentsDto content) throws Exception {
@@ -168,6 +169,7 @@ public class BlogContentsController {
 	 * @param blogId, blogContentsId
 	 * @return List<BlogContentsDto>
 	 */
+	@CacheEvict(cacheNames = {"get_Contents"}, allEntries = true)
 	@ApiOperation(value = "블로그 글 삭제", notes = "@param blogId, blogContentsId  </br> @return List<BlogContentsDto>")
 	@DeleteMapping("{blogId}/{blogContentsId}")
 	public ResponseEntity<List<BlogContentsDto>> delete(@PathVariable String blogId, @PathVariable int blogContentsId)
