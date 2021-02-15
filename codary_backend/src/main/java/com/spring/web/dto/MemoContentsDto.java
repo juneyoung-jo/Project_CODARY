@@ -7,6 +7,7 @@ public class MemoContentsDto {
 	private int memoNum;
 	private String memoId;
 	private String memoContent;
+	private String memoLink;
 	private String memoTime;
 	private byte isdeleted;
 
@@ -49,11 +50,19 @@ public class MemoContentsDto {
 	public void setIsdeleted(byte isdeleted) {
 		this.isdeleted = isdeleted;
 	}
+	
+	public String getMemoLink() {
+		return memoLink;
+	}
+
+	public void setMemoLink(String memoLink) {
+		this.memoLink = memoLink;
+	}
 
 	@Override
 	public String toString() {
 		return "MemoContentsDto [memoNum=" + memoNum + ", memoId=" + memoId + ", memoContent=" + memoContent
-				+ ", memoTime=" + memoTime + ", isdeleted=" + isdeleted + "]";
+				+ ", memoTime=" + memoTime + ", isdeleted=" + isdeleted + ", memoLink=" + memoLink + "]";
 	}
 
 }

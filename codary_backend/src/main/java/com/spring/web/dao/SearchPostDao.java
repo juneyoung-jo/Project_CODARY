@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.spring.web.dto.BlogPostDto;
+import com.spring.web.dto.HashtagDto;
 
 @Mapper
 public interface SearchPostDao {
@@ -17,5 +18,6 @@ public interface SearchPostDao {
 	List<Integer> getCommentInfo(int blogContentsId) throws SQLException;
 	Map<String, String> getUserProfile(String blogId) throws SQLException;
 	List<BlogPostDto> getPostInfo(List<Integer> list) throws SQLException;
+	List<HashtagDto> getHashtagOfPost(int blogContentsId) throws SQLException;
 //	List<Map<String, Object>> searchByTitle() throws SQLException;
 }

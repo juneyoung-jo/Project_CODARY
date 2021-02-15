@@ -23,6 +23,7 @@ public interface BlogContentsDao {
 	int modifyBlogContent(BlogContentsDto blogContent);
 	void deleteOldHash(BlogContentsDto blogContent) throws SQLException;;
 	int deleteBlogContent(int blogContentsId);
+	int deleteCommentOfPost(int blogContentsId);
 	List<BlogContentsDto> getAllContents() throws SQLException;
 	int writeLog(Map<String, Object> log) throws SQLException;
 	void increaseContentsView(int blogContentsId) throws SQLException;

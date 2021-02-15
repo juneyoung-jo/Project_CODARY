@@ -47,8 +47,9 @@ public class SearchPostServiceImpl implements SearchPostService {
 			profile = mapper.getUserProfile(post.getBlogId());
 			post.setProfile(profile.get("profile"));
 			post.setNickname(profile.get("nickname"));
+			post.setHashtags(mapper.getHashtagOfPost(post.getBlogContentsId()));
 		}
-
+		
 		return result;
 	}
 
@@ -74,8 +75,10 @@ public class SearchPostServiceImpl implements SearchPostService {
 		
 		List<BlogPostDto> result = new LinkedList<>();
 		for(BlogPostDto bpd : list) {
-			if(bpd.getBlogContentsTitle().contains(keyword))
+			if(bpd.getBlogContentsTitle().contains(keyword)) {
+				bpd.setHashtags(mapper.getHashtagOfPost(bpd.getBlogContentsId()));
 				result.add(bpd);
+			}
 		}
 		
 		return result;

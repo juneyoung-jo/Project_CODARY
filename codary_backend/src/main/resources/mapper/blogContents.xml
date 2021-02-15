@@ -49,6 +49,12 @@
 		where blog_contents_id = #{blogContentsId}
 	</update>
 	
+	<update id="deleteCommentOfPost" parameterType="int">
+		update comment
+		set isdeleted = 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
 	<select id="getAllContents" resultType="BlogContentsDto">
 		select *
 		from blogcontents
