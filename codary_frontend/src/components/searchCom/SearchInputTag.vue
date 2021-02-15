@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <div class="d-flex align-center justify-space-around">
+  <div class="d-flex align-center justify-space-around" style="height:60px">
  
     <!-- <v-autocomplete
       filled
@@ -29,12 +29,14 @@
 
 
     <v-autocomplete
-            v-model="value"
-            :items="items"
-            dense
-            filled
-            label="Filled"
-          ></v-autocomplete>
+     class="mr-2"
+      v-model="value"
+      :items="items"
+      dense
+      filled
+      hide-details
+      label="제목 또는 태그를 선택한 후에 검색하세요"
+    ></v-autocomplete>
   </div> 
 </div>
 </template>
