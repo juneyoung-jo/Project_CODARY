@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex align-center justify-space-around">
+
+
+  <div class="d-flex align-center justify-space-around" style="height:60px">
+  
     <!-- <v-autocomplete
       filled
       rounded
@@ -9,12 +12,13 @@
 
     <v-text-field
       v-model="keyword"
-      class="font-weight-bold ma-0 ml-4"
-      style="width: 50%"
+      class='font-weight-bold mr-2'
       flat
+      hide-details
       solo-inverted
       @keyup.enter="search()"
       @blur="erase()"
+      
     >
       <template v-slot:label>
         <div class="ml-2 my-0">제목 또는 태그를 선택한 후에 검색해요</div>

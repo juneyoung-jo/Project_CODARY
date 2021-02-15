@@ -11,6 +11,7 @@
       color="black"
       class="pa-0 ma-0 memoinputarea"
       v-model="memodata.memoContent"
+      style="outline:dotted"
     ></v-textarea>
     <button id="button" @click="memoSave()">저장하기</button>
   </v-card-text>

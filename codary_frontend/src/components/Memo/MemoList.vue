@@ -1,5 +1,5 @@
 <template>
-  <v-card-text id="memoListItem" class="pa-10">
+  <v-card-text id="memoListItem" class="pa-4">
     <div class="mb-7">
       <v-list
         v-for="(item, index) in this.calData"
@@ -11,6 +11,7 @@
           <v-list-item-subtitle class="pa-2">{{
             item.memoContent
           }}</v-list-item-subtitle>
+          <v-btn value="item.memoLink" herf="item.memoLink">작성한 곳으로 이동</v-btn>
         </v-list-item-content>
         <div class="d-flex justify-end">
           <v-btn small fab plain @click="changingMemo(item, index)">

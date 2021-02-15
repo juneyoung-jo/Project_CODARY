@@ -17,7 +17,7 @@
       </router-link>
     </v-row>
     <!-- buttons -->
-    <v-row justify="end mb-2" class='mr-4'>
+    <v-row justify="end" class='mr-4'>
       <v-col cols="auto" class='mt-1 font-weight-medium'>
         Dark Mode
       </v-col>
