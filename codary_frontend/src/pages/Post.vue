@@ -11,7 +11,7 @@
           :key="hashtag.hashtagId"
           outlined
           class="mr-2"
-          @click="search()"
+          @click="search(hashtag)"
           >{{ hashtag.hashtagContent }}</v-chip
         >
       </div>
@@ -385,6 +385,16 @@ export default {
           }
         );
       }
+    },
+    search(hashtag) {
+      console.log(hashtag);
+      this.$router.push({
+        name: "SearchPage",
+        query: {
+          hashtagId: hashtag.hashtagId,
+          hashtagContent: hashtag.hashtagContent,
+        },
+      });
     },
   },
 };
