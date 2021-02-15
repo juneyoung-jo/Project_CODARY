@@ -63,10 +63,9 @@
                   </div>
                 </div>
                 <div class="pl-5 py-3">
-                  <h2
-                    class="font-weight-bold mb-3 pl-0 ml-0 mr-5"
-                    v-text="blogContentsTitle"
-                  ></h2>
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5">
+                    {{ blogContentsTitle | textLengthOverCutTitle }}
+                  </h2>
                   <h4 class="mb-2 pl-1">
                     <v-chip
                       v-for="hashtag in hashtags"
@@ -129,6 +128,18 @@ export default {
     textLengthOverCut(txt, len, lastTxt) {
       if (len == "" || len == null) {
         len = 100;
+      }
+      if (lastTxt == "" || lastTxt == null) {
+        lastTxt = "...";
+      }
+      if (txt.length > len) {
+        txt = txt.substr(0, len) + lastTxt;
+      }
+      return txt;
+    },
+    textLengthOverCutTitle(txt, len, lastTxt) {
+      if (len == "" || len == null) {
+        len = 27;
       }
       if (lastTxt == "" || lastTxt == null) {
         lastTxt = "...";
