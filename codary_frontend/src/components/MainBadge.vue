@@ -26,14 +26,14 @@
               }
             }">
             <v-list-item-content>
-              <v-list-item-title class="myname">{{
+              <v-list-item-title class="myname font-weight-bold">{{
                 this.loggedInUserData.nickname
               }}</v-list-item-title>
               <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>
           </router-link>
           <v-list-item-action>
-            <v-btn class='pr-16 mr-15' color="primary" @click.prevent="logout">
+            <v-btn class='pr-16 mr-15' color="secondary" @click.prevent="logout">
               LOGOUT
             </v-btn>
           </v-list-item-action>
