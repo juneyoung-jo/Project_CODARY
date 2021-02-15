@@ -1,7 +1,27 @@
 <template>
   <div class="py-12">
-    <Search-input @GETKEYWORD="getkeyword" />
     <v-container>
+      <v-tabs vertical class="d-flex align-center" style="width:80%; ">
+      <v-tab>
+        <v-icon left>
+          mdi-account
+        </v-icon>
+        제목으로 검색
+      </v-tab>
+      <v-tab>
+        <v-icon left>
+          mdi-lock
+        </v-icon>
+        태그로 검색
+      </v-tab>
+       <v-tab-item class="" style="width:100%">
+        <SearchInput @GETKEYWORD="getkeyword" />
+      </v-tab-item>
+      <v-tab-item class="">
+        <SearchInputTag @GETKEYWORD="getkeyword" />
+      </v-tab-item>
+      </v-tabs>
+   
       <div class="d-flex selectsort ma-2">
         <select class='now' v-model="selected" @change="changeSelect($event)">
           <option disabled>정렬 기준</option>
@@ -24,10 +44,11 @@
 import PopularTag from "../components/searchCom/PopularTag.vue";
 import SearchResult from "../components/searchCom/SearchResult.vue";
 import SearchInput from "../components/searchCom/SearchInput.vue";
+import SearchInputTag from "../components/searchCom/SearchInputTag.vue";
 import { getByDate, getByView, getByLike } from "@/api/search.js";
 
 export default {
-  components: { SearchInput, SearchResult, PopularTag },
+  components: { SearchInput, SearchResult, PopularTag, SearchInputTag },
   name: "SearchPage",
   data() {
     return {
@@ -40,6 +61,7 @@ export default {
         { text: "좋아요순", value: 3 },
       ],
       list: [],
+      titlesearch: true,
     };
   },
   created() {

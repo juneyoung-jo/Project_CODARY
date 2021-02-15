@@ -1,8 +1,8 @@
 <template>
-
+<div>
 
   <div class="d-flex align-center justify-space-around">
-  
+ 
     <!-- <v-autocomplete
       filled
       rounded
@@ -10,7 +10,7 @@
       placeholder="태그 검색 시 '#'를 앞에 붙여주세요"
     ></v-autocomplete> -->
 
-  
+<!--   
     <v-text-field
       v-model="keyword"
       class='font-weight-bold ma-0 ml-4'
@@ -22,22 +22,33 @@
     >
       <template v-slot:label>
         <div class='ml-2 my-0'>
-          제목 또는 태그를 선택한 후에 검색해요
+          태그를 선택한 후에 검색해요
         </div>
       </template>
-    </v-text-field>
-  </div> 
+    </v-text-field> -->
 
+
+    <v-autocomplete
+            v-model="value"
+            :items="items"
+            dense
+            filled
+            label="Filled"
+          ></v-autocomplete>
+  </div> 
+</div>
 </template>
 
 <script>
 export default {
-  name: "SearchInput",
+  name: "SearchInputTag",
   data() {
     return {
       keyword: "",
       titlesearch: true,
- 
+      items: ['foo', 'bar', 'fizz', 'buzz'],
+      values: ['foo', 'bar'],
+      value: null,
     };
   },
   methods: {

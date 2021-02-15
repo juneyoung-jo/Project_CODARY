@@ -26,7 +26,9 @@
     </div>
       <v-pagination
       v-model="curPageNum"
-      :length="numOfPages">
+      :length="numOfPages"
+      >
+      <!-- :total-visible="2" -->
     </v-pagination>
   </v-card-text>
 </template>
