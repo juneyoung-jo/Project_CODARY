@@ -22,7 +22,12 @@
         </div>
       </v-list>
     </div>
-    <v-pagination v-model="curPageNum" :length="numOfPages"> </v-pagination>
+      <v-pagination
+      v-model="curPageNum"
+      :length="numOfPages"
+      >
+      <!-- :total-visible="2" -->
+    </v-pagination>
   </v-card-text>
 </template>
 
