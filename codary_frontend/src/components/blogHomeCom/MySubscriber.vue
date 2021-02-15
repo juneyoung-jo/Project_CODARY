@@ -6,9 +6,9 @@
         width="56"
       >
       </v-responsive>
-      <v-div class="subtitle-2 text-center">
+      <div class="subtitle-2 text-center">
         <h4 v-if="this.articles.length==0">팔로잉한 유저가 없어요!</h4>
-      </v-div>
+      </div>
       <v-row>
         <v-col
           v-for="(article, src, index) in articles"
@@ -21,7 +21,7 @@
           size="160"
         >
           <v-img
-            src='https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+            :src="article.profile"
             class="mb-4"
           ></v-img>
         </v-avatar>
@@ -30,7 +30,15 @@
             class="font-weight-black"
             text
           >
-            {{article.blogTitle}}
+          <router-link :close-on-content-click="false" class="noline pa-5" 
+          :to="{
+            name: 'BlogHome', 
+            query: { 
+              blogId: article.blog_id
+              }
+            }">
+            {{article.nickname}}
+          </router-link>
           </v-btn>
         </v-col>
       </v-row>
@@ -48,9 +56,7 @@ export default {
   name:"PopularTag",
   data () {
     return {
-      articles: [
-      //  {src:'https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'}
-      ],
+      articles: [],
       user: {
         user:'',
         blogId:'',
@@ -75,15 +81,13 @@ export default {
       this.user.blogId,
       this.user.user,
       (response) => {
-        console.log(response)
+        //console.log(response)
         this.articles = response.data
-        console.log(this.articles)
       },
       (err) => {
         console.log(err)
       }
     )  
-    // 후에 블로거 각각의 인물로 요청을 보내서 사진이랑이런거 불러와야?
     }
   }
 }

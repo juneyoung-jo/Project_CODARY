@@ -20,7 +20,7 @@ import com.spring.web.dto.UsergraphDto;
 public interface PersonalDao {
 	public List<BlogContentsDto> showBlogContents(String blogid);
 	public List<MemoContentsDto> showMemo(String memoid);
-	public List<BlogDto> likeBloger(String uid);
+	public List<Map<String, Object>> likeBloger(String uid);
 	public List<BlogContentsDto> likeBlogContents(String uid);
 	public List<JandiDto> jandi(String blogid);
 	public List<UsergraphDto> usergraph(String blogid); 

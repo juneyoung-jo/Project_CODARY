@@ -8,10 +8,11 @@
       <!-- dark mode -->
     <v-row justify="center" class='ml-16 pl-10 pt-2'>
       <router-link class="noline" :to="'/searchpage'">
-        <v-btn fab small class="mb-3 mr-3 p-0" color="primary">
-          <span style="font-size:20px">
+        <v-btn outlined class="mb-4 mr-3 pa-2 ml-2 pl-3" color="primary">
+          <span style="font-size:16px">
             <font-awesome-icon :icon="['fas', 'search']" />
           </span>
+          <div class='ml-2 pa-1 font-weight-bold'>탐색하기</div>
         </v-btn>
       </router-link>
     </v-row>

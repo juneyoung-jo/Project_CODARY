@@ -86,6 +86,16 @@ function getUserInfo(uid, success, fail) {
 }
 
 /**
+ * 타인 블로그 홈에서 프로필 정보 읽어오는 함수
+ */
+function getOtherInfo(blogId, success, fail) {
+    instance
+        .get(`personal/userinfo/${blogId}`)
+        .then(success)
+        .catch(fail);
+}
+
+/**
  * 프로필 정보 수정 함수
  */
 function updateUserinfo(userinfo, success, fail) {
@@ -107,5 +117,6 @@ export {
     blogerUnlike,
     readBlogerlike,
     getUserInfo,
+    getOtherInfo,
     updateUserinfo
 };

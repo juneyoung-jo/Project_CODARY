@@ -81,8 +81,8 @@ public class PersonalController {
 	}
 	
 	
-	/*내 메모 불러오기*/
-	@ApiOperation(value="내 메모 불러오기", notes = "내가쓴 메모 목록을 반환한다.", response=List.class)
+	/*내 메모 불러오기 (최신순)*/
+	@ApiOperation(value="내 메모 불러오기 (최신순)", notes = "내가쓴 메모 목록을 최신순으로 반환한다.", response=List.class)
 	@GetMapping("/memo/{memoid}") 
 	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
 		
@@ -92,7 +92,12 @@ public class PersonalController {
 	//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 			try {
 				memocontentsDto=personalService.showMemo(memoid);
-				System.out.println(memocontentsDto);
+				Collections.sort(memocontentsDto, new Comparator<MemoContentsDto>() {
+					@Override
+					public int compare(MemoContentsDto o1, MemoContentsDto o2) {
+						return o2.getMemoTime().compareTo(o1.getMemoTime());
+					}
+				});
 				status=HttpStatus.ACCEPTED;
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -109,15 +114,14 @@ public class PersonalController {
 	/*좋아요한 블로거 목록보기*/
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
 	@GetMapping("/bloger/{blogid}/{uid}")
-	public ResponseEntity<List<BlogDto>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
+	public ResponseEntity<List<Map<String, Object>>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
-		List<BlogDto> blogDto=null;
+		List<Map<String, Object>> m=null;
 		
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
-					blogDto=personalService.showLikeBloger(uid);
-					System.out.println(blogDto);
+					m=personalService.showLikeBloger(uid);
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -127,7 +131,7 @@ public class PersonalController {
 	//			status=HttpStatus.ACCEPTED;
 	//		}
 		
-			return new ResponseEntity<List<BlogDto>>(blogDto, status);
+			return new ResponseEntity<List<Map<String, Object>>>(m, status);
 	}
 	
 	/*좋아요한 블로그 글 목록보기*/
@@ -141,7 +145,6 @@ public class PersonalController {
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
 					blogcontentsDto=personalService.showLikeBlogContents(uid);
-					System.out.println(blogcontentsDto);
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -260,8 +263,8 @@ public class PersonalController {
 		return new ResponseEntity<Map<String, Object>>(result,status);
 	}
 	
-	/*유저정보를 받는다 */
-	@ApiOperation(value ="유저정보", notes = "개인블로그에 필요한 유저 정보를 받는다")
+	/*타인의 개인블로그에 필요한 유저정보를 받는다 */
+	@ApiOperation(value ="유저정보", notes = "타인의 개인블로그에 필요한 유저 정보를 받는다")
 	@GetMapping("/userinfo/{blogid}")
 	public ResponseEntity<UserInfoDto> getUserInfo(@PathVariable String blogid) {
 		UserInfoDto udo=null;

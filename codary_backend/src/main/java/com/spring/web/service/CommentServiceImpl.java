@@ -91,8 +91,8 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
+//	@Cacheable(value = "commentCheck", key = "#user")
 	@Override
-	@Cacheable(value = "commentCheck", key = "#user")
 	public List<CommentCountDto> commentCheck(UserDto user) throws Exception {
 
 		// 결과값

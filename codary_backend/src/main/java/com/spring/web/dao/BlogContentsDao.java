@@ -21,7 +21,9 @@ public interface BlogContentsDao {
 	void writeBlogHash(BlogHashtagDto blogHash) throws SQLException;
 	List<BlogContentsDto> listBlogContents(String blogId) throws SQLException;
 	int modifyBlogContent(BlogContentsDto blogContent);
+	void deleteOldHash(BlogContentsDto blogContent) throws SQLException;;
 	int deleteBlogContent(int blogContentsId);
+	int deleteCommentOfPost(int blogContentsId);
 	List<BlogContentsDto> getAllContents() throws SQLException;
 	int writeLog(Map<String, Object> log) throws SQLException;
 	void increaseContentsView(int blogContentsId) throws SQLException;

@@ -9,9 +9,9 @@
         <v-divider class="mb-1"></v-divider>
         <v-divider></v-divider>
       </v-responsive>
-      <v-div class="subtitle-2 text-center">
+      <div class="subtitle-2 text-center">
         <h4 v-if="this.articles.length==0">작성한 글이 없어요!</h4>
-      </v-div>
+      </div>
 
       <v-row>
         <v-col
@@ -44,9 +44,9 @@
           >
             <v-hover v-slot="{ hover }">
               <v-card
-                :elevation="hover ? 12 : 2"
+                :elevation="hover ? 7 : 0"
                 class="contentCard"
-                style="height:400px; transition:1s;"
+                style="height:400px; transition:0.3s;"
               >
                 <div>
                   <v-img
@@ -64,16 +64,16 @@
                     style="position:absolute; top:0% "
                     transition="fade-transition"
                   >
-                    <div class="d-flex align-center pl-2 white--black " style="height:150px">
+                    <div class="d-flex align-center pl-2 pr-2 white--black " style="height:150px">
                       {{ blogContents | textLengthOverCut }}
                     </div>
                   </div>
                 </div>
-                <div style="padding:10px">
-                  <h2 class="font-weight-black mb-3 ml-0" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2">태그 들어갈 자리</h4>
+                <div class='pl-5 py-3'>
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5" v-text="blogContentsTitle"></h2>
+                  <h4 class="mb-2 pl-1">태그 들어갈 자리</h4>
 
-                  <div class="d-flex align-center mb-3">
+                  <div class="d-flex align-center mb-3 pl-1">
                     <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
                     <span>
                       {{ nickname }}
@@ -81,7 +81,7 @@
                   </div>
                 </div>
 
-                <div class="d-flex align-end flex-column mr-3">
+                <div class="d-flex align-end flex-column mr-3 px-3 mb-4">
                   <span class="font-weight-light">
                     <font-awesome-icon :icon="['fas', 'comment-dots']" />
                     {{ commentCnt }}
@@ -135,8 +135,8 @@ export default {
     },
 
     mypost(){
-        console.log("Mypost받은값 "+this.$route.query.blogId);
-        console.log("Mypost나 "+this.user.blogId);
+       // console.log("Mypost받은값 "+this.$route.query.blogId);
+       // console.log("Mypost나 "+this.user.blogId);
 
       if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 
@@ -145,13 +145,12 @@ export default {
       if(typeof this.$route.query.blogId==='undefined'){
         //나이면
         this.user.blogId=getblogIdCookie();
-        //console.log("언디파인드실행")
       }
       
       personalList(
       this.user.blogId,
       (response) => {
-         console.log(response)
+        //console.log(response)
         this.articles = response.data
       },
       (err) => {

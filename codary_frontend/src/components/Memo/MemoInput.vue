@@ -17,60 +17,71 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { writeMemo, changeMemo } from '@/api/memo.js';
+// import { mapState } from "vuex";
+import { writeMemo, changeMemo } from "@/api/memo.js";
+import { getmemoIdCookie } from "@/util/cookie.js";
 
 export default {
-  name: 'MemoInput',
-  props: ['sendingChange'],
+  name: "MemoInput",
+  // props: ["memoContent", "index"],
   data() {
     return {
       memodata: {
-        memoContent: '',
-        memoTime: '',
-        // memoNum: '',
+        memoId: "",
+        memoContent: "",
+        memoLink: "",
+        memoNum: "",
       },
+      index: "",
     };
   },
-  computed: {
-    ...mapState(['loggedInUserData']),
-  },
-  watch: {
-    sendingChange(val) {
-      // console.log(val)
-      this.memodata.memoContent = val.memoContent;
-      this.memodata.memoTime = val.memoTime;
-    },
-  },
   methods: {
+    initmemo(index, memoContent, memoNum) {
+      console.log("받은 데이터: " + memoContent);
+      this.index = index;
+      this.memodata.memoContent = memoContent;
+      this.memodata.memoNum = memoNum;
+    },
     memoSave() {
-      if (this.memodata.memoContent === '') {
+      this.memodata.memoId = getmemoIdCookie();
+      // console.log("수정로그 찍기: " + this.index);
+      // console.log(this.memodata.memoId);
+      if (this.memodata.memoContent === "") {
         return;
       }
-      if (this.memodata.memoTime === '') {
-        Object.assign(this.memodata, { memoId: this.loggedInUserData.memoId });
+      if (this.index === "") {
+        // console.log("저장");
+        Object.assign(this.memodata, { memoId: this.memodata.memoId });
+        // console.log(window.location.href);
+        this.memodata.memoLink = window.location.href;
+        console.log(this.memodata);
         writeMemo(
           this.memodata,
           () => {
             // console.log(response)
             // console.log('저장!')
-            this.memodata.memoContent = '';
-            this.memodata.memoTime = '';
+            this.$emit("CREATEMEMO");
+            this.memodata.memoContent = "";
+            this.memodata.memoLink = "";
           },
           (error) => {
             console.log(error);
           }
         );
       } else {
-        this.sendingChange.memoContent = this.memodata.memoContent;
-        Object.assign(this.memodata, { memoId: this.loggedInUserData.memoId });
+        Object.assign(this.memodata, { memoId: this.memodata.memoId });
+        // console.log("수정");
         changeMemo(
-          this.sendingChange,
+          this.memodata,
           () => {
             // console.log(response)
             // console.log('수정!')
-            this.memodata.memoContent = '';
-            this.memodata.memoTime = '';
+            alert("수정되었습니다.");
+            this.$emit("UPDATEMEMO", this.index, this.memodata.memoContent);
+            this.memodata.memoContent = "";
+            this.memodata.memoLink = "";
+            this.memodata.memoNum = "";
+            this.index = "";
           },
           (error) => {
             console.log(error);
@@ -84,28 +95,27 @@ export default {
 
 <style>
 #button {
-  outline:none;
+  outline: none;
   height: 40px;
   text-align: center;
   width: 130px;
-  border-radius:40px;
-  
-  border: 2px solid #1ECD97;
-  color: #1ECD97;
-  letter-spacing:1px;
-  text-shadow:0;
+  border-radius: 40px;
 
+  border: 2px solid #1ecd97;
+  color: #1ecd97;
+  letter-spacing: 1px;
+  text-shadow: 0;
 }
 
 #button:hover {
-  color:white;
-  background-color: #1ECD97;
+  color: white;
+  background-color: #1ecd97;
 }
 
 .memoinputarea {
   color: black !important;
 }
-  /* button:active {
+/* button:active {
     //letter-spacing: 2px;
     letter-spacing: 2px ;
   },

@@ -17,7 +17,7 @@ import com.spring.web.dto.UserInfoDto;
 public interface PersonalService {
 	public List<BlogContentsDto> personalContents(String blogid);
 	public List<MemoContentsDto> showMemo(String memoid);
-	public List<BlogDto> showLikeBloger(String uid);
+	public List<Map<String, Object>> showLikeBloger(String uid);
 	public List<BlogContentsDto> showLikeBlogContents(String uid);
 	public List<Map<String, Integer>> jandi(String blogid) throws ParseException;
 	public List<Map<String, Integer>> usergraph(String blogid) throws ParseException;
