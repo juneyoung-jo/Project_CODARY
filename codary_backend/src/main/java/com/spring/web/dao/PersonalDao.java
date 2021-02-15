@@ -29,4 +29,6 @@ public interface PersonalDao {
 	public void blogerUnlike(BlogerLikeDto bld);
 	public BlogerLikeDto readBlogerLike(BlogerLikeDto bld);
 	public UserInfoDto findUser(String blogid);
+	public BlogDto findBlog(String blogid);
+	public int modifyBlogCover(Map<String, Object> cover);
 }
