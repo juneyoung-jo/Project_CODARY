@@ -25,7 +25,7 @@
             }"
           >
             <v-list-item-content>
-              <v-list-item-title class="myname">{{
+              <v-list-item-title class="myname font-weight-bold">{{
                 this.loggedInUserData.nickname
               }}</v-list-item-title>
               <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>

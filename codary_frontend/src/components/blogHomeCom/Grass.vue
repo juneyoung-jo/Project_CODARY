@@ -60,7 +60,7 @@ export default {
         user:'',
         blogId: '',
       },
-      flag: true
+      flag: true,
     }
   },
   created(){
@@ -68,6 +68,13 @@ export default {
     this.jandi(); 
     //location.reload();
    // console.log('잔디 새로고침');
+  },
+  watch: {
+    $route:function () {
+       this.initUser();
+       this.flag=true;
+       this.jandi();
+    }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    

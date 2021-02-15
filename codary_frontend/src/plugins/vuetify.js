@@ -24,7 +24,7 @@ export default new Vuetify({
           light: {
             background: colors.grey.lighten5,
             primary: colors.indigo.darken3,
-            secondary: colors.indigo.lighten3,
+            secondary: colors.indigo.darken3,
             accent:colors.grey.darken4,
             error: colors.red.accent3,
             blackwhite: colors.white
@@ -32,6 +32,7 @@ export default new Vuetify({
           dark: {
             background: colors.grey.darken4,
             primary: colors.blue.lighten3,
+            secondary:colors.blue.lighten3,
             accent: colors.grey.lighten5,
             blackwhite: colors.black
           },
