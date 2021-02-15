@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex align-center justify-space-around">
+    <div class="d-flex align-center justify-space-around" style="height:60px">
       <!-- <v-autocomplete
       filled
       rounded
@@ -26,6 +26,7 @@
     </v-text-field> -->
 
       <v-autocomplete
+        class="mr-2"
         v-model="values"
         :items="items"
         item-text="hashtagContent"
@@ -35,7 +36,8 @@
         chips
         deletable-chips
         multiple
-        label="Filled"
+        hide-details
+        label="제목 또는 태그를 선택한 후에 검색하세요"
         @blur="search()"
       ></v-autocomplete>
     </div>
