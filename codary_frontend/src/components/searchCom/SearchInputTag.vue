@@ -1,16 +1,14 @@
 <template>
-<div>
-
-  <div class="d-flex align-center justify-space-around">
- 
-    <!-- <v-autocomplete
+  <div>
+    <div class="d-flex align-center justify-space-around">
+      <!-- <v-autocomplete
       filled
       rounded
       style="width:50%;"
       placeholder="태그 검색 시 '#'를 앞에 붙여주세요"
     ></v-autocomplete> -->
 
-<!--   
+      <!--   
     <v-text-field
       v-model="keyword"
       class='font-weight-bold ma-0 ml-4'
@@ -27,39 +25,53 @@
       </template>
     </v-text-field> -->
 
-
-    <v-autocomplete
-            v-model="value"
-            :items="items"
-            dense
-            filled
-            label="Filled"
-          ></v-autocomplete>
-  </div> 
-</div>
+      <v-autocomplete
+        v-model="values"
+        :items="items"
+        item-text="hashtagContent"
+        item-value="hashtagId"
+        dense
+        filled
+        chips
+        deletable-chips
+        multiple
+        label="Filled"
+        @blur="search()"
+      ></v-autocomplete>
+    </div>
+  </div>
 </template>
 
 <script>
+import { getHashtags } from "@/api/blogcontent.js";
+
 export default {
   name: "SearchInputTag",
   data() {
     return {
       keyword: "",
       titlesearch: true,
-      items: ['foo', 'bar', 'fizz', 'buzz'],
-      values: ['foo', 'bar'],
-      value: null,
+      items: [],
+      values: [],
     };
   },
+  created() {
+    this.getHashtag();
+  },
   methods: {
-    erase() {
-      if (this.keyword.length == 0) {
-        this.$emit("GETKEYWORD", this.keyword);
-      }
+    getHashtag: function () {
+      getHashtags(
+        (res) => {
+          this.items = res.data.list;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
     search() {
-      console.log(this.keyword, this.titlesearch);
-      this.$emit("GETKEYWORD", this.keyword);
+      // console.log(this.values.length);
+      if (this.values.length > 0) this.$emit("GETHASH", this.values);
     },
   },
 };
