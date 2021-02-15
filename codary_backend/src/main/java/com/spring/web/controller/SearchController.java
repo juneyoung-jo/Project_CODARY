@@ -39,7 +39,7 @@ public class SearchController {
 	 * @param 
 	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "검색어 없 - 최신순", notes = "@param </br> @return BlogPostto")
+	@ApiOperation(value = "검색어 없 - 최신순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("date")
 	public ResponseEntity<List<BlogPostDto>> orderByDate() throws Exception{
 		try {
