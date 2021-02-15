@@ -29,7 +29,7 @@ export default {
 </script>
 <style>
 * {
-  font-family: 'Poppins','Noto Sans KR', sans-serif;
+  font-family: 'Poppins', 'Nanumsquare','Noto Sans KR', sans-serif;
 }
 #app {
   background-color: var(--v-background-base);
