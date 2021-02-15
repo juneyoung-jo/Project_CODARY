@@ -11,9 +11,10 @@
     <tags-input
       element-id="tags"
       v-model="selectedTags"
-      @keyup.enter="print"
       placeholder="태그를 입력해주세요."
       typeahead-style="badges"
+      text-field="value"
+      @keyup.enter="tagChanged"
       :existing-tags="existingtags"
       :typeahead="true"
     >
@@ -51,8 +52,8 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import "highlight.js/styles/github.css";
 import { fileUpload } from "@/api/fileUpload.js";
+import { getTagList, getTagKey } from "@/api/hashtag.js";
 import VoerroTagsInput from "@voerro/vue-tagsinput";
-import axios from "axios";
 
 export default {
   name: "Editor",
@@ -74,6 +75,7 @@ export default {
       // ########################
       existingtags: [],
       selectedTags: [],
+      newTag: "",
       // ########################
     };
   },
@@ -154,7 +156,7 @@ export default {
 
       if (this.selectedTags !== null) {
         this.selectedTags.forEach((data) => {
-          if (data.key === '') data.key = -1;
+          if (data.key === "") data.key = -1;
         });
       }
 
@@ -179,34 +181,62 @@ export default {
     },
     // ####start 해시태그
     getHashtag: function () {
-      var vm = this;
       console.log("#해시태그 읽어오기");
-      axios
-        .get("http://localhost:8000/codary/blog/getHashtag", "")
-        .then((response) => {
-          // console.log(response.data.list[0]);
+      getTagList(
+        (response) => {
           for (var i = 0; i < response.data.list.length; i++) {
-            // console.log(
-            //   i + ' ' + response.data.list[i].hashtagId + ' ' + response.data.list[i].hashtagContent
-            // );
             const d = {
               key: response.data.list[i].hashtagId,
               value: response.data.list[i].hashtagContent,
             };
-            vm.existingtags.push(d);
+            this.existingtags.push(d);
           }
-        })
-        .catch(function (error) {
+        },
+        (error) => {
           console.log(error);
-        });
+        }
+      );
     },
 
-    print: function () {
-      // console.log('선택된 태그: ');
-      // console.log(this.selectedTags);
-      // for (var i = 0; i < this.selectedTags.length; i++) {
-      //   console.log(this.selectedTags[i].key + ' ' + this.selectedTags[i].value);
-      // }
+    tagChanged: function () {
+      console.log("선택된 태그: ");
+      var lastIdx = this.selectedTags.length - 1;
+      this.newTag = this.selectedTags[lastIdx].value;
+      console.log("새로 입력된 태그: " + this.newTag);
+      var isOk = true;
+
+      if (this.newTag[0] != "#") {
+        this.newTag = "#" + this.newTag;
+        for (var i = 0; i < this.selectedTags.length - 1; i++) {
+          if (this.selectedTags[i].value == this.newTag) {
+            this.selectedTags.pop();
+            isOk = false;
+            break;
+          }
+        }
+        if (isOk) {
+          const d = {
+            key: -1,
+            value: this.newTag,
+          };
+          // 3. 처음 사용된 태그로 key값 입력이 필요함
+          getTagKey(d, (response) => {
+            // console.log(response);
+            this.selectedTags[lastIdx].key = response.data.tag.hashtagId;
+            this.selectedTags[lastIdx].value = response.data.tag.hashtagContent;
+          }),
+            (error) => {
+              console.log(error);
+            };
+        }
+      } //end if
+
+      // 4. 현재까지 선택된 태그 출력
+      for (var j = 0; j < this.selectedTags.length; j++) {
+        console.log(
+          this.selectedTags[j].key + " " + this.selectedTags[j].value
+        );
+      } //end for
     },
 
     // ####end hashtag

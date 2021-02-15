@@ -154,4 +154,9 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 		return mapper.selectHash(keyword);
 	}
 
+	@Override
+	public HashtagDto findTagByValue(String value) throws Exception {
+		return mapper.findTagByValue(value);
+	}
+
 }

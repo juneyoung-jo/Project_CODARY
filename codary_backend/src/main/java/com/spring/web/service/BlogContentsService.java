@@ -43,4 +43,5 @@ public interface BlogContentsService {
 
 	List<HashtagDto> selectHash(String keyword) throws Exception;
 
+	HashtagDto findTagByValue(String value) throws Exception;
 }

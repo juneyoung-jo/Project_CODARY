@@ -3,6 +3,7 @@ package com.spring.web.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -362,6 +363,40 @@ public class BlogContentsController {
 			resultMap.put("msg", "fail");
 			e.printStackTrace();
 		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * 해시태그 value 값에 대응하는 key값을 반환한다.
+	 * 
+	 */
+	@ApiOperation(value = "해시태그 value 값에 대응하는 key값을 반환한다.")
+	@PostMapping("/getTagKey")
+	public ResponseEntity<Map<String, Object>> getTagKey(@RequestBody Map<String, String> map) {
+
+		String value = map.get("value");
+		System.out.println("#해시태그 " + value +"의 key값 찾기 ");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HashtagDto hash = null;
+		
+		// 1. value값으로 해시태그 키값 찾기 
+		try {
+			
+			if(contentsService.findTagByValue(value) != null) {
+				hash = contentsService.findTagByValue(value);
+			}else {
+				hash = new HashtagDto(-1, value);
+			}
+			System.out.println(hash.toString());
+			resultMap.put("tag", hash);
+			resultMap.put("msg", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultMap.put("msg", "fail");
+			e.printStackTrace();
+		}
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 

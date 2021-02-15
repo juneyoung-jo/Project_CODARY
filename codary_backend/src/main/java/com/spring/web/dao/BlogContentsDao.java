@@ -36,5 +36,6 @@ public interface BlogContentsDao {
 	UserDto getUser(String blogId) throws Exception;
 	List<String> getHashtagOfPost(int blogContentsId) throws Exception;
 	List<HashtagDto> selectHash(String keyword) throws Exception;
+	HashtagDto findTagByValue(String value) throws Exception;
 	
 }
