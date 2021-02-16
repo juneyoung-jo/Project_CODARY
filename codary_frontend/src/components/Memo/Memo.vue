@@ -158,7 +158,7 @@ export default {
 
 .memoinput {
   position: absolute;
-  top: 72%;
+  bottom: 15%;
   height: 19%;
 }
 

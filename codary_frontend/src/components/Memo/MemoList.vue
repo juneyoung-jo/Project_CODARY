@@ -30,8 +30,8 @@
                 fab 
                 plain 
                 :value="item.memoLink"
-                style="font-size: 20px"   
-                class="mb-3"
+                style="font-size: 15px"   
+                class="mb-1 pr-1"
                 >
                   <font-awesome-icon :icon="['fas', 'arrow-alt-circle-right']" />
                 </v-btn>
@@ -39,10 +39,10 @@
             </template>
             <span style="font-size: 12px">작성했던 장소로 가기</span>
           </v-tooltip>
-          <v-btn small fab plain style="font-size: 20px" @click="changingMemo(item, index)">
+          <v-btn small fab plain style="font-size: 15px" @click="changingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'edit']" />
           </v-btn>
-          <v-btn small fab plain style="font-size: 20px" @click="deletingMemo(item, index)">
+          <v-btn small fab plain class='mr-2' style="font-size: 15px" @click="deletingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
           </v-btn>
         </div>
@@ -69,7 +69,7 @@ export default {
   props: ["listData"],
   data() {
     return {
-      dataPerPage: 4,
+      dataPerPage: 3,
       curPageNum: 1,
     };
   },

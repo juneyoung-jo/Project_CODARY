@@ -10,12 +10,13 @@
             v-for="hashtag in this.blogContents.hashtags"
             :key="hashtag.hashtagId"
             outlined
+            color='black'
             class='mr-1'
             @click="search(hashtag)"
             >{{ hashtag.hashtagContent }}</v-chip
           >
         </div>
-        <v-divider class='ml-16 mr-16 pl-16 pr-16'></v-divider>
+        <v-divider color='#E0E0E0' class='ml-16 mr-16 pl-16 pr-16'></v-divider>
         <div class='ma-16 pa-4 my-10 mt-12'>
           <v-sheet class='pa-13' light id="viewer" />
           <div class='py-3'></div>

@@ -20,13 +20,13 @@
             />
           </router-link>
           <v-card-text>
-            <h5 class="ml-1 text--secondary font-weight-bold" style='color:black;'>
+            <h5 class='ml-1' style='color:black;'>
               카카오 크루원
             </h5>
-            <h4 class="text-h4 text--primary font-weight-bold">
+            <h4 class="text-h4" style='color:black;'>
               {{ this.blogContents.nickname }}
             </h4>
-            <span class="ml-1 text--secondary">
+            <span class='ml-1' style='color:black;'>
               개발자를 위한 블로그를 개발중인 개발자
             </span>
           </v-card-text>
