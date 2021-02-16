@@ -20,14 +20,14 @@
             />
           </router-link>
           <v-card-text>
-            <h5 class="ml-1 text--secondary font-weight-bold" style='color:black;'>
-              카카오 크루원
+            <h5 class="ml-1 text--secondary font-weight-bold" style="color:black;">
+              {{ job }}
             </h5>
             <h4 class="text-h4 text--primary font-weight-bold">
               {{ this.blogContents.nickname }}
             </h4>
             <span class="ml-1 text--secondary">
-              개발자를 위한 블로그를 개발중인 개발자
+              {{ intro }}
             </span>
           </v-card-text>
         </v-col>
@@ -49,6 +49,8 @@ export default {
         // console.log(res.data.profile);
         this.blogContents.profile = res.data.data.profile;
         this.blogContents.nickname = res.data.data.nickname;
+        this.job = res.data.data.job;
+        this.intro = res.data.data.intro;
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +64,8 @@ export default {
       blogId: '',
       // nickname: "",
       // profile: "",
+      job: '',
+      intro: '',
     };
   },
   methods: {
