@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.BlogerLikeDto;
@@ -21,7 +20,7 @@ public interface PersonalDao {
 	public List<BlogPostDto> showBlogContents(String blogid);
 	public List<MemoContentsDto> showMemo(String memoid);
 	public List<Map<String, Object>> likeBloger(String uid);
-	public List<BlogContentsDto> likeBlogContents(String uid);
+	public List<BlogPostDto> likeBlogContents(String uid);
 	public List<JandiDto> jandi(String blogid);
 	public List<UsergraphDto> usergraph(String blogid); 
 	public void blogerLike(BlogerLikeDto bld);

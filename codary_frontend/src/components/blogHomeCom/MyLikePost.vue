@@ -1,15 +1,11 @@
 <template>
   <section id="blog">
     <v-container>
-      <v-responsive
-        class="mx-auto mb-12"
-        width="56"
-      >
-      </v-responsive>
+      <v-responsive class="mx-auto mb-12" width="56"> </v-responsive>
       <div class="subtitle-2 text-center">
-        <h4 v-if="this.articles.length==0">좋아요한 게시글이 없어요!</h4>
+        <h4 v-if="this.articles.length == 0">좋아요한 게시글이 없어요!</h4>
       </div>
-     <v-row>
+      <v-row>
         <v-col
           v-for="{
             blogContentsCover,
@@ -23,6 +19,7 @@
             profile,
             nickname,
             commentCnt,
+            hashtags,
           } in articles"
           :key="blogContentsId"
           cols="12"
@@ -42,7 +39,7 @@
               <v-card
                 :elevation="hover ? 12 : 2"
                 class="contentCard"
-                style="height:400px; transition:1s;"
+                style="height: 400px; transition: 1s"
               >
                 <div>
                   <v-img
@@ -56,21 +53,41 @@
 
                   <div
                     v-if="hover"
-                    class="d-flex align-center pl-2 white--black "
-                    style="position:absolute; top:0% "
+                    class="d-flex align-center pl-2 white--black"
+                    style="position: absolute; top: 0%"
                     transition="fade-transition"
                   >
-                    <div class="d-flex align-center pl-2 white--black " style="height:150px">
+                    <div
+                      class="d-flex align-center pl-2 white--black"
+                      style="height: 150px"
+                    >
                       {{ blogContents | textLengthOverCut }}
                     </div>
                   </div>
                 </div>
-                <div style="padding:10px">
-                  <h2 class="font-weight-black mb-3 ml-0" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2">태그 들어갈 자리</h4>
+                <div style="padding: 10px">
+                  <h2
+                    class="font-weight-black mb-3 ml-0"
+                    v-text="blogContentsTitle"
+                  ></h2>
+                  <h4 class="mb-2">
+                    <v-chip
+                      v-for="hashtag in hashtags"
+                      :key="hashtag.hashtagId"
+                      outlined
+                      class="mr-2"
+                      >{{ hashtag.hashtagContent }}</v-chip
+                    >
+                  </h4>
 
                   <div class="d-flex align-center mb-3">
-                    <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
+                    <v-img
+                      :src="profile"
+                      class="mr-3"
+                      height="30"
+                      max-width="30px"
+                      style="border-radius: 15px"
+                    ></v-img>
                     <span>
                       {{ nickname }}
                     </span>
@@ -86,7 +103,10 @@
                     <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
                     {{ blogContentsView }}
                   </span>
-                  <div class=" font-weight-light justify-end" v-text="blogDatetime"></div>
+                  <div
+                    class="font-weight-light justify-end"
+                    v-text="blogDatetime"
+                  ></div>
                 </div>
                 <!-- <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading
@@ -102,70 +122,68 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import { showMyBlogContents } from '@/api/personal.js';
-import {getuidCookie, getblogIdCookie} from '@/util/cookie.js';
+import { mapState } from "vuex";
+import { showMyBlogContents } from "@/api/personal.js";
+import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 
 export default {
-  name:"MyLikePost",
-  data () {
+  name: "MyLikePost",
+  data() {
     return {
-      articles: [], 
+      articles: [],
       user: {
-        user:'',
-        blogId: '',
+        user: "",
+        blogId: "",
       },
-    //  flag: true
-    }
+      //  flag: true
+    };
   },
   computed: {
-    ...mapState([ 'loggedInUserData' ])    
+    ...mapState(["loggedInUserData"]),
   },
-  created(){
+  created() {
     this.initUser();
     this.mylikepost();
   },
-  methods:{
-     initUser(){
+  methods: {
+    initUser() {
       this.user.user = getuidCookie();
       this.user.blogId = getblogIdCookie();
     },
-    mylikepost(){
+    mylikepost() {
       showMyBlogContents(
-      this.user.blogId,
-      this.user.user,
-      (response) => {
-        // console.log(response)
-        this.articles = response.data
-      },
-      (err) => {
-        console.log(err)
-      }
-    )        
-    }
+        this.user.blogId,
+        this.user.user,
+        (response) => {
+          // console.log(response)
+          this.articles = response.data;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
   },
   filters: {
     textLengthOverCut(txt, len, lastTxt) {
-      if (len == '' || len == null) {
+      if (len == "" || len == null) {
         len = 100;
       }
-      if (lastTxt == '' || lastTxt == null) {
-        lastTxt = '...';
+      if (lastTxt == "" || lastTxt == null) {
+        lastTxt = "...";
       }
       if (txt.length > len) {
         txt = txt.substr(0, len) + lastTxt;
       }
       return txt;
     },
-  }
-
-}
+  },
+};
 </script>
 
 <style>
 .contentCard:hover {
   transition-duration: all 1s ease;
   transform: translateY(-8px), scale(8%);
-  
 }
 </style>

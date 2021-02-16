@@ -46,7 +46,7 @@
 		using (uid);
 	</select>
 	
-	<select id="likeBlogContents" resultType="BlogContentsDto" parameterType="String">
+	<select id="likeBlogContents" resultType="BlogPostDto" parameterType="String">
 		select * 
 		from blogcontents inner join blogcontentslike using (blog_contents_id)
 		where blogcontentslike.uid = #{uid};
