@@ -1,6 +1,11 @@
 <template>
   <div class="d-flex flex-column">
-    <v-text-field v-model="title" label="제목을 입력하세요" class="py-12" large
+    <v-text-field
+      v-model="title"
+      label="제목을 입력하세요. 최대 70자까지만 가능합니다."
+      class="py-12"
+      large
+      :maxlength="70"
       >}</v-text-field
     >
 
@@ -197,7 +202,6 @@ export default {
         }
       );
     },
-
     tagChanged: function () {
       console.log("선택된 태그: ");
       var lastIdx = this.selectedTags.length - 1;
