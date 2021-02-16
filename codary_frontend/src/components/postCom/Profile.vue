@@ -1,7 +1,7 @@
 <template>
   <div class="py-6">
     <v-container id="user-profile-view" fluid class="profile-back">
-      <v-row>
+      <v-row class='profileback'>
         <v-col class="d-flex align-center pa-0">
           <router-link
             :to="{
@@ -72,4 +72,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.profileback {
+  margin-top: 100px;
+}
+</style>

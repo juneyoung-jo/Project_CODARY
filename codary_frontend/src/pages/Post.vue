@@ -3,38 +3,42 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <v-sheet color='white'>
+      <v-sheet color='white' class='ma-16 pa-4 my-10 mt-12'>
         <div class="pt-13 mt-8 pa-12 ml-16 pt-16 keepblack">
-          <h1 class='mb-10 mt-16'>{{ this.blogContents.blogContentsTitle }}</h1>
-          <v-chip
-            v-for="hashtag in this.blogContents.hashtags"
-            :key="hashtag.hashtagId"
-            outlined
-            color='black'
-            class='mr-1'
-            @click="search(hashtag)"
-            >{{ hashtag.hashtagContent }}</v-chip
-          >
+          <h1 class='mb-10 mx-10 mt-16'>{{ this.blogContents.blogContentsTitle }}</h1>
+          <div class='ml-10'>
+            <v-chip
+              v-for="hashtag in this.blogContents.hashtags"
+              :key="hashtag.hashtagId"
+              color='primary'
+              class='mr-1'
+              @click="search(hashtag)"
+              >{{ hashtag.hashtagContent }}</v-chip
+            >
+            <v-divider color='#F5F5F5' class='mt-10 mr-16 pr-16'></v-divider>
+          </div>
         </div>
-        <v-divider color='#E0E0E0' class='ml-16 mr-16 pl-16 pr-16'></v-divider>
-        <div class='ma-16 pa-4 my-10 mt-12'>
-          <v-sheet class='pa-13' light id="viewer" />
+        <div class='ma-16 pa-4 mt-1'>
+          <v-sheet class='pa-13 ml-10' light id="viewer" />
           <div class='py-3'></div>
           <div class='ml-10'>
-            <Profile :blogContents="blogContents" />
-            <div>
-              <v-btn align="center" elevation='1' color="primary" @click="clickLike()">
-                좋아요 == {{ likeOrNot }}
-              </v-btn>
+            <Profile class='ml-10' :blogContents="blogContents" />
+            <v-btn-toggle
+              v-model="icon"
+              class='ml-10 mt-10'
+              dense
+            >
+              <v-btn align="center" @click="clickLike()">
+                <font-awesome-icon :icon="['fas','thumbs-up']" class='mr-2'/> 
+                <div>
+                  == {{ likeOrNot}}
+                </div>
+              </v-btn>  
               <v-btn
                 v-if="this.isItMine"
                 id="modify"
                 align="center"
-                class='ml-3 mr-3'
-                color="primary"
                 @click="editPost()"
-                elevation='1' 
-                plain
               >
                 <font-awesome-icon :icon="['fas','edit']" class='mr-2'/> 
                 수정
@@ -43,16 +47,13 @@
                 v-if="this.isItMine"
                 id="delete"
                 align="center"
-                class="my-8"
-                elevation="1"
-                plain
-                color="primary"
                 @click="deletePost()"
               >
                 <font-awesome-icon :icon="['fas','trash-alt']" class='mr-2'/>
                 삭제
               </v-btn>
-            </div>
+            </v-btn-toggle>
+            
           </div>
           <div class='py-10'></div>
         </div>
@@ -120,6 +121,7 @@ export default {
       },
       isItMine: false,
       likeOrNot: false,
+      icon:'justify',
     };
   },
   created() {
