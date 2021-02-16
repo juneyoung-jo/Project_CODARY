@@ -6,11 +6,11 @@
       <div class="loginBar kakaoLoginBar">
         <KakaoLogin
           api-key="cc55fbaa2ba8ee734547019f8cba7abf"
-          src="@/assets/kakao_login/kakao_login_large_narrow.png"
-          :image="kakao_login_large_narrow"
           :on-success="kakaoCallback"
           :on-failure="onFailure"  
         />
+          <!-- :image="kakao_login_large_narrow" -->
+          <!-- src="@/assets/kakao_login/kakao_login_large_narrow.png" -->
       </div>
       
       <div class="loginBar">
@@ -95,11 +95,11 @@ export default {
 
 <style>
 #login {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
     rgb(255, 255, 255)
-  );
+  ); */
   height: 300px;
   
 }
@@ -111,8 +111,8 @@ export default {
   margin: 25px;
 }
 
-.kakaoLoginBar :hover {
+/* .kakaoLoginBar :hover {
    border:1px solid #999999;
-}
+} */
 
 </style>

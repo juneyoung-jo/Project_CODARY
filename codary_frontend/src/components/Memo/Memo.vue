@@ -24,7 +24,7 @@
         />
       </v-sheet>
       <div v-else class="d-flex flex-column align-center ma-16 pa-5 py-16">
-        <span style="font-size: 50px">
+        <span style="font-size: 70px">
           <font-awesome-icon :icon="['fas', 'sign-in-alt']" />
         </span>
         <div class="py-2"></div>
@@ -123,10 +123,10 @@ export default {
   position: fixed;
   z-index: 2;
   /* 네브바가 5번째 인덱스 */
-  right: -282px;
+  right: -330px;
   color: black;
   height: 100%;
-  width: 282px;
+  width: 330px;
   transition: 0.5s;
 }
 
@@ -142,7 +142,7 @@ export default {
   height: 50px;
   border-radius: 5px;
   position: absolute;
-  top: 30%;
+  top: 25%;
   left: -20%;
 }
 
@@ -152,15 +152,18 @@ export default {
 
 .memolist {
   position: absolute;
+  height: 70%;
+  width: 100%;
 }
 
 .memoinput {
   position: absolute;
-  bottom: 10%;
+  top: 72%;
+  height: 19%;
 }
 
 .goingOn {
   transition: 0.5s ease;
-  transform: translateX(2%);
+  transform: translateX(15%);
 }
 </style>
