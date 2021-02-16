@@ -135,7 +135,9 @@ export default {
         user: "",
         blogId: "",
       },
-      //  flag: true
+      like: {
+        uid: "",
+      },
     };
   },
   computed: {
@@ -151,9 +153,9 @@ export default {
       this.user.blogId = getblogIdCookie();
     },
     mylikepost() {
+      this.like.uid = this.user.user;
       showMyBlogContents(
-        this.user.blogId,
-        this.user.user,
+        this.like,
         (response) => {
           // console.log(response)
           this.articles = response.data;

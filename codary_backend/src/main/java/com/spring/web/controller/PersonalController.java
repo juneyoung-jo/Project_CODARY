@@ -21,13 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.web.dto.BlogContentsDto;
+import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
 import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.MemoContentsDto;
+import com.spring.web.dto.MemoDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.JwtServiceImpl;
 import com.spring.web.service.PersonalService;
@@ -74,18 +76,22 @@ public class PersonalController {
 		}
 	}
 	
-	
-	/*내 메모 불러오기 (최신순)*/
+	/**
+	 * 내 메모 불러오기
+	 * 
+	 * @param memoId
+	 * @return List<MemoContentsDto>
+	 */
 	@ApiOperation(value="내 메모 불러오기 (최신순)", notes = "내가쓴 메모 목록을 최신순으로 반환한다.", response=List.class)
-	@GetMapping("/memo/{memoid}") 
-	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@PathVariable String memoid, HttpServletRequest request) {
+	@PostMapping("/mymemo") 
+	public ResponseEntity<List<MemoContentsDto>> showMyMemo(@RequestBody MemoDto memo) {
 		
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<MemoContentsDto> memocontentsDto=null;
 		
 	//	if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 			try {
-				memocontentsDto=personalService.showMemo(memoid);
+				memocontentsDto=personalService.showMemo(memo.getMemoId());
 				Collections.sort(memocontentsDto, new Comparator<MemoContentsDto>() {
 					@Override
 					public int compare(MemoContentsDto o1, MemoContentsDto o2) {
@@ -105,17 +111,22 @@ public class PersonalController {
 	}
 	
 	
-	/*좋아요한 블로거 목록보기*/
+	/**
+	 * 좋아요 누른 블로거 가져오기
+	 * 
+	 * @param uid
+	 * @return List<List<Map<String, Object>>>
+	 */
 	@ApiOperation(value="좋아요한 블로거 목록 보기", notes="내가 좋아요한 블로거들의 목록을 반환한다.", response=List.class)
-	@GetMapping("/bloger/{blogid}/{uid}")
-	public ResponseEntity<List<Map<String, Object>>> showMyBloger(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
+	@PostMapping("/likebloger")
+	public ResponseEntity<List<Map<String, Object>>> showMyBloger(@RequestBody BlogerLikeDto like, HttpServletRequest request){
 
 		HttpStatus status=HttpStatus.ACCEPTED;
 		List<Map<String, Object>> m=null;
 		
 	//		if(jwtService.isUsable(request.getHeader("access-token"))) { //로그인 되었다면
 				try {
-					m=personalService.showLikeBloger(uid);
+					m=personalService.showLikeBloger(like.getUid());
 					status=HttpStatus.ACCEPTED;
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -132,14 +143,14 @@ public class PersonalController {
 	/**
 	 * 좋아요 누른 블로그 글 가져오기
 	 * 
-	 * @param blogId
+	 * @param uid
 	 * @return List<BlogPostDto>
 	 */
 	@ApiOperation(value="좋아요 누른 블로그 글 가져오기", notes="@param blogId </br> @return List<BlogPostDto>", response=List.class)
-	@GetMapping("/blog/{blogid}/{uid}")
-	public ResponseEntity<List<BlogPostDto>> showMyBlogContents(@PathVariable String blogid, @PathVariable String uid, HttpServletRequest request){
+	@PostMapping("/likepost")
+	public ResponseEntity<List<BlogPostDto>> showMyBlogContents(@RequestBody BlogContentsLikeDto like){
 		try {
-			List<BlogPostDto> list = personalService.showLikeBlogContents(uid);
+			List<BlogPostDto> list = personalService.showLikeBlogContents(like.getUid());
 			Collections.sort(list, new Comparator<BlogPostDto>() {
 				@Override
 				public int compare(BlogPostDto o1, BlogPostDto o2) {
