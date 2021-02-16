@@ -11,11 +11,7 @@
           <template v-slot:default="dialog">
             <v-card class="d-flex flex-column pa-8">
               <h3 class="text-center py-4">커버 사진 골라보세요</h3>
-              <v-card
-                class="text-center mb-4"
-                v-for="(cover, idx) in covers"
-                :key="idx"
-              >
+              <v-card class="text-center mb-4" v-for="(cover, idx) in covers" :key="idx">
                 <v-img :src="cover" @click="selectcover(cover)"></v-img>
               </v-card>
               <v-file-input
@@ -25,16 +21,11 @@
                 @change="selectImg"
               ></v-file-input>
 
-              <v-btn color="success" dark small @click="upload">
-                Upload
-                <v-icon right dark>mdi-cloud-upload</v-icon>
-              </v-btn>
               <v-btn
                 outlined
                 @click="
                   {
-                    dialog.value = false;
-                    close();
+                    close(dialog);
                   }
                 "
               >
@@ -49,26 +40,27 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { fileUpload } from "@/api/fileUpload.js";
+import { mapState } from 'vuex';
+import { fileUpload } from '@/api/fileUpload.js';
 
 export default {
-  name: "SelectPostCover",
-  props: ["blogContents"],
+  name: 'SelectPostCover',
+  props: ['blogContents'],
   computed: {
-    ...mapState(["mycover"]),
+    ...mapState(['mycover']),
   },
   data() {
     return {
       covers: [
-        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/afrc2021-0004-24.jpg",
-        "https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg",
-        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg",
-        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg",
+        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/afrc2021-0004-24.jpg',
+        'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
+        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
+        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg',
       ],
       currentImg:
-        "https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg",
-      uploadImg: "",
+        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
+      uploadImg: '',
+      selectImage: '',
     };
   },
   created() {
@@ -79,22 +71,23 @@ export default {
       this.currentImg = this.blogContents.blogContentsCover;
     },
     selectcover(cover) {
-      this.currentImg = cover;
+      this.selectImage = cover;
       // this.$emit('GETCOVER', cover);
       // console.log(cover);
     },
     selectImg(img) {
       this.uploadImg = img;
+      this.upload();
       // console.log(this.currentImg);
     },
     upload() {
-      if (this.uploadImg === "") {
-        alert("이미지를 올려주세요");
+      if (this.uploadImg === '') {
+        alert('이미지를 올려주세요');
         return;
       }
 
       let formData = new FormData();
-      formData.append("file", this.uploadImg);
+      formData.append('file', this.uploadImg);
 
       //엑시오스
       fileUpload(
@@ -102,17 +95,25 @@ export default {
         (response) => {
           if (response.data === null) return;
           this.covers.push(response.data);
-          this.currentImg = response.data;
+          this.uploadImg = response.data;
         },
         (error) => console.log(error)
       );
     },
-    close() {
-      if (this.currentImg === "") {
-        alert("이미지를 선택해 주세요");
+    close(dialog) {
+      if (this.selectImage === '' && this.uploadImg === '') {
+        alert('이미지를 선택해 주세요');
         return;
       }
-      this.$emit("GETCOVER", this.currentImg);
+
+      if (this.uploadImg === '') {
+        this.currentImg = this.selectImage;
+      } else {
+        this.currentImg = this.uploadImg;
+      }
+
+      this.$emit('GETCOVER', this.currentImg);
+      dialog.value = false;
     },
   },
 };

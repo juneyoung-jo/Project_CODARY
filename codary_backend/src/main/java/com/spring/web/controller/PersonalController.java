@@ -15,6 +15,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +54,8 @@ public class PersonalController {
 	
 	@Autowired
 	private JwtServiceImpl jwtService;
+	
+	public static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 	
 	@Autowired
 	private PersonalService personalService;
@@ -277,5 +282,42 @@ public class PersonalController {
 			status=HttpStatus.NOT_FOUND;
 		}
 		return new ResponseEntity<UserInfoDto>(udo,status);
+	}
+	
+	@ApiOperation(value ="블로그 정보 다 가져오기.", notes = "블로그 정보 가져오기")
+	@GetMapping("/blogInfo/{blogid}")
+	public ResponseEntity<BlogDto> getBlogInfo(@PathVariable String blogid) {
+		logger.info("=======내 블로그 정보 읽어오기=======");
+		BlogDto blog=null;
+		HttpStatus status=HttpStatus.ACCEPTED;
+		try {
+			blog=personalService.findBlog(blogid);
+			status=HttpStatus.OK;
+		}catch(Exception e) {
+			e.printStackTrace();
+			status=HttpStatus.NOT_FOUND;
+		}
+		return new ResponseEntity<BlogDto>(blog,status);
+	}
+	
+	@ApiOperation(value ="블로그 커버 수정", notes = "블로그 커버 수정")
+	@PutMapping("/modifyBlogCover")
+	public ResponseEntity<Map<String,Object>> modifyBlogCover(@RequestBody Map<String,Object> cover) {
+		logger.info("=======내 블로그 정보 읽어오기=======");
+		System.out.println(cover.toString());
+		ResponseEntity<Map<String, Object>> resEntity = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		try {
+			personalService.modifyBlogCover(cover);
+			map.put("msg", "success");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		}catch(Exception e) {
+			map.put("msg", "fail");
+			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.NOT_FOUND);
+			e.printStackTrace();
+		}
+		return resEntity;
 	}
 }
