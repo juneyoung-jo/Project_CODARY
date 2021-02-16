@@ -23,6 +23,7 @@
             profile,
             nickname,
             commentCnt,
+            hashtags,
           } in articles"
           :key="blogContentsId"
           cols="12"
