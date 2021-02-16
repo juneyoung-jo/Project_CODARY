@@ -84,9 +84,9 @@
 
                 </v-sheet>
 
-                <div class="d-flex align-end mr-3 px-3 mt-6 justify-space-between">
+                <div class="d-flex align-end mr-3 px-3 mt-3 justify-space-between">
                   
-                  <div class="d-flex align-center pl-1 mb-2">
+                  <div class="d-flex align-center pl-1 mb-3">
                     <v-img
                       :src="profile"
                       class="mr-3"

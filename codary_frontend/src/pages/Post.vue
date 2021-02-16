@@ -4,24 +4,25 @@
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
       <v-sheet color='white'>
-        <div class="pt-13 mt-8 pa-12 ml-9 pt-16 keepblack">
+        <div class="pt-13 mt-8 pa-12 ml-16 pt-16 keepblack">
           <h1 class='mb-10 mt-16'>{{ this.blogContents.blogContentsTitle }}</h1>
           <v-chip
             v-for="hashtag in this.blogContents.hashtags"
             :key="hashtag.hashtagId"
             outlined
+            class='mr-1'
             @click="search(hashtag)"
             >{{ hashtag.hashtagContent }}</v-chip
           >
         </div>
-        <v-divider class='ml-16 mr-16 keepblack'></v-divider>
+        <v-divider class='ml-16 mr-16 pl-16 pr-16'></v-divider>
         <div class='ma-16 pa-4 my-10 mt-12'>
           <v-sheet class='pa-13' light id="viewer" />
           <div class='py-3'></div>
           <div class='ml-10'>
             <Profile :blogContents="blogContents" />
             <div>
-              <v-btn align="center" plain outlined color="primary" @click="clickLike()">
+              <v-btn align="center" elevation='1' color="primary" @click="clickLike()">
                 좋아요 == {{ likeOrNot }}
               </v-btn>
               <v-btn
@@ -29,9 +30,10 @@
                 id="modify"
                 align="center"
                 class='ml-3 mr-3'
-                outlined
                 color="primary"
                 @click="editPost()"
+                elevation='1' 
+                plain
               >
                 <font-awesome-icon :icon="['fas','edit']" class='mr-2'/> 
                 수정
@@ -41,7 +43,8 @@
                 id="delete"
                 align="center"
                 class="my-8"
-                outlined
+                elevation="1"
+                plain
                 color="primary"
                 @click="deletePost()"
               >
