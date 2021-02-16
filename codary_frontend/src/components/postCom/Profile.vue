@@ -1,5 +1,5 @@
 <template>
-  <div class="py-6 pa-12">
+  <div class="py-6">
     <v-container id="user-profile-view" fluid class="profile-back">
       <v-row>
         <v-col class="d-flex align-center pa-0">
@@ -20,13 +20,13 @@
             />
           </router-link>
           <v-card-text>
-            <h6 class="text-h6 text--secondary">
+            <h5 class="ml-1 text--secondary font-weight-bold" style='color:black;'>
               카카오 크루원
-            </h6>
-            <h4 class="text-h4 text--primary">
+            </h5>
+            <h4 class="text-h4 text--primary font-weight-bold">
               {{ this.blogContents.nickname }}
             </h4>
-            <span class="text--secondary">
+            <span class="ml-1 text--secondary">
               개발자를 위한 블로그를 개발중인 개발자
             </span>
           </v-card-text>
