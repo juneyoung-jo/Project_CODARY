@@ -4,7 +4,7 @@
       >}</v-text-field
     >
 
-    <div id="editor" />
+    <v-card light id="editor" />
 
     <!-- start  ###################################### -->
     <h3 class="py-8">태그를 입력하세요</h3>

@@ -60,37 +60,62 @@
 
                   <div
                     v-if="hover"
-                    class="d-flex align-center pl-2 white--black "
-                    style="position:absolute; top:0% "
+                    class="d-flex align-center pl-2 white--black"
+                    style="position: absolute; top: 0%"
                     transition="fade-transition"
                   >
-                    <div class="d-flex align-center pl-2 pr-2 white--black " style="height:150px">
+                    <div
+                      class="d-flex align-center pl-2 pr-2 white--black"
+                      style="height: 150px"
+                    >
                       {{ blogContents | textLengthOverCut }}
                     </div>
                   </div>
                 </div>
-                <div class='pl-5 py-3'>
-                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5" v-text="blogContentsTitle"></h2>
-                  <h4 class="mb-2 pl-1">태그 들어갈 자리</h4>
-
-                  <div class="d-flex align-center mb-3 pl-1">
-                    <v-img :src="profile" class="mr-3" height="30" max-width="30px" style="border-radius:15px"></v-img>
+                <!-- 텍스트 -->
+                <v-sheet class="pl-5 pa-2" height="150px">
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5">
+                    {{ blogContentsTitle | textLengthOverCutTitle }}
+                  </h2>
+                  <h4 class="mb-2 pl-1">
+                    <v-chip
+                      v-for="hashtag in hashtags"
+                      :key="hashtag.hashtagId"
+                      outlined
+                      small
+                      class="mr-2"
+                      >{{ hashtag.hashtagContent }}</v-chip
+                    >
+                  </h4>
+                </v-sheet>
+                 <div class="d-flex align-end mr-3 px-3 mt-6 justify-space-between">
+                  
+                  <div class="d-flex align-center pl-1 mb-2">
+                    <v-img
+                      :src="profile"
+                      class="mr-3"
+                      height="30"
+                      max-width="30px"
+                      style="border-radius: 15px"
+                    ></v-img>
                     <span>
                       {{ nickname }}
                     </span>
                   </div>
-                </div>
-
-                <div class="d-flex align-end flex-column mr-3 px-3 mb-4">
-                  <span class="font-weight-light">
-                    <font-awesome-icon :icon="['fas', 'comment-dots']" />
-                    {{ commentCnt }}
-                    <font-awesome-icon :icon="['fas', 'heart']" class="ml-2" />
-                    {{ blogContentsLike }}
-                    <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
-                    {{ blogContentsView }}
-                  </span>
-                  <div class=" font-weight-light justify-end" v-text="blogDatetime"></div>
+                  <div class='text-right'>
+                    <span class="font-weight-light">
+                      <font-awesome-icon :icon="['fas', 'comment-dots']" />
+                      {{ commentCnt }}
+                      <font-awesome-icon :icon="['fas', 'heart']" class="ml-2" />
+                      {{ blogContentsLike }}
+                      <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
+                      {{ blogContentsView }}
+                    </span>
+                    <div
+                      class="font-weight-light justify-end"
+                      v-text="blogDatetime"
+                    ></div>
+                  </div>
                 </div>
                 <!-- <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading

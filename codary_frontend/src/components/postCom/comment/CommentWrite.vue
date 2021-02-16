@@ -9,7 +9,7 @@
         clearable
         @keyup.enter="write()"
       ></v-text-field>
-      <v-btn outlined elevation='2' color="primary" class="mx-3 mt-3" @click="write()">
+      <v-btn plain elevation='1' color="primary" class="mx-3 mt-3 font-weight-bold" @click="write()">
         작성
       </v-btn>
       
