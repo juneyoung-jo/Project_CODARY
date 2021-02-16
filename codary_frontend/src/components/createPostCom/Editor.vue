@@ -4,7 +4,7 @@
       >}</v-text-field
     >
 
-    <div id="editor" />
+    <div id="editor" style="word-break:normal"/>
 
     <!-- start  ###################################### -->
     <h3 class="py-8">태그를 입력하세요</h3>

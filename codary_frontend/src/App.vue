@@ -33,6 +33,8 @@ export default {
 }
 #app {
   background-color: var(--v-background-base);
+  word-break: break-all;
+  white-space: pre-line;
 }
 
 
@@ -42,7 +44,7 @@ export default {
   background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 3.5px;
+  
   background-color: #ced4da;
 }
 
