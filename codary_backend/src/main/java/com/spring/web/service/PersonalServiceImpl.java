@@ -1,5 +1,6 @@
 package com.spring.web.service;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,6 +21,7 @@ import com.spring.web.dao.PersonalDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
@@ -34,9 +37,18 @@ public class PersonalServiceImpl implements PersonalService{
 	
 	@Override
 	@Transactional
-	public List<BlogContentsDto> personalContents(String blogid) {
-		//personalDao.usergraphViewCount(blogid);
-		return personalDao.showBlogContents(blogid);
+	public List<BlogPostDto> personalContents(String blogid) throws Exception {
+		List<BlogPostDto> list = personalDao.showBlogContents(blogid);
+				
+		for(BlogPostDto b : list) {
+			Map<String, String> map = personalDao.getUserProfile(blogid);
+			b.setProfile(map.get("profile"));
+			b.setNickname(map.get("nickname"));
+			b.setCommentCnt(personalDao.getCommentInfo(b.getBlogContentsId()).size());
+			b.setHashtags(personalDao.getHashtagOfPost(b.getBlogContentsId()));
+		}
+		
+		return list;
 	}
 
 	@Override

@@ -60,29 +60,29 @@ public class PersonalController {
 	@Autowired
 	private PersonalService personalService;
 	
-	/*블로거가 쓴 글 (최신순으로) */
-	@ApiOperation(value ="블로거가 쓴 글", notes = "해당 블로거가 쓴 글 목록을 최신순으로 반환한다.", response=List.class)
+
+	/**
+	 * 블로그의 모든 글 가져오기
+	 * 
+	 * @param blogId
+	 * @return List<BlogPostDto>
+	 */
+	@ApiOperation(value ="블로그의 모든 글 가져오기", notes = "@param blogId </br> @return BlogPostDto", response=List.class)
 	@GetMapping("/{blogid}")
-	public ResponseEntity<List<BlogContentsDto>> personalList(@PathVariable String blogid) {
-		
-		List<BlogContentsDto> blogcontentsList=null;
-		HttpStatus status=HttpStatus.ACCEPTED;
-		
+	public ResponseEntity<List<BlogPostDto>> personalList(@PathVariable String blogid) {
 		try {
-			blogcontentsList= personalService.personalContents(blogid);
-			Collections.sort(blogcontentsList, new Comparator<BlogContentsDto>() {
+			List<BlogPostDto> list = personalService.personalContents(blogid);
+			Collections.sort(list, new Comparator<BlogPostDto>() {
 				@Override
-				public int compare(BlogContentsDto o1, BlogContentsDto o2) {
+				public int compare(BlogPostDto o1, BlogPostDto o2) {
 					return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
 				}
 			});
-			status=HttpStatus.OK;
-			
-		}catch(Exception e) {
+			return new ResponseEntity<List<BlogPostDto>>(list, HttpStatus.OK);
+		} catch (Exception e) {
 			e.printStackTrace();
-			status=HttpStatus.NO_CONTENT;
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<BlogContentsDto>>(blogcontentsList, status);
 	}
 	
 	
