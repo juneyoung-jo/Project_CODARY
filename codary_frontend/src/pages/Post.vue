@@ -3,55 +3,53 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
+      <v-sheet color='white'>
+        <h1 class="py-10 pt-13 mt-8 pa-12 ml-9 pt-16 keepblack">{{ this.blogContents.blogContentsTitle }}</h1>
+        <div class="pa-12 py-0 ml-8 keepblack">
+          <v-chip outlined class="mr-2 keepblack">코딩초보</v-chip>
+          <v-chip outlined class="mr-2 keepblack">도와주세요</v-chip>
+          <v-chip outlined class="mr-2 keepblack">알고리즘</v-chip>
+          <v-chip outlined class="keepblack">백준</v-chip>
+        </div>
+        <v-divider class='my-8 ml-16 mr-16 keepblack'></v-divider>
+        <div class='ma-16 pa-4 my-10 mt-12'>
+          <div id="viewer" />
+          <div class='py-3'></div>
+          <Profile :blogContents="blogContents" />
+          <div>
+            <v-btn align="center" plain outlined color="primary" @click="clickLike()">
+              좋아요? {{ likeOrNot }}
+            </v-btn>
+            <v-btn
+              v-if="this.isItMine"
+              id="modify"
+              align="center"
+              class='ml-3 mr-3'
+              outlined
+              color="primary"
+              @click="editPost()"
+            >
+              <font-awesome-icon :icon="['fas','edit']" class='mr-2'/> 
+              수정
+            </v-btn>
+            <v-btn
+              v-if="this.isItMine"
+              id="delete"
+              align="center"
+              class="my-8"
+              outlined
+              color="primary"
+              @click="deletePost()"
+            >
+              <font-awesome-icon :icon="['fas','trash-alt']" class='mr-2'/>
+              삭제
+            </v-btn>
+          </div>
+          <div class='py-4'></div>
+        </div>
 
-      <h1 class="py-10 pa-12">{{ this.blogContents.blogContentsTitle }}</h1>
-      <div class="pa-12 py-0">
-        <v-chip
-          v-for="hashtag in this.blogContents.hashtags"
-          :key="hashtag.hashtagId"
-          outlined
-          class="mr-2"
-          @click="search(hashtag)"
-          >{{ hashtag.hashtagContent }}</v-chip
-        >
-      </div>
-      <v-container class="py-8 pa-12">
-        <div id="viewer" />
-        <v-btn
-          align="center"
-          class="mt-9"
-          outlined
-          color="primary"
-          @click="clickLike()"
-        >
-          좋아요? {{ likeOrNot }}
-        </v-btn>
-      </v-container>
+      </v-sheet>
 
-      <Profile :blogContents="blogContents" />
-
-      <v-btn
-        v-if="this.isItMine"
-        id="modify"
-        align="center"
-        class="mx-12"
-        outlined
-        color="primary"
-        @click="editPost()"
-      >
-        글 수정
-      </v-btn>
-      <v-btn
-        v-if="this.isItMine"
-        id="delete"
-        align="center"
-        class="my-8"
-        outlined
-        color="primary"
-        @click="deletePost()"
-      >
-        글 삭제
-      </v-btn>
       <div class="px-12">
         <CommentWrite @WRITECMT="writeComment" :blogContents="blogContents" />
         <Comment
@@ -60,6 +58,7 @@
           @MODIFYCOMMENT="modifyComment"
         />
       </div>
+      <div class='py-16'></div>
     </v-container>
   </div>
 </template>
@@ -400,4 +399,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.keepblack {
+  color : black;
+}
+</style>

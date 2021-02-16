@@ -1,23 +1,28 @@
 <template>
-  <div class="d-flex align-center">
-    <img :src="user.profile" width="40px" height="40px" style="border-radius:20px" />
-    <h3 class="ml-3">{{ user.nickname }}</h3>
-    <h5 class="ml-3">{{ comment.commentDatetime }}</h5>
-    <div class="ml-3">
+  <v-sheet color='background' class="d-flex align-center">
+    <img :src="user.profile" width="30px" height="30px" style="border-radius:20px"/>
+    <h4 class="ml-3">{{ user.nickname }}</h4>
+    <v-sheet color="background">
       <template v-if="loggedInUserData !== null">
         <template v-if="!commentLikeflag">
-          <v-btn plain color="blue" class="pa-0" outlined @click="cmtLike()">
-            <font-awesome-icon :icon="['fas', 'heart']" /> : {{ this.comment.commentLike }}
+          <v-btn plain color="grey" class="pa-0" @click="cmtLike()">
+            <font-awesome-icon :icon="['fas','heart']"/>
+            <div class='ml-2'>
+              {{ this.comment.commentLike }}
+            </div>
           </v-btn>
         </template>
         <template v-else>
-          <v-btn plain color="red" outlined @click="cmtLikeCancle()">
-            <font-awesome-icon :icon="['fas', 'heart-broken']" /> : {{ this.comment.commentLike }}
+          <v-btn plain color="red" @click="cmtLikeCancle()">
+            <font-awesome-icon :icon="['fas','heart']"/> 
+            <div class='ml-2'>
+              {{ this.comment.commentLike }}
+            </div>
           </v-btn>
         </template>
       </template>
-    </div>
-  </div>
+    </v-sheet>
+  </v-sheet>
 </template>
 
 <script>
