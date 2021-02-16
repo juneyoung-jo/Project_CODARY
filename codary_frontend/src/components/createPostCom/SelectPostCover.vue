@@ -1,19 +1,35 @@
 <template>
   <v-img :src="currentImg" max-height="300" top>
     <v-row class="py-16"></v-row>
-    <v-row class="py-8"></v-row>
+    <v-row class="py-6"></v-row>
     <v-row class="py-16">
       <v-col md="4" align="start">
-        <v-dialog transition="dialog-top-transition" max-width="600">
+        <v-dialog transition="dialog-top-transition" max-width="800px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" class="ml-3"> 커버수정 </v-btn>
+            <v-btn v-bind="attrs" v-on="on" class="ml-4"> 커버수정 </v-btn>
           </template>
           <template v-slot:default="dialog">
             <v-card class="d-flex flex-column pa-8">
-              <h3 class="text-center py-4">커버 사진 골라보세요</h3>
-              <v-card class="text-center mb-4" v-for="(cover, idx) in covers" :key="idx">
-                <v-img :src="cover" @click="selectcover(cover)"></v-img>
+              <h3 class="text-center pb-5">커버 사진 골라보세요</h3>
+              
+              <v-container>
+              <v-row class="d-flex">
+                <v-col  
+                  cols="12"
+                  md="6"
+                  v-for="(cover, idx) in covers"
+                  :key="idx"
+                >
+
+
+              <v-card class="text-center mb-4">
+                <v-img :src="cover" @click="selectcover(cover)" class="selectCoverImg"></v-img>
               </v-card>
+
+                </v-col>
+              </v-row>
+              </v-container>
+
               <v-file-input
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="Pick an avatar"
@@ -23,6 +39,7 @@
 
               <v-btn
                 outlined
+                dense
                 @click="
                   {
                     close(dialog);
@@ -53,9 +70,9 @@ export default {
     return {
       covers: [
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/afrc2021-0004-24.jpg',
-        'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
-        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg',
+        'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
+        'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
       ],
       currentImg:
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
@@ -119,4 +136,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.selectCoverImg {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.selectCoverImg:hover {
+  border: 5px;
+} 
+</style>

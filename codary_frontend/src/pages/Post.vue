@@ -122,6 +122,7 @@ export default {
     };
   },
   created() {
+    this.UpperPage();  
     this.initUser();
     this.getBlogContent();
     this.checkLikeOrNot();
@@ -402,6 +403,9 @@ export default {
           hashtagContent: hashtag.hashtagContent,
         },
       });
+    },
+    UpperPage() {
+      window.scrollTo(0,0)
     },
   },
 };
