@@ -44,9 +44,10 @@
         <v-list color="background"
           ><template v-for="(item, index) in this.blogContentsList">
             <div :key="item.blogContentId">
-              <span>블로그 Title : {{ item.blogCotnentsTitle }} | </span>
-              <span> 안 읽은 댓글 : {{ item.count }}</span>
-              <v-btn @click="moveBlogCotnents(item.blogContentId, item.count, index)">이동</v-btn>
+              <v-btn plain @click="moveBlogCotnents(item.blogContentId, item.count, index)">
+                <span class='mt-3 ml-2'>"{{ item.blogCotnentsTitle }}"</span>
+                <span color='primary' class='font-weight-bold ml-2 mt-3'>댓글 {{ item.count }}</span>
+              </v-btn>
               <br />
               <br />
             </div>
@@ -159,4 +160,5 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+</style>
