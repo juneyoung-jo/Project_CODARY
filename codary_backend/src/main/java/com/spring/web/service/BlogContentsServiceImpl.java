@@ -154,4 +154,9 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 		return mapper.selectHash(keyword);
 	}
 
+	@Override
+	public List<HashtagDto> selectHashOfPost(int blogContentsId) throws Exception {
+		return mapper.getHashtagOfPost(blogContentsId);
+	}
+
 }

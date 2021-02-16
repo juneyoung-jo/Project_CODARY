@@ -73,7 +73,7 @@ export default {
     },
     search() {
       // console.log(this.values.length);
-      if (this.values.length > 0) this.$emit("GETHASH", this.values);
+      this.$emit("GETHASH", this.values);
     },
   },
 };

@@ -69,26 +69,34 @@ export default {
     };
   },
   created() {
-    this.searchBy();
+    if (this.$route.query.hashtagId === undefined) this.searchBy();
+    else {
+      this.values.push(this.$route.query.hashtagId);
+      this.titlesearch = false;
+      this.searchBy();
+    }
   },
   methods: {
     getkeyword(keyword) {
       this.keyword = keyword;
       if (this.keyword.length == 0) this.isSearched = false;
       else this.isSearched = true;
-      console.log(this.keyword);
+      // console.log(this.keyword);
       this.titlesearch = true;
       this.searchBy();
     },
     gethash(values) {
-      this.values = values;
-      // console.log(this.values);
-      this.titlesearch = false;
+      if (values.length > 0) {
+        console.log("this: " + this.values);
+        this.values = values;
+        this.titlesearch = false;
+      } else {
+        this.titlesearch = true;
+      }
       this.searchBy();
     },
     changeSelect(event) {
       this.selected = event.target.value;
-      this.titlesearch = true;
       this.searchBy();
     },
     searchBy() {
