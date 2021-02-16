@@ -18,7 +18,7 @@
           <CommentRow :item="item" :index="index" @DELETECMT="deleteCmt" @MODIFYCMT="modifyCmt" />
           <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
           <!-- </v-list-item-commentContent> -->
-         <v-sheet class='py-1' color='background'>
+         <v-sheet class='pt-1' color='background'>
          </v-sheet>
         <v-divider class='mb-5'></v-divider>
         </v-sheet>

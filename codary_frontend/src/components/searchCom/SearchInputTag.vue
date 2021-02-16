@@ -33,10 +33,11 @@
         item-value="hashtagId"
         dense
         filled
-        chips
+        chipsflat
+        hide-details
+        solo-inverted
         deletable-chips
         multiple
-        hide-details
         label="제목 또는 태그를 선택한 후에 검색하세요"
         @blur="search()"
       ></v-autocomplete>

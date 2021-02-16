@@ -1,9 +1,9 @@
 <template>
-  <v-sheet color='background' class="d-flex align-center">
-    <img :src="user.profile" width="30px" height="30px" style="border-radius:20px"/>
-    <h4 class="ml-3">{{ user.nickname }}</h4>
-    <v-sheet color="background">
-      <template v-if="loggedInUserData !== null">
+  <v-sheet color='background' class="mt-3 d-flex align-center">
+    <img class='mt-3' :src="user.profile" width="30px" height="30px" style="border-radius:20px"/>
+    <h4 class="ml-3 mt-3">{{ user.nickname }}</h4>
+    <v-sheet class='mt-3 d-flex space-between' color="background">
+      <template class='d-flex' v-if="loggedInUserData !== null">
         <template v-if="!commentLikeflag">
           <v-btn plain color="grey" class="pa-0" @click="cmtLike()">
             <font-awesome-icon :icon="['fas','heart']"/>
@@ -21,6 +21,7 @@
           </v-btn>
         </template>
       </template>
+      <h5 class='mt-2 d-flex font-weight-light'>{{ comment.commentDatetime }}</h5>
     </v-sheet>
   </v-sheet>
 </template>
