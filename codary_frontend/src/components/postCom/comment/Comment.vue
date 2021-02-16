@@ -1,10 +1,15 @@
 <template>
-  <v-sheet color='background'>
-    <v-list three-line color='background'>
-      <v-sheet color='background' v-for="(item, index) in this.items" :key='item'>
+  <v-sheet color="background">
+    <v-list three-line color="background">
+      <v-sheet color="background" v-for="(item, index) in this.items" :key="index">
         <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
- 
-        <v-divider color='background' v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
+
+        <v-divider
+          color="background"
+          v-else-if="item.divider"
+          :key="index"
+          :inset="item.inset"
+        ></v-divider>
 
         <v-sheet v-else :key="item.commentNum" class="pa-0">
           <!-- <v-list-item-avatar>
