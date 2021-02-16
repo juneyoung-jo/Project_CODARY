@@ -50,7 +50,8 @@ export default {
         this.blogContents.blogContents = this.$route.query.blogContents;
         this.blogContents.blogContentsTitle = this.$route.query.blogContentsTitle;
         this.blogContents.blogContentsCover = this.$route.query.blogContentsCover;
-        console.log("쿼리로 넘어온 정보: " + this.blogContents.blogContentsId);
+        this.blogContents.hashTag = this.$route.query.hashtags;
+        // console.log("쿼리로 넘어온 정보: " + this.blogContents.blogContentsId);
       }
     },
     getCover(cover) {

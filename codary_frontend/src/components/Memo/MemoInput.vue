@@ -1,16 +1,18 @@
 <template>
-  <v-card-text class="d-flex flex-column align-center">
+  <v-card-text class="d-flex flex-column align-center ma-0 pa-0">
     <v-textarea
       id="MemoSave"
       placeholder="메모하세요"
       auto-grow
       solo-inverted
-      flat
+      hide-details
       light
+      
       background-color="white"
       color="black"
-      class="pa-0 ma-0 memoinputarea"
+      class="pa-0 ma-0 mb-2 memoinputarea"
       v-model="memodata.memoContent"
+      
     ></v-textarea>
     <button id="button" @click="memoSave()">저장하기</button>
   </v-card-text>
@@ -43,6 +45,7 @@ export default {
       this.memodata.memoNum = memoNum;
     },
     memoSave() {
+      // const button = document.querySelector("#button")
       this.memodata.memoId = getmemoIdCookie();
       // console.log("수정로그 찍기: " + this.index);
       // console.log(this.memodata.memoId);
@@ -61,9 +64,16 @@ export default {
             // console.log(response)
             // console.log('저장!')
             this.$emit("CREATEMEMO");
+            // setTimeout(function() { 
+            //   button.classList.add( "validate", 0,
+            //     button.classList.remove( "validate" )
+            //   );
+            // }, 300 );
             this.memodata.memoContent = "";
             this.memodata.memoLink = "";
+            
           },
+          
           (error) => {
             console.log(error);
           }
@@ -94,13 +104,14 @@ export default {
 </script>
 
 <style>
+
 #button {
   outline: none;
   height: 40px;
   text-align: center;
   width: 130px;
   border-radius: 40px;
-
+  content:"저장하기";
   border: 2px solid #1ecd97;
   color: #1ecd97;
   letter-spacing: 1px;
@@ -114,6 +125,15 @@ export default {
 
 .memoinputarea {
   color: black !important;
+}
+
+.validate {
+  font-size:15px;
+  color: white;
+  background: #1ecd97;
+  font-family:'FontAwesome';
+  content:"\f00c";
+  
 }
 /* button:active {
     //letter-spacing: 2px;

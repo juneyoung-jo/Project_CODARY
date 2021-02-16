@@ -82,6 +82,14 @@ function recommend(success, fail) {
     .catch(fail);
 }
 
+//해쉬태그 가져오기
+function getHashtags(success, fail) {
+  instance
+    .get(`blog/getHashtag`)
+    .then(success)
+    .catch(fail);
+}
+
 export {
   writeContent,
   deleteContent,
@@ -92,5 +100,6 @@ export {
   contentsLikeOrNot,
   contentsLike,
   contentsUnlike,
-  recommend
+  recommend,
+  getHashtags,
 };

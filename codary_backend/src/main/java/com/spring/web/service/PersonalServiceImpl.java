@@ -172,5 +172,18 @@ public class PersonalServiceImpl implements PersonalService{
 		return personalDao.findUser(blogid);
 	}
 
+	@Override
+	public BlogDto findBlog(String blogid) {
+		
+		return personalDao.findBlog(blogid);
+	}
+
+	@Override
+	public void modifyBlogCover(Map<String, Object> cover) {
+		int flag = personalDao.modifyBlogCover(cover);
+		
+		
+	}
+
 	
 }

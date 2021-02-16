@@ -39,7 +39,7 @@ public class SearchController {
 	 * @param 
 	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "검색어 없 - 최신순", notes = "@param </br> @return BlogPostto")
+	@ApiOperation(value = "검색어 없 - 최신순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("date")
 	public ResponseEntity<List<BlogPostDto>> orderByDate() throws Exception{
 		try {
@@ -91,10 +91,6 @@ public class SearchController {
 	@PostMapping("date")
 	public ResponseEntity<List<BlogPostDto>> orderByDate(@RequestBody List<Integer> keywords) throws Exception{
 		try {
-			//임시데이터
-			keywords = new LinkedList<>();
-			keywords.add(3);
-			keywords.add(1);
 			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
 			Collections.sort(list, new Comparator<BlogPostDto>() {
 				@Override
@@ -167,10 +163,6 @@ public class SearchController {
 	@PostMapping("like")
 	public ResponseEntity<List<BlogPostDto>> orderByLike(@RequestBody List<Integer> keywords) throws Exception{
 		try {
-			//임시데이터
-			keywords = new LinkedList<>();
-			keywords.add(3);
-			keywords.add(1);
 			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
 			Collections.sort(list, new Comparator<BlogPostDto>() {
 				@Override
@@ -243,10 +235,6 @@ public class SearchController {
 	@PostMapping("view")
 	public ResponseEntity<List<BlogPostDto>> orderByView(@RequestBody List<Integer> keywords) throws Exception{
 		try {
-			//임시데이터
-			keywords = new LinkedList<>();
-			keywords.add(3);
-			keywords.add(1);
 			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
 			Collections.sort(list, new Comparator<BlogPostDto>() {
 				@Override

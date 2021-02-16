@@ -1,22 +1,48 @@
 <template>
-  <v-card-text id="memoListItem" class="pa-10">
-    <div class="mb-7">
+  <v-card-text id="memoListItem" >
+    <div class="mb-2">
       <v-list
         v-for="(item, index) in this.calData"
         :key="index"
         class="d-flex flex-column"
       >
         <!-- 여기서 아이템이 01로 표시되는걸로 걸러지게... -->
-        <v-list-item-content id="item.memoNum">
-          <v-list-item-subtitle class="pa-2">{{
-            item.memoContent
-          }}</v-list-item-subtitle>
+        <v-list-item-content :id="item.memoNum" class="pa-0">
+          <v-sheet
+            color="background"
+            
+            rounded
+            width="300"
+            class="pa-5 d-flex justify-center font-weight-medium"
+            
+          >
+            {{item.memoContent}}
+          </v-sheet>
         </v-list-item-content>
         <div class="d-flex justify-end">
-          <v-btn small fab plain @click="changingMemo(item, index)">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <a :href="item.memoLink">
+                <v-btn 
+                v-bind="attrs"
+                v-on="on" 
+                small 
+                fab 
+                plain 
+                :value="item.memoLink"
+                style="font-size: 20px"   
+                class="mb-3"
+                >
+                  <font-awesome-icon :icon="['fas', 'arrow-alt-circle-right']" />
+                </v-btn>
+              </a>
+            </template>
+            <span style="font-size: 12px">작성했던 장소로 가기</span>
+          </v-tooltip>
+          <v-btn small fab plain style="font-size: 20px" @click="changingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'edit']" />
           </v-btn>
-          <v-btn small fab plain @click="deletingMemo(item, index)">
+          <v-btn small fab plain style="font-size: 20px" @click="deletingMemo(item, index)">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
           </v-btn>
         </div>
@@ -25,8 +51,8 @@
       <v-pagination
       v-model="curPageNum"
       :length="numOfPages"
+      :total-visible="5"
       >
-      <!-- :total-visible="2" -->
     </v-pagination>
   </v-card-text>
 </template>
@@ -43,7 +69,7 @@ export default {
   props: ["listData"],
   data() {
     return {
-      dataPerPage: 3,
+      dataPerPage: 4,
       curPageNum: 1,
     };
   },
@@ -89,7 +115,7 @@ export default {
 
 <style scoped>
 #memoListItem {
-  width: 270px;
+  /* width: 270px; */
   overflow: auto;
   margin: 0;
   padding: 0;

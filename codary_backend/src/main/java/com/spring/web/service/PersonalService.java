@@ -25,4 +25,6 @@ public interface PersonalService {
 	public void blogerUnlike(BlogerLikeDto bld);
 	public boolean readBlogerLike(BlogerLikeDto bld);
 	public UserInfoDto findUser(String blogid);
+	public BlogDto findBlog(String blogid);
+	public void modifyBlogCover(Map<String, Object> cover);
 }

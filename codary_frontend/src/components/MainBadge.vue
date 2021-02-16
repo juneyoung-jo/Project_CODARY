@@ -44,7 +44,7 @@
         <v-list color="background"
           ><template v-for="(item, index) in this.blogContentsList">
             <div :key="item.blogContentId">
-              <span>블로그 번호 : {{ item.blogContentId }} | </span>
+              <span>블로그 Title : {{ item.blogCotnentsTitle }} | </span>
               <span> 안 읽은 댓글 : {{ item.count }}</span>
               <v-btn @click="moveBlogCotnents(item.blogContentId, item.count, index)">이동</v-btn>
               <br />
@@ -61,6 +61,7 @@
 import { mapState } from 'vuex';
 import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
 import { commentCheck } from '@/api/comment.js';
+import { personalList } from '@/api/personal.js';
 
 export default {
   name: 'MainBadge',
@@ -79,10 +80,12 @@ export default {
     },
     commentCnt: 0,
     blogContentsList: [],
+    blogContentsListAll: [],
   }),
   created() {
     this.initUser();
     this.cmtCheck();
+    // this.blogContentAll();
   },
   methods: {
     initUser() {
@@ -90,6 +93,7 @@ export default {
       this.user.blogId = getblogIdCookie();
       // console.log("메인벳지에서 보낸값 "+this.user.blogId);
     },
+    blogContentAll() {},
     cmtCheck() {
       if (this.user.uid === '') return;
       commentCheck(
@@ -100,7 +104,35 @@ export default {
             // console.log(data.count);
             this.$data.commentCnt += data.count;
           });
-          this.blogContentsList = response.data.data;
+
+          const list = response.data.data;
+          const size = list.length;
+          // console.log(size);
+          personalList(
+            this.user.blogId,
+            (response) => {
+              if (response.data === null) return;
+              let index = size - 1;
+              response.data.forEach((data) => {
+                if (index === -1) return;
+                // console.log(data);
+                if (data.blogContentsId === list[index].blogContentId) {
+                  this.$data.blogContentsList.push({
+                    blogContentId: data.blogContentsId,
+                    blogCotnentsTitle: data.blogContentsTitle,
+                    count: list[index].count,
+                  });
+                  index--;
+                  // console.log(index);
+                }
+                // console.log(data);
+              });
+              // console.log(this.blogContentsList);
+            },
+            (error) => console.log(error)
+          );
+
+          // this.blogContentsList = response.data.data;
           // console.log(this.commentCnt);
         },
         (error) => console.log(error)
