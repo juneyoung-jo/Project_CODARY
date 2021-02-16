@@ -1,5 +1,5 @@
 <template>
-  <v-card-text id="memoListItem" >
+  <v-card-text id="memoListItem" class='mt-3'>
     <div class="mb-2">
       <v-list
         v-for="(item, index) in this.calData"

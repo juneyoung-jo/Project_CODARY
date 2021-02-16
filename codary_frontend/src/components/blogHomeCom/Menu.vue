@@ -1,13 +1,13 @@
 <template>
-<div class='py-12' v-if="this.isMe" id="menu">
- <v-tabs grow>
+<v-sheet color='background' class='py-12 tabmenu' v-if="this.isMe" id="menu">
+ <v-tabs background-color='background' grow>
     <v-tab v-for="tab in tabs" :key="tab.id" @click="updateRouter(tab.route)">
       {{ tab.name }}
     </v-tab>
 </v-tabs>
-</div>
+</v-sheet>
 <div class='py-12' v-else id="menu">
- <v-tabs grow>
+ <v-tabs background-color='background' grow>
     <v-tab v-for="tab in tabs2" :key="tab.id" >
       {{ tab.name }}
     </v-tab>
@@ -70,4 +70,5 @@ import { getuidCookie, getblogIdCookie } from '@/util/cookie.js';
   }
 </script>
 <style>
+
 </style>

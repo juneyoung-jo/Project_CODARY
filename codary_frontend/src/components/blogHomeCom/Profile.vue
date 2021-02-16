@@ -15,16 +15,16 @@
       </v-row>
 
           <v-card-text>
-            <h4 class="text-h4 mb-3 text--primary">
+            <h6 class="text-h6 ml-5 mt-5 text--secondary">{{ this.job }}</h6>
+            <h4 class="text-h4 mb-3 ml-5 font-weight-bold text--primary">
               {{ this.nickname }}
             </h4>
-            <h6 class="text-h6 mb-2 text--secondary">{{ this.job }}</h6>
-            <v-col cols="12">
+            <v-col cols="12" class='ml-3 mb-10'>
               {{ this.intro}}
             </v-col>
-            <div class="d-flex mb-16">
+            <div class="d-flex mb-16 ml-5">
               <router-link class="noline" :to="'/createpost'">
-                <v-btn color="dark" min-width="100" rounded outlined>
+                <v-btn plain elevation="1" color='dark' min-width="100" rounded>
                   글 작성
                 </v-btn>
               </router-link>
@@ -33,7 +33,7 @@
               <!-- 프로필 수정 모달 start  ###################################### -->
               <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="dark" rounded v-bind="attrs" v-on="on" outlined>
+                  <v-btn plain elevation="1" color="dark" rounded v-bind="attrs" v-on="on">
                     프로필수정
                   </v-btn>
                 </template>
@@ -125,37 +125,29 @@
       </v-row>
 
           <v-card-text>
-            <h4 class="text-h4 mb-3 text--primary">
-              {{ this.othernickname }}
-            </h4>
-            <h6 class="text-h6 mb-2 text--secondary">{{ this.otherjob }}</h6>
+            <h6 class="text-h6 ml-5 mt-5 text--secondary">{{ this.otherjob }}</h6>
+            <div class='d-flex'>
+              <h4 class="text-h4 mb-3 mt-4 ml-5 font-weight-bold text--primary">
+                {{ this.othernickname }}
+              </h4>
+              <div class='d-flex ml-4 mt-1'>
+                <template v-if="blogerLikeflag">
+                  <v-btn fab elevation="1" color="red" @click="blgUnlike()">
+                    <v-icon class='mt-1'>mdi-heart</v-icon>
+                  </v-btn>
+                </template>
+                <template v-else>
+                  <v-btn fab elevation="1" color="gray" @click="blgLike()">
+                    <v-icon class='mt-1'>mdi-heart</v-icon>
+                  </v-btn>
+                </template>
+              </div>
+            </div>
           
-            <v-col cols="12">
+            <v-col cols="12" class='ml-3 mb-10'>
               {{ this.otherintro}}
             </v-col>
-            <p class="text--secondary">
-              <v-card flat class='mb-10'>
-                <v-card-text>
-                  <v-container fluid class="pa-0">
-                    <v-row>
-                      <v-col cols="6" sm="3">
-                        팔로우
-                        <template v-if="blogerLikeflag">
-                          <v-btn icon color="pink" @click="blgUnlike()">
-                            <v-icon>mdi-heart</v-icon>
-                          </v-btn>
-                        </template>
-                        <template v-else>
-                          <v-btn icon color="gray" @click="blgLike()">
-                            <v-icon>mdi-heart</v-icon>
-                          </v-btn>
-                        </template>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-              </v-card>
-            </p>
+              
           </v-card-text>
     </v-sheet>
   </v-container>
@@ -182,6 +174,7 @@ export default {
     getUserInfo(
       getuidCookie(),
       (response) => {
+        console.log('블로그홈')
         console.log(response);
         this.nickname_ = this.nickname = response.data.info.nickname;
         this.job_ = this.job = response.data.info.job;

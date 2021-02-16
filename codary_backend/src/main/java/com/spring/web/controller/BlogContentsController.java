@@ -63,7 +63,7 @@ public class BlogContentsController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-
+	
 	/**
 	 * 블로그 글 작성
 	 * 

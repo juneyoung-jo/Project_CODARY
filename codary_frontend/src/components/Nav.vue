@@ -17,18 +17,18 @@
       </router-link>
     </v-row>
     <!-- buttons -->
-    <v-row justify="end"  class='mr-4'>
-      <v-col cols="auto" class=' font-weight-medium'>
+    <v-row justify="end" alig="center" class='mr-4'>
+      <v-col cols="auto" class='pt-4 font-weight-medium'>
         Dark Mode
       </v-col>
       <v-col cols="auto">
-        <v-switch v-model="$vuetify.theme.dark" class="ma-0 pa-0" color="secondary" hide-details />
+        <v-switch v-model="$vuetify.theme.dark" class="mt-1" color="secondary" hide-details />
       </v-col>
         <!-- search -->
-      <v-col cols="auto">
+      <v-col cols="auto" class='mb-4 pb-4'>
         <template v-if="isLogin">
           <!-- 마이페이지가는곳 -->
-          <MainBadge />
+          <MainBadge/>
         </template>
         <template v-else>
           <!-- login -->

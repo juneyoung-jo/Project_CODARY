@@ -5,15 +5,15 @@
       <v-list-item-title v-html="item.commentContent"></v-list-item-title>
       </v-col>
       <v-col>
-        <v-sheet v-if="flag" color='background'>
+        <v-sheet class='justify-end align-end d-flex' v-if="flag" color='background'>
           <template v-if="loggedInUserData !== null && loggedInUserData.uid === item.uid">
-            <v-btn plain color="blue" @click="modifyCmt()">
+            <v-btn plain color='primary' small @click="modifyCmt()">
               <font-awesome-icon :icon="['fas','edit']"/> 
-              <div class='ml-2'>
+              <div class='ml-2 '>
                 수정
               </div>
             </v-btn>
-            <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">
+            <v-btn plain small color='primary' @click="deleteCmt(item.commentNum, index)">
               <font-awesome-icon :icon="['fas','trash-alt']"/>
               <div class='ml-2'>
                 삭제
@@ -28,12 +28,13 @@
               name="input-7-4"
               label="Solo textarea"
               v-model="copyComment"
-              plain
               flat
             ></v-textarea>
           </v-col>
-          <v-btn plain color="blue" @click="confirmBtn(index)">확인</v-btn>
-          <v-btn plain color="red" @click="cancelBtn()">취소</v-btn>
+          <div class='justify-end d-flex mr-6'>
+            <v-btn plain elevation="1" small @click="confirmBtn(index)">확인</v-btn>
+            <v-btn plain elevation="1" small @click="cancelBtn()">취소</v-btn>
+          </div>
         </template>
       </v-col>
     </v-row>
