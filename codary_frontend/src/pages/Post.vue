@@ -5,12 +5,14 @@
       <!-- <PostViewer :blogContents="blogContents" /> -->
       <v-sheet color='white'>
         <h1 class="py-10 pt-13 mt-8 pa-12 ml-9 pt-16 keepblack">{{ this.blogContents.blogContentsTitle }}</h1>
-        <div class="pa-12 py-0 ml-8 keepblack">
-          <v-chip outlined class="mr-2 keepblack">코딩초보</v-chip>
-          <v-chip outlined class="mr-2 keepblack">도와주세요</v-chip>
-          <v-chip outlined class="mr-2 keepblack">알고리즘</v-chip>
-          <v-chip outlined class="keepblack">백준</v-chip>
-        </div>
+         <v-chip
+          v-for="hashtag in this.blogContents.hashtags"
+          :key="hashtag.hashtagId"
+          outlined
+          class="mr-2"
+          @click="search(hashtag)"
+          >{{ hashtag.hashtagContent }}</v-chip
+        >
         <v-divider class='my-8 ml-16 mr-16 keepblack'></v-divider>
         <div class='ma-16 pa-4 my-10 mt-12'>
           <div id="viewer" />
