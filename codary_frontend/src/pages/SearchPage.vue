@@ -69,8 +69,12 @@ export default {
     };
   },
   created() {
-    if (this.$route.query.hashtagId === null) this.searchBy();
-    else this.gethash(this.$route.query.hashtagId);
+    if (this.$route.query.hashtagId === undefined) this.searchBy();
+    else {
+      this.values.push(this.$route.query.hashtagId);
+      this.titlesearch = false;
+      this.searchBy();
+    }
   },
   methods: {
     getkeyword(keyword) {
@@ -82,10 +86,7 @@ export default {
       this.searchBy();
     },
     gethash(values) {
-      if (values.length === undefined) {
-        this.values.push(values);
-        this.titlesearch = false;
-      } else if (this.values.length > 0) {
+      if (values.length > 0) {
         console.log("this: " + this.values);
         this.values = values;
         this.titlesearch = false;
