@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="background" app elevate-on-scroll class="pt-1">
+  <v-app-bar color="background" app elevate-on-scroll class="">
     <!-- logo -->
     <router-link :to="'/'" class="noline">
       <h2>codary</h2>
@@ -17,11 +17,11 @@
       </router-link>
     </v-row>
     <!-- buttons -->
-    <v-row justify="end" class='mr-4'>
-      <v-col cols="auto" class='mt-1 font-weight-medium'>
+    <v-row justify="end"  class='mr-4'>
+      <v-col cols="auto" class=' font-weight-medium'>
         Dark Mode
       </v-col>
-      <v-col cols="auto" class='mt-1'>
+      <v-col cols="auto">
         <v-switch v-model="$vuetify.theme.dark" class="ma-0 pa-0" color="secondary" hide-details />
       </v-col>
         <!-- search -->
