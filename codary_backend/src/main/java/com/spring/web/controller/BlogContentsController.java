@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogHashtagDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserInfoDto;
 import com.spring.web.service.BlogContentsService;
@@ -49,11 +50,14 @@ public class BlogContentsController {
 	 */
 	@ApiOperation(value = "다른 사람 블로그의 특정 블로그 글 가져오기(조회수 증가)", notes = "@param blogId, blogContentsId  </br> @return BlogContentsDto")
 	@GetMapping("{blogId}/{blogContentsId}")
-	public ResponseEntity<BlogContentsDto> get(@PathVariable String blogId, @PathVariable int blogContentsId)
+	public ResponseEntity<Map<String, Object>> get(@PathVariable String blogId, @PathVariable int blogContentsId)
 			throws Exception {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("data", contentsService.getContent(blogContentsId));
+			map.put("hashtag", contentsService.selectHashOfPost(blogContentsId));
 			contentsService.increaseContentsView(blogContentsId);
-			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(blogContentsId), HttpStatus.OK);
+			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -158,8 +162,7 @@ public class BlogContentsController {
 		}
 		
 		if (result == 1)
-			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()),
-					HttpStatus.OK);
+			return new ResponseEntity<BlogContentsDto>(contentsService.getContent(content.getBlogContentsId()), HttpStatus.OK);
 		else
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
@@ -200,6 +203,7 @@ public class BlogContentsController {
 			BlogContentsDto data = contentsService.writeLog(uid, blogId, blogContentsId);
 			map.put("msg", "success");
 			map.put("data", data);
+			map.put("hashtag", contentsService.selectHashOfPost(blogContentsId));
 			resEntity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

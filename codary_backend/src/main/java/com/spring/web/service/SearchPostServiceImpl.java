@@ -30,6 +30,7 @@ public class SearchPostServiceImpl implements SearchPostService {
 //	}
 
 	@Override
+	@Transactional
 	public List<BlogPostDto> searchByHash(List<Integer> keywords) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("num", keywords.size());
@@ -54,6 +55,7 @@ public class SearchPostServiceImpl implements SearchPostService {
 	}
 
 	@Override
+	@Transactional
 	public List<BlogPostDto> searchByTitle(String keyword) throws Exception {
 		// List<Map<String, Object>> list = mapper.searchByTitle();
 		// List<Integer> results = new LinkedList<>();
@@ -85,9 +87,16 @@ public class SearchPostServiceImpl implements SearchPostService {
 	}
 
 	@Override
+	@Transactional
 	@Cacheable(value = "get_Contents")
 	public List<BlogPostDto> searchAll() throws Exception {
-		return mapper.searchTitle();
+		List<BlogPostDto> list = mapper.searchTitle();
+		List<BlogPostDto> result = new LinkedList<>();
+		for(BlogPostDto bpd : list) {
+			bpd.setHashtags(mapper.getHashtagOfPost(bpd.getBlogContentsId()));
+			result.add(bpd);
+		}
+		return result;
 	}
 
 }

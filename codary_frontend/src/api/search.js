@@ -25,7 +25,7 @@ function getByView(keyword, success, fail) {
 
 function hashByView(keywords, success, fail) {
   instance
-    .get(`search/view`, keywords)
+    .post(`search/view`, keywords)
     .then(success)
     .catch(fail);
 }
@@ -39,7 +39,7 @@ function getByLike(keyword, success, fail) {
 
 function hashByLike(keywords, success, fail) {
   instance
-    .get(`search/like`, keywords)
+    .post(`search/like`, keywords)
     .then(success)
     .catch(fail);
 }

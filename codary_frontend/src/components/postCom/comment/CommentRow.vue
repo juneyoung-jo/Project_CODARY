@@ -1,25 +1,35 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="6" md="12" class="py-3 pa-0 pl-5">
-        <template v-if="flag">
-          <v-list-item-title v-html="item.commentContent"></v-list-item-title>
+  <v-sheet color='background' fluid class='py-5'>
+    <v-row class='py-2 d-flex flex-column' color='background' >
+      <v-col class="py-3 pl-7">
+      <v-list-item-title v-html="item.commentContent"></v-list-item-title>
+      </v-col>
+      <v-col>
+        <v-sheet v-if="flag" color='background'>
           <template v-if="loggedInUserData !== null && loggedInUserData.uid === item.uid">
             <v-btn plain color="blue" @click="modifyCmt()">
-              <font-awesome-icon :icon="['fas','edit']"/> : 수우저엉
+              <font-awesome-icon :icon="['fas','edit']"/> 
+              <div class='ml-2'>
+                수정
+              </div>
             </v-btn>
             <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">
-              <font-awesome-icon :icon="['fas','trash-alt']"/> : 사악제에
+              <font-awesome-icon :icon="['fas','trash-alt']"/>
+              <div class='ml-2'>
+                삭제
+              </div>
             </v-btn>
           </template>
-        </template>
+        </v-sheet>
         <template v-else>
-          <v-col cols="3" md="12">
+          <v-col md="12">
             <v-textarea
               solo
               name="input-7-4"
               label="Solo textarea"
               v-model="copyComment"
+              plain
+              flat
             ></v-textarea>
           </v-col>
           <v-btn plain color="blue" @click="confirmBtn(index)">확인</v-btn>
@@ -27,7 +37,7 @@
         </template>
       </v-col>
     </v-row>
-  </v-container>
+  </v-sheet>
 </template>
 
 <script>

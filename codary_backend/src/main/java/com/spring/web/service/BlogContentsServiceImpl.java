@@ -158,5 +158,10 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	public HashtagDto findTagByValue(String value) throws Exception {
 		return mapper.findTagByValue(value);
 	}
+	
+	@Override
+	public List<HashtagDto> selectHashOfPost(int blogContentsId) throws Exception {
+		return mapper.getHashtagOfPost(blogContentsId);
+	}
 
 }

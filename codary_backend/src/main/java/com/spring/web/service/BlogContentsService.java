@@ -42,6 +42,8 @@ public interface BlogContentsService {
 	UserInfoDto userInfo(String blogId) throws Exception;
 
 	List<HashtagDto> selectHash(String keyword) throws Exception;
+	
+	List<HashtagDto> selectHashOfPost (int blogContentsId) throws Exception;
 
 	HashtagDto findTagByValue(String value) throws Exception;
 }

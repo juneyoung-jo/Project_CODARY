@@ -77,4 +77,16 @@
 			);
 	</select>
 	
+	<select id="findBlog" resultType="BlogDto" parameterType="String">
+		select * 
+		from blog
+		where blog_id = #{blogId};
+	</select>
+	
+	<update id="modifyBlogCover" parameterType="Map">
+		update blog
+		set blog_cover = #{blogCover}
+		where blog_id = #{blogId}
+	</update>
+	
 </mapper>

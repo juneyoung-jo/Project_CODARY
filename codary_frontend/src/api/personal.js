@@ -106,6 +106,30 @@ function updateUserinfo(userinfo, success, fail) {
         .catch(fail);
 }
 
+/**
+ * 내 블로그 정보 읽어오기
+ */
+function getBlogInfo(blogId, success, fail) {
+
+    instance
+        .get(`personal/blogInfo/${blogId}`)
+        .then(success)
+        .catch(fail);
+}
+
+function modifyBlogInfo(blogCover,blogId, success, fail) {
+
+    const body = {
+        blogCover: blogCover,
+        blogId : blogId
+        
+    }
+
+    instance
+        .put('personal/modifyBlogCover',body)
+        .then(success)
+        .catch(fail);
+}
 export {
     personalList, 
     showMyMemo, 
@@ -118,5 +142,7 @@ export {
     readBlogerlike,
     getUserInfo,
     getOtherInfo,
-    updateUserinfo
+    updateUserinfo,
+    getBlogInfo,
+    modifyBlogInfo
 };

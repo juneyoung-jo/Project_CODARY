@@ -2,18 +2,19 @@
   <div>
     <div class="py-7"></div>
     
-    <v-container class="d-flex pa-0">
+    <v-container class="d-flex pl-1 ml-1">
       <v-text-field
         v-model="comment.commentContent"
         label="여기에 댓글을 입력하세요"
         clearable
         @keyup.enter="write()"
       ></v-text-field>
-      <v-btn elevation="2" plain color="blue" large class="mx-3" @click="write()">
-        댓글달기!
+      <v-btn outlined elevation='2' color="primary" class="mx-3 mt-3" @click="write()">
+        작성
       </v-btn>
       
     </v-container>
+    <div class='py-5'></div>
   </div>
 </template>
 

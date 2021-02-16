@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <v-list three-line>
-      <template v-for="(item, index) in this.items">
+  <v-sheet color='background'>
+    <v-list three-line color='background'>
+      <v-sheet color='background' v-for="(item, index) in this.items" :key='item'>
         <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
-
-        <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
+ 
+        <v-divider color='background' v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
 
         <v-sheet v-else :key="item.commentNum" class="pa-0">
           <!-- <v-list-item-avatar>
@@ -18,13 +18,13 @@
           <CommentRow :item="item" :index="index" @DELETECMT="deleteCmt" @MODIFYCMT="modifyCmt" />
           <!-- <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle> -->
           <!-- </v-list-item-commentContent> -->
-         <hr>
-          <div class="py-3"></div>
+         <v-sheet class='py-1' color='background'>
+         </v-sheet>
+        <v-divider class='mb-5'></v-divider>
         </v-sheet>
-      </template>
+      </v-sheet>
     </v-list>
-    <div class="py-16"></div>
-  </div>
+  </v-sheet>
 </template>
 
 <script>
