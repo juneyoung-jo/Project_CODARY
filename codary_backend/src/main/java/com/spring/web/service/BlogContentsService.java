@@ -45,4 +45,5 @@ public interface BlogContentsService {
 	
 	List<HashtagDto> selectHashOfPost (int blogContentsId) throws Exception;
 
+	HashtagDto findTagByValue(String value) throws Exception;
 }

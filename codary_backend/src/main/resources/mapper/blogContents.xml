@@ -123,5 +123,11 @@
 		where hashtag_content like concat('#', #{keyword}, '%')
 		</if>
 	</select>
+	
+	<select id="findTagByValue" parameterType="String" resultType="HashtagDto">
+		select * 
+		from hashtag 
+		where hashtag_content = #{value} 
+	</select>
 
 </mapper>
