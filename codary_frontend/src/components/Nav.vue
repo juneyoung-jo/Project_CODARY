@@ -8,7 +8,7 @@
       <!-- dark mode -->
     <v-row justify="center" class='ml-16 pl-10 pt-2'>
       <router-link class="noline" :to="'/searchpage'">
-        <v-btn outlined class="mb-4 mr-3 pa-2 ml-2 pl-3" color="primary">
+        <v-btn outlined class="mb-4 mr-3 pa-2 mt-2 ml-2 pl-3" color="primary">
           <span style="font-size:16px">
             <font-awesome-icon :icon="['fas', 'search']" />
           </span>
@@ -18,11 +18,11 @@
     </v-row>
     <!-- buttons -->
     <v-row justify="end" alig="center" class='mr-4'>
-      <v-col cols="auto" class='pt-4 font-weight-medium'>
+      <v-col cols="auto" class='pt-5 font-weight-medium'>
         Dark Mode
       </v-col>
       <v-col cols="auto">
-        <v-switch v-model="$vuetify.theme.dark" class="mt-1" color="secondary" hide-details />
+        <v-switch v-model="$vuetify.theme.dark" class="mt-1 pt-1" color="secondary" hide-details />
       </v-col>
         <!-- search -->
       <v-col cols="auto" class='mb-4 pb-4'>

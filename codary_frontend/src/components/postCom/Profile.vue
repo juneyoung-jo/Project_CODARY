@@ -1,7 +1,7 @@
 <template>
   <div class="py-6">
     <v-container id="user-profile-view" fluid class="profile-back">
-      <v-row>
+      <v-row class='profileback'>
         <v-col class="d-flex align-center pa-0">
           <router-link
             :to="{
@@ -20,13 +20,15 @@
             />
           </router-link>
           <v-card-text>
-            <h5 class="ml-1 text--secondary font-weight-bold" style="color:black;">
+
+            <h5 class="ml-1" style="color:black;">
               {{ job }}
+
             </h5>
-            <h4 class="text-h4 text--primary font-weight-bold">
+            <h4 class="text-h4" style='color:black;'>
               {{ this.blogContents.nickname }}
             </h4>
-            <span class="ml-1 text--secondary">
+            <span class="ml-1" style='color:black;'>
               {{ intro }}
             </span>
           </v-card-text>
@@ -76,4 +78,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.profileback {
+  margin-top: 100px;
+}
+</style>

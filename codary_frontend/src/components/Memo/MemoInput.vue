@@ -3,14 +3,13 @@
     <v-textarea
       id="MemoSave"
       placeholder="메모하세요"
-      auto-grow
       solo-inverted
       hide-details
       light
-      
+      height="100px"
       background-color="white"
       color="black"
-      class="pa-0 ma-0 mb-2 memoinputarea"
+      class="pa-0 memoinputarea"
       v-model="memodata.memoContent"
       
     ></v-textarea>

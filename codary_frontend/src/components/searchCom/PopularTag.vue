@@ -77,7 +77,7 @@
                       :key="hashtag.hashtagId"
                       outlined
                       small
-                      class="mr-2"
+                      class="mr-2 mb-1"
                       >{{ hashtag.hashtagContent }}</v-chip
                     >
                   </h4>
