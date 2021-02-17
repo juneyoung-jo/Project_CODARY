@@ -29,10 +29,10 @@
                 codary
               </v-sheet>
             </v-col>
-            <v-col class="d-flex flex-column mt-8" cols="4">
+            <v-col class="d-flex flex-column mt-8" cols="5">
               <v-col cols="1"></v-col>
               <v-sheet class="font-weight-bold headline" color="background">
-                모두를 위한 코딩 다이어리
+                개발하는 당신을 위한 코딩 다이어리
               </v-sheet>
             </v-col>
           </v-row>
