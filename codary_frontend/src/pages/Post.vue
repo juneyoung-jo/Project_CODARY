@@ -3,10 +3,10 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <v-sheet color="white" class="ma-10 pa-4 my-10 mt-8">
-        <div class="pt-14 mt-8 pa-12 ml-16 keepblack">
-          <h1 class="mb-10 mx-10 mt-8">{{ this.blogContents.blogContentsTitle }}</h1>
-          <div class="ml-10">
+      <v-sheet color="white" class="ma-2 my-10">
+        <div class="pt-14 mt-9 pa-12 ml-16 keepblack">
+          <h1 class="mb-10 mx-3 mt-13">{{ this.blogContents.blogContentsTitle }}</h1>
+          <div class="ml-3">
             <v-chip
               v-for="hashtag in this.blogContents.hashtags"
               :key="hashtag.hashtagId"
@@ -18,12 +18,12 @@
             <v-divider color="#F5F5F5" class="mt-10 mr-16 pr-16"></v-divider>
           </div>
         </div>
-        <div class="ma-16 pa-4 mt-1">
+        <div class="ma-10 pa-4 mt-1">
           <v-sheet class="pa-13 ml-10" light id="viewer" />
           <div class="py-3"></div>
           <div class="ml-8">
             <Profile class="ml-10" :blogContents="blogContents" />
-            <v-btn-toggle v-model="icon" class="ml-10 mt-10" dense>
+            <v-btn-toggle v-model="icon" class="ml-6 mt-10" dense>
               <v-btn align="center" @click="clickLike()">
                 <font-awesome-icon :icon="['fas', 'thumbs-up']" class="mr-2" />
                 <div>== {{ likeOrNot }}</div>
