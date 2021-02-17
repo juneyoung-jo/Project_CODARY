@@ -1,13 +1,23 @@
 <template>
   <div class="py-12">
     <v-container>
-      <v-tabs vertical class="d-flex align-center" style="width: 80%; margin-left: 10%; margin-bottom:10%;">
-        <v-tab style="height:30px" class="d-flex align-center justify-space-around">
-          <font-awesome-icon :icon="['fas', 'heading']" class="mr-2"/>
+      <v-tabs
+        vertical
+        class="d-flex align-center"
+        style="width: 80%; margin-left: 10%; margin-bottom: 10%"
+      >
+        <v-tab
+          style="height: 30px"
+          class="d-flex align-center justify-space-around"
+        >
+          <font-awesome-icon :icon="['fas', 'heading']" class="mr-2" />
           제목 검색
         </v-tab>
-        <v-tab style="height:30px" class="d-flex align-center justify-space-around">
-          <font-awesome-icon :icon="['fas', 'tags']" class="mr-2"/>
+        <v-tab
+          style="height: 30px"
+          class="d-flex align-center justify-space-around"
+        >
+          <font-awesome-icon :icon="['fas', 'tags']" class="mr-2" />
           태그 검색
         </v-tab>
         <v-tab-item class="" style="width: 100%">
