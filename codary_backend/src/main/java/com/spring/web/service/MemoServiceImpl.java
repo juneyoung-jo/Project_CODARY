@@ -21,8 +21,8 @@ public class MemoServiceImpl implements MemoService{
 	}
 	
 	@Override
-	public void writeMemo(MemoContentsDto memo) throws Exception {
-		mapper.writeMemo(memo);
+	public int writeMemo(MemoContentsDto memo) {
+		return mapper.writeMemo(memo);
 	}
 
 	@Override

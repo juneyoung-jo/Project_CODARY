@@ -4,10 +4,28 @@
 	
 <mapper namespace="com.spring.web.dao.PersonalDao">
 	
-	<select id="showBlogContents" resultType="BlogContentsDto" parameterType="String"> 
+	<select id="showBlogContents" parameterType="String" resultType="BlogPostDto"> 
 		select *
 		from blogcontents 
 		where blog_id = #{blogId} and isdeleted = 0
+	</select>
+	
+	<select id="getHashtagOfPost" parameterType="int" resultType="HashtagDto">
+		select hashtag_id, hashtag_content 
+		from bloghashtag inner join hashtag using(hashtag_id)
+		where blog_contents_id = #{blogContentsId};
+	</select>
+	
+	<select id="getUserProfile" parameterType="String" resultType="map">
+		select blog_id, nickname, profile
+		from userinfo inner join user using(uid)
+		where blog_id = #{blogId};
+	</select>
+	
+	<select id="getCommentInfo" parameterType="int" resultType="int">
+		select comment_num
+		from comment
+		where blog_contents_id = #{blogContentsId};
 	</select>
 	
 	<select id="showMemo" resultType="MemoContentsDto" parameterType="String">
@@ -16,13 +34,19 @@
 		where memo_id = #{memoId} and isdeleted = 0
 	</select>
 	
-	<select id="likeBloger" resultType="BlogDto" parameterType="String">
+	<select id="likeBloger" resultType="map" parameterType="String">
 		select * 
-		from blog inner join blogerlike using (blog_id)
-		where blogerlike.uid = #{uid};
+		from userinfo as a right join (
+		select uid, blog_id from user
+			where blog_id in (
+				select blog_id from blogerlike
+				where uid = #{uid}
+	            )
+		) as b 
+		using (uid);
 	</select>
 	
-	<select id="likeBlogContents" resultType="BlogContentsDto" parameterType="String">
+	<select id="likeBlogContents" resultType="BlogPostDto" parameterType="String">
 		select * 
 		from blogcontents inner join blogcontentslike using (blog_contents_id)
 		where blogcontentslike.uid = #{uid};
@@ -62,4 +86,25 @@
 		from blogerlike
 		where uid = #{uid} and blog_id = #{blogId}
 	</select>
+	
+	<select id="findUser" resultType="UserInfoDto" parameterType="String">
+		select * 
+		from userinfo 
+		where uid=(
+			select uid from user where blog_id=#{blogId}
+			);
+	</select>
+	
+	<select id="findBlog" resultType="BlogDto" parameterType="String">
+		select * 
+		from blog
+		where blog_id = #{blogId};
+	</select>
+	
+	<update id="modifyBlogCover" parameterType="Map">
+		update blog
+		set blog_cover = #{blogCover}
+		where blog_id = #{blogId}
+	</update>
+	
 </mapper>

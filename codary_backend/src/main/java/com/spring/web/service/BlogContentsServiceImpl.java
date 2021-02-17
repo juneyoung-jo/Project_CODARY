@@ -15,6 +15,7 @@ import com.spring.web.dao.BlogContentsDao;
 import com.spring.web.dao.CommentDao;
 import com.spring.web.dto.BlogContentsDto;
 import com.spring.web.dto.BlogContentsLikeDto;
+import com.spring.web.dto.BlogHashtagDto;
 import com.spring.web.dto.HashtagDto;
 import com.spring.web.dto.UserDto;
 import com.spring.web.dto.UserInfoDto;
@@ -38,8 +39,19 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	}
 
 	@Override
-	public void writeBlogContent(BlogContentsDto blogContent) throws Exception {
+	public int writeBlogContent(BlogContentsDto blogContent) throws Exception {
 		mapper.writeBlogContent(blogContent);
+		return blogContent.getBlogContentsId();
+	}
+	
+	@Override
+	public void writeHash(HashtagDto hash) throws Exception{
+		mapper.writeHash(hash);
+	}
+	
+	@Override
+	public void writeBlogHash(BlogHashtagDto blogHash) throws Exception{
+		mapper.writeBlogHash(blogHash);
 	}
 
 	@Override
@@ -51,9 +63,16 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	public int modifyBlogContent(BlogContentsDto blogContent) {
 		return mapper.modifyBlogContent(blogContent);
 	}
+	
+	@Override
+	public void deleteOldHash(BlogContentsDto blogContent) throws Exception{
+		mapper.deleteOldHash(blogContent);
+		return;
+	}
 
 	@Override
 	public int deleteBlogContent(int blogContentsId) {
+		mapper.deleteCommentOfPost(blogContentsId);
 		return mapper.deleteBlogContent(blogContentsId);
 	}
 
@@ -75,6 +94,7 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("blogId", post.getBlogId());
 			m.put("blogContentsId", post.getBlogContentsId());
+			m.put("blogContentsTitle", post.getBlogContentsTitle());
 			m.put("blogConetentsCover", post.getBlogContentsCover());
 			m.put("hashtags", mapper.getHashtagOfPost(post.getBlogContentsId()));
 			recommendList.add(m);
@@ -132,6 +152,16 @@ public class BlogContentsServiceImpl implements BlogContentsService {
 	@Override
 	public List<HashtagDto> selectHash(String keyword) throws Exception {
 		return mapper.selectHash(keyword);
+	}
+
+	@Override
+	public HashtagDto findTagByValue(String value) throws Exception {
+		return mapper.findTagByValue(value);
+	}
+	
+	@Override
+	public List<HashtagDto> selectHashOfPost(int blogContentsId) throws Exception {
+		return mapper.getHashtagOfPost(blogContentsId);
 	}
 
 }

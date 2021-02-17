@@ -1,7 +1,12 @@
 <template>
-<div>
-  <v-spacer><hr></v-spacer>
-  <h2 class='py-12'>커밋</h2>
+<div class="mb-16 mt-4 px-12 grass" color="blackwhite">
+  <v-divider></v-divider>
+  <h2 class='pt-3 mt-14'>커밋</h2>
+  <div class="subtitle-2 text-center">
+    <h4 v-if="!flag">아직 잔디를 심지 않았어요!<br>
+      게시물을 작성해서 잔디를 심어보세요~
+    </h4>
+  </div>
   <v-sparkline
     :value="value"
     :label-size="4"
@@ -54,12 +59,22 @@ export default {
       user: {
         user:'',
         blogId: '',
-      }
+      },
+      flag: true,
     }
   },
   created(){
     this.initUser();
     this.jandi(); 
+    //location.reload();
+   // console.log('잔디 새로고침');
+  },
+  watch: {
+    $route:function () {
+       this.initUser();
+       this.flag=true;
+       this.jandi();
+    }
   },
   computed: {
     ...mapState([ 'loggedInUserData' ])    
@@ -70,17 +85,28 @@ export default {
       this.user.blogId = getblogIdCookie();
     },
     jandi(){
-      console.log('잔디실행');
+      // console.log('잔디실행');
+       if(this.user.blogId!==this.$route.query.blogId){
+        //내가 아니면 
+        this.user.blogId=this.$route.query.blogId;
+      }
+       if(typeof this.$route.query.blogId==='undefined'){
+        //나이면
+        this.user.blogId=getblogIdCookie();
+        //console.log("언디파인드실행")
+      }
       showJandi(
       this.user.blogId,
       (response) => {
         this.result = response.data[0]
+       // console.log(this.result);
         const temp=[];
-        
+       
          for(var key in this.result){
           temp.push(this.result[key]);
         }
         this.value=temp;
+        if(temp.length==0) this.flag=false;
 
        var tmp=new Array();
        var j=0;
@@ -96,6 +122,7 @@ export default {
        
       },
       (err) => {
+        this.flag=false;
         console.log(err)
       }
       );
@@ -107,5 +134,8 @@ export default {
 
 
 <style>
-
+.grass {
+  border: 0.2px hidden grey ;
+  border-radius: 10px;
+}
 </style>

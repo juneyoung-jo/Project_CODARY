@@ -81,6 +81,13 @@
 		    <artifactId>aws-java-sdk</artifactId>
 		    <version>1.11.372</version>
 		</dependency>
+		
+		<!--  redis --> 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
 
 	</dependencies>
 	

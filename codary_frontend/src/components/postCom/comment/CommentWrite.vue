@@ -1,17 +1,20 @@
 <template>
   <div>
     <div class="py-7"></div>
-    <h1>Comment</h1>
-    <v-container class="d-flex">
+    
+    <v-container class="d-flex pl-1 ml-1">
       <v-text-field
         v-model="comment.commentContent"
         label="여기에 댓글을 입력하세요"
         clearable
+        
       ></v-text-field>
-      <v-btn plain color="blue" @click="write()">
-        댓글달기!
+      <v-btn plain elevation='1' color="primary" class="mx-3 mt-3 font-weight-bold" @click="write()">
+        작성
       </v-btn>
+      
     </v-container>
+    <div class='py-5'></div>
   </div>
 </template>
 

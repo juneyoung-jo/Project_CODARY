@@ -1,29 +1,44 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="6" md="12">
-        <template v-if="flag">
-          <v-list-item-title v-html="item.commentContent"></v-list-item-title>
+  <v-sheet color='background' fluid class='py-5'>
+    <v-row class='py-2 d-flex flex-column' color='background' >
+      <v-col class="py-3 pl-7">
+      <span>{{item.commentContent}}</span>
+      </v-col>
+      <v-col>
+        <v-sheet class='justify-end align-end d-flex' v-if="flag" color='background'>
           <template v-if="loggedInUserData !== null && loggedInUserData.uid === item.uid">
-            <v-btn plain color="blue" @click="modifyCmt()">댓글수정</v-btn>
-            <v-btn plain color="red" @click="deleteCmt(item.commentNum, index)">댓글삭제</v-btn>
+            <v-btn plain color='primary' small @click="modifyCmt()">
+              <font-awesome-icon :icon="['fas','edit']"/> 
+              <div class='ml-2 '>
+                수정
+              </div>
+            </v-btn>
+            <v-btn plain small color='primary' @click="deleteCmt(item.commentNum, index)">
+              <font-awesome-icon :icon="['fas','trash-alt']"/>
+              <div class='ml-2'>
+                삭제
+              </div>
+            </v-btn>
           </template>
-        </template>
+        </v-sheet>
         <template v-else>
-          <v-col cols="3" md="12">
+          <v-col md="12">
             <v-textarea
               solo
               name="input-7-4"
               label="Solo textarea"
               v-model="copyComment"
+              flat
             ></v-textarea>
           </v-col>
-          <v-btn plain color="blue" @click="confirmBtn(index)">확인</v-btn>
-          <v-btn plain color="red" @click="cancelBtn()">취소</v-btn>
+          <div class='justify-end d-flex mr-6'>
+            <v-btn plain elevation="1" small @click="confirmBtn(index)">확인</v-btn>
+            <v-btn plain elevation="1" small @click="cancelBtn()">취소</v-btn>
+          </div>
         </template>
       </v-col>
     </v-row>
-  </v-container>
+  </v-sheet>
 </template>
 
 <script>

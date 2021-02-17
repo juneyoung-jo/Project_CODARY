@@ -1,19 +1,29 @@
 <template>
-  <div class="d-flex align-center py-12 flex-column">
+
+
+  <div class="d-flex align-center justify-space-around" style="height:60px">
+  
     <!-- <v-autocomplete
       filled
       rounded
       style="width:50%;"
       placeholder="태그 검색 시 '#'를 앞에 붙여주세요"
     ></v-autocomplete> -->
+
     <v-text-field
       v-model="keyword"
-      label="태그 검색 시 '#'를 앞에 붙여주세요"
-      style="width:50%;"
-      large
+      class='font-weight-bold mr-2'
+      flat
+      hide-details
+      solo-inverted
       @keyup.enter="search()"
       @blur="erase()"
-    ></v-text-field>
+      
+    >
+      <template v-slot:label>
+        <div class="ml-2 my-0">제목 또는 태그를 선택한 후에 검색해요</div>
+      </template>
+    </v-text-field>
   </div>
 </template>
 
@@ -23,6 +33,7 @@ export default {
   data() {
     return {
       keyword: "",
+      titlesearch: true,
     };
   },
   methods: {
@@ -32,7 +43,7 @@ export default {
       }
     },
     search() {
-      console.log(this.keyword);
+      // console.log(this.keyword, this.titlesearch);
       this.$emit("GETKEYWORD", this.keyword);
     },
   },

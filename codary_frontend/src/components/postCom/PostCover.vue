@@ -3,7 +3,7 @@
     <v-img
       :src="this.blogContents.blogContentsCover"
       alt=""
-      max-height="300"
+      max-height="250px"
       top
     />
   </div>

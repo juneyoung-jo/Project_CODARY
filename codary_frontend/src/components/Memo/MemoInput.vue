@@ -1,86 +1,181 @@
 <template>
-  <v-card-text>
-      <v-textarea
-        id="MemoSave"
-        background-color="blue lighten-4"
-        color="white"
-        placeholder="메모하세요"
-        auto-grow
-        rounded
-        solo-inverted
-        flat
-        class='pa-0'
-        v-model="memodata.memoContent"
-      ></v-textarea>
-      <v-btn plain @click="memoSave()">저장</v-btn>
+  <v-card-text class="d-flex flex-column align-center ma-0 pa-0" style="bottom:10%">
+    <v-textarea
+      id="MemoSave"
+      placeholder="메모하세요"
+      solo-inverted
+      hide-details
+      light
+      height="130px"
+      background-color="white"
+      color="black"
+      class="pa-0 memoinputarea"
+      v-model="memodata.memoContent"
+      
+    ></v-textarea>
+    <button id="button" @click="memoSave()">저장하기</button>
   </v-card-text>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { writeMemo, changeMemo } from '@/api/memo.js';
+// import { mapState } from "vuex";
+import { writeMemo, changeMemo } from "@/api/memo.js";
+import { getmemoIdCookie } from "@/util/cookie.js";
 
 export default {
-  name: 'MemoInput',
-  props: ['sendingChange'],
+  name: "MemoInput",
+  // props: ["memoContent", "index"],
   data() {
     return {
       memodata: {
-        memoContent: '',
-        memoTime: '',
-        // memoNum: '',
-      }
-    }
-  },
-  computed: {
-    ...mapState([ 'loggedInUserData' ])    
-  },
-  watch: {
-    sendingChange(val) {
-      // console.log(val)
-      this.memodata.memoContent = val.memoContent
-      this.memodata.memoTime = val.memoTime
-    } 
+        memoId: "",
+        memoContent: "",
+        memoLink: "",
+        memoNum: "",
+      },
+      index: "",
+    };
   },
   methods: {
+    initmemo(index, memoContent, memoNum) {
+      // console.log("받은 데이터: " + memoContent);
+      this.index = index;
+      this.memodata.memoContent = memoContent;
+      this.memodata.memoNum = memoNum;
+    },
     memoSave() {
-      if ( this.memodata.memoContent === '') {
-        return
+      // const button = document.querySelector("#button")
+      this.memodata.memoId = getmemoIdCookie();
+      // console.log("수정로그 찍기: " + this.index);
+      // console.log(this.memodata.memoId);
+      if (this.memodata.memoContent === "") {
+        return;
       }
-      if ( this.memodata.memoTime === '') {
-        Object.assign(this.memodata, {memoId: this.loggedInUserData.memoId})
+      if (this.index === "") {
+        // console.log("저장");
+        Object.assign(this.memodata, { memoId: this.memodata.memoId });
+        // console.log(window.location.href);
+        this.memodata.memoLink = window.location.href;
+        // console.log(this.memodata);
         writeMemo(
           this.memodata,
           () => {
             // console.log(response)
             // console.log('저장!')
-            this.memodata.memoContent = ""
-            this.memodata.memoTime = ""       
+            this.$emit("CREATEMEMO");
+            // setTimeout(function() { 
+            //   button.classList.add( "validate", 0,
+            //     button.classList.remove( "validate" )
+            //   );
+            // }, 300 );
+            this.memodata.memoContent = "";
+            this.memodata.memoLink = "";
+            
           },
+          
           (error) => {
-            console.log(error)
+            console.log(error);
           }
-        )
+        );
       } else {
-        this.sendingChange.memoContent = this.memodata.memoContent
-        Object.assign(this.memodata, {memoId: this.loggedInUserData.memoId})
+        Object.assign(this.memodata, { memoId: this.memodata.memoId });
+        // console.log("수정");
         changeMemo(
-          this.sendingChange,
+          this.memodata,
           () => {
             // console.log(response)
             // console.log('수정!')
-            this.memodata.memoContent = ""
-            this.memodata.memoTime = ""       
+            alert("수정되었습니다.");
+            this.$emit("UPDATEMEMO", this.index, this.memodata.memoContent);
+            this.memodata.memoContent = "";
+            this.memodata.memoLink = "";
+            this.memodata.memoNum = "";
+            this.index = "";
           },
           (error) => {
-            console.log(error)
+            console.log(error);
           }
-        )
+        );
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
 <style>
 
+#button {
+  outline: none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius: 40px;
+  content:"저장하기";
+  border: 2px solid dodgerblue;
+  color: dodgerblue;
+  letter-spacing: 1px;
+  text-shadow: 0;
+}
+
+#button:hover {
+  color: white;
+  background-color: dodgerblue;
+}
+
+.memoinputarea {
+  color: black !important;
+  width: 80%;
+  
+}
+
+.validate {
+  font-size:15px;
+  color: white;
+  background: dodgerblue;
+  font-family:'FontAwesome';
+  content:"\f00c";
+  
+}
+/* button:active {
+    //letter-spacing: 2px;
+    letter-spacing: 2px ;
+  },
+  button:after {
+    content:"SUBMIT";
+  }
+
+.onclic {
+  width: 40px;
+  border-color:gray;
+  border-width:3px;
+  font-size:0;
+  border-left-color:green;
+  animation: rotating 2s 0.25s linear infinite;
+
+  onclic:after {
+    content:"";
+  }
+ onclic:hover {
+    color:green;
+    background: white;
+  }
+},
+.validate {
+  font-size:13px;
+  color: white;
+  background: green;
+  &:after {
+    font-family:'FontAwesome';
+    content:"\f00c";
+  }
+},
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
 </style>

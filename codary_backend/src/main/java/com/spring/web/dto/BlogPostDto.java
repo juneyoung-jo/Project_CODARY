@@ -1,5 +1,7 @@
 package com.spring.web.dto;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,6 +29,8 @@ public class BlogPostDto {
 	private String profile;
 	@ApiModelProperty(value = "댓글 갯수")
 	private int commentCnt;
+	@ApiModelProperty(value = "해시태그")
+	private List<HashtagDto> hashtags;
 	
 	public String getBlogId() {
 		return blogId;
@@ -95,14 +99,21 @@ public class BlogPostDto {
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
 	}
+	public List<HashtagDto> getHashtags() {
+		return hashtags;
+	}
+	public void setHashtags(List<HashtagDto> hashtags) {
+		this.hashtags = hashtags;
+	}
 	@Override
 	public String toString() {
 		return "BlogPostDto [blogId=" + blogId + ", blogContentsId=" + blogContentsId + ", blogContentsTitle="
 				+ blogContentsTitle + ", blogContents=" + blogContents + ", blogContentsView=" + blogContentsView
 				+ ", blogContentsLike=" + blogContentsLike + ", blogDatetime=" + blogDatetime + ", blogContentsCover="
 				+ blogContentsCover + ", nickname=" + nickname + ", profile=" + profile + ", commentCnt=" + commentCnt
-				+ "]";
+				+ ", hashtags=" + hashtags + "]";
 	}
+	
 	
 }
 /*

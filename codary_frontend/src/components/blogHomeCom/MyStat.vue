@@ -1,12 +1,15 @@
 <template>
-<div class='py-12'>
-    <strong>블로그 방문자 수</strong>
-    <div class='py-12'></div>
+<v-container class='py-12'>
+    <div class="subtitle-2 text-center">
+      <h4 v-if="!flag">아직 블로그에 방문한 사람이 없어요!<br>
+        블로그를 홍보하세요~
+      </h4>
+    </div>
     <v-row>
       <v-col>
          <v-sheet
           class="v-sheet--offset mx-auto"
-          elevation="12"
+          elevation="1"
           max-width="calc(100% - 32px)"
         >
           <v-sparkline
@@ -16,12 +19,20 @@
             line-width="2"
             padding="16"
           ></v-sparkline>
+          <div class='py-2'></div>
+          <span 
+            color="primary" 
+            class='font-weight-medium d-flex justify-center'
+          >
+            Number of visitors
+          </span>
+          <div class='py-4'></div>
         </v-sheet>
         
       </v-col>
     </v-row>
     <div class='py-16'></div>
-</div>
+</v-container>
   
 </template>
 
@@ -40,7 +51,8 @@ export default {
       user: {
         user: '',
         blogId: '',
-      }
+      },
+      flag: true
     }
   },
   computed: {
@@ -61,7 +73,7 @@ export default {
       (response) => {
         // console.log(response)
         this.result = response.data[0]
-        console.log(this.result);
+        // console.log(this.result);
         const temp=[];
         for(var key in this.result){
           temp.push(this.result[key]);
@@ -69,6 +81,7 @@ export default {
           //if(i==5) break;
         }
         this.value=temp;
+        if(temp.length==0) this.flag=false;
 
         var tmp=new Array();
       // var j=0;
@@ -85,6 +98,7 @@ export default {
        
       },
       (err) => {
+        this.flag=false;
         console.log(err)
       }
     ) 

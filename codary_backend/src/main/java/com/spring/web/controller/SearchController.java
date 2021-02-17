@@ -2,7 +2,6 @@ package com.spring.web.controller;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,12 +34,12 @@ public class SearchController {
 	public static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
 	/**
-	 * 제목 검색 - 검색어 없 - 최신순
+	 * 검색어 없 - 최신순
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 없 - 최신순", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "검색어 없 - 최신순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("date")
 	public ResponseEntity<List<BlogPostDto>> orderByDate() throws Exception{
 		try {
@@ -62,9 +61,9 @@ public class SearchController {
 	 * 제목 검색 - 검색어 있 - 최신순
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 있 - 최신순", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "제목 검색 - 검색어 있 - 최신순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("date/{keyword}")
 	public ResponseEntity<List<BlogPostDto>> orderByDate(@PathVariable String keyword) throws Exception{
 		try {
@@ -83,12 +82,36 @@ public class SearchController {
 	}
 	
 	/**
-	 * 제목 검색 - 검색어 없 - 좋아요순
+	 * 해쉬태크  검색 - 최신순
+	 * 
+	 * @param List<Integer>
+	 * @return List<BlogPostDto>
+	 */
+	@ApiOperation(value = "해쉬태크  검색 - 최신순", notes = "@param List<Integer> </br> @return BlogPostDto")
+	@PostMapping("date")
+	public ResponseEntity<List<BlogPostDto>> orderByDate(@RequestBody List<Integer> keywords) throws Exception{
+		try {
+			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
+			Collections.sort(list, new Comparator<BlogPostDto>() {
+				@Override
+				public int compare(BlogPostDto o1, BlogPostDto o2) {
+					return o2.getBlogDatetime().compareTo(o1.getBlogDatetime());
+				}
+			});
+			return new ResponseEntity<List<BlogPostDto>>(list, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	/**
+	 * 검색어 없 - 좋아요순
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 없 - 좋아요순", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "검색어 없 - 좋아요순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("like")
 	public ResponseEntity<List<BlogPostDto>> orderByLike() throws Exception{
 		try {
@@ -110,9 +133,9 @@ public class SearchController {
 	 * 제목 검색 - 검색어 있 - 좋아요순
 	 * 
 	 * @param String
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 있 - 좋아요순", notes = "@param String </br> @return BlogContentsDto")
+	@ApiOperation(value = "제목 검색 - 검색어 있 - 좋아요순", notes = "@param String </br> @return BlogPostDto")
 	@GetMapping("like/{keyword}")
 	public ResponseEntity<List<BlogPostDto>> orderByLike(@PathVariable String keyword) throws Exception{
 		try {
@@ -131,12 +154,36 @@ public class SearchController {
 	}
 	
 	/**
-	 * 제목 검색 - 검색어 없 - 조회순
+	 * 해쉬태크  검색 - 좋아요순
+	 * 
+	 * @param List<Integer>
+	 * @return List<BlogPostDto>
+	 */
+	@ApiOperation(value = "해쉬태크  검색 - 좋아요순", notes = "@param List<Integer> </br> @return BlogPostDto")
+	@PostMapping("like")
+	public ResponseEntity<List<BlogPostDto>> orderByLike(@RequestBody List<Integer> keywords) throws Exception{
+		try {
+			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
+			Collections.sort(list, new Comparator<BlogPostDto>() {
+				@Override
+				public int compare(BlogPostDto o1, BlogPostDto o2) {
+					return o2.getBlogContentsLike() - o1.getBlogContentsLike();
+				}
+			});
+			return new ResponseEntity<List<BlogPostDto>>(list, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	/**
+	 * 검색어 없 - 조회순
 	 * 
 	 * @param 
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 없 - 조회순", notes = "@param </br> @return BlogContentsDto")
+	@ApiOperation(value = "검색어 없 - 조회순", notes = "@param </br> @return BlogPostDto")
 	@GetMapping("view")
 	public ResponseEntity<List<BlogPostDto>> orderByView() throws Exception{
 		try {
@@ -158,9 +205,9 @@ public class SearchController {
 	 * 제목 검색 - 검색어 있 - 조회순
 	 * 
 	 * @param String
-	 * @return List<BlogContentsDto>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "제목 검색 - 검색어 있 - 조회순", notes = "@param String </br> @return BlogContentsDto")
+	@ApiOperation(value = "제목 검색 - 검색어 있 - 조회순", notes = "@param String </br> @return BlogPostDto")
 	@GetMapping("view/{keyword}")
 	public ResponseEntity<List<BlogPostDto>> orderByView(@PathVariable String keyword) throws Exception{
 		try {
@@ -177,22 +224,25 @@ public class SearchController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
-
+	
 	/**
-	 * 해쉬태크  검색 - 검색어 있
+	 * 해쉬태크  검색 - 조회순
 	 * 
-	 * @param String
-	 * @return List<BlogContentsDto>
+	 * @param List<Integer>
+	 * @return List<BlogPostDto>
 	 */
-	@ApiOperation(value = "해쉬태크  검색 - 검색어 있", notes = "@param String </br> @return BlogContentsDto")
-	@PostMapping("date")
-	public ResponseEntity<List<BlogPostDto>> searchByHash(@RequestBody List<Integer> keywords) throws Exception{
+	@ApiOperation(value = "해쉬태크  검색 - 조회순", notes = "@param List<Integer> </br> @return BlogPostDto")
+	@PostMapping("view")
+	public ResponseEntity<List<BlogPostDto>> orderByView(@RequestBody List<Integer> keywords) throws Exception{
 		try {
-			//임시데이터
-			keywords = new LinkedList<>();
-			keywords.add(3);
-			keywords.add(1);
-			return new ResponseEntity<List<BlogPostDto>>(searchPostService.searchByHash(keywords), HttpStatus.OK);
+			List<BlogPostDto> list = searchPostService.searchByHash(keywords);
+			Collections.sort(list, new Comparator<BlogPostDto>() {
+				@Override
+				public int compare(BlogPostDto o1, BlogPostDto o2) {
+					return o2.getBlogContentsView() - o1.getBlogContentsView();
+				}
+			});
+			return new ResponseEntity<List<BlogPostDto>>(list, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
