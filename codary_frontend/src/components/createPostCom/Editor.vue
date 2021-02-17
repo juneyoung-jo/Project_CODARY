@@ -7,10 +7,9 @@
       large
       maxlength="70"
       counter="70"
-      ></v-text-field
-    >
+    ></v-text-field>
 
-    <v-card light id="editor" style="word-break:normal"/>
+    <v-card light id="editor" style="word-break: normal" />
 
     <!-- start  ###################################### -->
     <h3 class="py-8">태그를 입력하세요</h3>
@@ -173,6 +172,17 @@ export default {
     init() {
       this.editorText = this.blogContents.blogContents;
       this.title = this.blogContents.blogContentsTitle;
+
+      for (var i = 0; i < this.blogContents.hashTag.length; i++) {
+        const d = {
+          key: this.blogContents.hashTag[i].hashtagId,
+          value: this.blogContents.hashTag[i].hashtagContent,
+        };
+
+        this.selectedTags.push(d);
+      }
+
+      console.log(this.blogContents.hashTag);
     },
     addImageBlobHook(blob, callback) {
       let formData = new FormData();
