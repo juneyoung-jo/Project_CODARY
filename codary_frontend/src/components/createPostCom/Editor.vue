@@ -185,7 +185,7 @@ export default {
         this.selectedTags.push(d);
       }
 
-      console.log(this.blogContents.hashTag);
+      // console.log(this.blogContents.hashTag);
     },
     addImageBlobHook(blob, callback) {
       let formData = new FormData();
