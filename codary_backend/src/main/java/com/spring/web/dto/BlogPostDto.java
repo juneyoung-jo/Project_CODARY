@@ -111,8 +111,9 @@ public class BlogPostDto {
 				+ blogContentsTitle + ", blogContents=" + blogContents + ", blogContentsView=" + blogContentsView
 				+ ", blogContentsLike=" + blogContentsLike + ", blogDatetime=" + blogDatetime + ", blogContentsCover="
 				+ blogContentsCover + ", nickname=" + nickname + ", profile=" + profile + ", commentCnt=" + commentCnt
-				+ "hashtag size=" + hashtags.size() + "]";
+				+ ", hashtags=" + hashtags + "]";
 	}
+	
 	
 }
 /*
