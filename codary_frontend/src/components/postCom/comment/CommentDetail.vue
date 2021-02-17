@@ -21,7 +21,7 @@
           </v-btn>
         </template>
       </template>
-      <h5 class='mt-2 d-flex font-weight-light'>{{ comment.commentDatetime }}</h5>
+      <h5 class='mt-2 ml-2 d-flex font-weight-light'>{{ comment.commentDatetime }}</h5>
     </v-sheet>
   </v-sheet>
 </template>

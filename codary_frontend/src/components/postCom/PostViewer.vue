@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="py-2"></div>
-    <h1 class="py-10 pa-14">{{ this.blogContents.blogContentsTitle }}</h1>
-    <div class="pa-13 py-0">
+    <h1 class="py-8 pa-12">{{ this.blogContents.blogContentsTitle }}</h1>
+    <div class="pa-12 py-0">
       <v-chip outlined>코딩초보</v-chip>
       <v-chip outlined>도와주세요</v-chip>
       <v-chip outlined>알고리즘</v-chip>

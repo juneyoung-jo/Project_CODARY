@@ -3,9 +3,9 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <v-sheet color="white" class="ma-16 pa-4 my-10 mt-12">
-        <div class="pt-13 mt-8 pa-12 ml-16 pt-16 keepblack">
-          <h1 class="mb-10 mx-10 mt-16">{{ this.blogContents.blogContentsTitle }}</h1>
+      <v-sheet color="white" class="ma-10 pa-4 my-10 mt-8">
+        <div class="pt-14 mt-8 pa-12 ml-16 keepblack">
+          <h1 class="mb-10 mx-10 mt-8">{{ this.blogContents.blogContentsTitle }}</h1>
           <div class="ml-10">
             <v-chip
               v-for="hashtag in this.blogContents.hashtags"
@@ -21,7 +21,7 @@
         <div class="ma-16 pa-4 mt-1">
           <v-sheet class="pa-13 ml-10" light id="viewer" />
           <div class="py-3"></div>
-          <div class="ml-10">
+          <div class="ml-8">
             <Profile class="ml-10" :blogContents="blogContents" />
             <v-btn-toggle v-model="icon" class="ml-10 mt-10" dense>
               <v-btn align="center" @click="clickLike()">
@@ -38,7 +38,7 @@
               </v-btn>
             </v-btn-toggle>
           </div>
-          <div class="py-10"></div>
+          <div class="py-8"></div>
         </div>
       </v-sheet>
 
