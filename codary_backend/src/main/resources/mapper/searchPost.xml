@@ -129,11 +129,18 @@
 		from userinfo inner join user using(uid)
 		where blog_id = #{blogId};
 	</select>
-	
+	  
 	<select id="getHashtagOfPost" parameterType="int" resultType="HashtagDto">
 		select hashtag_id, hashtag_content 
 		from bloghashtag inner join hashtag using(hashtag_id)
 		where blog_contents_id = #{blogContentsId};
 	</select>
-
+	
+	
+	<select id="getHashtagOfPostNew" resultType="TestDto">
+		select blog_contents_id, group_concat(hashtag_content,' ',hashtag_id) hashtag_content
+		from bloghashtag join hashtag
+		using(hashtag_id)
+		group by blog_contents_id;
+	</select>
 </mapper>
