@@ -229,7 +229,7 @@ export default {
           blogId,
           blogContentsId,
           (res) => {
-            console.log(res.data.data);
+            // console.log(res.data.data);
             this.blogContents.blogContentsCover =
               res.data.data.blogContentsCover;
             this.blogContents.blogContentsTitle =
@@ -337,8 +337,8 @@ export default {
       );
     },
     clickLike() {
-      console.log(this.likeOrNot);
-      console.log(this.user);
+      // console.log(this.likeOrNot);
+      // console.log(this.user);
       if (this.user.uid === "") alert("로그인 해주세요");
       else if (this.likeOrNot) {
         if (confirm("좋아요를 취소하시겠어요?")) {

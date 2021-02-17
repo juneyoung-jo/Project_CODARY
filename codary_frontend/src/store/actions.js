@@ -7,7 +7,7 @@ const actions = {
         axios
           .post("http://localhost:8000/codary/user/login/google", data.uc.id_token)
           .then(response => {
-            console.log(response.data.user)
+            // console.log(response.data.user)
             let token = response.data.access_token
             let provider = response.data.user.provider
             localStorage.setItem('provider',provider)
@@ -17,14 +17,14 @@ const actions = {
           .catch(function (error) {
             console.log(error);
           });
-        console.log("success");
+        // console.log("success");
     },
     //카카오 토큰 localstorage에 저장
     kakaoCallback(context,data) {
       axios
       .post("http://localhost:8000/codary/user/login/kakao", data.access_token)
         .then(function (response) {
-          console.log(response.data.user)
+          // console.log(response.data.user)
           let token = response.data.access_token
           let provider = response.data.user.provider
           localStorage.setItem('provider',provider)
@@ -47,8 +47,8 @@ const actions = {
         axios
             .get("http://localhost:8000/codary/user/getUserInfo", config)
             .then(response=> {
-              console.log(response.data.user)
-              console.log(response)
+              // console.log(response.data.user)
+              // console.log(response)
               let userInfo = {
                 uid: response.data.user.uid,
                 memoId: response.data.user.memoId,
@@ -60,10 +60,10 @@ const actions = {
               commit('fetchLoggedInUserData', userInfo)        
             })
             .catch(function (error) {
-              console.log('데이터 불러오기 실패');
+              // console.log('데이터 불러오기 실패');
               console.log(error);
             });
-          console.log("success");
+          // console.log("success");
       } 
     },
     // 로그아웃

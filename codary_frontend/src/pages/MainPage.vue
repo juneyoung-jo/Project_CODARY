@@ -55,12 +55,12 @@
             ></div>
           </v-sheet>
           <v-row no-gutters class="d-flex">
-            <v-col class="text-center" cols="12" tag="h3">
+            <v-col class="text-center pl-15 ml-10" cols="12" tag="h3">
               <span
                 :class="[
                   $vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2',
                 ]"
-                class="font-weight-bold"
+                class="font-weight-bold ml-16 pl-16"
               >
                 메모를
               </span>
@@ -69,15 +69,15 @@
                 :class="[
                   $vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2',
                 ]"
-                class="font-weight-bold"
+                class="font-weight-bold ml-8"
               >
                 이용하세요
               </span>
-              <v-responsive class="font-weight-light">
+              <v-responsive class="font-weight-light ml-6">
                 <br />
                 귀찮게 메모장 켤 필요 없습니다.
               </v-responsive>
-              <v-responsive class="font-weight-light">
+              <v-responsive class="font-weight-light mr-16">
                 현재 페이지 주소와 함께 메모가 저장됩니다.
               </v-responsive>
             </v-col>
@@ -295,24 +295,7 @@ export default {
       type: "trend",
       autoLineWidth: false,
       features: [
-        {
-          icon: "mdi-account-group-outline",
-          title: "Vibrant Community",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam",
-        },
-        {
-          icon: "mdi-update",
-          title: "Frequent Updates",
-          text:
-            "Sed ut elementum justo. Suspendisse non justo enim. Vestibulum cursus mauris dui, a luctus ex blandit. Lorem ipsum dolor sit amet consectetur adipisicing elit. qui ipsum eveniet facilis obcaecati corrupti consectetur adipisicing elit.",
-        },
-        {
-          icon: "mdi-shield-outline",
-          title: "Long-term Support",
-          text:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cupiditate sint possimus quidem atque harum excepturi nemo velit tempora! Enim inventore fuga, qui ipsum eveniet facilis obcaecati corrupti asperiores nam",
-        },
+
       ],
       stats: [
         ["24k", "Github Stars"],
@@ -444,7 +427,7 @@ export default {
 
 .arrowcontained{
   position: absolute;
-  right: -8%;
+  right: 5%;
   top: 25%;
 }
 .arrowbox {

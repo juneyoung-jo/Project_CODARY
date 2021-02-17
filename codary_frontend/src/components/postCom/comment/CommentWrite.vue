@@ -7,7 +7,7 @@
         v-model="comment.commentContent"
         label="여기에 댓글을 입력하세요"
         clearable
-        @keyup.enter="write()"
+        
       ></v-text-field>
       <v-btn plain elevation='1' color="primary" class="mx-3 mt-3 font-weight-bold" @click="write()">
         작성

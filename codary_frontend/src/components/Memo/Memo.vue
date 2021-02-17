@@ -152,7 +152,7 @@ export default {
 
 .memolist {
   position: absolute;
-  height: 70%;
+  height: 68%;
   width: 100%;
 }
 

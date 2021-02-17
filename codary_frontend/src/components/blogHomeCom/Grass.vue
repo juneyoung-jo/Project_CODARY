@@ -85,7 +85,7 @@ export default {
       this.user.blogId = getblogIdCookie();
     },
     jandi(){
-      console.log('잔디실행');
+      // console.log('잔디실행');
        if(this.user.blogId!==this.$route.query.blogId){
         //내가 아니면 
         this.user.blogId=this.$route.query.blogId;

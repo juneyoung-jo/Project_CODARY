@@ -4,7 +4,7 @@
     <v-row class="py-6"></v-row>
     <v-row class="py-16">
       <v-col md="4" align="start">
-        <v-dialog transition="dialog-top-transition" max-width="800px">
+        <v-dialog transition="dialog-top-transition" max-width="800px" max-height="80%">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" v-on="on" class="ml-4"> 커버수정 </v-btn>
           </template>
@@ -60,6 +60,7 @@
 import { mapState } from 'vuex';
 import { fileUpload } from '@/api/fileUpload.js';
 
+
 export default {
   name: 'SelectPostCover',
   props: ['blogContents'],
@@ -73,6 +74,7 @@ export default {
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e053998.jpg',
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
         'https://www.nasa.gov/sites/default/files/thumbnails/image/nhq202005300065.jpg',
+        '@/assets/cover_sample.bigdata.png'
       ],
       currentImg:
         'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss064e020569_0.jpg',
@@ -89,6 +91,7 @@ export default {
     },
     selectcover(cover) {
       this.selectImage = cover;
+      alert('밑에 선택버튼을 눌러주세요!')
       // this.$emit('GETCOVER', cover);
       // console.log(cover);
     },

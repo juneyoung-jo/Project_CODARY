@@ -78,12 +78,12 @@ export default {
     ...mapState(['loggedInUserData']),
 
     kakaoCallback(data){
-      console.log(data)
+      // console.log(data)
       this.$store.dispatch('kakaoCallback',data)
        if (this.$route.path !== '/') this.$router.replace('/');
     },
     googleCallback(data){
-      console.log(data)
+      // console.log(data)
       this.$store.dispatch('googleCallback',data)
       if (this.$route.path !== '/') this.$router.replace('/');
     },
