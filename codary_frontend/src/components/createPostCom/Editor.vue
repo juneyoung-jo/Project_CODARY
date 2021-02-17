@@ -2,14 +2,15 @@
   <div class="d-flex flex-column">
     <v-text-field
       v-model="title"
-      label="제목을 입력하세요. 최대 70자까지만 가능합니다."
+      label="제목을 입력하세요."
       class="py-12"
       large
-      :maxlength="70"
-      >}</v-text-field
+      maxlength="70"
+      counter="70"
+      ></v-text-field
     >
 
-    <v-card light id="editor" />
+    <v-card light id="editor" style="word-break:normal"/>
 
     <!-- start  ###################################### -->
     <h3 class="py-8">태그를 입력하세요</h3>

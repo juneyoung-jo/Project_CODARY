@@ -31,8 +31,8 @@
               <v-list-item-subtitle>내 블로그 홈 가기</v-list-item-subtitle>
             </v-list-item-content>
           </router-link>
-          <v-list-item-action>
-            <v-btn class="pr-16 mr-15" color="primary" @click.prevent="logout">
+          <v-list-item-action class="ml-0">
+            <v-btn  color="primary" @click.prevent="logout">
               LOGOUT
             </v-btn>
           </v-list-item-action>
