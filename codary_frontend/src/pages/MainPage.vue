@@ -81,13 +81,13 @@
                 현재 페이지 주소와 함께 메모가 저장됩니다.
               </v-responsive>
             </v-col>
-            <!-- <v-col cols="3"> -->
-            <!-- <svg class='arrowbox' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 10 220.1 10.9" xml:space="preserve">
+            <v-col cols="3" class="arrowcontained">
+            <svg class='arrowbox' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 10 220.1 10.9" xml:space="preserve">
                 <path stroke-linecap="round" stroke-linejoin="round" class="st0 draw-arrow" d="M11.3,2.5c-5.8,5-8.7,12.7-9,20.3s2,15.1,5.3,22c6.7,14,18,25.8,31.7,33.1" />
                 <path stroke-linecap="round" stroke-linejoin="round" class="draw-arrow tail-1" d="M40.6,78.1C39,71.3,37.2,64.6,35.2,58" />
                 <path stroke-linecap="round" stroke-linejoin="round" class="draw-arrow tail-2" d="M39.8,78.5c-7.2,1.7-14.3,3.3-21.5,4.9" />
-              </svg> -->
-            <!-- </v-col> -->
+              </svg>
+            </v-col>
           </v-row>
         </v-container>
       </v-row>
@@ -442,9 +442,14 @@ export default {
   }
 }
 
-/* .arrowbox {
-  width: 200px;
-  height: 200px; 
+.arrowcontained{
+  position: absolute;
+  right: -8%;
+  top: 25%;
+}
+.arrowbox {
+  width: 600px;
+  height: 600px; 
   margin: 0 auto;
 }
 .draw-arrow {  
@@ -457,17 +462,18 @@ export default {
   animation-fill-mode: forwards;
   animation-name: draw;
   transform: rotate(270deg);
+  animation: draw 2s ease-in-out infinite;
 }
 .tail-1 {
-  animation-delay: .5s;
+  animation-delay: 0.8s;
 }
 .tail-2 {
-  animation-delay: .7s;
+  animation-delay: 1.2s;
 }
 
 @keyframes draw {
  to {
     stroke-dashoffset: 0;
   }
-} */
+}
 </style>
