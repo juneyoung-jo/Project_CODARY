@@ -58,29 +58,32 @@
                     transition="fade-transition"
                   >
                     <div
-                      class="d-flex align-center pl-2 white--black"
+                      class="d-flex align-center pl-2 pr-2 white--black"
                       style="height: 150px"
                     >
                       {{ blogContents | textLengthOverCut }}
                     </div>
                   </div>
                 </div>
-                <div style="padding: 10px">
-                  <h2
-                    class="font-weight-black mb-3 ml-0"
-                    v-text="blogContentsTitle"
-                  ></h2>
-                  <h4 class="mb-2">
+                <!-- 텍스트 -->
+                <v-sheet class="pl-5 pa-2" height="150px">
+                  <h2 class="font-weight-bold mb-3 pl-0 ml-0 mr-5">
+                    {{ blogContentsTitle | textLengthOverCutTitle }}
+                  </h2>
+                  <h4 class="mb-2 pl-1">
                     <v-chip
                       v-for="hashtag in hashtags"
                       :key="hashtag.hashtagId"
                       outlined
+                      small
                       class="mr-2"
                       >{{ hashtag.hashtagContent }}</v-chip
                     >
                   </h4>
-
-                  <div class="d-flex align-center mb-3">
+                </v-sheet>
+                 <div class="d-flex align-end mr-3 px-3 mt-6 justify-space-between">
+                  
+                  <div class="d-flex align-center pl-1 mb-2">
                     <v-img
                       :src="profile"
                       class="mr-3"
@@ -92,21 +95,20 @@
                       {{ nickname }}
                     </span>
                   </div>
-                </div>
-
-                <div class="d-flex align-end flex-column mr-3">
-                  <span class="font-weight-light">
-                    <font-awesome-icon :icon="['fas', 'comment-dots']" />
-                    {{ commentCnt }}
-                    <font-awesome-icon :icon="['fas', 'heart']" class="ml-2" />
-                    {{ blogContentsLike }}
-                    <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
-                    {{ blogContentsView }}
-                  </span>
-                  <div
-                    class="font-weight-light justify-end"
-                    v-text="blogDatetime"
-                  ></div>
+                  <div class='text-right'>
+                    <span class="font-weight-light">
+                      <font-awesome-icon :icon="['fas', 'comment-dots']" />
+                      {{ commentCnt }}
+                      <font-awesome-icon :icon="['fas', 'heart']" class="ml-2" />
+                      {{ blogContentsLike }}
+                      <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
+                      {{ blogContentsView }}
+                    </span>
+                    <div
+                      class="font-weight-light justify-end"
+                      v-text="blogDatetime"
+                    ></div>
+                  </div>
                 </div>
                 <!-- <v-btn class="ml-n4 font-weight-black" text>
               Continue Reading
@@ -117,7 +119,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <div class="py-12"></div>
+    <div class="py-16"></div>
   </section>
 </template>
 

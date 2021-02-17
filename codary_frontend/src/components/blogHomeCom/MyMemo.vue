@@ -19,7 +19,8 @@
         </v-col>
       </v-row>
     </v-container>
-    <div class="py-12"></div>
+    <div class="py-16"></div>
+     <div class="py-16"></div>
   </section>
 </template>
 
