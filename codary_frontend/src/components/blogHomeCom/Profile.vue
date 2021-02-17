@@ -84,7 +84,6 @@
                             prepend-icon="mdi-camera"
                             @change="selectImg"
                           ></v-file-input>
-                          <v-btn @click="upload">사진 업로드</v-btn>
                         </v-col>
 
                         <!-- ############################################ -->
@@ -174,8 +173,8 @@ export default {
     getUserInfo(
       getuidCookie(),
       (response) => {
-        console.log('블로그홈')
-        console.log(response);
+        // console.log('블로그홈')
+        // console.log(response);
         this.nickname_ = this.nickname = response.data.info.nickname;
         this.job_ = this.job = response.data.info.job;
         this.intro_ = this.intro = response.data.info.intro;
@@ -224,8 +223,8 @@ export default {
   },
   watch: {
     uploadImg: function () {
-      console.log("#파일 업로드 감지!!");
-      console.log(this.uploadImg);
+      // console.log("#파일 업로드 감지!!");
+      // console.log(this.uploadImg);
     },
     $route:function () {
       this.initUser();
@@ -279,7 +278,7 @@ export default {
           (response) => {
             if (response.data.msg === "success") {
               this.blogerLikeflag = true;
-              console.log("좋아요누름");
+              // console.log("좋아요누름");
             }
           },
           (error) => {
@@ -296,7 +295,7 @@ export default {
         (response) => {
           if (response.data.msg === "success") {
             this.blogerLikeflag = false;
-            console.log("언팔누름");
+            // console.log("언팔누름");
           }
         },
         (error) => {
@@ -317,8 +316,8 @@ export default {
       // 2. 회원정보 수정 요청
       updateUserinfo(
         info,
-        (response) => {
-          console.log(response);
+        () => {
+          // console.log(response);
           this.nickname = this.nickname_;
           this.job = this.job_;
           this.intro = this.intro_;
@@ -332,6 +331,7 @@ export default {
     },
     selectImg(img) {
       this.uploadFile = img;
+      this.upload();
     },
     upload() {
       if (this.uploadFile === "") {

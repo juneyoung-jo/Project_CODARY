@@ -1,5 +1,5 @@
 <template>
-<container class='py-12'>
+<v-container class='py-12'>
     <div class="subtitle-2 text-center">
       <h4 v-if="!flag">아직 블로그에 방문한 사람이 없어요!<br>
         블로그를 홍보하세요~
@@ -20,19 +20,19 @@
             padding="16"
           ></v-sparkline>
           <div class='py-2'></div>
-          <v-text 
+          <span 
             color="primary" 
             class='font-weight-medium d-flex justify-center'
           >
             Number of visitors
-          </v-text>
+          </span>
           <div class='py-4'></div>
         </v-sheet>
         
       </v-col>
     </v-row>
     <div class='py-16'></div>
-</container>
+</v-container>
   
 </template>
 
@@ -73,7 +73,7 @@ export default {
       (response) => {
         // console.log(response)
         this.result = response.data[0]
-        console.log(this.result);
+        // console.log(this.result);
         const temp=[];
         for(var key in this.result){
           temp.push(this.result[key]);

@@ -1,12 +1,12 @@
 <template>
-  <v-card-text class="d-flex flex-column align-center ma-0 pa-0">
+  <v-card-text class="d-flex flex-column align-center ma-0 pa-0" style="bottom:10%">
     <v-textarea
       id="MemoSave"
       placeholder="메모하세요"
       solo-inverted
       hide-details
       light
-      height="100px"
+      height="130px"
       background-color="white"
       color="black"
       class="pa-0 memoinputarea"
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     initmemo(index, memoContent, memoNum) {
-      console.log("받은 데이터: " + memoContent);
+      // console.log("받은 데이터: " + memoContent);
       this.index = index;
       this.memodata.memoContent = memoContent;
       this.memodata.memoNum = memoNum;
@@ -56,7 +56,7 @@ export default {
         Object.assign(this.memodata, { memoId: this.memodata.memoId });
         // console.log(window.location.href);
         this.memodata.memoLink = window.location.href;
-        console.log(this.memodata);
+        // console.log(this.memodata);
         writeMemo(
           this.memodata,
           () => {
@@ -111,25 +111,27 @@ export default {
   width: 130px;
   border-radius: 40px;
   content:"저장하기";
-  border: 2px solid #1ecd97;
-  color: #1ecd97;
+  border: 2px solid dodgerblue;
+  color: dodgerblue;
   letter-spacing: 1px;
   text-shadow: 0;
 }
 
 #button:hover {
   color: white;
-  background-color: #1ecd97;
+  background-color: dodgerblue;
 }
 
 .memoinputarea {
   color: black !important;
+  width: 80%;
+  
 }
 
 .validate {
   font-size:15px;
   color: white;
-  background: #1ecd97;
+  background: dodgerblue;
   font-family:'FontAwesome';
   content:"\f00c";
   

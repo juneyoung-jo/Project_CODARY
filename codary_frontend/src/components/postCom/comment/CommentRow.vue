@@ -2,7 +2,7 @@
   <v-sheet color='background' fluid class='py-5'>
     <v-row class='py-2 d-flex flex-column' color='background' >
       <v-col class="py-3 pl-7">
-      <v-list-item-title v-html="item.commentContent"></v-list-item-title>
+      <span>{{item.commentContent}}</span>
       </v-col>
       <v-col>
         <v-sheet class='justify-end align-end d-flex' v-if="flag" color='background'>

@@ -43,7 +43,7 @@ export default {
       }
     },
     search() {
-      console.log(this.keyword, this.titlesearch);
+      // console.log(this.keyword, this.titlesearch);
       this.$emit("GETKEYWORD", this.keyword);
     },
   },

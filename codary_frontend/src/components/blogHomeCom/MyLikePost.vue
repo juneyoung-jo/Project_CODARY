@@ -181,6 +181,18 @@ export default {
       }
       return txt;
     },
+    textLengthOverCutTitle(txt, len, lastTxt) {
+      if (len == "" || len == null) {
+        len = 27;
+      }
+      if (lastTxt == "" || lastTxt == null) {
+        lastTxt = "...";
+      }
+      if (txt.length > len) {
+        txt = txt.substr(0, len) + lastTxt;
+      }
+      return txt;
+    },
   },
 };
 </script>

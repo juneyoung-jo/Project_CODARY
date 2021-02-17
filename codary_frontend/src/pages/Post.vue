@@ -202,9 +202,11 @@ export default {
           blogId,
           blogContentsId,
           (res) => {
-            console.log(res.data.data);
-            this.blogContents.blogContentsCover = res.data.data.blogContentsCover;
-            this.blogContents.blogContentsTitle = res.data.data.blogContentsTitle;
+            // console.log(res.data.data);
+            this.blogContents.blogContentsCover =
+              res.data.data.blogContentsCover;
+            this.blogContents.blogContentsTitle =
+              res.data.data.blogContentsTitle;
             this.blogContents.blogContents = res.data.data.blogContents;
             this.blogContents.hashtags = res.data.hashtag;
 
@@ -308,9 +310,9 @@ export default {
       );
     },
     clickLike() {
-      console.log(this.likeOrNot);
-      console.log(this.user);
-      if (this.user.uid === '') alert('로그인 해주세요');
+      // console.log(this.likeOrNot);
+      // console.log(this.user);
+      if (this.user.uid === "") alert("로그인 해주세요");
       else if (this.likeOrNot) {
         if (confirm('좋아요를 취소하시겠어요?')) {
           contentsUnlike(

@@ -199,8 +199,8 @@ export default {
       );
     },
     // ####start 해시태그
-    getHashtag: function() {
-      console.log('#해시태그 읽어오기');
+    getHashtag: function () {
+      // console.log("#해시태그 읽어오기");
       getTagList(
         (response) => {
           for (var i = 0; i < response.data.list.length; i++) {
@@ -216,11 +216,11 @@ export default {
         }
       );
     },
-    tagChanged: function() {
-      console.log('선택된 태그: ');
+    tagChanged: function () {
+      // console.log("선택된 태그: ");
       var lastIdx = this.selectedTags.length - 1;
       this.newTag = this.selectedTags[lastIdx].value;
-      console.log('새로 입력된 태그: ' + this.newTag);
+      // console.log("새로 입력된 태그: " + this.newTag);
       var isOk = true;
 
       if (this.newTag[0] != '#') {
@@ -250,9 +250,11 @@ export default {
       } //end if
 
       // 4. 현재까지 선택된 태그 출력
-      for (var j = 0; j < this.selectedTags.length; j++) {
-        console.log(this.selectedTags[j].key + ' ' + this.selectedTags[j].value);
-      } //end for
+      // for (var j = 0; j < this.selectedTags.length; j++) {
+      //   console.log(
+      //     this.selectedTags[j].key + " " + this.selectedTags[j].value
+      //   );
+      // } //end for
     },
 
     // ####end hashtag

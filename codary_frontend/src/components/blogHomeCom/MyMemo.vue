@@ -15,7 +15,30 @@
           <h3 class="font-weight-black mb-4 text-uppercase">
             {{ article.memoContent }}
           </h3>
-          <div class="title font-weight-light mb-5">{{ article.memoTime }}</div>
+          <div class="title font-weight-light mb-5">
+            {{ article.memoTime }}
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <a :href="article.memoLink">
+                <v-btn 
+                v-bind="attrs"
+                v-on="on" 
+                small 
+                fab 
+                plain 
+                :value="article.memoLink"
+                style="font-size: 15px"   
+                class="mb-1 pr-1"
+                >
+                  <font-awesome-icon :icon="['fas', 'arrow-alt-circle-right']" />
+                </v-btn>
+              </a>
+            </template>
+            <span style="font-size: 12px">작성했던 장소로 가기</span>
+          </v-tooltip>
+            
+
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -60,7 +83,7 @@ export default {
       this.user.user = getuidCookie();
       this.user.blogId = getblogIdCookie();
       this.user.memoId = getmemoIdCookie();
-      console.log(this.user.memoId);
+      // console.log(this.user.memoId);
     },
     mymemo() {
       // console.log('메모다');

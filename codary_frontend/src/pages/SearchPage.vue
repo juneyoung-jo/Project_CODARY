@@ -97,7 +97,7 @@ export default {
     },
     gethash(values) {
       if (values.length > 0) {
-        console.log("this: " + this.values);
+        // console.log("this: " + this.values);
         this.values = values;
         this.titlesearch = false;
       } else {
