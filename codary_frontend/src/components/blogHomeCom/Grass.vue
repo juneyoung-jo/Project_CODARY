@@ -1,7 +1,7 @@
 <template>
-<div class="mb-16 pa-16">
-  <v-spacer></v-spacer>
-  <h2 class='pt-3'>커밋</h2>
+<div class="mb-16 mt-4 px-12 grass" color="blackwhite">
+  <v-divider></v-divider>
+  <h2 class='pt-3 mt-14'>커밋</h2>
   <div class="subtitle-2 text-center">
     <h4 v-if="!flag">아직 잔디를 심지 않았어요!<br>
       게시물을 작성해서 잔디를 심어보세요~
@@ -134,5 +134,8 @@ export default {
 
 
 <style>
-
+.grass {
+  border: 0.2px hidden grey ;
+  border-radius: 10px;
+}
 </style>
