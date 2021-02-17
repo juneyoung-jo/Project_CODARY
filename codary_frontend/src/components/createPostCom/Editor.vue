@@ -26,11 +26,7 @@
       <template v-slot:selected-tag="{ tag, index, removeTag }">
         <span v-html="tag.value"></span>
 
-        <a
-          href="#"
-          class="tags-input-remove"
-          @click.prevent="removeTag(index)"
-        ></a>
+        <a href="#" class="tags-input-remove" @click.prevent="removeTag(index)"></a>
       </template>
     </tags-input>
 
@@ -52,20 +48,22 @@
 // import 'codemirror/lib/codemirror.css';
 // import { Editor } from '@toast-ui/vue-editor';
 
-import "codemirror/lib/codemirror.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import Editor from "@toast-ui/editor";
-import "highlight.js/styles/github.css";
-import { fileUpload } from "@/api/fileUpload.js";
-import { getTagList, getTagKey } from "@/api/hashtag.js";
-import VoerroTagsInput from "@voerro/vue-tagsinput";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import Editor from '@toast-ui/editor';
+import 'highlight.js/styles/github.css';
+import codeSyntaxHightlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import hljs from 'highlight.js';
+import { fileUpload } from '@/api/fileUpload.js';
+import { getTagList, getTagKey } from '@/api/hashtag.js';
+import VoerroTagsInput from '@voerro/vue-tagsinput';
 
 export default {
-  name: "Editor",
-  props: ["blogContents"],
+  name: 'Editor',
+  props: ['blogContents'],
   components: {
     // editor: Editor,
-    "tags-input": VoerroTagsInput,
+    'tags-input': VoerroTagsInput,
   },
   created() {
     this.init();
@@ -73,26 +71,28 @@ export default {
   },
   data() {
     return {
-      editorText: "# This is initialValue.",
+      editorText: '# This is initialValue.',
       editorOptions: {
         hideModeSwitch: true,
       },
       // ########################
       existingtags: [],
       selectedTags: [],
-      newTag: "",
+      newTag: '',
       // ########################
     };
   },
   mounted() {
     // 코드펜 임베드 나중에
     function youtubePlugin() {
-      Editor.codeBlockManager.setReplacer("youtube", (youtubeId) => {
+      Editor.codeBlockManager.setReplacer('youtube', (youtubeId) => {
         // Indentify multiple code blocks
         //https://www.youtube.com/watch?v=Dxt5WGd-ED0
-        const arr = youtubeId.split("v=");
+        const arr = youtubeId.split('v=');
         youtubeId = arr[1];
-        const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
 
         // Avoid sanitizing iframe tag
         setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
@@ -108,12 +108,14 @@ export default {
     }
 
     function blogPlugin() {
-      Editor.codeBlockManager.setReplacer("url", (url) => {
+      Editor.codeBlockManager.setReplacer('url', (url) => {
         // console.log(youtubeId);
         // Indentify multiple code blocks
         //https://www.youtube.com/watch?v=Dxt5WGd-ED0
 
-        const wrapperId = `yt${Math.random().toString(36).substr(2, 10)}`;
+        const wrapperId = `yt${Math.random()
+          .toString(36)
+          .substr(2, 10)}`;
 
         setTimeout(renderblogUrl.bind(null, wrapperId, url), 0);
         return `<div id="${wrapperId}"></div>`;
@@ -129,14 +131,15 @@ export default {
     }
 
     const editor = new Editor({
-      ref: "toastuiEditor",
-      el: document.querySelector("#editor"),
-      initialEditType: "markdown",
-      previewStyle: "tab",
+      ref: 'toastuiEditor',
+      el: document.querySelector('#editor'),
+      initialEditType: 'markdown',
+      previewStyle: 'tab',
       viewer: true,
-      height: "500px",
+      height: '500px',
+      hideModeSwitch: true,
       initialValue: this.editorText,
-      plugins: [youtubePlugin, blogPlugin],
+      plugins: [youtubePlugin, blogPlugin, [codeSyntaxHightlight, { hljs }]],
       hooks: {
         addImageBlobHook: (blob, callback) => {
           this.addImageBlobHook(blob, callback);
@@ -144,28 +147,28 @@ export default {
       },
     });
 
-    const btn = document.querySelector("#submit");
-    btn.addEventListener("click", () => {
+    const btn = document.querySelector('#submit');
+    btn.addEventListener('click', () => {
       const editContent = editor.getMarkdown();
       // console.log(editor.getHtml());
 
-      if (this.title === "") {
-        alert("제목을 입력해주세요");
+      if (this.title === '') {
+        alert('제목을 입력해주세요');
         return;
       }
 
-      if (editContent === "") {
-        alert("내용을 입력해주세요");
+      if (editContent === '') {
+        alert('내용을 입력해주세요');
         return;
       }
 
       if (this.selectedTags !== null) {
         this.selectedTags.forEach((data) => {
-          if (data.key === "") data.key = -1;
+          if (data.key === '') data.key = -1;
         });
       }
 
-      this.$emit("GETCONTENT", editContent, this.title, this.selectedTags);
+      this.$emit('GETCONTENT', editContent, this.title, this.selectedTags);
     });
   },
   methods: {
@@ -187,17 +190,17 @@ export default {
     addImageBlobHook(blob, callback) {
       let formData = new FormData();
 
-      formData.append("file", blob);
+      formData.append('file', blob);
 
       fileUpload(
         formData,
-        (response) => callback(response.data, "img"),
+        (response) => callback(response.data, 'img'),
         (error) => console.log(error)
       );
     },
     // ####start 해시태그
-    getHashtag: function () {
-      console.log("#해시태그 읽어오기");
+    getHashtag: function() {
+      console.log('#해시태그 읽어오기');
       getTagList(
         (response) => {
           for (var i = 0; i < response.data.list.length; i++) {
@@ -213,15 +216,15 @@ export default {
         }
       );
     },
-    tagChanged: function () {
-      console.log("선택된 태그: ");
+    tagChanged: function() {
+      console.log('선택된 태그: ');
       var lastIdx = this.selectedTags.length - 1;
       this.newTag = this.selectedTags[lastIdx].value;
-      console.log("새로 입력된 태그: " + this.newTag);
+      console.log('새로 입력된 태그: ' + this.newTag);
       var isOk = true;
 
-      if (this.newTag[0] != "#") {
-        this.newTag = "#" + this.newTag;
+      if (this.newTag[0] != '#') {
+        this.newTag = '#' + this.newTag;
         for (var i = 0; i < this.selectedTags.length - 1; i++) {
           if (this.selectedTags[i].value == this.newTag) {
             this.selectedTags.pop();
@@ -248,9 +251,7 @@ export default {
 
       // 4. 현재까지 선택된 태그 출력
       for (var j = 0; j < this.selectedTags.length; j++) {
-        console.log(
-          this.selectedTags[j].key + " " + this.selectedTags[j].value
-        );
+        console.log(this.selectedTags[j].key + ' ' + this.selectedTags[j].value);
       } //end for
     },
 
@@ -277,7 +278,7 @@ export default {
   outline: none;
 }
 
-.tags-input input[type="text"] {
+.tags-input input[type='text'] {
   color: #495057;
 }
 
@@ -318,7 +319,7 @@ export default {
 
 .tags-input-remove:before,
 .tags-input-remove:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 75%;
   left: 0.15em;
