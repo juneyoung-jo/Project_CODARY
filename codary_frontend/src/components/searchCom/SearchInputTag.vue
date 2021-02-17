@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex align-center justify-space-around" style="height:60px">
+    <div class="d-flex align-center justify-space-around" style="height: 60px">
       <!-- <v-autocomplete
       filled
       rounded
@@ -38,7 +38,7 @@
         multiple
         hide-details
         label="제목 또는 태그를 선택한 후에 검색하세요"
-        @blur="search()"
+        @change="search()"
       ></v-autocomplete>
     </div>
   </div>
