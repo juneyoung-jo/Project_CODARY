@@ -3,9 +3,10 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <v-sheet color="white" class="ma-10 pa-4 my-10 mt-8">
+
+      <v-sheet color="white" class="ma-2 my-10 ">
         <div class="pt-14 mt-8 pa-12 ml-16 keepblack">
-          <h1 class="mb-10 mx-10 mt-8">
+          <h1 class="mb-10 mx-3 mt-13">
             {{ this.blogContents.blogContentsTitle }}
             <v-btn v-if="this.likeOrNot" fab class="ml-4" color="yellow" align="center" @click="clickLike()">
               <span style="font-size:25px">
@@ -21,7 +22,8 @@
             </v-btn>        
           </h1>
          
-          <div class="ml-10">
+          <div class="ml-3">
+
             <v-chip
               v-for="hashtag in this.blogContents.hashtags"
               :key="hashtag.hashtagId"
@@ -33,7 +35,7 @@
             <v-divider color="#F5F5F5" class="mt-10 mr-16 pr-16"></v-divider>
           </div>
         </div>
-        <div class="ma-16 pa-4 mt-1">
+        <div class="ma-10 pa-4 mt-1">
           <v-sheet class="pa-13 ml-10" light id="viewer" />
           
           <div class="ml-8">
@@ -41,10 +43,7 @@
             <div class="d-flex justify-end">
 
             <v-btn-toggle v-model="icon" class="" dense>
-              <!-- <v-btn align="center" @click="clickLike()">
-                <font-awesome-icon :icon="['fas', 'thumbs-up']" class="mr-2" />
-                <div>== {{ likeOrNot }}</div>
-              </v-btn> -->
+
               <v-btn v-if="this.isItMine" id="modify" align="center" @click="editPost()">
                 <font-awesome-icon :icon="['fas', 'edit']" class="mr-2" />
                 수정
@@ -54,6 +53,7 @@
                 삭제
               </v-btn>
             </v-btn-toggle>
+            
             </div>
           </div>
          

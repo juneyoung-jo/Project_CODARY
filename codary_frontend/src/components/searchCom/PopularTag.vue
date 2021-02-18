@@ -59,10 +59,7 @@
                   style="position: absolute; top: 0%"
                   transition="fade-transition"
                 >
-                  <div
-                    class="d-flex align-center pl-2 pr-2 white--black"
-                    style="height: 150px"
-                  >
+                  <div class="d-flex align-center pl-2 pr-2 white--black" style="height: 150px">
                     {{ blogContents | textLengthOverCut }}
                   </div>
                 </div>
@@ -73,19 +70,17 @@
                   </h2>
                   <h4 class="mb-2 pl-1">
                     <v-chip
-                      v-for="hashtag in hashtags"
-                      :key="hashtag.hashtagId"
+                      v-for="(hashtag, index) in hashtags"
+                      :key="index"
                       outlined
                       small
                       class="mr-2 mb-1"
                       >{{ hashtag.hashtagContent }}</v-chip
                     >
                   </h4>
-
                 </v-sheet>
 
                 <div class="d-flex align-end mr-3 px-3 mt-3 justify-space-between">
-                  
                   <div class="d-flex align-center pl-1 mb-3">
                     <v-img
                       :src="profile"
@@ -98,7 +93,7 @@
                       {{ nickname }}
                     </span>
                   </div>
-                  <div class='text-right'>
+                  <div class="text-right">
                     <span class="font-weight-light">
                       <font-awesome-icon :icon="['fas', 'comment-dots']" />
                       {{ commentCnt }}
@@ -107,10 +102,7 @@
                       <font-awesome-icon :icon="['fas', 'eye']" class="ml-2" />
                       {{ blogContentsView }}
                     </span>
-                    <div
-                      class="font-weight-light justify-end"
-                      v-text="blogDatetime"
-                    ></div>
+                    <div class="font-weight-light justify-end" v-text="blogDatetime"></div>
                   </div>
                 </div>
                 <!-- <v-btn class="ml-n4 font-weight-black" text>
@@ -128,8 +120,8 @@
 
 <script>
 export default {
-  name: "PopularTag",
-  props: ["list"],
+  name: 'PopularTag',
+  props: ['list'],
   data() {
     return {};
   },
@@ -137,11 +129,11 @@ export default {
   methods: {},
   filters: {
     textLengthOverCut(txt, len, lastTxt) {
-      if (len == "" || len == null) {
+      if (len == '' || len == null) {
         len = 100;
       }
-      if (lastTxt == "" || lastTxt == null) {
-        lastTxt = "...";
+      if (lastTxt == '' || lastTxt == null) {
+        lastTxt = '...';
       }
       if (txt.length > len) {
         txt = txt.substr(0, len) + lastTxt;
@@ -149,11 +141,11 @@ export default {
       return txt;
     },
     textLengthOverCutTitle(txt, len, lastTxt) {
-      if (len == "" || len == null) {
+      if (len == '' || len == null) {
         len = 27;
       }
-      if (lastTxt == "" || lastTxt == null) {
-        lastTxt = "...";
+      if (lastTxt == '' || lastTxt == null) {
+        lastTxt = '...';
       }
       if (txt.length > len) {
         txt = txt.substr(0, len) + lastTxt;

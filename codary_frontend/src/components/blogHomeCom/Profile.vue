@@ -22,7 +22,7 @@
             <v-col cols="12" class='ml-3 mb-10'>
               {{ this.intro}}
             </v-col>
-            <div class="d-flex mb-16 ml-5">
+            <div class="d-flex mb-2 ml-5">
               <router-link class="noline" :to="'/createpost'">
                 <v-btn plain elevation="1" color='dark' min-width="100" rounded>
                   글 작성
