@@ -1,6 +1,6 @@
-# 👍CODARY 서비스 소개 문서
-**https://www.notion.so/CODARY-0e3601abb20b4e0d848b525c2ecb29ad**
+# [👍CODARY 서비스 소개 문서로 이동](https://www.notion.so/CODARY-0e3601abb20b4e0d848b525c2ecb29ad)
 
+# [🎶CODARY UCC로 이동](https://youtu.be/qwzbtwizrYk)
 
 ![image](https://user-images.githubusercontent.com/60100901/108371299-f5aa8a80-7240-11eb-8b09-fcd351c62cf8.png)
 
