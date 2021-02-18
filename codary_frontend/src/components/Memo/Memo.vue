@@ -110,7 +110,7 @@ export default {
         target.classList.contains("activate")
           ? target.classList.remove("activate")
           : target.classList.add("activate");
-      }, 500);
+      }, 300);
     },
   },
 };
@@ -127,17 +127,17 @@ export default {
   color: black;
   height: 100%;
   width: 330px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .activate {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
   transform: translateX(-100%);
 }
 
 #blackBoxButton {
   z-index: 1;
-  transition: 0.3s;
+  transition: 0.2s;
   width: 60px;
   height: 50px;
   border-radius: 5px;
@@ -152,18 +152,18 @@ export default {
 
 .memolist {
   position: absolute;
-  height: 68%;
+  height: 67%;
   width: 100%;
 }
 
 .memoinput {
   position: absolute;
-  bottom: 15%;
-  height: 19%;
+  
+  height: 22%;
 }
 
 .goingOn {
-  transition: 0.5s ease;
+  transition: 0.3s ease;
   transform: translateX(15%);
 }
 </style>

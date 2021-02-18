@@ -76,8 +76,8 @@
                   </h2>
                   <h4 class="mb-2 pl-1">
                     <v-chip
-                      v-for="hashtag in hashtags"
-                      :key="hashtag.hashtagId"
+                      v-for="(hashtag, index) in hashtags"
+                      :key="index"
                       outlined
                       small
                       class="mr-2"

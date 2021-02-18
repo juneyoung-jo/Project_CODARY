@@ -80,12 +80,12 @@ export default {
     kakaoCallback(data){
       // console.log(data)
       this.$store.dispatch('kakaoCallback',data)
-       if (this.$route.path !== '/') this.$router.replace('/');
+       if (this.$route.path !== '/searchpage') this.$router.replace('/searchpage');
     },
     googleCallback(data){
       // console.log(data)
       this.$store.dispatch('googleCallback',data)
-      if (this.$route.path !== '/') this.$router.replace('/');
+      if (this.$route.path !== '/searchpage') this.$router.replace('/searchpage');
     },
     onFailure,
     // callbackFunction,

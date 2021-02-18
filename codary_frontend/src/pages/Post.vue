@@ -3,10 +3,27 @@
     <PostCover :blogContents="blogContents" />
     <v-container>
       <!-- <PostViewer :blogContents="blogContents" /> -->
-      <v-sheet color="white" class="ma-2 my-10">
-        <div class="pt-14 mt-9 pa-12 ml-16 keepblack">
-          <h1 class="mb-10 mx-3 mt-13">{{ this.blogContents.blogContentsTitle }}</h1>
+
+      <v-sheet color="white" class="ma-2 my-10 ">
+        <div class="pt-14 mt-8 pa-12 ml-16 keepblack">
+          <h1 class="mb-10 mx-3 mt-13">
+            {{ this.blogContents.blogContentsTitle }}
+            <v-btn v-if="this.likeOrNot" fab class="ml-4" color="yellow" align="center" @click="clickLike()">
+              <span style="font-size:25px">
+                <font-awesome-icon :icon="['fas', 'star']"  />
+              </span>
+             
+            </v-btn>
+            <v-btn v-if="!this.likeOrNot" fab class="ml-4" align="center" @click="clickLike()">
+              <span style="font-size:25px">
+                <font-awesome-icon :icon="['fas', 'star']" />
+              </span>
+              
+            </v-btn>        
+          </h1>
+         
           <div class="ml-3">
+
             <v-chip
               v-for="hashtag in this.blogContents.hashtags"
               :key="hashtag.hashtagId"
@@ -20,14 +37,13 @@
         </div>
         <div class="ma-10 pa-4 mt-1">
           <v-sheet class="pa-13 ml-10" light id="viewer" />
-          <div class="py-3"></div>
+          
           <div class="ml-8">
             <Profile class="ml-10" :blogContents="blogContents" />
-            <v-btn-toggle v-model="icon" class="ml-6 mt-10" dense>
-              <v-btn align="center" @click="clickLike()">
-                <font-awesome-icon :icon="['fas', 'thumbs-up']" class="mr-2" />
-                <div>== {{ likeOrNot }}</div>
-              </v-btn>
+            <div class="d-flex justify-end">
+
+            <v-btn-toggle v-model="icon" class="" dense>
+
               <v-btn v-if="this.isItMine" id="modify" align="center" @click="editPost()">
                 <font-awesome-icon :icon="['fas', 'edit']" class="mr-2" />
                 수정
@@ -37,8 +53,10 @@
                 삭제
               </v-btn>
             </v-btn-toggle>
+            
+            </div>
           </div>
-          <div class="py-8"></div>
+         
         </div>
       </v-sheet>
 
@@ -314,12 +332,12 @@ export default {
       // console.log(this.user);
       if (this.user.uid === "") alert("로그인 해주세요");
       else if (this.likeOrNot) {
-        if (confirm('좋아요를 취소하시겠어요?')) {
+        if (confirm('즐겨찾기를 취소하시겠어요?')) {
           contentsUnlike(
             this.blogContentsLike,
             () => {
               this.likeOrNot = false;
-              alert('좋아요가 취소되었습니다.');
+              // alert('좋아요가 취소되었습니다.');
             },
             () => {
               alert('다시 시도해주세요.');
