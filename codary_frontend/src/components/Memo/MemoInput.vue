@@ -1,5 +1,5 @@
 <template>
-  <v-card-text class="d-flex flex-column align-center ma-0 pa-0" style="bottom:10%">
+  <v-card-text class="d-flex flex-column align-center ma-0 pa-0" style="bottom:9%">
     <v-textarea
       id="MemoSave"
       placeholder="메모하세요"
