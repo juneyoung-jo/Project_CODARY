@@ -1,5 +1,6 @@
 package com.spring.web.service;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,13 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.web.dao.PersonalDao;
-import com.spring.web.dto.BlogContentsDto;
-import com.spring.web.dto.BlogContentsLikeDto;
 import com.spring.web.dto.BlogDto;
+import com.spring.web.dto.BlogPostDto;
 import com.spring.web.dto.BlogerLikeDto;
 import com.spring.web.dto.JandiDto;
 import com.spring.web.dto.MemoContentsDto;
-import com.spring.web.dto.MemoDto;
+import com.spring.web.dto.UserInfoDto;
 import com.spring.web.dto.UsergraphDto;
 
 @Service
@@ -33,9 +33,18 @@ public class PersonalServiceImpl implements PersonalService{
 	
 	@Override
 	@Transactional
-	public List<BlogContentsDto> personalContents(String blogid) {
-		personalDao.usergraphViewCount(blogid);
-		return personalDao.showBlogContents(blogid);
+	public List<BlogPostDto> personalContents(String blogid) throws Exception {
+		List<BlogPostDto> list = personalDao.showBlogContents(blogid);
+				
+		for(BlogPostDto b : list) {
+			Map<String, String> map = personalDao.getUserProfile(blogid);
+			b.setProfile(map.get("profile"));
+			b.setNickname(map.get("nickname"));
+			b.setCommentCnt(personalDao.getCommentInfo(b.getBlogContentsId()).size());
+			b.setHashtags(personalDao.getHashtagOfPost(b.getBlogContentsId()));
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -44,13 +53,23 @@ public class PersonalServiceImpl implements PersonalService{
 	}
 
 	@Override
-	public List<BlogDto> showLikeBloger(String uid) {
+	public List<Map<String, Object>> showLikeBloger(String uid) {
 		return personalDao.likeBloger(uid);
 	}
 
 	@Override
-	public List<BlogContentsDto> showLikeBlogContents(String uid) {
-		return personalDao.likeBlogContents(uid);
+	public List<BlogPostDto> showLikeBlogContents(String uid) throws Exception {
+		List<BlogPostDto> list = personalDao.likeBlogContents(uid);
+		
+		for(BlogPostDto b : list) {
+			Map<String, String> map = personalDao.getUserProfile(b.getBlogId());
+			b.setProfile(map.get("profile"));
+			b.setNickname(map.get("nickname"));
+			b.setCommentCnt(personalDao.getCommentInfo(b.getBlogContentsId()).size());
+			b.setHashtags(personalDao.getHashtagOfPost(b.getBlogContentsId()));
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -144,6 +163,43 @@ public class PersonalServiceImpl implements PersonalService{
 	     
 	     result.add(m); //연산이 끝나면 정렬된 m이 result에 담긴다.
 		return result;
+	}
+
+	@Override
+	public void blogerLike(BlogerLikeDto bld) {
+		personalDao.blogerLike(bld);
+	}
+
+	@Override
+	public void blogerUnlike(BlogerLikeDto bld) {
+		personalDao.blogerUnlike(bld);
+	}
+
+	@Override
+	public boolean readBlogerLike(BlogerLikeDto bld) {
+		BlogerLikeDto dto=personalDao.readBlogerLike(bld);
+		if (dto == null)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public UserInfoDto findUser(String blogid) {
+		return personalDao.findUser(blogid);
+	}
+
+	@Override
+	public BlogDto findBlog(String blogid) {
+		
+		return personalDao.findBlog(blogid);
+	}
+
+	@Override
+	public void modifyBlogCover(Map<String, Object> cover) {
+		int flag = personalDao.modifyBlogCover(cover);
+		
+		
 	}
 
 	

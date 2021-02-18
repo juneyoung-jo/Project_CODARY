@@ -1,66 +1,92 @@
 <template>
   <section id="blog">
-    <v-container class='ma-10 pa-16'>
+    <v-container>
+      <v-responsive class="mx-auto mb-12" width="56"> </v-responsive>
+      <div class="subtitle-2 text-center">
+        <h4 v-if="this.articles.length == 0">팔로잉한 유저가 없어요!</h4>
+      </div>
       <v-row>
         <v-col
-          v-for="(article, index) in articles"
+          v-for="(article, src, index) in articles"
           :key="index"
           cols="12"
           md="4"
+          class="d-flex flex-column align-center"
         >
-        <v-avatar
-          size="300"
-        >
-          <v-img
-            :src="src"
-            class="mb-4"
-          ></v-img>
-        </v-avatar>
-          
-          <v-btn
-            class="font-weight-black"
-            text
-          >
-            blog
+          <v-avatar size="160">
+            <v-img :src="article.profile" class="mb-4"></v-img>
+          </v-avatar>
+
+          <v-btn class="font-weight-black" text>
+            <router-link
+              :close-on-content-click="false"
+              class="noline pa-5"
+              :to="{
+                name: 'BlogHome',
+                query: {
+                  blogId: article.blog_id,
+                },
+              }"
+            >
+              {{ article.nickname }}
+            </router-link>
           </v-btn>
         </v-col>
       </v-row>
     </v-container>
-    <div class="py-12"></div>
+    <div class="py-16"></div>
+    <div class='py-16'></div>
   </section>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { showMyBloger } from '@/api/personal.js';
+import { mapState } from "vuex";
+import { showMyBloger } from "@/api/personal.js";
+import { getuidCookie, getblogIdCookie } from "@/util/cookie.js";
 
 export default {
-  name:"PopularTag",
-  data () {
+  name: "PopularTag",
+  data() {
     return {
       articles: [],
-    }
-  }, 
+      user: {
+        user: "",
+        blogId: "",
+      },
+      like: {
+        uid: "",
+      },
+    };
+  },
 
   computed: {
-    ...mapState([ 'loggedInUserData' ])    
+    ...mapState(["loggedInUserData"]),
   },
   created() {
-    showMyBloger(
-      this.loggedInUserData,
-      (response) => {
-        console.log(response)
-        this.articles = response.data
-      },
-      (err) => {
-        console.log(err)
-      }
-    )  
-    // 후에 블로거 각각의 인물로 요청을 보내서 사진이랑이런거 불러와야?
-  }
-}
+    this.initUser();
+    this.mysubscriber();
+  },
+  methods: {
+    initUser() {
+      this.user.user = getuidCookie();
+      this.user.blogId = getblogIdCookie();
+    },
+    mysubscriber() {
+      this.like.uid = this.user.user;
+      showMyBloger(
+        this.like,
+        (response) => {
+          //console.log(response)
+          this.articles = response.data;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

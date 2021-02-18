@@ -5,6 +5,7 @@ import SearchPage from "../pages/SearchPage.vue";
 import BlogHome from "../pages/BlogHome.vue";
 import CreatePost from "../pages/CreatePost.vue";
 import ViewPost from "../pages/Post.vue";
+import NotFound from '../pages/404.vue'
 
 Vue.use(Router);
 
@@ -65,5 +66,14 @@ export default new Router({
       name: "ViewPost",
       component: ViewPost,
     },
+    {
+      path: '*',
+      redirect: "/404"
+
+    },
+    {
+      path: '/404',
+      component:NotFound,
+    }
   ],
 });

@@ -4,7 +4,16 @@ public class BlogHashtagDto {
 
 	private int hashtagId;
 	private int blogContentsId;
-	private int blogId;
+	private String blogId;
+
+	public BlogHashtagDto() {
+	}
+
+	public BlogHashtagDto(int hashtagId, int blogContentsId, String blogId) {
+		this.hashtagId = hashtagId;
+		this.blogContentsId = blogContentsId;
+		this.blogId = blogId;
+	}
 
 	public int getHashtagId() {
 		return hashtagId;
@@ -22,11 +31,11 @@ public class BlogHashtagDto {
 		this.blogContentsId = blogContentsId;
 	}
 
-	public int getBlogId() {
+	public String getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(int blogId) {
+	public void setBlogId(String blogId) {
 		this.blogId = blogId;
 	}
 

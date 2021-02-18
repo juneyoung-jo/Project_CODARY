@@ -21,7 +21,11 @@ public interface UserDao {
 	public void saveUserInfo(UserInfoDto userInfo) throws SQLException;
 	public void makeBlog(BlogDto blog) throws SQLException;
 	public void makeMemo(MemoDto memo) throws SQLException;
-	public void updateNickname(Map<String, String> map) throws SQLException;
+	public void updateUserInfo(UserInfoDto info) throws SQLException;
 	public void deleteUser(String uid) throws SQLException;
+	public void deleteBlog(String blogId) throws SQLException;
+	public void deleteBlogContents(String blogId) throws SQLException;
+	public void deleteComment(String blogId) throws SQLException;
 	
+
 }

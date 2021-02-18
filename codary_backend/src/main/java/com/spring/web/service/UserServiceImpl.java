@@ -24,6 +24,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	SqlSession sqlSession;
 
+	/**
+	 * Provider 정보를 이용한 UserDto값 읽어오기
+	 * */
 	@Override
 	public UserDto findByProvider(HashMap<String, Object> userInfo) throws Exception {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -33,21 +36,34 @@ public class UserServiceImpl implements UserService {
 		return sqlSession.getMapper(UserDao.class).findByProvider(map);
 	}
 
+	/**
+	 * Uid 정보를 이용한 UserDto값 읽어오기
+	 * */
 	@Override
 	public UserDto findById(String uid) throws Exception {
 		return sqlSession.getMapper(UserDao.class).findById(uid);
 	}
 
+	/**
+	 * Provider 정보를 이용한 UserInfoDto값 읽어오기
+	 * */
 	@Override
 	public UserInfoDto findUserInfoById(String uid) throws SQLException {
 		return sqlSession.getMapper(UserDao.class).findUserInfoById(uid);
 	}
 
+	/**
+	 * blogId 정보를 이용한 BlogDto값 읽어오기
+	 * */
 	@Override
 	public BlogDto findBlogById(String blogId) throws SQLException {
 		return sqlSession.getMapper(UserDao.class).findBlogById(blogId);
 	}
 
+	/**
+	 * UserDto, UserInfo, BlogDto, MemoDto 정보 삽입 후
+	 * LoginCallBackDto 객체 반환
+	 * */
 	@Override
 	public LoginCallBackDto save(HashMap<String, Object> userInfo) throws Exception {
 
@@ -89,6 +105,9 @@ public class UserServiceImpl implements UserService {
 		return loginCallBackDto;
 	}
 
+	/**
+	 * 13자리 난수값 생성 Uid 중복체크
+	 * */
 	public String makeUid() throws Exception {
 		UserDto user = null;
 		StringBuilder sb = new StringBuilder();
@@ -105,6 +124,9 @@ public class UserServiceImpl implements UserService {
 		return sb.toString();
 	}
 
+	/**
+	 * 13자리 난수값 생성 BlogId 중복체크
+	 * */
 	public String makeBlogId() throws Exception {
 		BlogDto blog = null;
 		StringBuilder sb = new StringBuilder();
@@ -121,15 +143,28 @@ public class UserServiceImpl implements UserService {
 		return sb.toString();
 	}
 
+	/**
+	 * UserInfo 닉네임 업데이트
+	 * */
 	@Override
-	public void updateNickname(Map<String, String> map) throws Exception {
-		sqlSession.getMapper(UserDao.class).updateNickname(map);
+	public void updateUserInfo(UserInfoDto info) throws Exception {
+		sqlSession.getMapper(UserDao.class).updateUserInfo(info);
 		return;
 	}
-
+	/**
+	 * User isdeleted 값 1로 갱신
+	 * Blog isdeleted 값 1로 갱신
+	 * BlogContents isdeleted 값 1로 갱신
+	 * Comment isdeleted 값 1로 갱신
+	 * */
 	@Override
-	public void delete(String uid) throws Exception {
+	public void delete(String uid, String blogId) throws Exception {
 		sqlSession.getMapper(UserDao.class).deleteUser(uid);
+		sqlSession.getMapper(UserDao.class).deleteBlog(blogId);
+		sqlSession.getMapper(UserDao.class).deleteBlogContents(blogId);
+		sqlSession.getMapper(UserDao.class).deleteComment(blogId);
+		
 	}
+
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.web.dao.BlogContentsDao">
 
@@ -10,9 +10,19 @@
 		where blog_contents_id = #{blogContentsId} and isdeleted = 0
 	</select>
 	
-	<insert id="writeBlogContent" parameterType="BlogContentsDto">
+	<insert id="writeBlogContent" parameterType="BlogContentsDto" useGeneratedKeys="true" keyProperty="blogContentsId">
 		insert into blogcontents(blog_id, blog_contents_title, blog_contents, blog_contents_view, blog_contents_like, blog_datetime, blog_contents_cover)
 		values (#{blogId}, #{blogContentsTitle}, #{blogContents}, 0, 0, now(), #{blogContentsCover});
+	</insert>
+	
+	<insert id="writeHash" parameterType="HashtagDto" useGeneratedKeys="true" keyProperty="hashtagId">
+		insert into hashtag(hashtag_content) 
+		values(#{hashtagContent})
+	</insert>
+	
+	<insert id="writeBlogHash" parameterType="BlogHashtagDto" >
+		insert into bloghashtag(hashtag_id, blog_contents_id, blog_id)
+		values(#{hashtagId}, #{blogContentsId}, #{blogId})
 	</insert>
 	
 	<select id="listBlogContents" parameterType="String" resultType="BlogContentsDto">
@@ -27,8 +37,20 @@
 		where blog_id = #{blogId} and blog_contents_id = #{blogContentsId}
 	</update>
 	
+	<delete id="deleteOldHash" parameterType="BlogContentsDto">
+		delete from bloghashtag
+		where blog_contents_id = #{blogContentsId}
+	</delete>
+	
+	
 	<update id="deleteBlogContent" parameterType="int">
 		update blogcontents
+		set isdeleted = 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
+	<update id="deleteCommentOfPost" parameterType="int">
+		update comment
 		set isdeleted = 1
 		where blog_contents_id = #{blogContentsId}
 	</update>
@@ -36,7 +58,6 @@
 	<select id="getAllContents" resultType="BlogContentsDto">
 		select *
 		from blogcontents
-		where isdeleted = 0
 	</select>
 	
 	<insert id="writeLog" parameterType="map">
@@ -47,6 +68,18 @@
 	<update id="increaseContentsView" parameterType="int">
 		update blogcontents
 		set blog_contents_view = blog_contents_view + 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
+	<update id="increasePostLike" parameterType="int">
+		update blogcontents
+		set blog_contents_like = blog_contents_like + 1
+		where blog_contents_id = #{blogContentsId}
+	</update>
+	
+	<update id="decreasePostLike" parameterType="int">
+		update blogcontents
+		set blog_contents_like = blog_contents_like - 1
 		where blog_contents_id = #{blogContentsId}
 	</update>
 	
@@ -77,4 +110,24 @@
 		where blog_id = #{blogId}	
 	</select>
 	
+	<select id="getHashtagOfPost" parameterType="int" resultType="HashtagDto">
+		select hashtag_content, hashtag_id
+		from bloghashtag inner join hashtag using(hashtag_id)
+		where blog_contents_id = #{blogContentsId};
+	</select>
+		
+	<select id="selectHash" parameterType="String" resultType="HashtagDto">
+		select * 
+		from hashtag 
+		<if test="keyword != null and keyword != ''">
+		where hashtag_content like concat('#', #{keyword}, '%')
+		</if>
+	</select>
+	
+	<select id="findTagByValue" parameterType="String" resultType="HashtagDto">
+		select * 
+		from hashtag 
+		where hashtag_content = #{value} 
+	</select>
+
 </mapper>

@@ -1,5 +1,7 @@
 package com.spring.web.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +35,17 @@ public class MemoController {
 	/**
 	 * 메모 작성하기
 	 * 
-	 * @param MemoContentsDto(memoId, memoContent)
-	 * @return List<MemoContentsDto>
+	 * @param MemoContentsDto(memoId, memoContent, memoLink)
+	 * @return int(0: 실패, 1:t성공)
 	 */
-	@ApiOperation(value = "메모 작성하기", notes ="@param : blogContentsDto(memoId, memoContent)  </br> @return List<MemoContentsDto>")
+	@ApiOperation(value = "메모 작성하기", notes ="@param : MemoContentsDto(memoId, memoContent, memoLink)  </br> @return int(0: 실패, 1:t성공)")
 	@PostMapping
-	public ResponseEntity<List<MemoContentsDto>> writeMemo(@RequestBody MemoContentsDto memo) throws Exception{
-		try {
-			memoService.writeMemo(memo);
-			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memo.getMemoId()), HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Integer> writeMemo(@RequestBody MemoContentsDto memo) {
+		int result = memoService.writeMemo(memo);
+		if(result == 1)
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 	}
 	
 	/**
@@ -58,7 +58,14 @@ public class MemoController {
 	@GetMapping("{memoId}")
 	public ResponseEntity<List<MemoContentsDto>> listMemo(@PathVariable String memoId) throws Exception {
 		try {
-			return new ResponseEntity<List<MemoContentsDto>>(memoService.listMemo(memoId), HttpStatus.OK);
+			List<MemoContentsDto> list = memoService.listMemo(memoId);
+			Collections.sort(list, new Comparator<MemoContentsDto>() {
+				@Override
+				public int compare(MemoContentsDto o1, MemoContentsDto o2) {
+					return o2.getMemoTime().compareTo(o1.getMemoTime());
+				}
+			});
+			return new ResponseEntity<List<MemoContentsDto>>(list, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

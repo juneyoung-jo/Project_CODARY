@@ -1,21 +1,25 @@
 <template v-slot:default="dialog">
   <v-card id="login">
-    <div class="py-5"></div>
-    <v-card-actions class="justify-center d-flex flex-column">
-      <!-- <div>
+    
+    <v-card-actions class="justify-center d-flex flex-column align-center" style="height:100%">
+
+      <div class="loginBar kakaoLoginBar">
         <KakaoLogin
           api-key="cc55fbaa2ba8ee734547019f8cba7abf"
-          image="kakao_login_btn_large"
           :on-success="kakaoCallback"
-          :on-failure="onFailure"
+          :on-failure="onFailure"  
         />
-      </div> -->
-      <div>
+          <!-- :image="kakao_login_large_narrow" -->
+          <!-- src="@/assets/kakao_login/kakao_login_large_narrow.png" -->
+      </div>
+      
+      <div class="loginBar">
         <GoogleLogin
           :params="params"
           :renderParams="renderParams"
           :onSuccess="googleCallback"
           :onFailure="onFailure"
+          
         ></GoogleLogin>
       </div>
       <!-- <div>
@@ -30,13 +34,13 @@
         />
       </div> -->
     </v-card-actions>
-    <div class="py-5"></div>
+    
   </v-card>
 </template>
       
 
 <script>
-// import KakaoLogin from "vue-kakao-login";
+import KakaoLogin from "vue-kakao-login";
 import GoogleLogin from "vue-google-login";
 import {mapMutations, mapState} from 'vuex'
 // import NaverLogin from "vue-naver-login";
@@ -51,11 +55,11 @@ let onFailure = (data) => {
 export default {
   name: "Login",
   components: {
-    // KakaoLogin,
+    KakaoLogin,
     GoogleLogin,
     // NaverLogin,
   },
-  data: function () {
+  data() {
     return {
       params: {
         client_id:
@@ -63,8 +67,8 @@ export default {
       },
       // only needed if you want to render the button with the google ui
       renderParams: {
-        width: 250,
-        height: 50,
+        width: 300,
+        height: 49,
         longtitle: true,
       },
     };
@@ -74,12 +78,14 @@ export default {
     ...mapState(['loggedInUserData']),
 
     kakaoCallback(data){
-      console.log(data)
+      // console.log(data)
       this.$store.dispatch('kakaoCallback',data)
+       if (this.$route.path !== '/searchpage') this.$router.replace('/searchpage');
     },
     googleCallback(data){
-      console.log(data)
+      // console.log(data)
       this.$store.dispatch('googleCallback',data)
+      if (this.$route.path !== '/searchpage') this.$router.replace('/searchpage');
     },
     onFailure,
     // callbackFunction,
@@ -89,10 +95,24 @@ export default {
 
 <style>
 #login {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
     rgb(255, 255, 255)
-  );
+  ); */
+  height: 300px;
+  
 }
+
+.loginBar {
+  cursor: pointer;
+  width: 300px;
+  height: 49px;
+  margin: 25px;
+}
+
+/* .kakaoLoginBar :hover {
+   border:1px solid #999999;
+} */
+
 </style>

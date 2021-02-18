@@ -4,7 +4,8 @@
 
 <mapper namespace="com.spring.web.dao.SearchPostDao">
 
-	<select id="searchPost" parameterType="string" resultType="BlogPostDto">
+	<!-- 
+	<select id="searchPost" parameterType="SearchParam" resultType="BlogPostDto">
 		select bc.blog_id,
 				bc.blog_contents_id, bc.blog_contents_title,
 				bc.blog_contents,
@@ -31,9 +32,115 @@
 			or bc.blog_contents like concat('%', #{keyword}, '%') )
 		</if>
 		order by blog_contents_id DESC
-		limit 0, 30;
+		limit #{start}, #{spp};
 	</select>
-
-
-
+	
+	
+	<select id="searchPostByTag" parameterType="SearchParam" resultType="BlogPostDto">
+		select tag.hashtag_content, bc.blog_id,
+			bc.blog_contents_id, bc.blog_contents_title,
+			bc.blog_contents,
+			bc.blog_contents_view, bc.blog_contents_like,
+			case when date_format(blog_datetime, '%Y%m%d') = date_format(now(), '%Y%m%d')
+			then date_format(blog_datetime, '%H:%i:%s')
+			else date_format(blog_datetime, '%y.%m.%d')
+			end blog_datetime,
+			bc.blog_contents_cover, info.nickname, info.profile, ifnull(co.comment_cnt, 0 ) comment_cnt
+		from hashtag tag
+			inner join bloghashtag bh
+		    on tag.hashtag_id = bh.hashtag_id
+		    inner join blogcontents bc
+		    on bc.blog_contents_id = bh.blog_contents_id
+		    inner join user u
+		    on bc.blog_id = u.blog_id
+		    inner join userinfo info
+		    on u.uid = info.uid
+		    left join ( 
+					select count(*) comment_cnt, blog_contents_id
+					from comment
+					where isdeleted = 0
+					group by blog_contents_id ) co
+			on bc.blog_contents_id = co.blog_contents_id
+		 where bc.isdeleted = 0 and u.isdeleted = 0 and tag.hashtag_content like '%s%'
+		
+		<if test="keyword != null and keyword != ''">
+			and tag.hashtag_content like concat('%', #{keyword}, '%')
+		</if>
+		order by blog_contents_id DESC
+		limit #{start}, #{spp};
+	</select>
+	 -->
+	 
+	<select id="searchTitle" resultType="BlogPostDto">
+		select b.*, ui.profile, ui.nickname, cc.comment_cnt 
+		from blogcontents b
+			inner join user u using(blog_id)
+		    inner join userinfo ui using(uid)
+		    left outer join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
+		where b.isdeleted = 0
+	</select>
+	
+	<select id="searchHash" parameterType="String" resultType="BlogPostDto">
+		select bc.*, ui.nickname, ui.profile, cc.comment_cnt
+		from hashtag h
+		    inner join bloghashtag bh using(hashtag_id)
+		    inner join blogcontents bc using(blog_contents_id)
+		    left outer join (select blog_contents_id, count(*) as comment_cnt from comment where isdeleted = 0 group by (blog_contents_id)) cc using(blog_contents_id)
+		    inner join user u on u.blog_id = bc.blog_id
+		    inner join userinfo ui on u.uid = ui.uid
+		where u.isdeleted = 0 and bc.isdeleted = 0 and h.hashtag_content = #{keyword}
+	</select>
+	
+	<!-- 
+	<select id="searchByTitle" resultType="hashmap">
+		select blog_contents_id, blog_contents_title
+		from blogcontents
+		where isdeleted = 0
+	</select> -->
+	
+	<select id="searchByHash" resultType="int">
+		select blog_contents_id
+		from hashtag h inner join bloghashtag bh using(hashtag_id)
+		where h.hashtag_id in 
+		<foreach item="keyword" index="index" collection="keywords" open="(" separator="," close=")">
+	    	#{keyword}
+	  	</foreach>
+		group by bh.blog_contents_id
+		having(count(bh.hashtag_id) = #{num})
+	</select>
+	
+	<select id="getPostInfo" resultType="BlogPostDto">
+		select *
+		from blogcontents
+		where blog_contents_id in
+		<foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+	    	#{id}
+	  	</foreach>
+	</select>
+	
+	<select id="getCommentInfo" parameterType="int" resultType="int">
+		select comment_num
+		from comment
+		where blog_contents_id = #{blogContentsId};
+	</select>
+	
+	<select id="getUserProfile" parameterType="String" resultType="map">
+		select blog_id, nickname, profile
+		from userinfo inner join user using(uid)
+		where blog_id = #{blogId};
+	</select>
+	  
+	<select id="getHashtagOfPost" parameterType="int" resultType="HashtagDto">
+		select hashtag_id, hashtag_content 
+		from bloghashtag inner join hashtag using(hashtag_id)
+		where blog_contents_id = #{blogContentsId};
+	</select>
+	
+	
+	<select id="getHashtagOfPostNew" resultType="TestDto">
+		select blog_contents_id, group_concat(hashtag_content,' ',hashtag_id) hashtag_content
+		from bloghashtag join hashtag
+		using(hashtag_id)
+		group by blog_contents_id;
+	</select>
 </mapper>

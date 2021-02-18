@@ -1,120 +1,169 @@
 <template>
   <div id="settings-wrapper">
-    <v-card
-      id="settings"
-      class="py-2 px-4"
-      color="rgba(0, 0, 0, .3)"
-      dark
-      flat
-      link
-      min-width="100"
-      style="position: fixed; top: 23%; right: -35px; border-radius: 8px; z-index: 1;"
-    >
-      <v-icon large>
-        mdi-clipboard-multiple-outline
-      </v-icon>
-    </v-card>
-      <v-menu
-        :close-on-content-click="false"
-        activator="#settings"
-        bottom
-        content-class="v-settings"
-        left
-        nudge-left="8"
-        offset-x
-        origin="top right"
-        transition="scale-transition"
-        rounded=xl
+    <v-sheet id="blackBox" class="d-flex">
+      <v-btn
+        @click="move"
+        id="blackBoxButton"
+        color="primary"
+        class="d-flex align-center pa-3 pb-3"
       >
-        <v-card
-          class="text-center mb-0"
-          width="300"
-        >
-          <div class="py-3 d-flex flex-column">
-            <div class="d-flex align-center justify-end">
-              <strong class="mr-15 py-3">MEMO</strong>
-              <v-btn 
-                @click="toggle"
-                plain
-              >
-                <font-awesome-icon :icon="['fas', 'bars']" v-show="memotoggle"/>
-                <font-awesome-icon :icon="['fas', 'pencil-alt']" v-show="!memotoggle"/>
-              </v-btn>
-            </div>
-              <MemoInput v-show="memotoggle" :sendingChange='sendingChange'/>   
-              <MemoList v-show="!memotoggle" :memoLists='memoLists' @CHANGEMEMO="startchange"/>
-              
-          </div>
-        </v-card>
-      </v-menu>
-
+        <v-icon large> mdi-clipboard-multiple-outline </v-icon>
+      </v-btn>
+      <v-sheet v-if="isLogin" class="memopage">
+        <MemoList
+          class="memolist"
+          :listData="listData"
+          @DELETEMEMO="deleteMemo"
+          @MODIFYMEMO="modifyMemo"
+        />
+        <MemoInput
+          class="memoinput"
+          ref="memoinput"
+          @UPDATEMEMO="updateMemo"
+          @CREATEMEMO="createMemo"
+        />
+      </v-sheet>
+      <div v-else class="d-flex flex-column align-center ma-16 pa-5 py-16">
+        <span style="font-size: 70px">
+          <font-awesome-icon :icon="['fas', 'sign-in-alt']" />
+        </span>
+        <div class="py-2"></div>
+        <h5>로그인이 필요합니다</h5>
+      </div>
+    </v-sheet>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import MemoInput from './MemoInput.vue'
-import MemoList from './MemoList.vue'
-import { memoList } from '@/api/memo.js';
+import { mapState } from "vuex";
+import MemoInput from "./MemoInput.vue";
+import MemoList from "./MemoList.vue";
+import { getmemoIdCookie } from "@/util/cookie.js";
+import { memoList } from "@/api/memo.js";
 
 export default {
-  components: { MemoInput,MemoList },
-  name:'Memo',
-  data () {
+  components: { MemoInput, MemoList },
+  name: "Memo",
+  data() {
     return {
       memotoggle: true,
-      memoLists: [],
-      // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로  
-      sendingChange: {}    
-    }
+      // memoLists: [],
+      // 이거 빼야됭,.., 나중에 로그인 되면 로그인에서 가져오는거로
+      // sendingChange: {},
+      memodata: {},
+      listData: [],
+      buttonMassage: "왔다리",
+      memoId: "",
+      // index: "",
+      // memoContent: "",
+    };
   },
   computed: {
-    ...mapState([ 'loggedInUserData' ])    
+    ...mapState(["isLogin"]),
+    ...mapState(["loggedInUserData"]),
   },
 
   created() {
-    memoList(
-      this.loggedInUserData.memoId,
-      (response) => {
-        this.memoLists = response.data     
-      },
-      (error) => {
-        console.log(error)
-      }
-    )      
+    this.getMemoList();
   },
 
   methods: {
-    getmemoList() {
-      memoList(
-        this.loggedInUserData.memoId,
-        (response) => {
-          this.memoLists = response.data 
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
+    getMemoList() {
+      this.memoId = getmemoIdCookie();
+      if (this.memoId !== "") {
+        memoList(
+          this.memoId,
+          (response) => {
+            // console.log("메모 정보: " + response.data);
+            this.listData = response.data;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    },
+    deleteMemo(index) {
+      this.listData.splice(index, 1);
+    },
+    modifyMemo(index, memoContent, memoNum) {
+      // this.memoContent = memoContent;
+      // this.index = index;
+      this.$refs.memoinput.initmemo(index, memoContent, memoNum);
+    },
+    createMemo() {
+      this.getMemoList();
+    },
+    updateMemo(index, memoContent) {
+      this.listData[index].memoContent = memoContent;
     },
 
+    move() {
+      const target = document.querySelector("#blackBox");
+      const subtarget = document.querySelector("#blackBoxButton");
 
-    toggle() {
-      this.memotoggle = !this.memotoggle
-      // console.log(this.memotoggle) True 일때가 Input, False가 List
-      this.getmemoList()
-      // console.log(this.loggedInUserData)
+      subtarget.classList.contains("goingOn")
+        ? subtarget.classList.remove("goingOn")
+        : subtarget.classList.add("goingOn");
+
+      setTimeout(function () {
+        target.classList.contains("activate")
+          ? target.classList.remove("activate")
+          : target.classList.add("activate");
+      }, 300);
     },
-
-    
-    startchange(item) {
-      // console.log(item)
-      this.sendingChange = item
-      this.toggle()
-    }
-  }   
-}
+  },
+};
 </script>
 
 <style>
-@import '~vue-neumorphism-element/dist/vue-neumorphism-element.css';
+@import "~vue-neumorphism-element/dist/vue-neumorphism-element.css";
+
+#blackBox {
+  position: fixed;
+  z-index: 2;
+  /* 네브바가 5번째 인덱스 */
+  right: -330px;
+  color: black;
+  height: 100%;
+  width: 330px;
+  transition: 0.3s;
+}
+
+.activate {
+  transition: all 0.3s ease;
+  transform: translateX(-100%);
+}
+
+#blackBoxButton {
+  z-index: 1;
+  transition: 0.2s;
+  width: 60px;
+  height: 50px;
+  border-radius: 5px;
+  position: absolute;
+  top: 25%;
+  left: -20%;
+}
+
+/* .memopage {
+  position : relative;
+} */
+
+.memolist {
+  position: absolute;
+  height: 67%;
+  width: 100%;
+}
+
+.memoinput {
+  position: absolute;
+  
+  height: 22%;
+}
+
+.goingOn {
+  transition: 0.3s ease;
+  transform: translateX(15%);
+}
 </style>

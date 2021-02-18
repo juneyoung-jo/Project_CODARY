@@ -10,11 +10,9 @@ public interface JwtService {
 
 	<T> String create(String key, T data, String subject);
 	
-	<T> String create(UserDto user, UserInfoDto userinfo, BlogDto blog, String subject);
-
 	Map<String, Object> get(String key);
 	
-	String getUserId();
+	String getUserId(String jwt);
 
 	boolean isUsable(String jwt);
 

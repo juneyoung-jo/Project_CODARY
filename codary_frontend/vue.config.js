@@ -1,6 +1,12 @@
 module.exports = {
+  configureWebpack : { 
+    externals : { 
+      vue : 'Vue' , 
+      vuetify : 'Vuetify' 
+    } 
+  },
   devServer: {
-    disableHostCheck:true,
+    disableHostCheck:true, 
   },
   transpileDependencies: [
     "vuetify"
