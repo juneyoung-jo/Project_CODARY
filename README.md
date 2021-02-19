@@ -2,6 +2,8 @@
 
 # [🎶CODARY UCC로 이동](https://youtu.be/qwzbtwizrYk)
 
+# [💡CODARY 시연영상으로 이동](https://youtu.be/Y5BeThfWCWI)
+
 ![image](https://user-images.githubusercontent.com/60100901/108371299-f5aa8a80-7240-11eb-8b09-fcd351c62cf8.png)
 
 ![image](https://user-images.githubusercontent.com/60100901/108371309-f93e1180-7240-11eb-85bb-2899e883caa1.png)
