@@ -6,8 +6,6 @@
 
 ![image](https://user-images.githubusercontent.com/60100901/108371299-f5aa8a80-7240-11eb-8b09-fcd351c62cf8.png)
 
-![image](https://user-images.githubusercontent.com/60100901/108371309-f93e1180-7240-11eb-85bb-2899e883caa1.png)
-
 ![image](https://user-images.githubusercontent.com/60100901/108371317-fc390200-7240-11eb-8480-105829b20c26.png)
 
 ![image](https://user-images.githubusercontent.com/60100901/108371323-fe02c580-7240-11eb-9a74-dc3a40ea9884.png)
