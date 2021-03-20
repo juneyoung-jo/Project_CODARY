@@ -19,7 +19,7 @@
 - Mysql
 - Redis
 
-## 나의 역할
+## 📑 나의 역할
 - TOAST UI Editor 2.0 에 커스텀 플러그인 추가 (임베드 기능)
 - Amazone S3를 활용한 이미지 처리
 - Redis Cache 사용
