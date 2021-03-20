@@ -1,10 +1,31 @@
-# [👍CODARY 서비스 소개 문서로 이동](https://www.notion.so/CODARY-0e3601abb20b4e0d848b525c2ecb29ad)
+# Cadary
+> 개발자를 위한 기술 블로그이자 나만의 포트폴리오로 활용할 수 있는 블로그
+
+## 🚩 Features
+
+- [x] Parcel 번들러를 통해 Vue.js 프로젝트를 구성할 수 있습니다.
+- [x] CSS 공급 업체 접두사를 자동으로 생성할 수 있습니다.(Autoprefixer)
+- [x] SCSS(CSS Preprocessor)로 더 쉽고 빠르게 스타일을 작성하고 관리할 수 있습니다.
+- [x] Vue SFC(싱글 파일 컴포넌트) 스타일을 정의해, 협업을 위한 코드 품질을 향상시킬 수 있습니다.(ESLint)
+
+## 📚 Tech Stack
+
+- Vue.js
+- Vuex(Store)
+- Axios
+- Spring Boot
+- Mysql
+- Redis
+
+## 나의 역할
+- TOAST UI Editor 2.0 에 커스텀 플러그인 추가 (임베드 기능)
+- Amazone S3를 활용한 이미지 처리
+- Redis Cache 사용
+- 댓글 관련 기능 구현(CRUD) 
 
 # [🎶CODARY UCC로 이동](https://youtu.be/qwzbtwizrYk)
 
 # [💡CODARY 시연영상으로 이동](https://youtu.be/Y5BeThfWCWI)
-
-![image](https://user-images.githubusercontent.com/60100901/108371299-f5aa8a80-7240-11eb-8b09-fcd351c62cf8.png)
 
 ![image](https://user-images.githubusercontent.com/60100901/108371317-fc390200-7240-11eb-8480-105829b20c26.png)
 
